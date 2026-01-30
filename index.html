@@ -113,8 +113,8 @@
         .music-track-name { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
         .music-track-meta { font-size: 13px; color: var(--text-tertiary); }
         .music-play-icon { width: 20px; height: 20px; color: var(--accent); }
-        .music-player-container { margin-top: 32px; background: var(--bg-elevated); border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
-        .music-player-title { font-size: 14px; color: var(--text-tertiary); margin-bottom: 16px; }
+        .music-player-container { margin-top: 24px; background: var(--bg-elevated); border-radius: 12px; padding: 16px; border: 1px solid var(--border); }
+        .music-player-title { font-size: 13px; color: var(--text-tertiary); margin: 0; }
         .music-external-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; color: var(--accent); text-decoration: none; font-size: 14px; transition: all 0.3s; }
         .music-external-link:hover { color: var(--accent-light); }
         .music-external-link svg { width: 16px; height: 16px; }
@@ -399,8 +399,7 @@
                         </li>
                     </ul>
                     <div class="music-player-container">
-                        <p class="music-player-title" data-i18n="music.playerTitle">▶ Click a track to play</p>
-                        <iframe id="music-player" frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="86" src="//music.163.com/outchain/player?type=2&id=1873346292&auto=0&height=66" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <p class="music-player-title" data-i18n="music.playerTitle">▶ Click a track to play on NetEase Cloud Music</p>
                     </div>
                     <a href="https://music.163.com/album?id=132406398" target="_blank" class="music-external-link">
                         <span data-i18n="music.viewOnNetease">View on NetEase Cloud Music</span>
@@ -1249,10 +1248,9 @@
         });
 
 
-        // Music player function
+        // Music player function - opens song in NetEase Cloud Music
         function playTrack(trackId) {
-            const player = document.getElementById('music-player');
-            player.src = '//music.163.com/outchain/player?type=2&id=' + trackId + '&auto=1&height=66';
+            window.open('https://music.163.com/song?id=' + trackId, '_blank');
         }
 
         // Internationalization (i18n)
@@ -1306,7 +1304,7 @@
                 'music.track1meta': 'Cover of Hu Ge',
                 'music.track2meta': 'Richard Marx Cover',
                 'music.track3meta': 'George Benson Cover',
-                'music.playerTitle': '▶ Click a track to play',
+                'music.playerTitle': '▶ Click a track to play on NetEase Cloud Music',
                 'music.viewOnNetease': 'View on NetEase Cloud Music'
             },
             zh: {
@@ -1358,7 +1356,7 @@
                 'music.track1meta': '翻唱自胡歌',
                 'music.track2meta': '翻唱自Richard Marx',
                 'music.track3meta': '翻唱自George Benson',
-                'music.playerTitle': '▶ 点击歌曲播放',
+                'music.playerTitle': '▶ 点击歌曲在网易云音乐中播放',
                 'music.viewOnNetease': '在网易云音乐上查看'
             }
         };
