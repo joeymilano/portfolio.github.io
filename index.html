@@ -399,7 +399,8 @@
                         </li>
                     </ul>
                     <div class="music-player-container">
-                        <p class="music-player-title" data-i18n="music.playerTitle">▶ Click a track to play on NetEase Cloud Music</p>
+                        <p class="music-player-title" data-i18n="music.playerTitle">▶ Click a track to play</p>
+                        <iframe id="music-player" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1873346292&auto=0&height=66"></iframe>
                     </div>
                     <a href="https://music.163.com/album?id=132406398" target="_blank" class="music-external-link">
                         <span data-i18n="music.viewOnNetease">View on NetEase Cloud Music</span>
@@ -1248,9 +1249,10 @@
         });
 
 
-        // Music player function - opens song in NetEase Cloud Music
+        // Music player function
         function playTrack(trackId) {
-            window.open('https://music.163.com/song?id=' + trackId, '_blank');
+            const player = document.getElementById('music-player');
+            player.src = '//music.163.com/outchain/player?type=2&id=' + trackId + '&auto=1&height=66';
         }
 
         // Internationalization (i18n)
@@ -1304,7 +1306,7 @@
                 'music.track1meta': 'Cover of Hu Ge',
                 'music.track2meta': 'Richard Marx Cover',
                 'music.track3meta': 'George Benson Cover',
-                'music.playerTitle': '▶ Click a track to play on NetEase Cloud Music',
+                'music.playerTitle': '▶ Click a track to play',
                 'music.viewOnNetease': 'View on NetEase Cloud Music'
             },
             zh: {
@@ -1356,7 +1358,7 @@
                 'music.track1meta': '翻唱自胡歌',
                 'music.track2meta': '翻唱自Richard Marx',
                 'music.track3meta': '翻唱自George Benson',
-                'music.playerTitle': '▶ 点击歌曲在网易云音乐中播放',
+                'music.playerTitle': '▶ 点击歌曲播放',
                 'music.viewOnNetease': '在网易云音乐上查看'
             }
         };
