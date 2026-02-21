@@ -207,7 +207,8 @@
         .modal-list li { font-size: 15px; color: var(--text-secondary); padding: 14px 0; border-bottom: 1px solid var(--border); line-height: 1.6; }
         .modal-list li:last-child { border-bottom: none; }
         .modal-list li strong { color: var(--text-primary); font-weight: 500; }
-        .modal-image { width: 100%; border-radius: 12px; margin: 20px 0; }
+        .modal-image { width: 100%; border-radius: 12px; margin: 20px 0; cursor: zoom-in; transition: transform 0.3s ease; }
+        .modal-image:hover { transform: scale(1.01); }
         .modal-image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
         .modal-image-grid img { width: 100%; border-radius: 12px; }
         .modal-image-caption { font-size: 13px; color: var(--text-tertiary); text-align: center; margin-top: 8px; }
@@ -631,14 +632,33 @@
                 <!-- Design Showcase -->
                 <div class="modal-section">
                     <h3 class="modal-section-title"><span class="modal-section-number">6</span>Design Showcase</h3>
-                    <p>AI-generated interior design renderings showcasing the Pro Mode capabilities:</p>
-                    <div class="modal-image-grid">
-                        <img src="images/page11_img3.jpeg" alt="AI Generated Modern Living Room" class="modal-image">
-                        <img src="images/page14_img1.jpeg" alt="AI Generated White Living Room" class="modal-image">
+                    <p>Key screens from the complete design process — from competitive analysis to final high-fidelity designs:</p>
+                    <img src="images/render_p10.jpg" alt="Why — Before vs Recommended" class="modal-image" loading="lazy">
+                    <p class="modal-image-caption">Strategic recommendation: Home Page → Pro Mode migration</p>
+                    <img src="images/render_p11.jpg" alt="Home Page & New Project" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Home Page — project dashboard and new project creation flow</p>
+                    <img src="images/render_p12.jpg" alt="Import Floor Plan" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Import Floor Plan — CAD file upload (DWG/DXF) and room photo import</p>
+                    <img src="images/render_p13.jpg" alt="Room Type Selection & Generation" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Select and generate room types with AI-powered style options</p>
+                    <img src="images/render_p14.jpg" alt="Floor Plan Editor" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Pro floor plan editor with precise measurement tools</p>
+                    <img src="images/render_p15.jpg" alt="AI Assistant" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">AI Assistant — natural language interface for design modifications</p>
+                    <img src="images/render_p16.jpg" alt="3D Rendering View" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">3D rendering with multi-view selection and move/change capabilities</p>
+                    <img src="images/render_p17.jpg" alt="Multi-room Rendering" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Multi-room rendering — navigate between different room designs</p>
+                    <div class="modal-image-grid" style="margin-top: 24px;">
+                        <div>
+                            <img src="images/render_p18.jpg" alt="Shopping Integration" class="modal-image" loading="lazy">
+                            <p class="modal-image-caption">Shopping cart — purchase furniture from renders</p>
+                        </div>
+                        <div>
+                            <img src="images/render_p19.jpg" alt="Product Details" class="modal-image" loading="lazy">
+                            <p class="modal-image-caption">Product detail with similar items recommendation</p>
+                        </div>
                     </div>
-                    <p class="modal-image-caption">AI-generated interior designs with different styles</p>
-                    <img src="images/page12_img5.jpeg" alt="Floor Plan Import Feature" class="modal-image" style="margin-top: 24px;">
-                    <p class="modal-image-caption">Floor plan import - converting 2D plans to 3D spaces</p>
                 </div>
 
                 <!-- Solution Section -->
@@ -810,14 +830,19 @@
                 <!-- Design Showcase -->
                 <div class="modal-section">
                     <h3 class="modal-section-title"><span class="modal-section-number">6</span>Design Showcase</h3>
-                    <p>AI-generated interior design renderings showcasing the Pro Mode capabilities:</p>
-                    <div class="modal-image-grid">
-                        <img src="images/page11_img3.jpeg" alt="AI Generated Modern Living Room" class="modal-image">
-                        <img src="images/page14_img1.jpeg" alt="AI Generated White Living Room" class="modal-image">
-                    </div>
-                    <p class="modal-image-caption">AI-generated interior designs with different styles</p>
-                    <img src="images/page12_img5.jpeg" alt="Floor Plan Import Feature" class="modal-image" style="margin-top: 24px;">
-                    <p class="modal-image-caption">Floor plan import - converting 2D plans to 3D spaces</p>
+                    <p>Complete design flow for the Lineage Visualisation feature — from existing state to final high-fidelity screens:</p>
+                    <img src="images/render_p25.jpg" alt="Before — Experiments Table" class="modal-image" loading="lazy">
+                    <p class="modal-image-caption">Before: Existing experiments table — lineage data scattered across views</p>
+                    <img src="images/render_p26.jpg" alt="Recommended — Materials Smart Folder" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Recommended: Materials Smart Folder with unified search and filtering</p>
+                    <img src="images/render_p27.jpg" alt="Materials Smart Folder Final" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Materials Smart Folder — view all material types in one interface</p>
+                    <img src="images/render_p28.jpg" alt="Material Detail Page" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Material Detail Page — view and edit single material properties</p>
+                    <img src="images/render_p29.jpg" alt="Lineage Tab" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Lineage Tab — interactive lineage map and lineage table view</p>
+                    <img src="images/render_p30.jpg" alt="Configure & Export Lineage" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Configure/Export — advanced actions for lineage data management</p>
                 </div>
 
                 <!-- Solution Section -->
@@ -974,13 +999,19 @@
                 <!-- Design System Showcase -->
                 <div class="modal-section">
                     <h3 class="modal-section-title"><span class="modal-section-number">5</span>Design System Showcase</h3>
-                    <p>Core design system deliverables:</p>
-                    <img src="images/page34_img1.jpeg" alt="Color System" class="modal-image">
-                    <p class="modal-image-caption">Color System - Primary, Success, Warning, Danger, Neutral with AA compliance</p>
-                    <img src="images/page35_img1.jpeg" alt="Typography Scale" class="modal-image" style="margin-top: 24px;">
-                    <p class="modal-image-caption">Typography Scale - Roboto font system with consistent sizing</p>
-                    <img src="images/page38_img1.jpeg" alt="Component Library" class="modal-image" style="margin-top: 24px;">
-                    <p class="modal-image-caption">Component Library - 50+ reusable components</p>
+                    <p>Complete design system documentation — from UX principles to component library:</p>
+                    <img src="images/render_p33.jpg" alt="UX Design Principles" class="modal-image" loading="lazy">
+                    <p class="modal-image-caption">UX Design Principles — Customers First, Facts Over Opinions, Always WIP, Usable by Everyone</p>
+                    <img src="images/render_p34.jpg" alt="Color System" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Styles — Color System with AA-compliant contrast ratios across all product themes</p>
+                    <img src="images/render_p35.jpg" alt="Typography System" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Styles — Typography scale using native Roboto font for optimal legibility</p>
+                    <img src="images/render_p36.jpg" alt="Navigation Patterns" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Styles — Navigation patterns with interactive prototypes</p>
+                    <img src="images/render_p37.jpg" alt="Navigation Anatomy" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Navigation anatomy — left panel, top bar, and page link structure</p>
+                    <img src="images/render_p38.jpg" alt="Component Library" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Component Library — 50+ reusable UI components with variants and states</p>
                 </div>
 
                 <!-- Deliverables Section -->
@@ -1146,18 +1177,18 @@
 
                 <!-- Before/After Showcase -->
                 <div class="modal-section">
-                    <h3 class="modal-section-title"><span class="modal-section-number">5</span>Before & After</h3>
-                    <p>Visual comparison of the hotel video cover redesign:</p>
-                    <div class="modal-image-grid">
-                        <div>
-                            <img src="images/page41_img1.jpeg" alt="Before - Hotel Detail Page" class="modal-image">
-                            <p class="modal-image-caption">Before: Video cropping issues, no sound control</p>
-                        </div>
-                        <div>
-                            <img src="images/page41_img2.jpeg" alt="After - Improved Hotel Video" class="modal-image">
-                            <p class="modal-image-caption">After: Optimized display, immersive video experience</p>
-                        </div>
-                    </div>
+                    <h3 class="modal-section-title"><span class="modal-section-number">5</span>Design Showcase</h3>
+                    <p>Complete analysis and solution design for the hotel cover upgrade:</p>
+                    <img src="images/render_p41.jpg" alt="Overview & Results" class="modal-image" loading="lazy">
+                    <p class="modal-image-caption">Overview & Results — 5.32% indirect conversion rate improvement via A/B testing</p>
+                    <img src="images/render_p42.jpg" alt="My Role & Process" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">My Role — wireframing, prototyping, user testing, and A/B experiment design</p>
+                    <img src="images/render_p43.jpg" alt="Problem Categorization" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Problem categorization — Content, Sound/Image, and Operation issues identified</p>
+                    <img src="images/render_p44.jpg" alt="User Demand Analysis" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">User demand analysis — video/image viewing patterns and crop logic study</p>
+                    <img src="images/render_p45.jpg" alt="Final Design Solution" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption">Final design — adaptive cropping, sound enhancement, and optimized playback</p>
                 </div>
 
                 <!-- Solution Section -->
@@ -1387,6 +1418,36 @@
 
         // Set initial language
         setLanguage(currentLang);
+
+        // Image Lightbox for HD detail viewing
+        const imgLightbox = document.createElement('div');
+        imgLightbox.id = 'img-lightbox';
+        imgLightbox.innerHTML = '<img src="" alt=""><button class="img-lb-close">&times;</button>';
+        imgLightbox.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all 0.4s;cursor:zoom-out;';
+        imgLightbox.querySelector('img').style.cssText = 'max-width:95vw;max-height:95vh;object-fit:contain;border-radius:8px;transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);transform:scale(0.9);';
+        imgLightbox.querySelector('.img-lb-close').style.cssText = 'position:absolute;top:24px;right:24px;width:48px;height:48px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:50%;color:white;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;';
+        document.body.appendChild(imgLightbox);
+
+        function showImgLightbox(src) {
+            const img = imgLightbox.querySelector('img');
+            img.src = src;
+            imgLightbox.style.opacity = '1';
+            imgLightbox.style.visibility = 'visible';
+            img.style.transform = 'scale(1)';
+        }
+        function hideImgLightbox() {
+            imgLightbox.style.opacity = '0';
+            imgLightbox.style.visibility = 'hidden';
+            imgLightbox.querySelector('img').style.transform = 'scale(0.9)';
+        }
+        imgLightbox.addEventListener('click', hideImgLightbox);
+        imgLightbox.querySelector('.img-lb-close').addEventListener('click', hideImgLightbox);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') hideImgLightbox(); });
+
+        // Attach click handlers to all modal images
+        document.querySelectorAll('.modal-image').forEach(img => {
+            img.addEventListener('click', () => showImgLightbox(img.src));
+        });
 
     </script>
 </body>
