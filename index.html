@@ -1187,8 +1187,6 @@
                     <p class="modal-image-caption">Problem categorization — Content, Sound/Image, and Operation issues identified</p>
                     <img src="images/render_p44.jpg" alt="User Demand Analysis" class="modal-image" loading="lazy" style="margin-top: 24px;">
                     <p class="modal-image-caption">User demand analysis — video/image viewing patterns and crop logic study</p>
-                    <img src="images/render_p45.jpg" alt="Final Design Solution" class="modal-image" loading="lazy" style="margin-top: 24px;">
-                    <p class="modal-image-caption">Final design — adaptive cropping, sound enhancement, and optimized playback</p>
                 </div>
 
                 <!-- Solution Section -->
@@ -1403,7 +1401,11 @@
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
+                    if (el.getAttribute('data-i18n-html') !== null) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
                 }
             });
 
