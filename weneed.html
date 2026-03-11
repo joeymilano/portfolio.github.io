@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeNeed | Joey Zhao</title>
+    <style>
+        :root {
+            --bg: #000;
+            --bg-secondary: #0d0d0d;
+            --bg-elevated: #1a1a1a;
+            --bg-card: #141414;
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --text-tertiary: #6e6e73;
+            --accent: #3B82F6;
+            --accent-light: #60A5FA;
+            --border: rgba(255,255,255,0.08);
+            --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.5; padding-top: 52px; }
+        ::selection { background: var(--accent); color: white; }
+
+        /* Navigation */
+        .project-page-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 52px;
+            background: rgba(0,0,0,0.85); backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-page-nav .nav-content {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; width: 100%; padding: 0 24px;
+        }
+        .back-link {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 14px;
+            transition: all 0.3s; font-family: var(--font);
+        }
+        .back-link:hover { color: var(--text-primary); }
+        .lang-toggle { display: flex; align-items: center; gap: 4px; }
+        .lang-toggle button {
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 14px; padding: 8px 12px; border-radius: 20px;
+            cursor: pointer; transition: all 0.3s; font-family: var(--font);
+        }
+        .lang-toggle button:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle button.active { color: var(--text-primary); font-weight: 600; }
+        .lang-toggle span { color: var(--text-tertiary); }
+
+        /* Modal container as page content */
+        .modal-container {
+            max-width: 1000px; margin: 40px auto; background: var(--bg-secondary);
+            border-radius: 24px; overflow: hidden; border: 1px solid var(--border);
+            transform: none !important;
+        }
+        .modal-hero-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .modal-header { padding: 48px 48px 32px; text-align: center; }
+        .modal-eyebrow { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+        .modal-title { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+        .modal-subtitle { font-size: 18px; color: var(--text-secondary); margin-bottom: 24px; }
+        .modal-meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .modal-meta-item { text-align: center; }
+        .modal-meta-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .modal-meta-value { font-size: 15px; font-weight: 500; margin-top: 4px; }
+        .modal-body { padding: 0 48px 60px; }
+        .modal-section { margin-bottom: 48px; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .modal-section-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary); }
+        .modal-section p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+        .modal-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+        .modal-metric { background: var(--bg-elevated); border-radius: 16px; padding: 24px 16px; text-align: center; }
+        .modal-metric-value { font-size: 28px; font-weight: 700; color: var(--accent); }
+        .modal-metric-label { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .modal-metric-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        .modal-tldr { background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(59,130,246,0.05)); border-left: 3px solid var(--accent); padding: 24px 28px; border-radius: 0 16px 16px 0; margin-bottom: 40px; }
+        .modal-tldr-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; }
+        .modal-tldr-text { font-size: 18px; font-weight: 500; color: var(--text-primary); line-height: 1.5; }
+        .modal-role-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 24px 0; }
+        .modal-role-item { background: var(--bg-elevated); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+        .modal-role-label { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+        .modal-role-value { font-size: 15px; color: var(--text-primary); line-height: 1.5; }
+        .modal-divider { height: 1px; background: var(--border); margin: 48px 0; }
+        .modal-section-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--accent); color: white; border-radius: 50%; font-size: 13px; font-weight: 700; margin-right: 12px; }
+        .modal-feature-card { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 16px 0; border: 1px solid var(--border); transition: all 0.3s; }
+        .modal-feature-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .modal-feature-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .modal-feature-title::before { content: '\2726'; color: var(--accent); }
+        .modal-feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+        .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
+        .modal-challenge-list { list-style: none; margin: 20px 0; }
+        .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+        .modal-challenge-list li:last-child { border-bottom: none; }
+        .modal-challenge-list li::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+        .modal-process-enhanced { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin: 32px 0; padding: 32px; background: var(--bg-elevated); border-radius: 16px; flex-wrap: wrap; }
+        .modal-process-item { flex: 1; min-width: 100px; text-align: center; position: relative; }
+        .modal-process-item:not(:last-child)::after { content: '\2192'; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font-size: 20px; }
+        .modal-process-number { width: 40px; height: 40px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 12px; }
+        .modal-process-label { font-size: 13px; color: var(--text-secondary); }
+        .modal-reflection { background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card)); border-radius: 16px; padding: 32px; margin-top: 40px; border: 1px solid var(--border); }
+        .modal-reflection-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .modal-reflection-text { font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+        .modal-image { width: 100%; border-radius: 12px; margin: 20px 0; cursor: zoom-in; transition: transform 0.3s ease; }
+        .modal-image:hover { transform: scale(1.01); }
+
+        /* WeNeed Custom Styles */
+        .modal-container {
+            background: linear-gradient(180deg, #0a0f1a 0%, #0d1117 100%);
+            border: 1px solid rgba(59, 130, 246, 0.12);
+            box-shadow: 0 0 80px rgba(59, 130, 246, 0.06);
+        }
+        .modal-header {
+            position: relative;
+            padding: 56px 48px 36px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+        }
+        .modal-eyebrow { color: var(--accent-light); letter-spacing: 0.18em; font-size: 11px; }
+        .modal-title {
+            font-size: 44px;
+            background: linear-gradient(135deg, #f5f5f7 0%, #93c5fd 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .modal-meta-label { color: var(--accent); font-size: 10px; letter-spacing: 0.12em; }
+        .modal-tldr {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(245, 158, 11, 0.06));
+            border-left: 3px solid var(--accent); border-radius: 0 20px 20px 0;
+            padding: 28px 32px; backdrop-filter: blur(20px);
+        }
+        .modal-tldr-label { color: var(--accent-light); }
+        .modal-metric {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.03));
+            border: 1px solid rgba(59, 130, 246, 0.12); border-radius: 20px;
+            padding: 28px 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-metric:hover { transform: translateY(-4px); border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 12px 40px rgba(59, 130, 246, 0.12); }
+        .modal-metric-value {
+            font-size: 32px; font-weight: 800;
+            background: linear-gradient(135deg, #60A5FA, #3B82F6);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .modal-section-number { background: linear-gradient(135deg, #3B82F6, #2563EB); box-shadow: 0 2px 12px rgba(59, 130, 246, 0.3); }
+        .modal-role-item {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.06), rgba(15, 15, 30, 0.8));
+            border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 16px; padding: 24px;
+        }
+        .modal-role-item:hover { border-color: rgba(59, 130, 246, 0.25); transform: translateY(-2px); }
+        .modal-role-label { color: var(--accent-light); }
+        .modal-quote {
+            border-left: 4px solid var(--accent);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(15, 15, 30, 0.6));
+            border-radius: 0 16px 16px 0;
+        }
+        .modal-challenge-list li::before { background: var(--accent); box-shadow: 0 0 6px rgba(59, 130, 246, 0.5); }
+        .modal-process-number { background: linear-gradient(135deg, #3B82F6, #2563EB); }
+        .modal-reflection {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(15, 15, 30, 0.9));
+            border: 1px solid rgba(59, 130, 246, 0.12); border-radius: 20px; padding: 36px;
+        }
+        .modal-divider { background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent); }
+
+        /* Hero banner */
+        .wn-hero-banner {
+            width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1e3a5f 70%, #0c1929 100%);
+            display: flex; align-items: center; justify-content: center; gap: 24px;
+        }
+        .wn-hero-banner::before {
+            content: ''; position: absolute; top: 20%; left: 15%; width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+            border-radius: 50%; filter: blur(40px);
+        }
+        .wn-hero-banner::after {
+            content: ''; position: absolute; top: 30%; right: 10%; width: 250px; height: 250px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+            border-radius: 50%; filter: blur(50px);
+        }
+        .wn-hero-banner .hero-logo {
+            width: 120px; height: 120px; position: relative; z-index: 1;
+            filter: drop-shadow(0 20px 60px rgba(59, 130, 246, 0.3));
+            border-radius: 24px;
+        }
+        .wn-hero-banner .hero-text {
+            position: relative; z-index: 1; color: white;
+        }
+        .wn-hero-banner .hero-text h1 {
+            font-size: 48px; font-weight: 800; letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff, #93c5fd);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .wn-hero-banner .hero-text p {
+            font-size: 18px; color: rgba(255,255,255,0.6); margin-top: 8px;
+        }
+
+        /* App preview frame */
+        .wn-app-preview {
+            background: linear-gradient(135deg, #0F172A, #1E293B);
+            border-radius: 16px; padding: 32px; margin: 24px 0;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            text-align: center;
+        }
+        .wn-app-preview iframe {
+            border: none; border-radius: 12px; width: 100%; max-width: 400px; height: 700px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .wn-live-link {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
+            color: var(--accent-light); text-decoration: none; font-size: 14px;
+            padding: 10px 20px; border-radius: 12px; background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2); transition: all 0.3s;
+        }
+        .wn-live-link:hover { background: rgba(59, 130, 246, 0.2); transform: translateY(-2px); }
+
+        /* Tech stack badges */
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+        .tech-badge {
+            background: var(--bg-elevated); padding: 8px 14px; border-radius: 8px;
+            font-size: 13px; color: var(--text-secondary); border: 1px solid var(--border);
+        }
+
+        /* Bottom nav */
+        .page-bottom-nav { max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; text-align: center; }
+        .page-bottom-nav a {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 15px;
+            padding: 12px 24px; border-radius: 12px; background: var(--bg-elevated);
+            border: 1px solid var(--border); transition: all 0.3s;
+        }
+        .page-bottom-nav a:hover { color: var(--text-primary); border-color: var(--accent); transform: translateY(-2px); }
+
+        /* Responsive */
+        @media (max-width: 1024px) { .modal-metrics { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) {
+            .modal-header, .modal-body { padding: 32px 24px; }
+            .modal-title { font-size: 32px; }
+            .modal-metrics { grid-template-columns: 1fr; }
+            .modal-role-grid { grid-template-columns: 1fr; }
+            .modal-process-enhanced { flex-direction: column; align-items: center; }
+            .modal-process-item:not(:last-child)::after { display: none; }
+            .wn-hero-banner { flex-direction: column; gap: 16px; }
+            .wn-hero-banner .hero-logo { width: 80px; height: 80px; }
+            .wn-hero-banner .hero-text h1 { font-size: 32px; text-align: center; }
+            .wn-hero-banner .hero-text p { text-align: center; }
+            .modal-quote { font-size: 18px; padding: 20px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="project-page-nav">
+        <div class="nav-content">
+            <a href="index.html#projects" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span data-i18n="nav.back">Back</span>
+            </a>
+            <div class="lang-toggle">
+                <button id="lang-en" class="active">EN</button>
+                <span>/</span>
+                <button id="lang-zh">ZH</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal-container">
+        <!-- Hero Banner -->
+        <div class="wn-hero-banner">
+            <img class="hero-logo" src="we_logo.png" alt="WeNeed Logo" />
+            <div class="hero-text">
+                <h1>WeNeed</h1>
+                <p data-i18n="modal.wn.heroTagline">Give what you have, get what you need</p>
+            </div>
+        </div>
+
+        <div class="modal-header">
+            <p class="modal-eyebrow" data-i18n="modal.wn.eyebrow">Side Project &middot; 2025 &middot; Mobile App Design</p>
+            <h2 class="modal-title" data-i18n="modal.wn.title">WeNeed</h2>
+            <p class="modal-subtitle" data-i18n="modal.wn.subtitle">A short-video community app for gifting unwanted items</p>
+            <div class="modal-meta">
+                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.wn.metaLabel1">Role</span><span class="modal-meta-value" data-i18n="modal.wn.metaValue1">Product Designer</span></div>
+                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.wn.metaLabel2">Type</span><span class="modal-meta-value" data-i18n="modal.wn.metaValue2">Side Project</span></div>
+                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.wn.metaLabel3">Timeline</span><span class="modal-meta-value" data-i18n="modal.wn.metaValue3">2025</span></div>
+                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.wn.metaLabel4">Platform</span><span class="modal-meta-value" data-i18n="modal.wn.metaValue4">iOS / Android</span></div>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <!-- TL;DR -->
+            <div class="modal-tldr">
+                <div class="modal-tldr-label" data-i18n="modal.wn.tldrLabel">TL;DR</div>
+                <div class="modal-tldr-text" data-i18n="modal.wn.tldrText">Designed a TikTok-style short-video mobile app that reimagines second-hand gifting. Users post video showcases of unwanted items, browse a swipeable feed, and claim items using a virtual currency (We Points) system that incentivizes giving.</div>
+            </div>
+
+            <!-- Metrics -->
+            <div class="modal-metrics">
+                <div class="modal-metric"><div class="modal-metric-value">8+</div><div class="modal-metric-label" data-i18n="modal.wn.metricLabel1">Screens</div><div class="modal-metric-desc" data-i18n="modal.wn.metricDesc1">Full app flow designed</div></div>
+                <div class="modal-metric"><div class="modal-metric-value">We</div><div class="modal-metric-label" data-i18n="modal.wn.metricLabel2">Point System</div><div class="modal-metric-desc" data-i18n="modal.wn.metricDesc2">Virtual currency economy</div></div>
+                <div class="modal-metric"><div class="modal-metric-value">Video</div><div class="modal-metric-label" data-i18n="modal.wn.metricLabel3">First</div><div class="modal-metric-desc" data-i18n="modal.wn.metricDesc3">Short-video as core UX</div></div>
+                <div class="modal-metric"><div class="modal-metric-value">0</div><div class="modal-metric-label" data-i18n="modal.wn.metricLabel4">Cost</div><div class="modal-metric-desc" data-i18n="modal.wn.metricDesc4">Free gifting, no money</div></div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Section 1: Background -->
+            <div class="modal-section">
+                <h3 class="modal-section-title"><span class="modal-section-number">1</span><span data-i18n="modal.wn.section1Title">Background & Motivation</span></h3>
+                <div class="modal-quote" data-i18n="modal.wn.quote">"Everyone has things they no longer need, but throwing them away feels wasteful. What if giving them away could be as fun as scrolling TikTok?"</div>
+                <p data-i18n="modal.wn.section1P1">Existing second-hand platforms like Xianyu (Idle Fish) focus on buying and selling, which introduces friction: pricing, bargaining, and trust issues. Many people have perfectly usable items they'd happily give away for free - but there's no engaging platform designed specifically for gifting.</p>
+                <p data-i18n="modal.wn.section1P2">WeNeed reimagines the experience by combining the addictive UX of short-video feeds with a zero-cost gifting model. Instead of money, the app uses We Points - a virtual currency earned by giving away items and spent to claim others. This creates a self-sustaining circular economy where generosity is rewarded.</p>
+            </div>
+
+            <!-- Section 2: My Role -->
+            <div class="modal-section">
+                <h3 class="modal-section-title"><span class="modal-section-number">2</span><span data-i18n="modal.wn.section2Title">My Role</span></h3>
+                <div class="modal-role-grid">
+                    <div class="modal-role-item">
+                        <div class="modal-role-label" data-i18n="modal.wn.roleLabel1">UX Design</div>
+                        <div class="modal-role-value" data-i18n="modal.wn.roleValue1">User research, information architecture, interaction design for video-first browsing, publishing flow, and item claiming</div>
+                    </div>
+                    <div class="modal-role-item">
+                        <div class="modal-role-label" data-i18n="modal.wn.roleLabel2">UI Design</div>
+                        <div class="modal-role-value" data-i18n="modal.wn.roleValue2">Visual design system with blue/amber palette, dark video feed, light browse grid, category navigation, and glassmorphism elements</div>
+                    </div>
+                    <div class="modal-role-item">
+                        <div class="modal-role-label" data-i18n="modal.wn.roleLabel3">Product Strategy</div>
+                        <div class="modal-role-value" data-i18n="modal.wn.roleValue3">We Points virtual economy design, gamification mechanics, user incentive model, and growth loop strategy</div>
+                    </div>
+                    <div class="modal-role-item">
+                        <div class="modal-role-label" data-i18n="modal.wn.roleLabel4">Prototyping</div>
+                        <div class="modal-role-value" data-i18n="modal.wn.roleValue4">High-fidelity interactive prototype with video backgrounds, swipe gestures, modal flows, and animated transitions</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Challenges -->
+            <div class="modal-section">
+                <h3 class="modal-section-title"><span class="modal-section-number">3</span><span data-i18n="modal.wn.section3Title">Design Challenges</span></h3>
+                <ul class="modal-challenge-list">
+                    <li data-i18n="modal.wn.challenge1">Designing a video-first feed that feels as natural as TikTok while serving a fundamentally different purpose - item discovery rather than entertainment</li>
+                    <li data-i18n="modal.wn.challenge2">Creating a virtual currency system (We Points) that feels fair and intuitive - balancing earning through giving with spending to claim, without creating exploitation loopholes</li>
+                    <li data-i18n="modal.wn.challenge3">Building trust in a free gifting platform - users need confidence that items are genuine and the process is safe, without the monetary commitment that normally signals intent</li>
+                    <li data-i18n="modal.wn.challenge4">Seamlessly blending two distinct UX paradigms: immersive dark video feed (TikTok-style) and structured light browse grid (e-commerce-style) within one coherent app</li>
+                </ul>
+            </div>
+
+            <!-- Section 4: Features -->
+            <div class="modal-section">
+                <h3 class="modal-section-title"><span class="modal-section-number">4</span><span data-i18n="modal.wn.section4Title">Key Features I Designed</span></h3>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.wn.feature1Title">Short-Video Item Feed</div>
+                    <div class="modal-feature-desc" data-i18n="modal.wn.feature1Desc">Full-screen vertical video feed with swipe-to-browse. Each item is showcased through a 15-60s video with overlay info: item name, description, We point cost, and social actions (like, collect, share). Video backgrounds with gradient overlays create an immersive browsing experience.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.wn.feature2Title">We Points Virtual Economy</div>
+                    <div class="modal-feature-desc" data-i18n="modal.wn.feature2Desc">Users earn We Points by giving away items (+15 points per successful gift) and spend points to claim items (typically 10 points). New users receive starter points. The system creates a virtuous cycle: give more, get more, reducing waste while building community.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.wn.feature3Title">Dual Browse Modes</div>
+                    <div class="modal-feature-desc" data-i18n="modal.wn.feature3Desc">Home feed (dark, immersive video) for discovery and Browse tab (light, structured grid) for targeted search. Category filters (Accessories, Electronics, Books, Stationery) with search functionality allow purposeful item hunting.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.wn.feature4Title">3-Step Publishing Flow</div>
+                    <div class="modal-feature-desc" data-i18n="modal.wn.feature4Desc">Streamlined item posting: (1) Record/upload a video showcasing the item, (2) Add name, description, and delivery preference, (3) Preview and confirm with We point settings. Progress indicator and validation at each step reduce drop-off.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.wn.feature5Title">Want It! Claiming System</div>
+                    <div class="modal-feature-desc" data-i18n="modal.wn.feature5Desc">One-tap "Want It" button triggers a detail modal with item info, We point cost breakdown, and delivery options (self-pickup, campus delivery, express). Clear pricing transparency builds trust in the free gifting model.</div>
+                </div>
+            </div>
+
+            <!-- Section 5: Design Process -->
+            <div class="modal-section">
+                <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.wn.section5Title">Design Process</span></h3>
+                <div class="modal-process-enhanced">
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">1</div>
+                        <div class="modal-process-label" data-i18n="modal.wn.process1">User Research</div>
+                    </div>
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">2</div>
+                        <div class="modal-process-label" data-i18n="modal.wn.process2">IA & Flows</div>
+                    </div>
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">3</div>
+                        <div class="modal-process-label" data-i18n="modal.wn.process3">UI Design</div>
+                    </div>
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">4</div>
+                        <div class="modal-process-label" data-i18n="modal.wn.process4">Prototype</div>
+                    </div>
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">5</div>
+                        <div class="modal-process-label" data-i18n="modal.wn.process5">Test & Iterate</div>
+                    </div>
+                </div>
+                <p data-i18n="modal.wn.section5P1">Starting from user research on college students' second-hand item pain points, I mapped the information architecture around two core loops: the giving loop (post > match > deliver > earn points) and the getting loop (browse > claim > receive > review). The UI design evolved through multiple iterations, balancing the fun of video content with the practicality of item transactions.</p>
+            </div>
+
+            <!-- Section 6: Live Demo -->
+            <div class="modal-section">
+                <h3 class="modal-section-title"><span class="modal-section-number">6</span><span data-i18n="modal.wn.section6Title">Interactive Prototype</span></h3>
+                <div class="wn-app-preview">
+                    <iframe src="https://vvneed.pages.dev/" loading="lazy" title="WeNeed Interactive Prototype"></iframe>
+                    <br>
+                    <a href="https://vvneed.pages.dev/" target="_blank" class="wn-live-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <span data-i18n="modal.wn.liveLink">Open WeNeed Prototype</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Reflection -->
+            <div class="modal-reflection">
+                <div class="modal-reflection-title" data-i18n="modal.wn.reflectionTitle">What I Learned</div>
+                <div class="modal-reflection-text" data-i18n="modal.wn.reflectionText" data-i18n-html>
+                    This project taught me that <strong>the best UX borrows from familiar patterns but serves new purposes</strong>. By using TikTok's addictive vertical video format for item discovery, we lowered the learning curve to near zero while making the gifting experience genuinely enjoyable. The We Points system was the hardest design challenge - getting the economics right required thinking like both a product designer and a behavioral economist. The key insight: in a gifting economy, <strong>the reward for giving must feel more satisfying than the cost of claiming</strong>, or the system collapses.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-bottom-nav">
+        <a href="index.html#projects">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="nav.backToWork">Back to All Work</span>
+        </a>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                'nav.back': 'Back',
+                'nav.backToWork': 'Back to All Work',
+                'modal.wn.heroTagline': 'Give what you have, get what you need',
+                'modal.wn.eyebrow': 'Side Project \u00b7 2025 \u00b7 Mobile App Design',
+                'modal.wn.title': 'WeNeed',
+                'modal.wn.subtitle': 'A short-video community app for gifting unwanted items',
+                'modal.wn.metaLabel1': 'Role',
+                'modal.wn.metaValue1': 'Product Designer',
+                'modal.wn.metaLabel2': 'Type',
+                'modal.wn.metaValue2': 'Side Project',
+                'modal.wn.metaLabel3': 'Timeline',
+                'modal.wn.metaValue3': '2025',
+                'modal.wn.metaLabel4': 'Platform',
+                'modal.wn.metaValue4': 'iOS / Android',
+                'modal.wn.tldrLabel': 'TL;DR',
+                'modal.wn.tldrText': 'Designed a TikTok-style short-video mobile app that reimagines second-hand gifting. Users post video showcases of unwanted items, browse a swipeable feed, and claim items using a virtual currency (We Points) system that incentivizes giving.',
+                'modal.wn.metricLabel1': 'Screens',
+                'modal.wn.metricDesc1': 'Full app flow designed',
+                'modal.wn.metricLabel2': 'Point System',
+                'modal.wn.metricDesc2': 'Virtual currency economy',
+                'modal.wn.metricLabel3': 'First',
+                'modal.wn.metricDesc3': 'Short-video as core UX',
+                'modal.wn.metricLabel4': 'Cost',
+                'modal.wn.metricDesc4': 'Free gifting, no money',
+                'modal.wn.section1Title': 'Background & Motivation',
+                'modal.wn.quote': '"Everyone has things they no longer need, but throwing them away feels wasteful. What if giving them away could be as fun as scrolling TikTok?"',
+                'modal.wn.section1P1': 'Existing second-hand platforms like Xianyu (Idle Fish) focus on buying and selling, which introduces friction: pricing, bargaining, and trust issues. Many people have perfectly usable items they\'d happily give away for free - but there\'s no engaging platform designed specifically for gifting.',
+                'modal.wn.section1P2': 'WeNeed reimagines the experience by combining the addictive UX of short-video feeds with a zero-cost gifting model. Instead of money, the app uses We Points - a virtual currency earned by giving away items and spent to claim others. This creates a self-sustaining circular economy where generosity is rewarded.',
+                'modal.wn.section2Title': 'My Role',
+                'modal.wn.roleLabel1': 'UX Design',
+                'modal.wn.roleValue1': 'User research, information architecture, interaction design for video-first browsing, publishing flow, and item claiming',
+                'modal.wn.roleLabel2': 'UI Design',
+                'modal.wn.roleValue2': 'Visual design system with blue/amber palette, dark video feed, light browse grid, category navigation, and glassmorphism elements',
+                'modal.wn.roleLabel3': 'Product Strategy',
+                'modal.wn.roleValue3': 'We Points virtual economy design, gamification mechanics, user incentive model, and growth loop strategy',
+                'modal.wn.roleLabel4': 'Prototyping',
+                'modal.wn.roleValue4': 'High-fidelity interactive prototype with video backgrounds, swipe gestures, modal flows, and animated transitions',
+                'modal.wn.section3Title': 'Design Challenges',
+                'modal.wn.challenge1': 'Designing a video-first feed that feels as natural as TikTok while serving a fundamentally different purpose - item discovery rather than entertainment',
+                'modal.wn.challenge2': 'Creating a virtual currency system (We Points) that feels fair and intuitive - balancing earning through giving with spending to claim, without creating exploitation loopholes',
+                'modal.wn.challenge3': 'Building trust in a free gifting platform - users need confidence that items are genuine and the process is safe, without the monetary commitment that normally signals intent',
+                'modal.wn.challenge4': 'Seamlessly blending two distinct UX paradigms: immersive dark video feed (TikTok-style) and structured light browse grid (e-commerce-style) within one coherent app',
+                'modal.wn.section4Title': 'Key Features I Designed',
+                'modal.wn.feature1Title': 'Short-Video Item Feed',
+                'modal.wn.feature1Desc': 'Full-screen vertical video feed with swipe-to-browse. Each item is showcased through a 15-60s video with overlay info: item name, description, We point cost, and social actions (like, collect, share). Video backgrounds with gradient overlays create an immersive browsing experience.',
+                'modal.wn.feature2Title': 'We Points Virtual Economy',
+                'modal.wn.feature2Desc': 'Users earn We Points by giving away items (+15 points per successful gift) and spend points to claim items (typically 10 points). New users receive starter points. The system creates a virtuous cycle: give more, get more, reducing waste while building community.',
+                'modal.wn.feature3Title': 'Dual Browse Modes',
+                'modal.wn.feature3Desc': 'Home feed (dark, immersive video) for discovery and Browse tab (light, structured grid) for targeted search. Category filters (Accessories, Electronics, Books, Stationery) with search functionality allow purposeful item hunting.',
+                'modal.wn.feature4Title': '3-Step Publishing Flow',
+                'modal.wn.feature4Desc': 'Streamlined item posting: (1) Record/upload a video showcasing the item, (2) Add name, description, and delivery preference, (3) Preview and confirm with We point settings. Progress indicator and validation at each step reduce drop-off.',
+                'modal.wn.feature5Title': 'Want It! Claiming System',
+                'modal.wn.feature5Desc': 'One-tap "Want It" button triggers a detail modal with item info, We point cost breakdown, and delivery options (self-pickup, campus delivery, express). Clear pricing transparency builds trust in the free gifting model.',
+                'modal.wn.section5Title': 'Design Process',
+                'modal.wn.process1': 'User Research',
+                'modal.wn.process2': 'IA & Flows',
+                'modal.wn.process3': 'UI Design',
+                'modal.wn.process4': 'Prototype',
+                'modal.wn.process5': 'Test & Iterate',
+                'modal.wn.section5P1': 'Starting from user research on college students\' second-hand item pain points, I mapped the information architecture around two core loops: the giving loop (post > match > deliver > earn points) and the getting loop (browse > claim > receive > review). The UI design evolved through multiple iterations, balancing the fun of video content with the practicality of item transactions.',
+                'modal.wn.section6Title': 'Interactive Prototype',
+                'modal.wn.liveLink': 'Open WeNeed Prototype',
+                'modal.wn.reflectionTitle': 'What I Learned',
+                'modal.wn.reflectionText': 'This project taught me that <strong>the best UX borrows from familiar patterns but serves new purposes</strong>. By using TikTok\'s addictive vertical video format for item discovery, we lowered the learning curve to near zero while making the gifting experience genuinely enjoyable. The We Points system was the hardest design challenge - getting the economics right required thinking like both a product designer and a behavioral economist. The key insight: in a gifting economy, <strong>the reward for giving must feel more satisfying than the cost of claiming</strong>, or the system collapses.'
+            },
+            zh: {
+                'nav.back': '\u8fd4\u56de',
+                'nav.backToWork': '\u8fd4\u56de\u6240\u6709\u4f5c\u54c1',
+                'modal.wn.heroTagline': '\u8d60\u4f60\u6240\u6709\uff0c\u5f97\u4f60\u6240\u9700',
+                'modal.wn.eyebrow': '\u4e2a\u4eba\u9879\u76ee \u00b7 2025 \u00b7 \u79fb\u52a8\u5e94\u7528\u8bbe\u8ba1',
+                'modal.wn.title': '\u5fae\u9700 WeNeed',
+                'modal.wn.subtitle': '\u4e00\u6b3e\u57fa\u4e8e\u77ed\u89c6\u9891\u7684\u95f2\u7f6e\u7269\u54c1\u8d60\u9001\u793e\u533a\u5e94\u7528',
+                'modal.wn.metaLabel1': '\u89d2\u8272',
+                'modal.wn.metaValue1': '\u4ea7\u54c1\u8bbe\u8ba1\u5e08',
+                'modal.wn.metaLabel2': '\u7c7b\u578b',
+                'modal.wn.metaValue2': '\u4e2a\u4eba\u9879\u76ee',
+                'modal.wn.metaLabel3': '\u65f6\u95f4',
+                'modal.wn.metaValue3': '2025',
+                'modal.wn.metaLabel4': '\u5e73\u53f0',
+                'modal.wn.metaValue4': 'iOS / Android',
+                'modal.wn.tldrLabel': '\u6458\u8981',
+                'modal.wn.tldrText': '\u8bbe\u8ba1\u4e86\u4e00\u6b3e\u4eff\u62b5\u97f3\u98ce\u683c\u7684\u77ed\u89c6\u9891\u79fb\u52a8\u5e94\u7528\uff0c\u91cd\u65b0\u5b9a\u4e49\u4e8c\u624b\u7269\u54c1\u8d60\u9001\u4f53\u9a8c\u3002\u7528\u6237\u901a\u8fc7\u89c6\u9891\u5c55\u793a\u95f2\u7f6e\u7269\u54c1\uff0c\u6d4f\u89c8\u53ef\u6ed1\u52a8\u7684\u89c6\u9891\u6d41\uff0c\u5e76\u4f7f\u7528\u865a\u62df\u8d27\u5e01\uff08We\u79ef\u5206\uff09\u7cfb\u7edf\u9886\u53d6\u7269\u54c1\uff0c\u6fc0\u52b1\u8d60\u9001\u884c\u4e3a\u3002',
+                'modal.wn.metricLabel1': '\u9875\u9762',
+                'modal.wn.metricDesc1': '\u5b8c\u6574\u5e94\u7528\u6d41\u7a0b\u8bbe\u8ba1',
+                'modal.wn.metricLabel2': '\u79ef\u5206\u7cfb\u7edf',
+                'modal.wn.metricDesc2': '\u865a\u62df\u8d27\u5e01\u7ecf\u6d4e\u4f53\u7cfb',
+                'modal.wn.metricLabel3': '\u89c6\u9891\u4f18\u5148',
+                'modal.wn.metricDesc3': '\u77ed\u89c6\u9891\u4f5c\u4e3a\u6838\u5fc3\u4f53\u9a8c',
+                'modal.wn.metricLabel4': '\u8d39\u7528',
+                'modal.wn.metricDesc4': '\u514d\u8d39\u8d60\u9001\uff0c\u65e0\u9700\u82b1\u94b1',
+                'modal.wn.section1Title': '\u80cc\u666f\u4e0e\u52a8\u673a',
+                'modal.wn.quote': '\u201c\u6bcf\u4e2a\u4eba\u90fd\u6709\u4e0d\u518d\u9700\u8981\u7684\u4e1c\u897f\uff0c\u4f46\u4e22\u6389\u53c8\u89c9\u5f97\u6d6a\u8d39\u3002\u5982\u679c\u8d60\u9001\u5b83\u4eec\u80fd\u50cf\u5237\u62b5\u97f3\u4e00\u6837\u6709\u8da3\u5462\uff1f\u201d',
+                'modal.wn.section1P1': '\u73b0\u6709\u7684\u4e8c\u624b\u5e73\u53f0\u5982\u95f2\u9c7c\u4e13\u6ce8\u4e8e\u4e70\u5356\uff0c\u8fd9\u5e26\u6765\u4e86\u6469\u64e6\uff1a\u5b9a\u4ef7\u3001\u8b76\u4ef7\u548c\u4fe1\u4efb\u95ee\u9898\u3002\u5f88\u591a\u4eba\u6709\u5b8c\u5168\u53ef\u7528\u7684\u7269\u54c1\uff0c\u4ed6\u4eec\u5f88\u4e50\u610f\u514d\u8d39\u8d60\u9001\u2014\u2014\u4f46\u6ca1\u6709\u4e00\u4e2a\u4e13\u4e3a\u8d60\u9001\u8bbe\u8ba1\u7684\u6709\u5438\u5f15\u529b\u7684\u5e73\u53f0\u3002',
+                'modal.wn.section1P2': '\u5fae\u9700\u901a\u8fc7\u5c06\u77ed\u89c6\u9891\u6d41\u7684\u4e0a\u763e\u4f53\u9a8c\u4e0e\u96f6\u6210\u672c\u8d60\u9001\u6a21\u5f0f\u76f8\u7ed3\u5408\uff0c\u91cd\u65b0\u5b9a\u4e49\u4e86\u8fd9\u4e00\u4f53\u9a8c\u3002\u5e94\u7528\u4f7f\u7528We\u79ef\u5206\u4ee3\u66ff\u91d1\u94b1\u2014\u2014\u4e00\u79cd\u901a\u8fc7\u8d60\u9001\u7269\u54c1\u83b7\u5f97\u3001\u901a\u8fc7\u9886\u53d6\u7269\u54c1\u82b1\u8d39\u7684\u865a\u62df\u8d27\u5e01\u3002\u8fd9\u521b\u9020\u4e86\u4e00\u4e2a\u81ea\u7ef4\u6301\u7684\u5faa\u73af\u7ecf\u6d4e\uff0c\u6177\u6168\u5f97\u5230\u56de\u62a5\u3002',
+                'modal.wn.section2Title': '\u6211\u7684\u89d2\u8272',
+                'modal.wn.roleLabel1': '\u7528\u6237\u4f53\u9a8c\u8bbe\u8ba1',
+                'modal.wn.roleValue1': '\u7528\u6237\u7814\u7a76\u3001\u4fe1\u606f\u67b6\u6784\u3001\u89c6\u9891\u4f18\u5148\u6d4f\u89c8\u3001\u53d1\u5e03\u6d41\u7a0b\u548c\u7269\u54c1\u9886\u53d6\u7684\u4ea4\u4e92\u8bbe\u8ba1',
+                'modal.wn.roleLabel2': '\u754c\u9762\u8bbe\u8ba1',
+                'modal.wn.roleValue2': '\u84dd\u8272/\u7425\u73c0\u8272\u8c03\u89c6\u89c9\u8bbe\u8ba1\u7cfb\u7edf\u3001\u6697\u8272\u89c6\u9891\u6d41\u3001\u4eae\u8272\u6d4f\u89c8\u7f51\u683c\u3001\u5206\u7c7b\u5bfc\u822a\u548c\u6bdb\u73bb\u7483\u5143\u7d20',
+                'modal.wn.roleLabel3': '\u4ea7\u54c1\u7b56\u7565',
+                'modal.wn.roleValue3': 'We\u79ef\u5206\u865a\u62df\u7ecf\u6d4e\u8bbe\u8ba1\u3001\u6e38\u620f\u5316\u673a\u5236\u3001\u7528\u6237\u6fc0\u52b1\u6a21\u578b\u548c\u589e\u957f\u5faa\u73af\u7b56\u7565',
+                'modal.wn.roleLabel4': '\u539f\u578b\u8bbe\u8ba1',
+                'modal.wn.roleValue4': '\u5305\u542b\u89c6\u9891\u80cc\u666f\u3001\u6ed1\u52a8\u624b\u52bf\u3001\u5f39\u7a97\u6d41\u7a0b\u548c\u52a8\u753b\u8fc7\u6e21\u7684\u9ad8\u4fdd\u771f\u4ea4\u4e92\u539f\u578b',
+                'modal.wn.section3Title': '\u8bbe\u8ba1\u6311\u6218',
+                'modal.wn.challenge1': '\u8bbe\u8ba1\u4e00\u4e2a\u50cf\u62b5\u97f3\u4e00\u6837\u81ea\u7136\u7684\u89c6\u9891\u4f18\u5148\u4fe1\u606f\u6d41\uff0c\u540c\u65f6\u670d\u52a1\u4e8e\u5b8c\u5168\u4e0d\u540c\u7684\u76ee\u7684\u2014\u2014\u7269\u54c1\u53d1\u73b0\u800c\u975e\u5a31\u4e50',
+                'modal.wn.challenge2': '\u521b\u5efa\u4e00\u4e2a\u516c\u5e73\u76f4\u89c2\u7684\u865a\u62df\u8d27\u5e01\u7cfb\u7edf\uff08We\u79ef\u5206\uff09\u2014\u2014\u5e73\u8861\u8d60\u9001\u83b7\u5f97\u4e0e\u9886\u53d6\u82b1\u8d39\uff0c\u4e0d\u521b\u9020\u6f0f\u6d1e',
+                'modal.wn.challenge3': '\u5728\u514d\u8d39\u8d60\u9001\u5e73\u53f0\u4e0a\u5efa\u7acb\u4fe1\u4efb\u2014\u2014\u7528\u6237\u9700\u8981\u786e\u4fe1\u7269\u54c1\u771f\u5b9e\u3001\u6d41\u7a0b\u5b89\u5168\uff0c\u800c\u6ca1\u6709\u91d1\u94b1\u627f\u8bfa\u6765\u4fe1\u53f7\u610f\u56fe',
+                'modal.wn.challenge4': '\u5728\u4e00\u4e2a\u8fde\u8d2f\u7684\u5e94\u7528\u4e2d\u65e0\u7f1d\u878d\u5408\u4e24\u79cd\u4e0d\u540c\u7684UX\u8303\u5f0f\uff1a\u6c89\u6d78\u5f0f\u6697\u8272\u89c6\u9891\u6d41\uff08\u62b5\u97f3\u98ce\u683c\uff09\u548c\u7ed3\u6784\u5316\u4eae\u8272\u6d4f\u89c8\u7f51\u683c\uff08\u7535\u5546\u98ce\u683c\uff09',
+                'modal.wn.section4Title': '\u6211\u8bbe\u8ba1\u7684\u6838\u5fc3\u529f\u80fd',
+                'modal.wn.feature1Title': '\u77ed\u89c6\u9891\u7269\u54c1\u4fe1\u606f\u6d41',
+                'modal.wn.feature1Desc': '\u5168\u5c4f\u5782\u76f4\u89c6\u9891\u6d41\uff0c\u6ed1\u52a8\u6d4f\u89c8\u3002\u6bcf\u4e2a\u7269\u54c1\u901a\u8fc715-60\u79d2\u89c6\u9891\u5c55\u793a\uff0c\u53e0\u52a0\u4fe1\u606f\uff1a\u7269\u54c1\u540d\u79f0\u3001\u63cf\u8ff0\u3001We\u79ef\u5206\u4ef7\u683c\u548c\u793e\u4ea4\u64cd\u4f5c\uff08\u70b9\u8d5e\u3001\u6536\u85cf\u3001\u5206\u4eab\uff09\u3002\u89c6\u9891\u80cc\u666f\u52a0\u6e10\u53d8\u906e\u7f69\u521b\u9020\u6c89\u6d78\u5f0f\u6d4f\u89c8\u4f53\u9a8c\u3002',
+                'modal.wn.feature2Title': 'We\u79ef\u5206\u865a\u62df\u7ecf\u6d4e',
+                'modal.wn.feature2Desc': '\u7528\u6237\u901a\u8fc7\u8d60\u9001\u7269\u54c1\u83b7\u5f97We\u79ef\u5206\uff08\u6bcf\u6b21\u6210\u529f\u8d60\u9001+15\u5206\uff09\uff0c\u82b1\u79ef\u5206\u9886\u53d6\u7269\u54c1\uff08\u901a\u5e3810\u5206\uff09\u3002\u65b0\u7528\u6237\u83b7\u5f97\u521d\u59cb\u79ef\u5206\u3002\u7cfb\u7edf\u521b\u9020\u826f\u6027\u5faa\u73af\uff1a\u8d60\u5f97\u8d8a\u591a\uff0c\u5f97\u5230\u8d8a\u591a\uff0c\u51cf\u5c11\u6d6a\u8d39\u540c\u65f6\u5efa\u8bbe\u793e\u533a\u3002',
+                'modal.wn.feature3Title': '\u53cc\u6a21\u5f0f\u6d4f\u89c8',
+                'modal.wn.feature3Desc': '\u9996\u9875\u89c6\u9891\u6d41\uff08\u6697\u8272\u3001\u6c89\u6d78\u5f0f\uff09\u7528\u4e8e\u53d1\u73b0\uff0c\u6d4f\u89c8\u6807\u7b7e\u9875\uff08\u4eae\u8272\u3001\u7ed3\u6784\u5316\u7f51\u683c\uff09\u7528\u4e8e\u7cbe\u51c6\u641c\u7d22\u3002\u5206\u7c7b\u7b5b\u9009\uff08\u914d\u9970\u3001\u6570\u7801\u3001\u4e66\u7c4d\u3001\u6587\u5177\uff09\u548c\u641c\u7d22\u529f\u80fd\u652f\u6301\u76ee\u7684\u6027\u5bfb\u627e\u3002',
+                'modal.wn.feature4Title': '\u4e09\u6b65\u53d1\u5e03\u6d41\u7a0b',
+                'modal.wn.feature4Desc': '\u7b80\u5316\u7684\u7269\u54c1\u53d1\u5e03\uff1a\uff081\uff09\u62cd\u6444/\u4e0a\u4f20\u5c55\u793a\u89c6\u9891\uff0c\uff082\uff09\u6dfb\u52a0\u540d\u79f0\u3001\u63cf\u8ff0\u548c\u914d\u9001\u504f\u597d\uff0c\uff083\uff09\u9884\u89c8\u5e76\u786e\u8ba4We\u79ef\u5206\u8bbe\u7f6e\u3002\u6bcf\u6b65\u8fdb\u5ea6\u6307\u793a\u548c\u9a8c\u8bc1\u51cf\u5c11\u6d41\u5931\u3002',
+                'modal.wn.feature5Title': '\u201c\u6211\u60f3\u8981\uff01\u201d\u9886\u53d6\u7cfb\u7edf',
+                'modal.wn.feature5Desc': '\u4e00\u952e\u201c\u6211\u60f3\u8981\u201d\u6309\u94ae\u89e6\u53d1\u8be6\u60c5\u5f39\u7a97\uff0c\u5305\u542b\u7269\u54c1\u4fe1\u606f\u3001We\u79ef\u5206\u8d39\u7528\u660e\u7ec6\u548c\u914d\u9001\u9009\u9879\uff08\u81ea\u53d6\u3001\u6821\u56ed\u914d\u9001\u3001\u5feb\u9012\uff09\u3002\u6e05\u6670\u7684\u4ef7\u683c\u900f\u660e\u5ea6\u5efa\u7acb\u514d\u8d39\u8d60\u9001\u6a21\u5f0f\u7684\u4fe1\u4efb\u3002',
+                'modal.wn.section5Title': '\u8bbe\u8ba1\u6d41\u7a0b',
+                'modal.wn.process1': '\u7528\u6237\u7814\u7a76',
+                'modal.wn.process2': '\u4fe1\u606f\u67b6\u6784',
+                'modal.wn.process3': 'UI\u8bbe\u8ba1',
+                'modal.wn.process4': '\u539f\u578b\u8bbe\u8ba1',
+                'modal.wn.process5': '\u6d4b\u8bd5\u8fed\u4ee3',
+                'modal.wn.section5P1': '\u4ece\u5927\u5b66\u751f\u4e8c\u624b\u7269\u54c1\u75db\u70b9\u7684\u7528\u6237\u7814\u7a76\u5f00\u59cb\uff0c\u6211\u56f4\u7ed5\u4e24\u4e2a\u6838\u5fc3\u5faa\u73af\u6784\u5efa\u4fe1\u606f\u67b6\u6784\uff1a\u8d60\u9001\u5faa\u73af\uff08\u53d1\u5e03 > \u5339\u914d > \u914d\u9001 > \u83b7\u5f97\u79ef\u5206\uff09\u548c\u83b7\u53d6\u5faa\u73af\uff08\u6d4f\u89c8 > \u9886\u53d6 > \u6536\u8d27 > \u8bc4\u4ef7\uff09\u3002UI\u8bbe\u8ba1\u7ecf\u8fc7\u591a\u6b21\u8fed\u4ee3\uff0c\u5e73\u8861\u89c6\u9891\u5185\u5bb9\u7684\u8da3\u5473\u6027\u4e0e\u7269\u54c1\u4ea4\u6613\u7684\u5b9e\u7528\u6027\u3002',
+                'modal.wn.section6Title': '\u4ea4\u4e92\u539f\u578b',
+                'modal.wn.liveLink': '\u6253\u5f00\u5fae\u9700\u539f\u578b',
+                'modal.wn.reflectionTitle': '\u6211\u7684\u6536\u83b7',
+                'modal.wn.reflectionText': '\u8fd9\u4e2a\u9879\u76ee\u6559\u4f1a\u6211<strong>\u6700\u597d\u7684\u7528\u6237\u4f53\u9a8c\u662f\u501f\u9274\u719f\u6089\u7684\u6a21\u5f0f\u4f46\u670d\u52a1\u4e8e\u65b0\u76ee\u7684</strong>\u3002\u901a\u8fc7\u4f7f\u7528\u62b5\u97f3\u7684\u5782\u76f4\u89c6\u9891\u683c\u5f0f\u6765\u53d1\u73b0\u7269\u54c1\uff0c\u6211\u4eec\u5c06\u5b66\u4e60\u66f2\u7ebf\u964d\u5230\u51e0\u4e4e\u4e3a\u96f6\uff0c\u540c\u65f6\u8ba9\u8d60\u9001\u4f53\u9a8c\u771f\u6b63\u6709\u8da3\u3002We\u79ef\u5206\u7cfb\u7edf\u662f\u6700\u96be\u7684\u8bbe\u8ba1\u6311\u6218\u2014\u2014\u627e\u5230\u6b63\u786e\u7684\u7ecf\u6d4e\u5e73\u8861\u9700\u8981\u540c\u65f6\u50cf\u4ea7\u54c1\u8bbe\u8ba1\u5e08\u548c\u884c\u4e3a\u7ecf\u6d4e\u5b66\u5bb6\u4e00\u6837\u601d\u8003\u3002\u5173\u952e\u6d1e\u5bdf\uff1a\u5728\u8d60\u9001\u7ecf\u6d4e\u4e2d\uff0c<strong>\u8d60\u9001\u7684\u56de\u62a5\u5fc5\u987b\u6bd4\u9886\u53d6\u7684\u4ee3\u4ef7\u66f4\u6709\u6ee1\u8db3\u611f</strong>\uff0c\u5426\u5219\u7cfb\u7edf\u4f1a\u5d29\u6e83\u3002'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (el.getAttribute('data-i18n-html') !== null) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+            document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        }
+
+        document.getElementById('lang-zh').addEventListener('click', () => setLanguage('zh'));
+        document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+        setLanguage(currentLang);
+
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>
