@@ -198,6 +198,198 @@
         }
         .bv-live-link:hover { background: rgba(225, 29, 72, 0.2); transform: translateY(-2px); }
 
+        /* Priority Live Demo */
+        .bv-live-priority {
+            margin: 20px 0 28px;
+            padding: 28px;
+            border-radius: 20px;
+            border: 1px solid rgba(225, 29, 72, 0.2);
+            background:
+                radial-gradient(circle at 14% 12%, rgba(251, 113, 133, 0.2), transparent 40%),
+                radial-gradient(circle at 88% 75%, rgba(99, 102, 241, 0.16), transparent 45%),
+                linear-gradient(145deg, rgba(15, 15, 26, 0.98), rgba(22, 16, 30, 0.94));
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+        .bv-live-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            font-weight: 800;
+            color: #fecdd3;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .bv-live-chip::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #f43f5e;
+            box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7);
+            animation: livePulse 1.8s infinite;
+        }
+        @keyframes livePulse {
+            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+        .bv-live-priority h3 {
+            font-size: 30px;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: #fff1f2;
+        }
+        .bv-live-priority p {
+            margin-bottom: 18px;
+            color: #c4c7d1;
+            max-width: 690px;
+            font-size: 15px;
+        }
+        .bv-live-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .bv-live-primary,
+        .bv-live-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.25s ease;
+            font-size: 14px;
+            font-weight: 600;
+            min-height: 44px;
+            padding: 10px 16px;
+        }
+        .bv-live-primary {
+            color: #fff;
+            background: linear-gradient(135deg, #f43f5e 0%, #e11d48 70%, #be123c 100%);
+            border: 1px solid rgba(251, 113, 133, 0.55);
+            box-shadow: 0 10px 24px rgba(225, 29, 72, 0.32);
+        }
+        .bv-live-primary:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+        .bv-live-secondary {
+            color: #fda4af;
+            background: rgba(225, 29, 72, 0.08);
+            border: 1px solid rgba(225, 29, 72, 0.3);
+        }
+        .bv-live-secondary:hover {
+            transform: translateY(-2px);
+            background: rgba(225, 29, 72, 0.14);
+        }
+
+        /* Infographic blocks */
+        .bv-infographic-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 16px;
+        }
+        .bv-info-card {
+            background: linear-gradient(150deg, rgba(225, 29, 72, 0.09), rgba(16, 16, 30, 0.9));
+            border: 1px solid rgba(225, 29, 72, 0.14);
+            border-radius: 18px;
+            padding: 22px;
+        }
+        .bv-info-card h4 {
+            font-size: 15px;
+            color: #ffe4e6;
+            letter-spacing: 0.01em;
+            margin-bottom: 16px;
+        }
+        .bv-bars {
+            display: grid;
+            gap: 10px;
+        }
+        .bv-bar-row {
+            display: grid;
+            grid-template-columns: 92px 1fr 52px;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #d4d4d8;
+        }
+        .bv-bar-track {
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+        }
+        .bv-bar-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #fb7185, #e11d48);
+        }
+        .bv-vs-grid {
+            display: grid;
+            grid-template-columns: 140px 1fr 1fr;
+            gap: 8px;
+            align-items: center;
+            font-size: 12px;
+        }
+        .bv-vs-grid .head {
+            color: #fda4af;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.09em;
+            font-weight: 700;
+            padding-bottom: 4px;
+        }
+        .bv-vs-grid .row-label {
+            color: #c4c7d1;
+            padding: 7px 0;
+        }
+        .bv-vs-grid .cell {
+            text-align: center;
+            border-radius: 8px;
+            padding: 7px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(12, 12, 20, 0.65);
+            color: #f4f4f5;
+        }
+        .bv-vs-grid .cell.pro {
+            border-color: rgba(251, 113, 133, 0.45);
+            background: rgba(225, 29, 72, 0.16);
+        }
+        .bv-flow {
+            grid-column: 1 / -1;
+        }
+        .bv-flow-track {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .bv-flow-node {
+            background: rgba(16, 16, 28, 0.72);
+            border: 1px solid rgba(225, 29, 72, 0.16);
+            border-radius: 12px;
+            padding: 14px 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #e4e4e7;
+            position: relative;
+        }
+        .bv-flow-node:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fb7185;
+            font-size: 13px;
+            z-index: 2;
+        }
+
         /* Tech stack badges */
         .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
         .tech-badge {
@@ -318,6 +510,13 @@
             .modal-process-item:not(:last-child)::after { display: none; }
             .bv-hero-banner img { width: 150px; height: 150px; }
             .modal-quote { font-size: 18px; padding: 20px 24px; }
+            .bv-live-priority { padding: 20px; }
+            .bv-live-priority h3 { font-size: 24px; }
+            .bv-infographic-grid { grid-template-columns: 1fr; }
+            .bv-flow-track { grid-template-columns: 1fr; }
+            .bv-flow-node:not(:last-child)::after { content: '↓'; right: auto; top: auto; bottom: -11px; left: 50%; transform: translateX(-50%); }
+            .bv-vs-grid { grid-template-columns: 120px 1fr 1fr; }
+            .bv-bar-row { grid-template-columns: 84px 1fr 44px; }
         }
     </style>
 </head>
@@ -362,11 +561,25 @@
                 <div class="modal-tldr-text" data-i18n="modal.bv.tldrText">Designed and built a full-stack PWA that tracks subscriptions, uses AI to roast your spending and find cheaper alternatives, and gamifies saving with a no-spend streak calendar.</div>
             </div>
 
+            <!-- Live Demo Priority -->
+            <div class="bv-live-priority">
+                <div class="bv-live-chip" data-i18n="modal.bv.livePriorityChip">Live Demo First</div>
+                <h3 data-i18n="modal.bv.livePriorityTitle">Click first. Explore the real product before reading the case study.</h3>
+                <p data-i18n="modal.bv.livePriorityDesc">The live site now reflects the latest visual redesign. Open it now to feel the interactions, then come back for design decisions and technical breakdown.</p>
+                <div class="bv-live-actions">
+                    <a href="https://billvampire.com/" target="_blank" class="bv-live-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <span data-i18n="modal.bv.livePriorityCta">Open Live Demo</span>
+                    </a>
+                    <a href="#infographics" class="bv-live-secondary" data-i18n="modal.bv.livePriorityJump">Jump to Infographics</a>
+                </div>
+            </div>
+
             <!-- Metrics -->
             <div class="modal-metrics">
                 <div class="modal-metric"><div class="modal-metric-value">PWA</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel1">App Type</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc1">Install on any device</div></div>
                 <div class="modal-metric"><div class="modal-metric-value">6</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel2">Currencies</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc2">USD, CNY, EUR, GBP, JPY, HKD</div></div>
-                <div class="modal-metric"><div class="modal-metric-value">AI</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel3">Gemini 2.0</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc3">3 AI features</div></div>
+                <div class="modal-metric"><div class="modal-metric-value">AI</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel3">Gemini 2.5</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc3">3 AI features</div></div>
                 <div class="modal-metric"><div class="modal-metric-value">2</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel4">Languages</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc4">English & Chinese</div></div>
             </div>
 
@@ -452,9 +665,45 @@
                 <div class="bv-visual-tagline" data-i18n="modal.bv.tagline1">Feed the vampire. Track your bills.</div>
             </div>
 
-            <!-- Section 2: My Role -->
+            <!-- Section 2: Infographics -->
+            <div class="modal-section" id="infographics">
+                <h3 class="modal-section-title"><span class="modal-section-number">2</span><span data-i18n="modal.bv.infoSectionTitle">Infographic Snapshot</span></h3>
+                <p data-i18n="modal.bv.infoSectionIntro">A quick visual summary of where the product creates value: spending visibility, upgrade value clarity, and AI guidance loop.</p>
+                <div class="bv-infographic-grid">
+                    <div class="bv-info-card">
+                        <h4 data-i18n="modal.bv.infoCard1Title">Monthly Drain Anatomy</h4>
+                        <div class="bv-bars">
+                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar1">Entertainment</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 42%"></div></div><strong>42%</strong></div>
+                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar2">Productivity</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 35%"></div></div><strong>35%</strong></div>
+                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar3">Lifestyle</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 23%"></div></div><strong>23%</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="bv-info-card">
+                        <h4 data-i18n="modal.bv.infoCard2Title">Free vs Pro Value</h4>
+                        <div class="bv-vs-grid">
+                            <div></div><div class="head" data-i18n="modal.bv.infoFree">Free</div><div class="head" data-i18n="modal.bv.infoPro">Pro</div>
+                            <div class="row-label" data-i18n="modal.bv.infoRow1">AI analyses / day</div><div class="cell">3</div><div class="cell pro">Unlimited</div>
+                            <div class="row-label" data-i18n="modal.bv.infoRow2">Smart Import</div><div class="cell">Text only</div><div class="cell pro">Text + Image + PDF</div>
+                            <div class="row-label" data-i18n="modal.bv.infoRow3">Price model</div><div class="cell">$0</div><div class="cell pro">9.99 USD once</div>
+                        </div>
+                    </div>
+
+                    <div class="bv-info-card bv-flow">
+                        <h4 data-i18n="modal.bv.infoCard3Title">AI Guidance Loop</h4>
+                        <div class="bv-flow-track">
+                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow1">Import Bills</div>
+                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow2">AI Roast</div>
+                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow3">Cheaper Alternatives</div>
+                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow4">No-Spend Streak</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: My Role -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">2</span><span data-i18n="modal.bv.section2Title">My Role</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">3</span><span data-i18n="modal.bv.section2Title">My Role</span></h3>
                 <div class="modal-role-grid">
                     <div class="modal-role-item">
                         <div class="modal-role-label" data-i18n="modal.bv.roleLabel1">Design</div>
@@ -475,9 +724,9 @@
                 </div>
             </div>
 
-            <!-- Section 3: Challenges -->
+            <!-- Section 4: Challenges -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">3</span><span data-i18n="modal.bv.section3Title">Design Challenges</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">4</span><span data-i18n="modal.bv.section3Title">Design Challenges</span></h3>
                 <ul class="modal-challenge-list">
                     <li data-i18n="modal.bv.challenge1">Making financial tracking feel fun, not guilt-inducing - the vampire theme turns spending awareness into entertainment</li>
                     <li data-i18n="modal.bv.challenge2">Balancing AI personality with usefulness - roasts need to be funny but the alternatives and advice must be genuinely helpful</li>
@@ -485,15 +734,15 @@
                 </ul>
             </div>
 
-            <!-- Section 4: Features -->
+            <!-- Section 5: Features -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">4</span><span data-i18n="modal.bv.section4Title">Key Features I Designed & Built</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.bv.section4Title">Key Features I Designed & Built</span></h3>
                 <div class="modal-feature-card">
                     <div class="modal-feature-title" data-i18n="modal.bv.feature1Title">Subscription Tracker with Multi-Currency</div>
                     <div class="modal-feature-desc" data-i18n="modal.bv.feature1Desc">Add subscriptions in 6 currencies (USD, CNY, EUR, GBP, JPY, HKD) with automatic conversion. Monthly/yearly cycles, categorization (Entertainment, Productivity, Lifestyle), and real-time monthly total calculation.</div>
                 </div>
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title" data-i18n="modal.bv.feature2Title">AI Roast Advisor (Gemini 2.0 Flash)</div>
+                    <div class="modal-feature-title" data-i18n="modal.bv.feature2Title">AI Roast Advisor (Gemini 2.5 Flash)</div>
                     <div class="modal-feature-desc" data-i18n="modal.bv.feature2Desc">Sends your subscription list to Gemini AI with a "snarky financial advisor" system prompt. Returns 3 sharp roasts and 1 practical saving tip. Bilingual support with different personality prompts per language.</div>
                 </div>
                 <div class="modal-feature-card">
@@ -510,9 +759,9 @@
                 </div>
             </div>
 
-            <!-- Section 5: Design Process -->
+            <!-- Section 6: Design Process -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.bv.section5Title">Design & Development Process</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">6</span><span data-i18n="modal.bv.section5Title">Design & Development Process</span></h3>
                 <div class="modal-process-enhanced">
                     <div class="modal-process-item">
                         <div class="modal-process-number">1</div>
@@ -538,32 +787,19 @@
                 <p data-i18n="modal.bv.section5P1">The project started as a weekend concept but evolved into a full product with monetization. I designed the custom vampire mascot as an SVG, built the entire frontend in React with Tailwind CSS, integrated Gemini AI for three distinct features, and deployed on Cloudflare Pages as a PWA.</p>
             </div>
 
-            <!-- Section 6: Tech Stack -->
+            <!-- Section 7: Tech Stack -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">6</span><span data-i18n="modal.bv.section6Title">Tech Stack</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">7</span><span data-i18n="modal.bv.section6Title">Tech Stack</span></h3>
                 <div class="tech-stack">
                     <span class="tech-badge">React 19</span>
                     <span class="tech-badge">Tailwind CSS 4</span>
                     <span class="tech-badge">Vite 7</span>
-                    <span class="tech-badge">Gemini 2.0 Flash</span>
+                    <span class="tech-badge">Gemini 2.5 Flash</span>
                     <span class="tech-badge">Chart.js</span>
                     <span class="tech-badge">FontAwesome</span>
                     <span class="tech-badge">PWA / Service Worker</span>
                     <span class="tech-badge">Cloudflare Pages</span>
                     <span class="tech-badge">i18n (EN/ZH)</span>
-                </div>
-            </div>
-
-            <!-- Live Demo -->
-            <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">7</span><span data-i18n="modal.bv.section7Title">Live Demo</span></h3>
-                <div class="bv-app-preview">
-                    <iframe src="https://bill-vampire.pages.dev/" loading="lazy" title="Bill Vampire Live Demo"></iframe>
-                    <br>
-                    <a href="https://bill-vampire.pages.dev/" target="_blank" class="bv-live-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        <span data-i18n="modal.bv.liveLink">Open Bill Vampire</span>
-                    </a>
                 </div>
             </div>
 
@@ -602,11 +838,16 @@
                 'modal.bv.metaValue4': 'React, Tailwind, Gemini AI',
                 'modal.bv.tldrLabel': 'TL;DR',
                 'modal.bv.tldrText': 'Designed and built a full-stack PWA that tracks subscriptions, uses AI to roast your spending and find cheaper alternatives, and gamifies saving with a no-spend streak calendar.',
+                'modal.bv.livePriorityChip': 'Live Demo First',
+                'modal.bv.livePriorityTitle': 'Click first. Explore the real product before reading the case study.',
+                'modal.bv.livePriorityDesc': 'The live site now reflects the latest visual redesign. Open it now to feel the interactions, then come back for design decisions and technical breakdown.',
+                'modal.bv.livePriorityCta': 'Open Live Demo',
+                'modal.bv.livePriorityJump': 'Jump to Infographics',
                 'modal.bv.metricLabel1': 'App Type',
                 'modal.bv.metricDesc1': 'Install on any device',
                 'modal.bv.metricLabel2': 'Currencies',
                 'modal.bv.metricDesc2': 'USD, CNY, EUR, GBP, JPY, HKD',
-                'modal.bv.metricLabel3': 'Gemini 2.0',
+                'modal.bv.metricLabel3': 'Gemini 2.5',
                 'modal.bv.metricDesc3': '3 AI features',
                 'modal.bv.metricLabel4': 'Languages',
                 'modal.bv.metricDesc4': 'English & Chinese',
@@ -614,6 +855,23 @@
                 'modal.bv.phoneLabel2': 'AI Roast Advisor',
                 'modal.bv.phoneLabel3': 'Streak Calendar',
                 'modal.bv.tagline1': 'Feed the vampire. Track your bills.',
+                'modal.bv.infoSectionTitle': 'Infographic Snapshot',
+                'modal.bv.infoSectionIntro': 'A quick visual summary of where the product creates value: spending visibility, upgrade value clarity, and AI guidance loop.',
+                'modal.bv.infoCard1Title': 'Monthly Drain Anatomy',
+                'modal.bv.infoBar1': 'Entertainment',
+                'modal.bv.infoBar2': 'Productivity',
+                'modal.bv.infoBar3': 'Lifestyle',
+                'modal.bv.infoCard2Title': 'Free vs Pro Value',
+                'modal.bv.infoFree': 'Free',
+                'modal.bv.infoPro': 'Pro',
+                'modal.bv.infoRow1': 'AI analyses / day',
+                'modal.bv.infoRow2': 'Smart Import',
+                'modal.bv.infoRow3': 'Price model',
+                'modal.bv.infoCard3Title': 'AI Guidance Loop',
+                'modal.bv.infoFlow1': 'Import Bills',
+                'modal.bv.infoFlow2': 'AI Roast',
+                'modal.bv.infoFlow3': 'Cheaper Alternatives',
+                'modal.bv.infoFlow4': 'No-Spend Streak',
                 'modal.bv.section1Title': 'Background & Motivation',
                 'modal.bv.quote': '"The average person spends $273/month on subscriptions they forget about"',
                 'modal.bv.section1P1': "Most subscription trackers feel like spreadsheets with a UI. They're boring, guilt-trippy, and nobody actually wants to open them. I wanted to build something people would genuinely enjoy using - an app with personality that makes financial awareness fun.",
@@ -634,7 +892,7 @@
                 'modal.bv.section4Title': 'Key Features I Designed & Built',
                 'modal.bv.feature1Title': 'Subscription Tracker with Multi-Currency',
                 'modal.bv.feature1Desc': 'Add subscriptions in 6 currencies (USD, CNY, EUR, GBP, JPY, HKD) with automatic conversion. Monthly/yearly cycles, categorization (Entertainment, Productivity, Lifestyle), and real-time monthly total calculation.',
-                'modal.bv.feature2Title': 'AI Roast Advisor (Gemini 2.0 Flash)',
+                'modal.bv.feature2Title': 'AI Roast Advisor (Gemini 2.5 Flash)',
                 'modal.bv.feature2Desc': 'Sends your subscription list to Gemini AI with a "snarky financial advisor" system prompt. Returns 3 sharp roasts and 1 practical saving tip. Bilingual support with different personality prompts per language.',
                 'modal.bv.feature3Title': 'AI Alternative Finder',
                 'modal.bv.feature3Desc': 'AI analyzes each subscription and suggests 2-3 free or cheaper alternatives. Includes affiliate links to recommended services, creating a potential revenue stream.',
@@ -671,11 +929,16 @@
                 'modal.bv.metaValue4': 'React, Tailwind, Gemini AI',
                 'modal.bv.tldrLabel': '\u6458\u8981',
                 'modal.bv.tldrText': '\u72ec\u7acb\u8bbe\u8ba1\u5e76\u5f00\u53d1\u4e86\u4e00\u6b3e\u5168\u6808PWA\u5e94\u7528\uff0c\u8ffd\u8e2a\u8ba2\u9605\u8d39\u7528\uff0c\u7528AI\u6bd2\u820c\u70b9\u8bc4\u4f60\u7684\u6d88\u8d39\u5e76\u627e\u5230\u66f4\u4fbf\u5b9c\u7684\u66ff\u4ee3\u54c1\uff0c\u901a\u8fc7\u4e0d\u6d88\u8d39\u6253\u5361\u65e5\u5386\u6e38\u620f\u5316\u7701\u94b1\u4e60\u60ef\u3002',
+                'modal.bv.livePriorityChip': '\u5728\u7ebf\u4f53\u9a8c\u4f18\u5148',
+                'modal.bv.livePriorityTitle': '\u5148\u70b9\u5f00 Live Demo\uff0c\u518d\u770b\u8fd9\u4efd\u6848\u4f8b\u62c6\u89e3\u3002',
+                'modal.bv.livePriorityDesc': '\u7ebf\u4e0a\u7248\u672c\u5df2\u540c\u6b65\u6700\u65b0\u89c6\u89c9\u8bbe\u8ba1\u3002\u5efa\u8bae\u5148\u4f53\u9a8c\u4ea4\u4e92\uff0c\u518d\u56de\u5230\u672c\u9875\u770b\u8bbe\u8ba1\u51b3\u7b56\u4e0e\u5b9e\u73b0\u7ec6\u8282\u3002',
+                'modal.bv.livePriorityCta': '\u6253\u5f00 Live Demo',
+                'modal.bv.livePriorityJump': '\u8df3\u8f6c\u5230\u4fe1\u606f\u56fe',
                 'modal.bv.metricLabel1': '\u5e94\u7528\u7c7b\u578b',
                 'modal.bv.metricDesc1': '\u652f\u6301\u4efb\u4f55\u8bbe\u5907\u5b89\u88c5',
                 'modal.bv.metricLabel2': '\u5e01\u79cd',
                 'modal.bv.metricDesc2': '\u7f8e\u5143\u3001\u4eba\u6c11\u5e01\u3001\u6b27\u5143\u3001\u82f1\u938a\u3001\u65e5\u5143\u3001\u6e2f\u5e01',
-                'modal.bv.metricLabel3': 'Gemini 2.0',
+                'modal.bv.metricLabel3': 'Gemini 2.5',
                 'modal.bv.metricDesc3': '3\u9879AI\u529f\u80fd',
                 'modal.bv.metricLabel4': '\u8bed\u8a00',
                 'modal.bv.metricDesc4': '\u82f1\u6587\u548c\u4e2d\u6587',
@@ -683,6 +946,23 @@
                 'modal.bv.phoneLabel2': 'AI\u6bd2\u820c\u987e\u95ee',
                 'modal.bv.phoneLabel3': '\u6253\u5361\u65e5\u5386',
                 'modal.bv.tagline1': '\u5582\u9971\u5438\u8840\u9b3c\uff0c\u7ba1\u597d\u4f60\u7684\u8d26\u5355\u3002',
+                'modal.bv.infoSectionTitle': '\u4fe1\u606f\u56fe\u901f\u89c8',
+                'modal.bv.infoSectionIntro': '\u7528\u4e09\u4e2a\u56fe\u5f62\u5feb\u901f\u770b\u61c2\u8fd9\u4e2a\u4ea7\u54c1\u7684\u4ef7\u503c\u7ed3\u6784\uff1a\u82b1\u8d39\u53ef\u89c1\u6027\u3001\u5347\u7ea7\u4ef7\u503c\u548c AI \u5f15\u5bfc\u95ed\u73af\u3002',
+                'modal.bv.infoCard1Title': '\u6708\u5ea6\u652f\u51fa\u5438\u8840\u7ed3\u6784',
+                'modal.bv.infoBar1': '\u5a31\u4e50',
+                'modal.bv.infoBar2': '\u751f\u4ea7\u529b',
+                'modal.bv.infoBar3': '\u751f\u6d3b',
+                'modal.bv.infoCard2Title': 'Free vs Pro \u4ef7\u503c\u5bf9\u6bd4',
+                'modal.bv.infoFree': 'Free',
+                'modal.bv.infoPro': 'Pro',
+                'modal.bv.infoRow1': 'AI \u6b21\u6570 / \u5929',
+                'modal.bv.infoRow2': '\u667a\u80fd\u5bfc\u5165',
+                'modal.bv.infoRow3': '\u4ef7\u683c\u6a21\u578b',
+                'modal.bv.infoCard3Title': 'AI \u5f15\u5bfc\u95ed\u73af',
+                'modal.bv.infoFlow1': '\u5bfc\u5165\u8d26\u5355',
+                'modal.bv.infoFlow2': 'AI \u6bd2\u820c\u5206\u6790',
+                'modal.bv.infoFlow3': '\u66f4\u4fbf\u5b9c\u66ff\u4ee3\u65b9\u6848',
+                'modal.bv.infoFlow4': '\u4e0d\u6d88\u8d39\u6253\u5361',
                 'modal.bv.section1Title': '\u80cc\u666f\u4e0e\u52a8\u673a',
                 'modal.bv.quote': '"\u666e\u901a\u4eba\u5e73\u5747\u6bcf\u6708\u5728\u5fd8\u8bb0\u7684\u8ba2\u9605\u4e0a\u82b1\u8d39273\u7f8e\u5143"',
                 'modal.bv.section1P1': '\u5927\u591a\u6570\u8ba2\u9605\u8ffd\u8e2a\u5668\u611f\u89c9\u5c31\u50cf\u8d34\u4e86\u4e2aUI\u7684\u7535\u5b50\u8868\u683c\u2014\u2014\u65e0\u804a\u3001\u8ba9\u4eba\u5185\u759a\uff0c\u6ca1\u4eba\u771f\u6b63\u60f3\u6253\u5f00\u5b83\u4eec\u3002\u6211\u60f3\u505a\u4e00\u4e2a\u4eba\u4eec\u771f\u6b63\u4eab\u53d7\u4f7f\u7528\u7684\u4e1c\u897f\u2014\u2014\u4e00\u4e2a\u6709\u4e2a\u6027\u7684\u5e94\u7528\uff0c\u8ba9\u8d22\u52a1\u610f\u8bc6\u53d8\u5f97\u6709\u8da3\u3002',
@@ -703,7 +983,7 @@
                 'modal.bv.section4Title': '\u6211\u8bbe\u8ba1\u5e76\u5f00\u53d1\u7684\u6838\u5fc3\u529f\u80fd',
                 'modal.bv.feature1Title': '\u591a\u5e01\u79cd\u8ba2\u9605\u8ffd\u8e2a',
                 'modal.bv.feature1Desc': '\u652f\u63016\u79cd\u8d27\u5e01\uff08\u7f8e\u5143\u3001\u4eba\u6c11\u5e01\u3001\u6b27\u5143\u3001\u82f1\u938a\u3001\u65e5\u5143\u3001\u6e2f\u5e01\uff09\u81ea\u52a8\u6362\u7b97\u3002\u6708\u4ed8/\u5e74\u4ed8\u5468\u671f\u3001\u5206\u7c7b\uff08\u5a31\u4e50\u3001\u751f\u4ea7\u529b\u3001\u751f\u6d3b\uff09\u3001\u5b9e\u65f6\u6708\u5ea6\u603b\u989d\u8ba1\u7b97\u3002',
-                'modal.bv.feature2Title': 'AI\u6bd2\u820c\u987e\u95ee\uff08Gemini 2.0 Flash\uff09',
+                'modal.bv.feature2Title': 'AI\u6bd2\u820c\u987e\u95ee\uff08Gemini 2.5 Flash\uff09',
                 'modal.bv.feature2Desc': '\u5c06\u4f60\u7684\u8ba2\u9605\u5217\u8868\u53d1\u9001\u7ed9Gemini AI\uff0c\u4f7f\u7528\u201c\u6bd2\u820c\u8d22\u52a1\u987e\u95ee\u201d\u7cfb\u7edf\u63d0\u793a\u3002\u8fd4\u56de3\u6761\u72ac\u5229\u70b9\u8bc4\u548c1\u6761\u5b9e\u7528\u7701\u94b1\u5efa\u8bae\u3002\u652f\u6301\u53cc\u8bed\uff0c\u4e0d\u540c\u8bed\u8a00\u6709\u4e0d\u540c\u7684AI\u4eba\u8bbe\u3002',
                 'modal.bv.feature3Title': 'AI\u5e73\u66ff\u63a2\u7d22\u5668',
                 'modal.bv.feature3Desc': 'AI\u5206\u6790\u6bcf\u4e2a\u8ba2\u9605\u5e76\u63a8\u83502-3\u4e2a\u514d\u8d39\u6216\u66f4\u4fbf\u5b9c\u7684\u66ff\u4ee3\u65b9\u6848\u3002\u5305\u542b\u63a8\u8350\u670d\u52a1\u7684\u8054\u76df\u94fe\u63a5\uff0c\u521b\u9020\u6f5c\u5728\u6536\u5165\u6765\u6e90\u3002',
