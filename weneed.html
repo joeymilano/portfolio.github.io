@@ -331,15 +331,38 @@
             width: 100%;
             border-radius: 10px;
             display: block;
+            aspect-ratio: 9 / 16;
+            object-fit: cover;
+            object-position: top center;
+            background: #0f172a;
+        }
+        .wn-live-embed img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
             aspect-ratio: 16 / 10;
             object-fit: cover;
-        }
-        .wn-live-embed iframe {
-            width: 100%;
-            border: none;
-            border-radius: 10px;
-            min-height: 220px;
+            object-position: top center;
             background: #111827;
+        }
+        .wn-live-mini-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 8px;
+            width: 100%;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            min-height: 36px;
+            color: #eff6ff;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.35), rgba(59, 130, 246, 0.48));
+            border: 1px solid rgba(147, 197, 253, 0.45);
+        }
+        .wn-live-mini-cta:hover {
+            filter: brightness(1.08);
         }
         .wn-shot-label {
             display: block;
@@ -475,25 +498,29 @@
                 </div>
 
                 <div class="wn-live-quick-grid">
-                    <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/video.png" alt=""><span data-i18n="modal.wn.quick1">Video Feed</span></div>
+                    <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/play.png" alt=""><span data-i18n="modal.wn.quick1">Video Feed</span></div>
                     <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/coins.png" alt=""><span data-i18n="modal.wn.quick2">We Points</span></div>
                     <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/gift--v1.png" alt=""><span data-i18n="modal.wn.quick3">Gift Loop</span></div>
-                    <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/list-view.png" alt=""><span data-i18n="modal.wn.quick4">Dual Browse</span></div>
+                    <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/combo-chart.png" alt=""><span data-i18n="modal.wn.quick4">Dual Browse</span></div>
                     <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/plus-math.png" alt=""><span data-i18n="modal.wn.quick5">3-Step Post</span></div>
-                    <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/hand-cursor.png" alt=""><span data-i18n="modal.wn.quick6">1-Tap Claim</span></div>
+                    <div class="wn-live-quick-item"><img src="https://img.icons8.com/3d-fluency/94/cursor.png" alt=""><span data-i18n="modal.wn.quick6">1-Tap Claim</span></div>
                 </div>
 
                 <div class="wn-live-showcase">
                     <div class="wn-live-shot">
-                        <img src="31.png" alt="WeNeed feed preview" loading="lazy" />
+                        <img src="images/weneed-live-feed.png" alt="WeNeed feed preview" loading="lazy" />
                         <span class="wn-shot-label" data-i18n="modal.wn.shot1">Feed Discovery Screen</span>
                     </div>
                     <div class="wn-live-shot">
-                        <img src="39.png" alt="WeNeed detail preview" loading="lazy" />
+                        <img src="images/weneed-live-claim.png" alt="WeNeed detail preview" loading="lazy" />
                         <span class="wn-shot-label" data-i18n="modal.wn.shot2">Item Detail + Claim Flow</span>
                     </div>
                     <div class="wn-live-embed">
-                        <iframe src="https://vvneed.pages.dev/" loading="lazy" title="WeNeed Interactive Prototype"></iframe>
+                        <img src="images/weneed-live-prototype.png" alt="WeNeed interactive prototype" loading="lazy" />
+                        <a href="https://vvneed.pages.dev/" target="_blank" class="wn-live-mini-cta">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            <span data-i18n="modal.wn.livePriorityCta">Open Live Prototype</span>
+                        </a>
                         <span class="wn-shot-label" data-i18n="modal.wn.shot3">Interactive Prototype (Live)</span>
                     </div>
                 </div>
@@ -565,7 +592,7 @@
             <div class="modal-section">
                 <h3 class="modal-section-title"><span class="modal-section-number">4</span><span data-i18n="modal.wn.section4Title">Key Features I Designed</span></h3>
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title"><img src="https://img.icons8.com/3d-fluency/94/video.png" alt=""><span data-i18n="modal.wn.feature1Title">Short-Video Item Feed</span></div>
+                    <div class="modal-feature-title"><img src="https://img.icons8.com/3d-fluency/94/play.png" alt=""><span data-i18n="modal.wn.feature1Title">Short-Video Item Feed</span></div>
                     <div class="modal-feature-desc" data-i18n="modal.wn.feature1Desc">Swipeable full-screen videos make item discovery instant and emotionally engaging.</div>
                 </div>
                 <div class="modal-feature-card">
@@ -573,7 +600,7 @@
                     <div class="modal-feature-desc" data-i18n="modal.wn.feature2Desc">A simple earn-and-spend loop rewards giving and keeps the ecosystem moving.</div>
                 </div>
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title"><img src="https://img.icons8.com/3d-fluency/94/split-screen.png" alt=""><span data-i18n="modal.wn.feature3Title">Dual Browse Modes</span></div>
+                    <div class="modal-feature-title"><img src="https://img.icons8.com/3d-fluency/94/combo-chart.png" alt=""><span data-i18n="modal.wn.feature3Title">Dual Browse Modes</span></div>
                     <div class="modal-feature-desc" data-i18n="modal.wn.feature3Desc">An immersive feed for discovery and a structured grid for intentional search.</div>
                 </div>
                 <div class="modal-feature-card">
@@ -581,7 +608,7 @@
                     <div class="modal-feature-desc" data-i18n="modal.wn.feature4Desc">Record, describe, confirm. The posting flow is optimized for low friction.</div>
                 </div>
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title"><img src="https://img.icons8.com/3d-fluency/94/tap.png" alt=""><span data-i18n="modal.wn.feature5Title">Want It! Claiming System</span></div>
+                    <div class="modal-feature-title"><img src="https://img.icons8.com/3d-fluency/94/cursor.png" alt=""><span data-i18n="modal.wn.feature5Title">Want It! Claiming System</span></div>
                     <div class="modal-feature-desc" data-i18n="modal.wn.feature5Desc">One tap opens a transparent claim modal with points and delivery options.</div>
                 </div>
             </div>
