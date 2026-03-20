@@ -252,9 +252,9 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
+            margin-bottom: 14px;
         }
-        .bv-live-primary,
-        .bv-live-secondary {
+        .bv-live-primary {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -277,14 +277,37 @@
             transform: translateY(-2px);
             filter: brightness(1.05);
         }
-        .bv-live-secondary {
-            color: #fda4af;
-            background: rgba(225, 29, 72, 0.08);
-            border: 1px solid rgba(225, 29, 72, 0.3);
+        .bv-live-showcase {
+            padding: 10px 0 0;
+            gap: 14px;
         }
-        .bv-live-secondary:hover {
-            transform: translateY(-2px);
-            background: rgba(225, 29, 72, 0.14);
+        .bv-live-showcase .bv-phone {
+            border-radius: 28px;
+            padding: 8px;
+        }
+        .bv-live-showcase .bv-phone-notch {
+            top: 8px;
+            width: 68px;
+            height: 18px;
+            border-radius: 0 0 12px 12px;
+        }
+        .bv-live-showcase .bv-screen-content {
+            min-height: 250px;
+            border-radius: 20px;
+            padding: 34px 12px 14px;
+        }
+        .bv-live-showcase .screen-total {
+            font-size: 24px;
+        }
+        .bv-live-showcase .bill-item,
+        .bv-live-showcase .bv-roast-msg,
+        .bv-live-showcase .bv-roast-tip,
+        .bv-live-showcase .bv-cal-day {
+            font-size: 10px;
+        }
+        .bv-live-showcase .bv-phone-label {
+            margin-top: 10px;
+            font-size: 12px;
         }
 
         /* Infographic blocks */
@@ -512,6 +535,7 @@
             .modal-quote { font-size: 18px; padding: 20px 24px; }
             .bv-live-priority { padding: 20px; }
             .bv-live-priority h3 { font-size: 24px; }
+            .bv-live-showcase { padding-top: 2px; }
             .bv-infographic-grid { grid-template-columns: 1fr; }
             .bv-flow-track { grid-template-columns: 1fr; }
             .bv-flow-node:not(:last-child)::after { content: '↓'; right: auto; top: auto; bottom: -11px; left: 50%; transform: translateX(-50%); }
@@ -555,12 +579,6 @@
         </div>
 
         <div class="modal-body">
-            <!-- TL;DR -->
-            <div class="modal-tldr">
-                <div class="modal-tldr-label" data-i18n="modal.bv.tldrLabel">TL;DR</div>
-                <div class="modal-tldr-text" data-i18n="modal.bv.tldrText">Designed and built a full-stack PWA that tracks subscriptions, uses AI to roast your spending and find cheaper alternatives, and gamifies saving with a no-spend streak calendar.</div>
-            </div>
-
             <!-- Live Demo Priority -->
             <div class="bv-live-priority">
                 <div class="bv-live-chip" data-i18n="modal.bv.livePriorityChip">Live Demo First</div>
@@ -571,8 +589,79 @@
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         <span data-i18n="modal.bv.livePriorityCta">Open Live Demo</span>
                     </a>
-                    <a href="#infographics" class="bv-live-secondary" data-i18n="modal.bv.livePriorityJump">Jump to Infographics</a>
                 </div>
+
+                <!-- App Screenshots Showcase (integrated into Live Demo) -->
+                <div class="bv-showcase bv-live-showcase">
+                    <div class="bv-showcase-item">
+                        <div class="bv-phone">
+                            <div class="bv-phone-notch"></div>
+                            <div class="bv-screen-content bv-screen-bills">
+                                <div class="screen-title">💀 MY BILLS</div>
+                                <div class="screen-total">$127<span>.94/mo</span></div>
+                                <div class="bill-item"><span class="name">🎬 Netflix</span><span class="price">$15.49</span></div>
+                                <div class="bill-item"><span class="name">🎵 Spotify</span><span class="price">$10.99</span></div>
+                                <div class="bill-item"><span class="name">🤖 ChatGPT Plus</span><span class="price">$20.00</span></div>
+                                <div class="bill-item"><span class="name">☁️ iCloud+</span><span class="price">$2.99</span></div>
+                                <div class="bill-item"><span class="name">📺 YouTube</span><span class="price">$13.99</span></div>
+                            </div>
+                        </div>
+                        <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel1">Subscription Tracker</div>
+                    </div>
+                    <div class="bv-showcase-item">
+                        <div class="bv-phone">
+                            <div class="bv-phone-notch"></div>
+                            <div class="bv-screen-content bv-screen-roast">
+                                <div class="screen-title">🧛 AI ROAST</div>
+                                <div class="bv-roast-msg">“You’re paying $15/mo to watch The Office for the 47th time...”</div>
+                                <div class="bv-roast-msg">“$21/mo for ChatGPT? It literally told you to cancel subscriptions. Ironic.”</div>
+                                <div class="bv-roast-tip">💡 Try Tubi (free) or Kanopy (free w/ library card)</div>
+                            </div>
+                        </div>
+                        <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel2">AI Roast Advisor</div>
+                    </div>
+                    <div class="bv-showcase-item">
+                        <div class="bv-phone">
+                            <div class="bv-phone-notch"></div>
+                            <div class="bv-screen-content bv-screen-cal">
+                                <div class="screen-title">📅 NO-SPEND STREAK</div>
+                                <div class="bv-cal-month">March 2025</div>
+                                <div class="bv-cal-days">
+                                    <div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div>
+                                    <div class="bv-cal-day checked">1</div>
+                                    <div class="bv-cal-day checked">2</div>
+                                    <div class="bv-cal-day missed">3</div>
+                                    <div class="bv-cal-day checked">4</div>
+                                    <div class="bv-cal-day checked">5</div>
+                                    <div class="bv-cal-day checked">6</div>
+                                    <div class="bv-cal-day checked">7</div>
+                                    <div class="bv-cal-day checked">8</div>
+                                    <div class="bv-cal-day checked">9</div>
+                                    <div class="bv-cal-day checked">10</div>
+                                    <div class="bv-cal-day missed">11</div>
+                                    <div class="bv-cal-day checked">12</div>
+                                    <div class="bv-cal-day checked">13</div>
+                                    <div class="bv-cal-day checked">14</div>
+                                    <div class="bv-cal-day checked">15</div>
+                                    <div class="bv-cal-day checked">16</div>
+                                    <div class="bv-cal-day missed">17</div>
+                                    <div class="bv-cal-day checked">18</div>
+                                    <div class="bv-cal-day checked">19</div>
+                                    <div class="bv-cal-day checked">20</div>
+                                    <div class="bv-cal-day checked">21</div>
+                                </div>
+                                <div class="bv-streak-badge">🔥 4-day streak!</div>
+                            </div>
+                        </div>
+                        <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel3">Streak Calendar</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TL;DR -->
+            <div class="modal-tldr">
+                <div class="modal-tldr-label" data-i18n="modal.bv.tldrLabel">TL;DR</div>
+                <div class="modal-tldr-text" data-i18n="modal.bv.tldrText">Designed and built a full-stack PWA that tracks subscriptions, uses AI to roast your spending and find cheaper alternatives, and gamifies saving with a no-spend streak calendar.</div>
             </div>
 
             <!-- Metrics -->
@@ -581,72 +670,6 @@
                 <div class="modal-metric"><div class="modal-metric-value">6</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel2">Currencies</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc2">USD, CNY, EUR, GBP, JPY, HKD</div></div>
                 <div class="modal-metric"><div class="modal-metric-value">AI</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel3">Gemini 2.5</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc3">3 AI features</div></div>
                 <div class="modal-metric"><div class="modal-metric-value">2</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel4">Languages</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc4">English & Chinese</div></div>
-            </div>
-
-            <!-- App Screenshots Showcase -->
-            <div class="bv-showcase">
-                <div class="bv-showcase-item">
-                    <div class="bv-phone">
-                        <div class="bv-phone-notch"></div>
-                        <div class="bv-screen-content bv-screen-bills">
-                            <div class="screen-title">💀 MY BILLS</div>
-                            <div class="screen-total">$127<span>.94/mo</span></div>
-                            <div class="bill-item"><span class="name">🎬 Netflix</span><span class="price">$15.49</span></div>
-                            <div class="bill-item"><span class="name">🎵 Spotify</span><span class="price">$10.99</span></div>
-                            <div class="bill-item"><span class="name">🤖 ChatGPT Plus</span><span class="price">$20.00</span></div>
-                            <div class="bill-item"><span class="name">☁️ iCloud+</span><span class="price">$2.99</span></div>
-                            <div class="bill-item"><span class="name">📺 YouTube</span><span class="price">$13.99</span></div>
-                        </div>
-                    </div>
-                    <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel1">Subscription Tracker</div>
-                </div>
-                <div class="bv-showcase-item">
-                    <div class="bv-phone">
-                        <div class="bv-phone-notch"></div>
-                        <div class="bv-screen-content bv-screen-roast">
-                            <div class="screen-title">🧛 AI ROAST</div>
-                            <div class="bv-roast-msg">“You’re paying $15/mo to watch The Office for the 47th time...”</div>
-                            <div class="bv-roast-msg">“$21/mo for ChatGPT? It literally told you to cancel subscriptions. Ironic.”</div>
-                            <div class="bv-roast-tip">💡 Try Tubi (free) or Kanopy (free w/ library card)</div>
-                        </div>
-                    </div>
-                    <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel2">AI Roast Advisor</div>
-                </div>
-                <div class="bv-showcase-item">
-                    <div class="bv-phone">
-                        <div class="bv-phone-notch"></div>
-                        <div class="bv-screen-content bv-screen-cal">
-                            <div class="screen-title">📅 NO-SPEND STREAK</div>
-                            <div class="bv-cal-month">March 2025</div>
-                            <div class="bv-cal-days">
-                                <div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div>
-                                <div class="bv-cal-day checked">1</div>
-                                <div class="bv-cal-day checked">2</div>
-                                <div class="bv-cal-day missed">3</div>
-                                <div class="bv-cal-day checked">4</div>
-                                <div class="bv-cal-day checked">5</div>
-                                <div class="bv-cal-day checked">6</div>
-                                <div class="bv-cal-day checked">7</div>
-                                <div class="bv-cal-day checked">8</div>
-                                <div class="bv-cal-day checked">9</div>
-                                <div class="bv-cal-day checked">10</div>
-                                <div class="bv-cal-day missed">11</div>
-                                <div class="bv-cal-day checked">12</div>
-                                <div class="bv-cal-day checked">13</div>
-                                <div class="bv-cal-day checked">14</div>
-                                <div class="bv-cal-day checked">15</div>
-                                <div class="bv-cal-day checked">16</div>
-                                <div class="bv-cal-day missed">17</div>
-                                <div class="bv-cal-day checked">18</div>
-                                <div class="bv-cal-day checked">19</div>
-                                <div class="bv-cal-day checked">20</div>
-                                <div class="bv-cal-day checked">21</div>
-                            </div>
-                            <div class="bv-streak-badge">🔥 4-day streak!</div>
-                        </div>
-                    </div>
-                    <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel3">Streak Calendar</div>
-                </div>
             </div>
 
             <div class="modal-divider"></div>
@@ -842,7 +865,6 @@
                 'modal.bv.livePriorityTitle': 'Click first. Explore the real product before reading the case study.',
                 'modal.bv.livePriorityDesc': 'The live site now reflects the latest visual redesign. Open it now to feel the interactions, then come back for design decisions and technical breakdown.',
                 'modal.bv.livePriorityCta': 'Open Live Demo',
-                'modal.bv.livePriorityJump': 'Jump to Infographics',
                 'modal.bv.metricLabel1': 'App Type',
                 'modal.bv.metricDesc1': 'Install on any device',
                 'modal.bv.metricLabel2': 'Currencies',
@@ -933,7 +955,6 @@
                 'modal.bv.livePriorityTitle': '\u5148\u70b9\u5f00 Live Demo\uff0c\u518d\u770b\u8fd9\u4efd\u6848\u4f8b\u62c6\u89e3\u3002',
                 'modal.bv.livePriorityDesc': '\u7ebf\u4e0a\u7248\u672c\u5df2\u540c\u6b65\u6700\u65b0\u89c6\u89c9\u8bbe\u8ba1\u3002\u5efa\u8bae\u5148\u4f53\u9a8c\u4ea4\u4e92\uff0c\u518d\u56de\u5230\u672c\u9875\u770b\u8bbe\u8ba1\u51b3\u7b56\u4e0e\u5b9e\u73b0\u7ec6\u8282\u3002',
                 'modal.bv.livePriorityCta': '\u6253\u5f00 Live Demo',
-                'modal.bv.livePriorityJump': '\u8df3\u8f6c\u5230\u4fe1\u606f\u56fe',
                 'modal.bv.metricLabel1': '\u5e94\u7528\u7c7b\u578b',
                 'modal.bv.metricDesc1': '\u652f\u6301\u4efb\u4f55\u8bbe\u5907\u5b89\u88c5',
                 'modal.bv.metricLabel2': '\u5e01\u79cd',
