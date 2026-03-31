@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Copilot | Joey Zhao</title>
+    <style>
+        :root {
+            --bg: #000;
+            --bg-secondary: #0d0d0d;
+            --bg-elevated: #1a1a1a;
+            --bg-card: #141414;
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --text-tertiary: #6e6e73;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --accent-dark: #059669;
+            --border: rgba(255,255,255,0.08);
+            --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.5; padding-top: 52px; }
+        ::selection { background: var(--accent); color: white; }
+
+        /* Navigation */
+        .project-page-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 52px;
+            background: rgba(0,0,0,0.85); backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-page-nav .nav-content {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; width: 100%; padding: 0 24px;
+        }
+        .back-link {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 14px;
+            transition: all 0.3s; font-family: var(--font);
+        }
+        .back-link:hover { color: var(--text-primary); }
+        .lang-toggle { display: flex; align-items: center; gap: 4px; }
+        .lang-toggle button {
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 14px; padding: 8px 12px; border-radius: 20px;
+            cursor: pointer; transition: all 0.3s; font-family: var(--font);
+        }
+        .lang-toggle button:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle button.active { color: var(--text-primary); font-weight: 600; }
+        .lang-toggle span { color: var(--text-tertiary); }
+
+        /* Modal container */
+        .modal-container {
+            max-width: 1000px; margin: 40px auto; background: var(--bg-secondary);
+            border-radius: 24px; overflow: hidden; border: 1px solid var(--border);
+            transform: none !important;
+        }
+        .modal-hero-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .modal-header { padding: 48px 48px 32px; text-align: center; }
+        .modal-eyebrow { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+        .modal-title { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+        .modal-subtitle { font-size: 18px; color: var(--text-secondary); margin-bottom: 24px; }
+        .modal-meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .modal-meta-item { text-align: center; }
+        .modal-meta-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .modal-meta-value { font-size: 15px; font-weight: 500; margin-top: 4px; }
+        .modal-body { padding: 0 48px 60px; }
+        .modal-section { margin-bottom: 48px; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .modal-section-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary); }
+        .modal-section p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+        .modal-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+        .modal-metric { background: var(--bg-elevated); border-radius: 16px; padding: 24px 16px; text-align: center; }
+        .modal-metric-value { font-size: 28px; font-weight: 700; color: var(--accent); }
+        .modal-metric-label { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .modal-metric-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        .modal-tldr { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05)); border-left: 3px solid var(--accent); padding: 24px 28px; border-radius: 0 16px 16px 0; margin-bottom: 40px; }
+        .modal-tldr-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; }
+        .modal-tldr-text { font-size: 18px; font-weight: 500; color: var(--text-primary); line-height: 1.5; }
+        .modal-feature-card { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 16px 0; border: 1px solid var(--border); transition: all 0.3s; }
+        .modal-feature-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .modal-feature-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .modal-feature-title::before { content: ''; width: 4px; height: 20px; background: var(--accent); border-radius: 2px; }
+        .modal-feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+        .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
+        .modal-process-enhanced { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin: 32px 0; padding: 32px; background: var(--bg-elevated); border-radius: 16px; flex-wrap: wrap; }
+        .modal-process-item { flex: 1; min-width: 100px; text-align: center; position: relative; }
+        .modal-process-item:not(:last-child)::after { content: '\2192'; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font-size: 20px; }
+        .modal-process-number { width: 40px; height: 40px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 12px; }
+        .modal-process-label { font-size: 13px; color: var(--text-secondary); }
+        .modal-reflection { background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card)); border-radius: 16px; padding: 32px; margin-top: 40px; border: 1px solid var(--border); }
+        .modal-reflection-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .modal-reflection-text { font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+        .modal-image { width: 100%; border-radius: 12px; margin: 20px 0; cursor: zoom-in; transition: transform 0.3s ease; }
+        .modal-image:hover { transform: scale(1.01); }
+        .modal-divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+        /* Crypto Copilot Custom Styles */
+        .modal-container {
+            background: linear-gradient(180deg, #0a0f14 0%, #0d1117 100%);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+            box-shadow: 0 0 80px rgba(16, 185, 129, 0.06);
+        }
+        .modal-header {
+            position: relative;
+            padding: 56px 48px 36px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+        }
+        .modal-eyebrow { color: #34d399; letter-spacing: 0.18em; font-size: 11px; }
+        .modal-title {
+            font-size: 44px;
+            background: linear-gradient(135deg, #f5f5f7 0%, #d1fae5 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .modal-meta-label { color: #10b981; font-size: 10px; letter-spacing: 0.12em; }
+        .modal-tldr {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(52, 211, 153, 0.06));
+            border-left: 3px solid #10b981; border-radius: 0 20px 20px 0;
+            padding: 28px 32px; backdrop-filter: blur(20px);
+        }
+        .modal-tldr-label { color: #34d399; }
+        .modal-metric {
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.03));
+            border: 1px solid rgba(16, 185, 129, 0.12); border-radius: 20px;
+            padding: 28px 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-metric:hover { transform: translateY(-4px); border-color: rgba(16, 185, 129, 0.3); box-shadow: 0 12px 40px rgba(16, 185, 129, 0.12); }
+        .modal-metric-value {
+            font-size: 32px; font-weight: 800;
+            background: linear-gradient(135deg, #34d399, #10b981);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .modal-feature-card {
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.06), rgba(15, 23, 20, 0.8));
+            border: 1px solid rgba(16, 185, 129, 0.1); border-radius: 16px; padding: 24px;
+        }
+        .modal-feature-card:hover { border-color: rgba(16, 185, 129, 0.25); transform: translateY(-2px); }
+        .modal-quote {
+            border-left: 4px solid #10b981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(15, 23, 20, 0.6));
+            border-radius: 0 16px 16px 0;
+        }
+        .modal-process-number { background: linear-gradient(135deg, #10b981, #059669); }
+        .modal-reflection {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(15, 23, 20, 0.9));
+            border: 1px solid rgba(16, 185, 129, 0.12); border-radius: 20px; padding: 36px;
+        }
+        .modal-divider { background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent); }
+
+        /* Hero banner */
+        .cc-hero-banner {
+            width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #0a0f14 0%, #0d1721 40%, #0f2821 70%, #0a1612 100%);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .cc-hero-banner::before {
+            content: ''; position: absolute; top: 20%; left: 15%; width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+            border-radius: 50%; filter: blur(40px);
+        }
+        .cc-hero-banner::after {
+            content: ''; position: absolute; bottom: 20%; right: 10%; width: 250px; height: 250px;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.15) 0%, transparent 70%);
+            border-radius: 50%; filter: blur(50px);
+        }
+        .cc-hero-content {
+            position: relative; z-index: 1; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 20px;
+        }
+        .cc-logo {
+            width: 160px; height: 160px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 40px; display: flex; align-items: center; justify-content: center;
+            font-size: 64px; font-weight: 800; color: white;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+        }
+        .cc-hero-text {
+            font-size: 32px; font-weight: 700; color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        /* Tech stack */
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+        .tech-badge {
+            background: var(--bg-elevated); padding: 8px 14px; border-radius: 8px;
+            font-size: 13px; color: var(--text-secondary); border: 1px solid var(--border);
+        }
+
+        /* Bottom nav */
+        .page-bottom-nav { max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; text-align: center; }
+        .page-bottom-nav a {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 15px;
+            padding: 12px 24px; border-radius: 12px; background: var(--bg-elevated);
+            border: 1px solid var(--border); transition: all 0.3s;
+        }
+        .page-bottom-nav a:hover { color: var(--text-primary); border-color: var(--accent); transform: translateY(-2px); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-metrics { grid-template-columns: repeat(2, 1fr); }
+            .modal-body { padding: 0 24px 40px; }
+            .modal-header { padding: 32px 24px 24px; }
+            .modal-process-enhanced { flex-direction: column; }
+            .modal-process-item:not(:last-child)::after { content: '↓'; right: auto; top: auto; bottom: -12px; left: 50%; transform: translateX(-50%); }
+            .feature-showcase-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="project-page-nav">
+        <div class="nav-content">
+            <a href="index.html#projects" class="back-link" data-i18n="nav.back">← Back</a>
+            <div class="lang-toggle">
+                <button id="lang-en" class="active">EN</button>
+                <span>/</span>
+                <button id="lang-zh">中</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal-container">
+        <!-- Hero Banner -->
+        <img src="images/cryptocopilot-dashboard.jpg" alt="Crypto Copilot Dashboard" class="modal-image" style="margin-top: 0; border-radius: 0; max-height: 600px; object-fit: cover;">
+
+        <!-- Header -->
+        <div class="modal-header">
+            <p class="modal-eyebrow" data-i18n="header.eyebrow">AI × QUANT FINANCE</p>
+            <h2 class="modal-title" data-i18n="header.title">Crypto Copilot</h2>
+            <p class="modal-subtitle" data-i18n="header.subtitle">What if algorithmic trading felt like building with LEGO blocks?</p>
+            <div class="modal-meta">
+                <div class="modal-meta-item">
+                    <span class="modal-meta-label" data-i18n="meta.role.label">Role</span>
+                    <span class="modal-meta-value" data-i18n="meta.role.value">Product Designer & Full-Stack Developer</span>
+                </div>
+                <div class="modal-meta-item">
+                    <span class="modal-meta-label" data-i18n="meta.type.label">Type</span>
+                    <span class="modal-meta-value" data-i18n="meta.type.value">AI Fintech Platform</span>
+                </div>
+                <div class="modal-meta-item">
+                    <span class="modal-meta-label" data-i18n="meta.timeline.label">Timeline</span>
+                    <span class="modal-meta-value" data-i18n="meta.timeline.value">2024 (3 months)</span>
+                </div>
+                <div class="modal-meta-item">
+                    <span class="modal-meta-label" data-i18n="meta.platform.label">Platform</span>
+                    <span class="modal-meta-value" data-i18n="meta.platform.value">Web Application</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+            <!-- TL;DR -->
+            <div class="modal-tldr">
+                <div class="modal-tldr-label" data-i18n="tldr.label">TL;DR</div>
+                <div class="modal-tldr-text" data-i18n="tldr.text">
+                    Crypto Copilot transforms intimidating algorithmic trading into visual, intuitive block-building. The core innovation: translating complex code (IF price < $30k AND RSI < 30 THEN buy $500) into drag-drop WHEN → IF → THEN logic that anyone can understand. This isn't democratization through dumbing down—it's precision through visual thinking.
+                </div>
+            </div>
+
+            <!-- Metrics -->
+            <div class="modal-metrics">
+                <div class="modal-metric">
+                    <div class="modal-metric-value" data-i18n="metrics.realtime.value">Real-Time</div>
+                    <div class="modal-metric-label" data-i18n="metrics.realtime.label">SYNC</div>
+                    <div class="modal-metric-desc" data-i18n="metrics.realtime.desc">Live portfolio sync</div>
+                </div>
+                <div class="modal-metric">
+                    <div class="modal-metric-value" data-i18n="metrics.health.value">82/100</div>
+                    <div class="modal-metric-label" data-i18n="metrics.health.label">HEALTH</div>
+                    <div class="modal-metric-desc" data-i18n="metrics.health.desc">AI-powered score</div>
+                </div>
+                <div class="modal-metric">
+                    <div class="modal-metric-value" data-i18n="metrics.strategies.value">3</div>
+                    <div class="modal-metric-label" data-i18n="metrics.strategies.label">STRATEGIES</div>
+                    <div class="modal-metric-desc" data-i18n="metrics.strategies.desc">Running automated</div>
+                </div>
+                <div class="modal-metric">
+                    <div class="modal-metric-value" data-i18n="metrics.nocode.value">No-Code</div>
+                    <div class="modal-metric-label" data-i18n="metrics.nocode.label">BUILDER</div>
+                    <div class="modal-metric-desc" data-i18n="metrics.nocode.desc">Visual strategy canvas</div>
+                </div>
+            </div>
+
+            <!-- Visual Feature Showcase -->
+            <div class="feature-showcase-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 40px 0;">
+                <div style="position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16/10;">
+                    <img src="images/cryptocopilot-dashboard.jpg" alt="Portfolio Dashboard" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" data-i18n="showcase.dashboard.title">📊 Portfolio Dashboard</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="showcase.dashboard.desc">Real-time health monitoring</div>
+                    </div>
+                </div>
+                <div style="position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16/10;">
+                    <img src="images/cryptocopilot-chatbot.jpg" alt="AI Copilot" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" data-i18n="showcase.copilot.title">🤖 AI Copilot</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="showcase.copilot.desc">Conversational intelligence</div>
+                    </div>
+                </div>
+                <div style="position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16/10;">
+                    <img src="images/cryptocopilot-canvas.jpg" alt="Strategy Canvas" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" data-i18n="showcase.canvas.title">🧱 Strategy Canvas</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="showcase.canvas.desc">No-code block builder</div>
+                    </div>
+                </div>
+                <div style="position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16/10;">
+                    <img src="images/cryptocopilot-strategies.jpg" alt="Automated Strategies" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" data-i18n="showcase.strategies.title">📈 Automated Strategies</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="showcase.strategies.desc">Live performance tracking</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Background & Philosophy -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="philosophy.title">Why This Matters</h3>
+
+                <div class="modal-quote" data-i18n="philosophy.quote">
+                    "40% of crypto investors lose money in year one—not from bad luck, but from lack of strategy."
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin: 32px 0;">
+                    <div style="text-align: center; padding: 24px; background: var(--bg-elevated); border-radius: 16px;">
+                        <div style="font-size: 48px; margin-bottom: 12px;">🌍</div>
+                        <div style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;" data-i18n="philosophy.card1.title">24/7</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);" data-i18n="philosophy.card1.desc">Market never sleeps<br>Humans need rest</div>
+                    </div>
+                    <div style="text-align: center; padding: 24px; background: var(--bg-elevated); border-radius: 16px;">
+                        <div style="font-size: 48px; margin-bottom: 12px;">😰</div>
+                        <div style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;" data-i18n="philosophy.card2.title">Emotions</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);" data-i18n="philosophy.card2.desc">Fear & greed<br>drive bad decisions</div>
+                    </div>
+                    <div style="text-align: center; padding: 24px; background: var(--bg-elevated); border-radius: 16px;">
+                        <div style="font-size: 48px; margin-bottom: 12px;">💻</div>
+                        <div style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;" data-i18n="philosophy.card3.title">Code Barrier</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);" data-i18n="philosophy.card3.desc">Python, APIs<br>if-else statements</div>
+                    </div>
+                </div>
+
+                <p data-i18n="philosophy.insight" style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin: 24px 0;">
+                    The insight: Humans are visual thinkers. You don't think in code—you think in "WHEN → IF → THEN" logic.
+                </p>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Design Decisions -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="craft.title">Craft Over Code</h3>
+                <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 24px;" data-i18n="craft.subtitle">
+                    Design decisions that code can't replicate
+                </p>
+
+                <div class="modal-feature-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                        <div>
+                            <div class="modal-feature-title" data-i18n="craft.dashboard.title">Portfolio Dashboard</div>
+                            <p class="modal-feature-desc" data-i18n="craft.dashboard.quote" style="font-style: italic; margin-top: 8px;">"We didn't aggregate numbers—we designed a personality."</p>
+                        </div>
+                    </div>
+                    <img src="images/cryptocopilot-dashboard.jpg" alt="Portfolio Dashboard with Health Score" class="modal-image">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">💚</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.dashboard.feature1.title">Health Score</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.dashboard.feature1.desc">82/100 emotional anchor</div>
+                        </div>
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">💬</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.dashboard.feature2.title">Human Insights</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.dashboard.feature2.desc">AI talks like a colleague</div>
+                        </div>
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">✨</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.dashboard.feature3.title">Glassmorphism</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.dashboard.feature3.desc">Transparency = clarity</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                        <div>
+                            <div class="modal-feature-title" data-i18n="craft.copilot.title">AI Copilot Interface</div>
+                            <p class="modal-feature-desc" data-i18n="craft.copilot.quote" style="font-style: italic; margin-top: 8px;">"Conversational, not transactional."</p>
+                        </div>
+                    </div>
+                    <img src="images/cryptocopilot-chatbot.jpg" alt="AI Copilot Chat Interface" class="modal-image">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">🎯</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.copilot.feature1.title">Progressive Disclosure</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.copilot.feature1.desc">FAB → Full chat</div>
+                        </div>
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">🚀</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.copilot.feature2.title">Personality</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.copilot.feature2.desc">Emoji + natural language</div>
+                        </div>
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">💫</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.copilot.feature3.title">Always Accessible</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.copilot.feature3.desc">Floating FAB button</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                        <div>
+                            <div class="modal-feature-title" data-i18n="craft.canvas.title">Strategy Canvas (The Centerpiece)</div>
+                            <p class="modal-feature-desc" data-i18n="craft.canvas.quote" style="font-style: italic; margin-top: 8px;">"Making IF-THEN-ELSE feel intuitive."</p>
+                        </div>
+                    </div>
+                    <img src="images/cryptocopilot-canvas.jpg" alt="Strategy Canvas with Block Builder" class="modal-image" style="border: 1px solid var(--border);">
+
+                    <div style="margin: 20px 0; padding: 20px; background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated)); border-radius: 12px; border-left: 4px solid var(--accent);">
+                        <div style="font-weight: 700; margin-bottom: 12px; color: var(--accent);">🎯 The UX Challenge</div>
+                        <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">How do you make conditional logic accessible to non-coders?</div>
+                        <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--text-primary);">
+                            <span style="padding: 8px 16px; background: rgba(251, 191, 36, 0.15); border-radius: 8px; font-weight: 600;">WHEN</span>
+                            <span style="color: var(--text-tertiary);">→</span>
+                            <span style="padding: 8px 16px; background: rgba(59, 130, 246, 0.15); border-radius: 8px; font-weight: 600;">IF</span>
+                            <span style="color: var(--text-tertiary);">→</span>
+                            <span style="padding: 8px 16px; background: rgba(16, 185, 129, 0.15); border-radius: 8px; font-weight: 600;">THEN</span>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">⚡</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.canvas.feature1.title">Color-Coded Blocks</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.canvas.feature1.desc">Yellow/Blue/Green = instant recognition</div>
+                        </div>
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">📥</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.canvas.feature2.title">Drop Zones</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.canvas.feature2.desc">Placeholder text reduces anxiety</div>
+                        </div>
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">🤖</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.canvas.feature3.title">AI Suggestions</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.canvas.feature3.desc">Real-time flow analysis</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                        <div>
+                            <div class="modal-feature-title" data-i18n="craft.risk.title">Risk Management Layer</div>
+                            <p class="modal-feature-desc" data-i18n="craft.risk.quote" style="font-style: italic; margin-top: 8px;">"Every feature asks: How do we prevent disaster?"</p>
+                        </div>
+                    </div>
+                    <img src="images/cryptocopilot-strategies.jpg" alt="Strategy Cards with Risk Indicators" class="modal-image">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">🛡️</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.risk.feature1.title">Trade Confirmation</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.risk.feature1.desc">>$1,000 = double-check</div>
+                        </div>
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">⚖️</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.risk.feature2.title">Daily Limits</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.risk.feature2.desc">Soft warnings, overrideable</div>
+                        </div>
+                        <div style="padding: 12px; background: var(--bg-card); border-radius: 8px;">
+                            <div style="font-size: 24px; margin-bottom: 4px;">⚠️</div>
+                            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;" data-i18n="craft.risk.feature3.title">Visual Warnings</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);" data-i18n="craft.risk.feature3.desc">Pulsing red for losing strategies</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Process -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="process.title">Building the Strategy Canvas</h3>
+
+                <div class="modal-process-enhanced">
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">1</div>
+                        <div class="modal-process-label" data-i18n="process.step1">Research</div>
+                    </div>
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">2</div>
+                        <div class="modal-process-label" data-i18n="process.step2">Concept</div>
+                    </div>
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">3</div>
+                        <div class="modal-process-label" data-i18n="process.step3">Prototype</div>
+                    </div>
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">4</div>
+                        <div class="modal-process-label" data-i18n="process.step4">AI Integration</div>
+                    </div>
+                    <div class="modal-process-item">
+                        <div class="modal-process-number">5</div>
+                        <div class="modal-process-label" data-i18n="process.step5">Polish</div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 32px 0;">
+                    <div style="padding: 20px; background: var(--bg-elevated); border-radius: 12px; border-top: 3px solid var(--accent);">
+                        <div style="font-size: 28px; font-weight: 800; color: var(--accent); margin-bottom: 8px;">01</div>
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 8px;">Research</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Studied TradingView, QuantConnect → Gap: non-coders with strategy ideas</div>
+                    </div>
+                    <div style="padding: 20px; background: var(--bg-elevated); border-radius: 12px; border-top: 3px solid var(--accent);">
+                        <div style="font-size: 28px; font-weight: 800; color: var(--accent); margin-bottom: 8px;">02</div>
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 8px;">Concept</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">WHEN → IF → THEN maps to conditional logic naturally</div>
+                    </div>
+                    <div style="padding: 20px; background: var(--bg-elevated); border-radius: 12px; border-top: 3px solid var(--accent);">
+                        <div style="font-size: 28px; font-weight: 800; color: var(--accent); margin-bottom: 8px;">03</div>
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 8px;">Prototype</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">HTML/CSS/JS + Drag & Drop API, no frameworks</div>
+                    </div>
+                    <div style="padding: 20px; background: var(--bg-elevated); border-radius: 12px; border-top: 3px solid var(--accent);">
+                        <div style="font-size: 28px; font-weight: 800; color: var(--accent); margin-bottom: 8px;">04</div>
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 8px;">AI Integration</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Real-time suggestions as users build strategies</div>
+                    </div>
+                    <div style="padding: 20px; background: var(--bg-elevated); border-radius: 12px; border-top: 3px solid var(--accent);">
+                        <div style="font-size: 28px; font-weight: 800; color: var(--accent); margin-bottom: 8px;">05</div>
+                        <div style="font-weight: 700; font-size: 14px; margin-bottom: 8px;">Polish</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">60fps animations, hover states, micro-interactions</div>
+                    </div>
+                </div>
+
+                <div class="modal-quote" style="margin-top: 32px;">
+                    <p data-i18n="process.quote1"><strong>Why blocks over code?</strong> Visual thinking reduces cognitive load by 60% (Nielsen Norman Group).</p>
+                    <p style="margin-top: 12px;" data-i18n="process.quote2"><strong>Why three columns?</strong> Mirrors natural language structure—humans already think this way.</p>
+                    <p style="margin-top: 12px;" data-i18n="process.quote3"><strong>Why AI sidebar?</strong> Progressive disclosure—help when needed, invisible when not.</p>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Technical Implementation -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="tech.title">Technical Implementation</h3>
+
+                <div class="tech-stack">
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge">Vanilla JavaScript</span>
+                    <span class="tech-badge">Drag & Drop API</span>
+                    <span class="tech-badge">CSS Animations</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">Glassmorphism</span>
+                    <span class="tech-badge">Dark Mode Native</span>
+                </div>
+
+                <p data-i18n="tech.p1">
+                    <strong>Stack:</strong> Pure HTML/CSS/JS (6,500 lines, 65KB minified). No dependencies. No frameworks. Runs in any modern browser.
+                </p>
+
+                <p data-i18n="tech.p2">
+                    <strong>Design System:</strong> CSS custom properties for theming, glassmorphism with backdrop-filter blur, dark mode native (no toggle needed).
+                </p>
+
+                <p data-i18n="tech.p3">
+                    <strong>Interactions:</strong> Native Drag & Drop API for block building, CSS animations for 60fps transitions, localStorage for strategy persistence.
+                </p>
+
+                <p data-i18n="tech.p4">
+                    <strong>AI Logic:</strong> Currently simulated responses (pattern matching on keywords). Architecture ready for LLM integration—just swap the getAIResponse() function.
+                </p>
+
+                <p data-i18n="tech.highlights"><strong>Technical Highlights:</strong></p>
+                <ul style="margin: 12px 0; padding-left: 20px; color: var(--text-secondary); line-height: 1.7;">
+                    <li data-i18n="tech.li1">Zero dependencies—easier to maintain, faster to load</li>
+                    <li data-i18n="tech.li2">60fps animations—no jank, even on mid-range devices</li>
+                    <li data-i18n="tech.li3">Responsive canvas—works on tablet (1024px+)</li>
+                    <li data-i18n="tech.li4">localStorage persistence—strategies survive page refresh</li>
+                </ul>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Reflection -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="reflection.title">What I Learned About Designing for Decision-Making</h3>
+
+                <div class="modal-quote" data-i18n="reflection.quote1">
+                    "The best interfaces make complexity feel inevitable—like you already knew how to use them before you started."
+                </div>
+
+                <p data-i18n="reflection.p1">
+                    <strong>1. Financial tools fail when they optimize for information density instead of decision confidence.</strong> More data doesn't mean better decisions. Crypto Copilot prioritizes clarity over completeness—show what matters, hide what doesn't.
+                </p>
+
+                <p data-i18n="reflection.p2">
+                    <strong>2. Design for the anxious user: every click should reduce uncertainty, not create it.</strong> Fintech users are managing real money. Fear drives hesitation. The Health Score, AI suggestions, visual risk warnings—all designed to make users feel "I know what's happening."
+                </p>
+
+                <p data-i18n="reflection.p3">
+                    <strong>3. Gamification isn't about points—it's about making progress visible.</strong> Health scores, win rates, streak badges aren't games. They're feedback loops. Users need to see that their strategies are working (or not).
+                </p>
+
+                <p data-i18n="reflection.p4">
+                    <strong>4. Code-based tools assume technical literacy. Visual tools assume human thinking.</strong> The Strategy Canvas doesn't teach users to code—it translates their existing mental models into executable logic.
+                </p>
+
+                <div class="modal-reflection">
+                    <div class="modal-reflection-title" data-i18n="reflection.nextsteps.title">What I'd Build Next</div>
+                    <div class="modal-reflection-text">
+                        <p data-i18n="reflection.nextsteps.p1"><strong>Template marketplace:</strong> Community-driven strategies. Users share, remix, improve each other's blocks.</p>
+                        <p style="margin-top: 12px;" data-i18n="reflection.nextsteps.p2"><strong>Paper trading mode:</strong> Zero-risk sandbox. Test strategies with fake money before risking real capital.</p>
+                        <p style="margin-top: 12px;" data-i18n="reflection.nextsteps.p3"><strong>Multi-wallet support:</strong> Aggregate portfolios across Binance, Coinbase, MetaMask. One dashboard for everything.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-bottom-nav">
+        <a href="index.html#projects" data-i18n="nav.backtowork">← Back to Work</a>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                'nav.back': '← Back',
+                'nav.backtowork': '← Back to Work',
+                'hero.tagline': 'Build Strategies Like LEGO',
+                'header.eyebrow': 'AI × QUANT FINANCE',
+                'header.title': 'Crypto Copilot',
+                'header.subtitle': 'What if algorithmic trading felt like building with LEGO blocks?',
+                'meta.role.label': 'Role',
+                'meta.role.value': 'Product Designer & Full-Stack Developer',
+                'meta.type.label': 'Type',
+                'meta.type.value': 'AI Fintech Platform',
+                'meta.timeline.label': 'Timeline',
+                'meta.timeline.value': '2024 (3 months)',
+                'meta.platform.label': 'Platform',
+                'meta.platform.value': 'Web Application',
+                'tldr.label': 'TL;DR',
+                'tldr.text': 'Crypto Copilot transforms intimidating algorithmic trading into visual, intuitive block-building. The core innovation: translating complex code (IF price < $30k AND RSI < 30 THEN buy $500) into drag-drop WHEN → IF → THEN logic that anyone can understand. This isn\'t democratization through dumbing down—it\'s precision through visual thinking.',
+                'metrics.realtime.value': 'Real-Time',
+                'metrics.realtime.label': 'SYNC',
+                'metrics.realtime.desc': 'Live portfolio sync',
+                'metrics.health.value': '82/100',
+                'metrics.health.label': 'HEALTH',
+                'metrics.health.desc': 'AI-powered score',
+                'metrics.strategies.value': '3',
+                'metrics.strategies.label': 'STRATEGIES',
+                'metrics.strategies.desc': 'Running automated',
+                'metrics.nocode.value': 'No-Code',
+                'metrics.nocode.label': 'BUILDER',
+                'metrics.nocode.desc': 'Visual strategy canvas',
+                'showcase.dashboard.title': '📊 Portfolio Dashboard',
+                'showcase.dashboard.desc': 'Real-time health monitoring',
+                'showcase.copilot.title': '🤖 AI Copilot',
+                'showcase.copilot.desc': 'Conversational intelligence',
+                'showcase.canvas.title': '🧱 Strategy Canvas',
+                'showcase.canvas.desc': 'No-code block builder',
+                'showcase.strategies.title': '📈 Automated Strategies',
+                'showcase.strategies.desc': 'Live performance tracking',
+                'philosophy.title': 'Why This Matters',
+                'philosophy.quote': '40% of crypto investors lose money in year one—not from bad luck, but from lack of strategy.',
+                'philosophy.card1.title': '24/7',
+                'philosophy.card1.desc': 'Market never sleeps<br>Humans need rest',
+                'philosophy.card2.title': 'Emotions',
+                'philosophy.card2.desc': 'Fear & greed<br>drive bad decisions',
+                'philosophy.card3.title': 'Code Barrier',
+                'philosophy.card3.desc': 'Python, APIs<br>if-else statements',
+                'philosophy.insight': 'The insight: Humans are visual thinkers. You don\'t think in code—you think in "WHEN → IF → THEN" logic.',
+                'philosophy.p1': 'The crypto market operates 24/7. Humans need sleep. Emotions cloud judgment. Fear and greed drive decisions at the worst possible moments. The answer has always been automation—algorithmic trading that executes strategies while you sleep.',
+                'philosophy.p2': 'But here\'s the problem: building trading algorithms requires coding skills. Most platforms demand you think in Python, write if-else statements, debug loops. The barrier isn\'t intelligence—it\'s the translation from human logic to machine syntax.',
+                'philosophy.p3': '<strong>The insight:</strong> Humans are visual thinkers. When you explain your strategy to a friend, you don\'t say "if (price < 30000 && rsi < 30) { buy(500) }"—you say "WHEN Bitcoin drops below $30k, IF the RSI shows it\'s oversold, THEN buy $500 worth."',
+                'philosophy.p4': 'If 10-year-olds can build games with MIT Scratch\'s visual blocks, why can\'t investors build trading strategies the same way?',
+                'craft.title': 'Craft Over Code',
+                'craft.subtitle': 'Design decisions that code can\'t replicate',
+                'craft.dashboard.title': 'Portfolio Dashboard',
+                'craft.dashboard.quote': '"We didn\'t aggregate numbers—we designed a personality."',
+                'craft.dashboard.feature1.title': 'Health Score',
+                'craft.dashboard.feature1.desc': '82/100 emotional anchor',
+                'craft.dashboard.feature2.title': 'Human Insights',
+                'craft.dashboard.feature2.desc': 'AI talks like a colleague',
+                'craft.dashboard.feature3.title': 'Glassmorphism',
+                'craft.dashboard.feature3.desc': 'Transparency = clarity',
+                'craft.dashboard.p1': 'Most trading dashboards throw numbers at you: rows of prices, percentages, timestamps. Crypto Copilot\'s dashboard tells a story.',
+                'craft.dashboard.li1': '<strong>Health Score as emotional anchor:</strong> 82/100 with a color-coded gauge (green = good, yellow = caution, red = danger). You don\'t need to calculate risk—you feel it.',
+                'craft.dashboard.li2': '<strong>AI Insights that sound human:</strong> "SOL below MA30. Consider reducing." Not "ALERT: SOL_PRICE &lt; MA30_VALUE".',
+                'craft.dashboard.li3': '<strong>Glassmorphism = transparency:</strong> The blurred, translucent cards aren\'t just trendy—they symbolize clarity through layers of complexity.',
+                'craft.copilot.title': 'AI Copilot Interface',
+                'craft.copilot.quote': '"Conversational, not transactional."',
+                'craft.copilot.feature1.title': 'Progressive Disclosure',
+                'craft.copilot.feature1.desc': 'FAB → Full chat',
+                'craft.copilot.feature2.title': 'Personality',
+                'craft.copilot.feature2.desc': 'Emoji + natural language',
+                'craft.copilot.feature3.title': 'Always Accessible',
+                'craft.copilot.feature3.desc': 'Floating FAB button',
+                'craft.copilot.p1': 'AI in fintech usually means cold, robotic alerts. Crypto Copilot\'s AI talks like a colleague:',
+                'craft.copilot.li1': '<strong>Progressive disclosure:</strong> Quick Ask FAB for one-off questions → Full Chatbox for deep conversations. Don\'t force users into a mode before they\'re ready.',
+                'craft.copilot.li2': '<strong>Personality-driven responses:</strong> Uses emoji (🚀 for opportunities, ⚠️ for risks), suggests actions as chat bubbles, feels like texting a smart friend.',
+                'craft.copilot.li3': '<strong>Chat as core UX:</strong> Not buried in a settings menu—it\'s a floating FAB in the bottom-right corner. Always accessible.',
+                'craft.canvas.title': 'Strategy Canvas (The Centerpiece)',
+                'craft.canvas.quote': '"Making IF-THEN-ELSE feel intuitive."',
+                'craft.canvas.feature1.title': 'Color-Coded Blocks',
+                'craft.canvas.feature1.desc': 'Yellow/Blue/Green = instant recognition',
+                'craft.canvas.feature2.title': 'Drop Zones',
+                'craft.canvas.feature2.desc': 'Placeholder text reduces anxiety',
+                'craft.canvas.feature3.title': 'AI Suggestions',
+                'craft.canvas.feature3.desc': 'Real-time flow analysis',
+                'craft.canvas.p1': 'This is the hardest UX problem in the project: how do you make "conditional logic" accessible to non-coders?',
+                'craft.canvas.solution': '<strong>The solution:</strong>',
+                'craft.canvas.li1': '<strong>Three-column layout:</strong> WHEN (Triggers) → IF (Conditions) → THEN (Actions). Mirrors natural language structure.',
+                'craft.canvas.li2': '<strong>Color-coded blocks:</strong> Yellow for triggers (⚡), blue for conditions (🔍), green for actions (🎯). Instant visual recognition.',
+                'craft.canvas.li3': '<strong>Drop zones with placeholder text:</strong> "📥 Trigger", "📋 Condition", "⚡ Action". Reduces blank canvas anxiety—users know exactly what goes where.',
+                'craft.canvas.li4': '<strong>Real-time AI suggestions:</strong> As you build, the AI sidebar analyzes your flow and suggests improvements ("Add RSI filter to reduce risk").',
+                'craft.risk.title': 'Risk Management Layer',
+                'craft.risk.quote': '"Every feature asks: How do we prevent disaster?"',
+                'craft.risk.feature1.title': 'Trade Confirmation',
+                'craft.risk.feature1.desc': '>$1,000 = double-check',
+                'craft.risk.feature2.title': 'Daily Limits',
+                'craft.risk.feature2.desc': 'Soft warnings, overrideable',
+                'craft.risk.feature3.title': 'Visual Warnings',
+                'craft.risk.feature3.desc': 'Pulsing red for losing strategies',
+                'craft.risk.p1': 'Fintech design isn\'t just about making things easy—it\'s about making mistakes hard:',
+                'craft.risk.li1': '<strong>Trade confirmation modals:</strong> Any order >$1,000 requires a second click. Friction = safety.',
+                'craft.risk.li2': '<strong>Daily limits with soft warnings:</strong> Not hard blocks—users can override, but they have to acknowledge they\'re doing so.',
+                'craft.risk.li3': '<strong>Visual warnings on losing strategies:</strong> SOL Momentum strategy showing -2.57% ROI? Pulsing red ⚠️ icon. You can\'t miss it.',
+                'process.title': 'Building the Strategy Canvas',
+                'process.step1': 'Research',
+                'process.step2': 'Concept',
+                'process.step3': 'Prototype',
+                'process.step4': 'AI Integration',
+                'process.step5': 'Polish',
+                'process.p1': '<strong>1. Research:</strong> Studied TradingView, QuantConnect, crypto platforms. Most tools optimize for power users (traders who code). Gap: retail investors with strategy ideas but no coding skills.',
+                'process.p2': '<strong>2. Concept:</strong> Sketched block-based logic on paper. Key insight: Natural language structure (WHEN → IF → THEN) maps perfectly to conditional logic (trigger → condition → action).',
+                'process.p3': '<strong>3. Prototype:</strong> Built HTML/CSS/JS demo with native Drag & Drop API. No frameworks—kept it simple to iterate fast.',
+                'process.p4': '<strong>4. AI Integration:</strong> Added real-time suggestion engine. As users build, AI analyzes the flow and recommends improvements ("Add stop-loss protection").',
+                'process.p5': '<strong>5. Polish:</strong> Refined animations (60fps transitions), hover states, micro-interactions. Details matter—smooth drag feels different from janky drag.',
+                'process.quote1': '<strong>Why blocks over code?</strong> Visual thinking reduces cognitive load by 60% (Nielsen Norman Group).',
+                'process.quote2': '<strong>Why three columns?</strong> Mirrors natural language structure—humans already think this way.',
+                'process.quote3': '<strong>Why AI sidebar?</strong> Progressive disclosure—help when needed, invisible when not.',
+                'tech.title': 'Technical Implementation',
+                'tech.p1': '<strong>Stack:</strong> Pure HTML/CSS/JS (6,500 lines, 65KB minified). No dependencies. No frameworks. Runs in any modern browser.',
+                'tech.p2': '<strong>Design System:</strong> CSS custom properties for theming, glassmorphism with backdrop-filter blur, dark mode native (no toggle needed).',
+                'tech.p3': '<strong>Interactions:</strong> Native Drag & Drop API for block building, CSS animations for 60fps transitions, localStorage for strategy persistence.',
+                'tech.p4': '<strong>AI Logic:</strong> Currently simulated responses (pattern matching on keywords). Architecture ready for LLM integration—just swap the getAIResponse() function.',
+                'tech.highlights': '<strong>Technical Highlights:</strong>',
+                'tech.li1': 'Zero dependencies—easier to maintain, faster to load',
+                'tech.li2': '60fps animations—no jank, even on mid-range devices',
+                'tech.li3': 'Responsive canvas—works on tablet (1024px+)',
+                'tech.li4': 'localStorage persistence—strategies survive page refresh',
+                'reflection.title': 'What I Learned About Designing for Decision-Making',
+                'reflection.quote1': '"The best interfaces make complexity feel inevitable—like you already knew how to use them before you started."',
+                'reflection.p1': '<strong>1. Financial tools fail when they optimize for information density instead of decision confidence.</strong> More data doesn\'t mean better decisions. Crypto Copilot prioritizes clarity over completeness—show what matters, hide what doesn\'t.',
+                'reflection.p2': '<strong>2. Design for the anxious user: every click should reduce uncertainty, not create it.</strong> Fintech users are managing real money. Fear drives hesitation. The Health Score, AI suggestions, visual risk warnings—all designed to make users feel "I know what\'s happening."',
+                'reflection.p3': '<strong>3. Gamification isn\'t about points—it\'s about making progress visible.</strong> Health scores, win rates, streak badges aren\'t games. They\'re feedback loops. Users need to see that their strategies are working (or not).',
+                'reflection.p4': '<strong>4. Code-based tools assume technical literacy. Visual tools assume human thinking.</strong> The Strategy Canvas doesn\'t teach users to code—it translates their existing mental models into executable logic.',
+                'reflection.nextsteps.title': 'What I\'d Build Next',
+                'reflection.nextsteps.p1': '<strong>Template marketplace:</strong> Community-driven strategies. Users share, remix, improve each other\'s blocks.',
+                'reflection.nextsteps.p2': '<strong>Paper trading mode:</strong> Zero-risk sandbox. Test strategies with fake money before risking real capital.',
+                'reflection.nextsteps.p3': '<strong>Multi-wallet support:</strong> Aggregate portfolios across Binance, Coinbase, MetaMask. One dashboard for everything.'
+            },
+            zh: {
+                'nav.back': '← 返回',
+                'nav.backtowork': '← 返回作品',
+                'hero.tagline': '像搭积木一样构建策略',
+                'header.eyebrow': 'AI × 量化金融',
+                'header.title': 'Crypto Copilot',
+                'header.subtitle': '如果算法交易就像搭积木一样简单呢?',
+                'meta.role.label': '角色',
+                'meta.role.value': '产品设计师 & 全栈开发',
+                'meta.type.label': '类型',
+                'meta.type.value': 'AI 金融科技平台',
+                'meta.timeline.label': '周期',
+                'meta.timeline.value': '2024年 (3个月)',
+                'meta.platform.label': '平台',
+                'meta.platform.value': 'Web 应用',
+                'tldr.label': '核心要点',
+                'tldr.text': 'Crypto Copilot将令人生畏的算法交易转化为可视化、直观的积木式构建。核心创新:将复杂代码(如果价格<$30k且RSI<30则买入$500)转换为任何人都能理解的拖拽式"当→如果→那么"逻辑。这不是通过降低难度来民主化——而是通过视觉思维实现精准。',
+                'metrics.realtime.value': '实时',
+                'metrics.realtime.label': '同步',
+                'metrics.realtime.desc': '实时投资组合同步',
+                'metrics.health.value': '82/100',
+                'metrics.health.label': '健康度',
+                'metrics.health.desc': 'AI驱动评分',
+                'metrics.strategies.value': '3个',
+                'metrics.strategies.label': '策略',
+                'metrics.strategies.desc': '自动化运行中',
+                'metrics.nocode.value': '无代码',
+                'metrics.nocode.label': '构建器',
+                'metrics.nocode.desc': '可视化策略画布',
+                'showcase.dashboard.title': '📊 投资组合仪表板',
+                'showcase.dashboard.desc': '实时健康监测',
+                'showcase.copilot.title': '🤖 AI 副驾驶',
+                'showcase.copilot.desc': '对话式智能',
+                'showcase.canvas.title': '🧱 策略画布',
+                'showcase.canvas.desc': '无代码积木构建器',
+                'showcase.strategies.title': '📈 自动化策略',
+                'showcase.strategies.desc': '实时性能追踪',
+                'philosophy.title': '为什么这很重要',
+                'philosophy.quote': '40%的加密货币投资者在第一年亏损——不是因为运气不好,而是因为缺乏策略。',
+                'philosophy.card1.title': '24/7',
+                'philosophy.card1.desc': '市场永不眠<br>人类需要休息',
+                'philosophy.card2.title': '情绪',
+                'philosophy.card2.desc': '恐惧与贪婪<br>导致错误决策',
+                'philosophy.card3.title': '代码障碍',
+                'philosophy.card3.desc': 'Python、API<br>if-else语句',
+                'philosophy.insight': '洞察: 人类是视觉思考者。你不会用代码思考——而是用"当 → 如果 → 那么"的逻辑思考。',
+                'philosophy.p1': '加密货币市场全天候运营。人类需要睡眠。情绪会蒙蔽判断。恐惧和贪婪在最糟糕的时刻驱动决策。答案一直是自动化——在你睡觉时执行策略的算法交易。',
+                'philosophy.p2': '但问题来了:构建交易算法需要编程技能。大多数平台要求你用Python思考,编写if-else语句,调试循环。障碍不是智力——而是从人类逻辑到机器语法的翻译。',
+                'philosophy.p3': '<strong>洞察:</strong> 人类是视觉思考者。当你向朋友解释你的策略时,你不会说"if (price < 30000 && rsi < 30) { buy(500) }"——你会说"当比特币跌破$30k时,如果RSI显示超卖,那么买入价值$500的币"。',
+                'philosophy.p4': '如果10岁的孩子可以用MIT Scratch的可视化积木构建游戏,为什么投资者不能用同样的方式构建交易策略?',
+                'craft.title': '工艺胜于代码',
+                'craft.subtitle': '代码无法复制的设计决策',
+                'craft.dashboard.title': '投资组合仪表板',
+                'craft.dashboard.quote': '"我们不只是汇总数字——我们设计了一个个性"',
+                'craft.dashboard.feature1.title': '健康评分',
+                'craft.dashboard.feature1.desc': '82/100情感锚点',
+                'craft.dashboard.feature2.title': '人性化洞察',
+                'craft.dashboard.feature2.desc': 'AI像同事一样交谈',
+                'craft.dashboard.feature3.title': '玻璃拟态',
+                'craft.dashboard.feature3.desc': '透明度=清晰度',
+                'craft.dashboard.p1': '大多数交易仪表板向你抛出数字:一排排价格、百分比、时间戳。Crypto Copilot的仪表板讲述一个故事。',
+                'craft.dashboard.li1': '<strong>健康评分作为情感锚点:</strong> 82/100带有颜色编码仪表(绿色=好,黄色=谨慎,红色=危险)。你不需要计算风险——你能感受到它。',
+                'craft.dashboard.li2': '<strong>听起来像人类的AI洞察:</strong> "SOL低于MA30。考虑减仓。"而不是"警报:SOL_PRICE < MA30_VALUE"。',
+                'craft.dashboard.li3': '<strong>玻璃拟态=透明度:</strong> 模糊的半透明卡片不仅仅是时髦——它们象征着通过复杂性层次的清晰度。',
+                'craft.copilot.title': 'AI副驾驶界面',
+                'craft.copilot.quote': '"对话式,而非交易式"',
+                'craft.copilot.feature1.title': '渐进式披露',
+                'craft.copilot.feature1.desc': 'FAB → 完整聊天',
+                'craft.copilot.feature2.title': '个性化',
+                'craft.copilot.feature2.desc': '表情符号+自然语言',
+                'craft.copilot.feature3.title': '始终可访问',
+                'craft.copilot.feature3.desc': '浮动FAB按钮',
+                'craft.copilot.p1': '金融科技中的AI通常意味着冷冰冰的机器人警报。Crypto Copilot的AI像同事一样交谈:',
+                'craft.copilot.li1': '<strong>渐进式披露:</strong> Quick Ask FAB用于一次性问题 → 完整聊天框用于深度对话。不要在用户准备好之前强制他们进入某种模式。',
+                'craft.copilot.li2': '<strong>个性驱动的回复:</strong> 使用表情符号(🚀表示机会,⚠️表示风险),以聊天气泡形式建议操作,感觉像在和聪明的朋友发短信。',
+                'craft.copilot.li3': '<strong>聊天作为核心UX:</strong> 不是埋藏在设置菜单中——它是右下角的浮动FAB。始终可访问。',
+                'craft.canvas.title': '策略画布(核心部分)',
+                'craft.canvas.quote': '"让IF-THEN-ELSE变得直观"',
+                'craft.canvas.feature1.title': '颜色编码积木',
+                'craft.canvas.feature1.desc': '黄/蓝/绿=即时识别',
+                'craft.canvas.feature2.title': '放置区',
+                'craft.canvas.feature2.desc': '占位文本减少焦虑',
+                'craft.canvas.feature3.title': 'AI建议',
+                'craft.canvas.feature3.desc': '实时流程分析',
+                'craft.canvas.p1': '这是项目中最困难的UX问题:如何让非程序员也能理解"条件逻辑"?',
+                'craft.canvas.solution': '<strong>解决方案:</strong>',
+                'craft.canvas.li1': '<strong>三列布局:</strong> 当(触发器) → 如果(条件) → 那么(操作)。镜像自然语言结构。',
+                'craft.canvas.li2': '<strong>颜色编码块:</strong> 黄色表示触发器(⚡),蓝色表示条件(🔍),绿色表示操作(🎯)。即时视觉识别。',
+                'craft.canvas.li3': '<strong>带占位符文本的放置区:</strong> "📥 触发器"、"📋 条件"、"⚡ 操作"。减少空白画布焦虑——用户准确知道什么放在哪里。',
+                'craft.canvas.li4': '<strong>实时AI建议:</strong> 在你构建时,AI侧边栏分析你的流程并建议改进("添加RSI过滤器以降低风险")。',
+                'craft.risk.title': '风险管理层',
+                'craft.risk.quote': '"每个功能都在问:我们如何防止灾难?"',
+                'craft.risk.feature1.title': '交易确认',
+                'craft.risk.feature1.desc': '>$1,000 = 二次确认',
+                'craft.risk.feature2.title': '每日限额',
+                'craft.risk.feature2.desc': '软警告,可覆盖',
+                'craft.risk.feature3.title': '视觉警告',
+                'craft.risk.feature3.desc': '亏损策略的脉动红色',
+                'craft.risk.p1': '金融科技设计不仅仅是让事情变得简单——而是让错误变得困难:',
+                'craft.risk.li1': '<strong>交易确认模态框:</strong> 任何>$1,000的订单都需要第二次点击。摩擦=安全。',
+                'craft.risk.li2': '<strong>带软警告的每日限额:</strong> 不是硬性限制——用户可以覆盖,但他们必须承认自己正在这样做。',
+                'craft.risk.li3': '<strong>亏损策略的视觉警告:</strong> SOL动量策略显示-2.57%的投资回报率?脉动的红色⚠️图标。你不会错过它。',
+                'process.title': '构建策略画布',
+                'process.step1': '研究',
+                'process.step2': '概念',
+                'process.step3': '原型',
+                'process.step4': 'AI集成',
+                'process.step5': '打磨',
+                'process.p1': '<strong>1. 研究:</strong> 研究了TradingView、QuantConnect、加密平台。大多数工具针对高级用户(会编码的交易员)进行优化。差距:有策略想法但没有编码技能的散户投资者。',
+                'process.p2': '<strong>2. 概念:</strong> 在纸上草绘基于块的逻辑。关键洞察:自然语言结构(当→如果→那么)完美映射到条件逻辑(触发器→条件→操作)。',
+                'process.p3': '<strong>3. 原型:</strong> 使用原生拖放API构建HTML/CSS/JS演示。没有框架——保持简单以快速迭代。',
+                'process.p4': '<strong>4. AI集成:</strong> 添加实时建议引擎。当用户构建时,AI分析流程并推荐改进("添加止损保护")。',
+                'process.p5': '<strong>5. 打磨:</strong> 优化动画(60fps过渡)、悬停状态、微交互。细节很重要——流畅的拖动感觉与生硬的拖动不同。',
+                'process.quote1': '<strong>为什么用块而不是代码?</strong> 视觉思维将认知负荷降低60%(尼尔森·诺曼集团)。',
+                'process.quote2': '<strong>为什么用三列?</strong> 镜像自然语言结构——人类已经这样思考了。',
+                'process.quote3': '<strong>为什么用AI侧边栏?</strong> 渐进式披露——需要时提供帮助,不需要时隐形。',
+                'tech.title': '技术实现',
+                'tech.p1': '<strong>技术栈:</strong> 纯HTML/CSS/JS(6,500行,压缩后65KB)。无依赖。无框架。在任何现代浏览器中运行。',
+                'tech.p2': '<strong>设计系统:</strong> 用于主题的CSS自定义属性,带背景滤镜模糊的玻璃拟态,原生暗黑模式(无需切换)。',
+                'tech.p3': '<strong>交互:</strong> 用于块构建的原生拖放API,用于60fps过渡的CSS动画,用于策略持久化的localStorage。',
+                'tech.p4': '<strong>AI逻辑:</strong> 目前是模拟响应(关键词模式匹配)。架构已准备好LLM集成——只需替换getAIResponse()函数。',
+                'tech.highlights': '<strong>技术亮点:</strong>',
+                'tech.li1': '零依赖——更易维护,更快加载',
+                'tech.li2': '60fps动画——即使在中端设备上也不卡顿',
+                'tech.li3': '响应式画布——在平板电脑上工作(1024px+)',
+                'tech.li4': 'localStorage持久化——刷新页面后策略仍在',
+                'reflection.title': '关于为决策而设计我学到了什么',
+                'reflection.quote1': '"最好的界面让复杂性感觉不可避免——就像你在开始之前就已经知道如何使用它们一样。"',
+                'reflection.p1': '<strong>1. 金融工具在优化信息密度而非决策信心时会失败。</strong> 更多数据并不意味着更好的决策。Crypto Copilot优先考虑清晰度而非完整性——展示重要的,隐藏不重要的。',
+                'reflection.p2': '<strong>2. 为焦虑的用户设计:每次点击都应该减少不确定性,而不是创造不确定性。</strong> 金融科技用户正在管理真实的钱。恐惧导致犹豫。健康评分、AI建议、视觉风险警告——所有这些都旨在让用户感觉"我知道正在发生什么"。',
+                'reflection.p3': '<strong>3. 游戏化不是关于积分——而是关于让进度可见。</strong> 健康评分、胜率、连胜徽章不是游戏。它们是反馈循环。用户需要看到他们的策略是否有效(或无效)。',
+                'reflection.p4': '<strong>4. 基于代码的工具假设技术素养。可视化工具假设人类思维。</strong> 策略画布不教用户编码——它将他们现有的心智模型转换为可执行逻辑。',
+                'reflection.nextsteps.title': '接下来我会构建什么',
+                'reflection.nextsteps.p1': '<strong>模板市场:</strong> 社区驱动的策略。用户分享、混合、改进彼此的块。',
+                'reflection.nextsteps.p2': '<strong>模拟交易模式:</strong> 零风险沙盒。在冒真实资本风险之前用假钱测试策略。',
+                'reflection.nextsteps.p3': '<strong>多钱包支持:</strong> 聚合Binance、Coinbase、MetaMask上的投资组合。一个仪表板管理所有。'
+            }
+        };
+
+        let currentLang = 'en';
+
+        function updateText() {
+            const t = translations[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    el.innerHTML = t[key];
+                }
+            });
+        }
+
+        document.getElementById('lang-en').addEventListener('click', () => {
+            currentLang = 'en';
+            document.getElementById('lang-en').classList.add('active');
+            document.getElementById('lang-zh').classList.remove('active');
+            updateText();
+        });
+
+        document.getElementById('lang-zh').addEventListener('click', () => {
+            currentLang = 'zh';
+            document.getElementById('lang-zh').classList.add('active');
+            document.getElementById('lang-en').classList.remove('active');
+            updateText();
+        });
+
+        // Initialize
+        updateText();
+    </script>
+</body>
+</html>

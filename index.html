@@ -631,6 +631,29 @@
             stroke: #60A5FA;
         }
 
+        /* Crypto Copilot */
+        .project-card[data-project="cryptocopilot"] {
+            border: 1px solid rgba(16, 185, 129, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card[data-project="cryptocopilot"]:hover {
+            border-color: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.12);
+        }
+        .project-card[data-project="cryptocopilot"] .project-card-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(10,15,20,0.9) 100%);
+        }
+        .project-card[data-project="cryptocopilot"] .project-tag {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .project-card[data-project="cryptocopilot"] .project-metric {
+            color: #34d399;
+        }
+        .project-card[data-project="cryptocopilot"] .project-metric svg {
+            stroke: #34d399;
+        }
+
         @media (max-width: 768px) {
             #modal-collov .modal-header { padding: 36px 24px 24px; }
             #modal-collov .modal-title { font-size: 32px; }
@@ -737,6 +760,27 @@
                     <h3 class="project-title" data-i18n="project.weneed.title">WeNeed</h3>
                     <p class="project-subtitle" data-i18n="project.weneed.subtitle">Short-Video Gifting Community</p>
                     <span class="project-metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Video-First UX</span>
+                </div>
+            </a>
+
+            <a href="cryptocopilot.html" class="project-card" data-project="cryptocopilot">
+                <div class="project-card-bg" id="cryptocopilot-bg"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <span class="project-tag" data-i18n="project.cryptocopilot.tag">AI × Fintech · 2024</span>
+                    <h3 class="project-title" data-i18n="project.cryptocopilot.title">Crypto Copilot</h3>
+                    <p class="project-subtitle" data-i18n="project.cryptocopilot.subtitle">AI-powered investment platform with no-code strategy builder</p>
+                    <span class="project-metric">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="7.5 4.21 12 6.81 16.5 4.21"/>
+                            <polyline points="7.5 19.79 7.5 14.6 3 12"/>
+                            <polyline points="21 12 16.5 14.6 16.5 19.79"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                        <span data-i18n="project.cryptocopilot.metric">Visual Strategies</span>
+                    </span>
                 </div>
             </a>
         </div>
@@ -903,6 +947,9 @@
         document.getElementById('weneed-bg').style.cssText = "background: linear-gradient(135deg, #0F172A 0%, #1E293B 30%, #1e3a5f 60%, #0c1929 100%); display: flex; align-items: center; justify-content: center;";
         document.getElementById('weneed-bg').innerHTML = '<img src="we_logo.png" alt="WeNeed" style="width: 100px; height: 100px; border-radius: 20px; filter: drop-shadow(0 10px 30px rgba(59, 130, 246, 0.3)); position: relative; z-index: 1;" />';
 
+        document.getElementById('cryptocopilot-bg').style.cssText = "background: linear-gradient(135deg, #0a0f14 0%, #0d1721 40%, #0f2821 70%, #0a1612 100%); display: flex; align-items: center; justify-content: center;";
+        document.getElementById('cryptocopilot-bg').innerHTML = '<div style="width: 120px; height: 120px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 30px; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 800; color: white; box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3); position: relative; z-index: 1;">CC</div>';
+
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             if (!anchor.id.includes('resume')) {
@@ -976,6 +1023,10 @@
                 'project.weneed.tag': 'Side Project · 2025',
                 'project.weneed.title': 'WeNeed',
                 'project.weneed.subtitle': 'Short-Video Gifting Community',
+                'project.cryptocopilot.tag': 'AI × Fintech · 2024',
+                'project.cryptocopilot.title': 'Crypto Copilot',
+                'project.cryptocopilot.subtitle': 'AI-powered investment platform with no-code strategy builder',
+                'project.cryptocopilot.metric': 'Visual Strategies',
                 'skills.eyebrow': 'Expertise',
                 'skills.title': 'Skills & Tools',
                 'skills.design': 'Design',
@@ -1348,6 +1399,10 @@
                 'project.weneed.tag': '个人项目 · 2025',
                 'project.weneed.title': '微需 WeNeed',
                 'project.weneed.subtitle': '短视频闲置物品赠送社区',
+                'project.cryptocopilot.tag': 'AI × 金融科技 · 2024',
+                'project.cryptocopilot.title': 'Crypto Copilot',
+                'project.cryptocopilot.subtitle': 'AI驱动的投资平台与可视化策略构建器',
+                'project.cryptocopilot.metric': '可视化策略',
                 'skills.eyebrow': '专业技能',
                 'skills.title': '技能与工具',
                 'skills.design': '设计',
