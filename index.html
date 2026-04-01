@@ -1101,7 +1101,8 @@
         // Resume Modal
         const resumeModal = document.getElementById('resume-modal');
         document.getElementById('resume-trigger').addEventListener('click', (e) => { e.preventDefault(); resumeModal.classList.add('active'); document.body.classList.add('modal-open'); });
-        document.getElementById('hero-resume-btn').addEventListener('click', (e) => { e.preventDefault(); resumeModal.classList.add('active'); document.body.classList.add('modal-open'); });
+        const heroResumeBtn = document.getElementById('hero-resume-btn');
+        if (heroResumeBtn) { heroResumeBtn.addEventListener('click', (e) => { e.preventDefault(); resumeModal.classList.add('active'); document.body.classList.add('modal-open'); }); }
         document.getElementById('resume-close').addEventListener('click', () => { resumeModal.classList.remove('active'); document.body.classList.remove('modal-open'); });
         resumeModal.addEventListener('click', (e) => { if (e.target === resumeModal) { resumeModal.classList.remove('active'); document.body.classList.remove('modal-open'); } });
 
