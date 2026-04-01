@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signals Notebook | Joey Zhao</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         :root {
             --bg: #000;
             --bg-secondary: #0d0d0d;
@@ -17,13 +18,23 @@
             --accent-light: #c084fc;
             --blue: #2997ff;
             --border: rgba(255,255,255,0.08);
-            --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            --font: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
         body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.5; }
         body.modal-open { overflow: hidden; }
-        ::selection { background: var(--accent); color: white; }
+        ::selection { background: color-mix(in oklab, var(--accent) 78%, black); color: var(--text-primary); }
+        a,
+        button {
+            outline: none;
+        }
+        a:focus-visible,
+        button:focus-visible {
+            box-shadow: 0 0 0 2px color-mix(in oklab, var(--bg) 55%, transparent), 0 0 0 4px color-mix(in oklab, var(--accent) 76%, transparent);
+        }
 
         /* Navigation */
         nav {
@@ -624,6 +635,14 @@
             color: var(--text-primary); background: var(--bg-card);
             border-color: var(--accent); transform: translateY(-2px);
         }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation: none !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -634,7 +653,7 @@
                 <span data-i18n="nav.back">Back</span>
             </a>
             <div class="lang-toggle">
-                <button id="lang-en">EN</button>
+                <button id="lang-en" class="active">EN</button>
                 <span>/</span>
                 <button id="lang-zh">中</button>
             </div>
@@ -999,7 +1018,13 @@
             }
         };
 
-        let currentLang = localStorage.getItem('lang') || 'en';
+        function detectLang() {
+            const saved = localStorage.getItem('lang');
+            if (saved) return saved;
+            const sysLang = navigator.language || navigator.userLanguage || '';
+            return sysLang.startsWith('zh') ? 'zh' : 'en';
+        }
+        let currentLang = detectLang();
 
         function setLanguage(lang) {
             currentLang = lang;

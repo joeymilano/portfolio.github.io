@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeNeed | Joey Zhao</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         :root {
             --bg: #000;
             --bg-secondary: #0d0d0d;
@@ -16,12 +17,22 @@
             --accent: #3B82F6;
             --accent-light: #60A5FA;
             --border: rgba(255,255,255,0.08);
-            --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            --font: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
         body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.5; padding-top: 52px; }
-        ::selection { background: var(--accent); color: white; }
+        ::selection { background: color-mix(in oklab, var(--accent) 78%, black); color: var(--text-primary); }
+        a,
+        button {
+            outline: none;
+        }
+        a:focus-visible,
+        button:focus-visible {
+            box-shadow: 0 0 0 2px color-mix(in oklab, var(--bg) 55%, transparent), 0 0 0 4px color-mix(in oklab, var(--accent) 76%, transparent);
+        }
 
         /* Navigation */
         .project-page-nav {
@@ -425,6 +436,14 @@
             .wn-live-showcase { grid-template-columns: 1fr; }
             .wn-context-grid { grid-template-columns: 1fr; }
         }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation: none !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -472,7 +491,7 @@
                 <h3 data-i18n="modal.wn.livePriorityTitle">See the product in action before reading the full story.</h3>
                 <p data-i18n="modal.wn.livePriorityDesc">Open the interactive prototype first, then scan the key design moves below in a visual format.</p>
                 <div class="wn-live-actions">
-                    <a href="https://vvneed.pages.dev/" target="_blank" class="wn-live-primary">
+                    <a href="https://vvneed.pages.dev/" target="_blank" rel="noopener noreferrer" class="wn-live-primary">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         <span data-i18n="modal.wn.livePriorityCta">Open Live Prototype</span>
                     </a>
@@ -803,7 +822,13 @@
             }
         };
 
-        let currentLang = localStorage.getItem('lang') || 'en';
+        function detectLang() {
+            const saved = localStorage.getItem('lang');
+            if (saved) return saved;
+            const sysLang = navigator.language || navigator.userLanguage || '';
+            return sysLang.startsWith('zh') ? 'zh' : 'en';
+        }
+        let currentLang = detectLang();
 
         function setLanguage(lang) {
             currentLang = lang;

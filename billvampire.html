@@ -5,23 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill Vampire | Joey Zhao</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
         :root {
-            --bg: #000;
-            --bg-secondary: #0d0d0d;
-            --bg-elevated: #1a1a1a;
-            --bg-card: #141414;
-            --text-primary: #f5f5f7;
-            --text-secondary: #86868b;
-            --text-tertiary: #6e6e73;
-            --accent: #e11d48;
-            --accent-light: #fb7185;
-            --border: rgba(255,255,255,0.08);
-            --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            --bg: oklch(0.16 0.015 345);
+            --bg-secondary: oklch(0.2 0.018 345);
+            --bg-elevated: oklch(0.24 0.02 345);
+            --bg-card: oklch(0.27 0.022 345);
+            --text-primary: oklch(0.95 0.015 8);
+            --text-secondary: oklch(0.78 0.02 6);
+            --text-tertiary: oklch(0.66 0.018 6);
+            --accent: oklch(0.62 0.22 18);
+            --accent-light: oklch(0.75 0.16 16);
+            --border: color-mix(in oklab, var(--text-primary) 12%, transparent);
+            --font: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
         body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.5; padding-top: 52px; }
-        ::selection { background: var(--accent); color: white; }
+        ::selection { background: color-mix(in oklab, var(--accent) 78%, black); color: var(--text-primary); }
+
+        a,
+        button {
+            outline: none;
+        }
+        a:focus-visible,
+        button:focus-visible {
+            box-shadow: 0 0 0 2px color-mix(in oklab, var(--bg) 55%, transparent), 0 0 0 4px color-mix(in oklab, var(--accent) 76%, transparent);
+        }
 
         /* Navigation */
         .project-page-nav {
@@ -37,16 +50,18 @@
         .back-link {
             display: flex; align-items: center; gap: 8px;
             color: var(--text-secondary); text-decoration: none; font-size: 14px;
-            transition: all 0.3s; font-family: var(--font);
+            min-height: 44px; padding: 0 6px; border-radius: 10px;
+            transition: color 0.28s var(--ease-out-quart), background-color 0.28s var(--ease-out-quart); font-family: var(--font);
         }
-        .back-link:hover { color: var(--text-primary); }
+        .back-link:hover { color: var(--text-primary); background: color-mix(in oklab, var(--bg-elevated) 85%, transparent); }
         .lang-toggle { display: flex; align-items: center; gap: 4px; }
         .lang-toggle button {
             background: none; border: none; color: var(--text-secondary);
-            font-size: 14px; padding: 8px 12px; border-radius: 20px;
-            cursor: pointer; transition: all 0.3s; font-family: var(--font);
+            font-size: 14px; min-height: 44px; min-width: 44px; padding: 8px 12px; border-radius: 20px;
+            cursor: pointer; transition: color 0.28s var(--ease-out-quart), background-color 0.28s var(--ease-out-quart), transform 0.18s var(--ease-out-quart); font-family: var(--font);
         }
         .lang-toggle button:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle button:active { transform: translateY(1px); }
         .lang-toggle button.active { color: var(--text-primary); font-weight: 600; }
         .lang-toggle span { color: var(--text-tertiary); }
 
@@ -84,7 +99,7 @@
         .modal-role-value { font-size: 15px; color: var(--text-primary); line-height: 1.5; }
         .modal-divider { height: 1px; background: var(--border); margin: 48px 0; }
         .modal-section-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--accent); color: white; border-radius: 50%; font-size: 13px; font-weight: 700; margin-right: 12px; }
-        .modal-feature-card { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 16px 0; border: 1px solid var(--border); transition: all 0.3s; }
+        .modal-feature-card { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 16px 0; border: 1px solid var(--border); transition: border-color 0.3s var(--ease-out-quart), transform 0.3s var(--ease-out-quart); }
         .modal-feature-card:hover { border-color: var(--accent); transform: translateY(-2px); }
         .modal-feature-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .modal-feature-title::before { content: '\2726'; color: var(--accent); }
@@ -120,12 +135,14 @@
         .modal-eyebrow { color: #fb7185; letter-spacing: 0.18em; font-size: 11px; }
         .modal-title {
             font-size: 44px;
-            background: linear-gradient(135deg, #f5f5f7 0%, #fecdd3 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: color-mix(in oklab, var(--text-primary) 92%, var(--accent-light));
+            letter-spacing: -0.015em;
         }
         .modal-meta-label { color: #e11d48; font-size: 10px; letter-spacing: 0.12em; }
         .modal-tldr {
-            background: linear-gradient(135deg, rgba(225, 29, 72, 0.12), rgba(139, 92, 246, 0.06));
+            background: linear-gradient(135deg, rgba(225, 29, 72, 0.14), rgba(116, 29, 53, 0.08));
             border-left: 3px solid #e11d48; border-radius: 0 20px 20px 0;
             padding: 28px 32px; backdrop-filter: blur(20px);
         }
@@ -133,7 +150,7 @@
         .modal-metric {
             background: linear-gradient(145deg, rgba(225, 29, 72, 0.08), rgba(225, 29, 72, 0.03));
             border: 1px solid rgba(225, 29, 72, 0.12); border-radius: 20px;
-            padding: 28px 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 28px 16px; transition: transform 0.4s var(--ease-out-quart), border-color 0.4s var(--ease-out-quart), box-shadow 0.4s var(--ease-out-quart);
         }
         .modal-metric:hover { transform: translateY(-4px); border-color: rgba(225, 29, 72, 0.3); box-shadow: 0 12px 40px rgba(225, 29, 72, 0.12); }
         .modal-metric-value {
@@ -164,7 +181,7 @@
         /* Hero banner */
         .bv-hero-banner {
             width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden;
-            background: linear-gradient(135deg, #0B0B11 0%, #1C1C2A 40%, #2d1f3d 70%, #1a0a2e 100%);
+            background: linear-gradient(135deg, #110d14 0%, #251520 42%, #371d2b 72%, #2b1323 100%);
             display: flex; align-items: center; justify-content: center;
         }
         .bv-hero-banner::before {
@@ -174,7 +191,7 @@
         }
         .bv-hero-banner::after {
             content: ''; position: absolute; top: 30%; right: 10%; width: 250px; height: 250px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(191, 71, 108, 0.16) 0%, transparent 70%);
             border-radius: 50%; filter: blur(50px);
         }
         .bv-hero-banner img { width: 220px; height: 220px; position: relative; z-index: 1; filter: drop-shadow(0 20px 60px rgba(225, 29, 72, 0.3)); }
@@ -194,7 +211,7 @@
             display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
             color: var(--accent-light); text-decoration: none; font-size: 14px;
             padding: 10px 20px; border-radius: 12px; background: rgba(225, 29, 72, 0.1);
-            border: 1px solid rgba(225, 29, 72, 0.2); transition: all 0.3s;
+            border: 1px solid rgba(225, 29, 72, 0.2); transition: transform 0.3s var(--ease-out-quart), background-color 0.3s var(--ease-out-quart), border-color 0.3s var(--ease-out-quart);
         }
         .bv-live-link:hover { background: rgba(225, 29, 72, 0.2); transform: translateY(-2px); }
 
@@ -261,14 +278,14 @@
             gap: 8px;
             text-decoration: none;
             border-radius: 12px;
-            transition: all 0.25s ease;
+            transition: transform 0.25s var(--ease-out-quart), filter 0.25s var(--ease-out-quart), box-shadow 0.25s var(--ease-out-quart);
             font-size: 14px;
             font-weight: 600;
             min-height: 44px;
             padding: 10px 16px;
         }
         .bv-live-primary {
-            color: #fff;
+            color: var(--text-primary);
             background: linear-gradient(135deg, #f43f5e 0%, #e11d48 70%, #be123c 100%);
             border: 1px solid rgba(251, 113, 133, 0.55);
             box-shadow: 0 10px 24px rgba(225, 29, 72, 0.32);
@@ -276,6 +293,10 @@
         .bv-live-primary:hover {
             transform: translateY(-2px);
             filter: brightness(1.05);
+        }
+        .bv-live-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 6px 16px rgba(225, 29, 72, 0.26);
         }
         .bv-live-showcase {
             padding: 10px 0 0;
@@ -489,7 +510,7 @@
             display: inline-flex; align-items: center; gap: 8px;
             color: var(--text-secondary); text-decoration: none; font-size: 15px;
             padding: 12px 24px; border-radius: 12px; background: var(--bg-elevated);
-            border: 1px solid var(--border); transition: all 0.3s;
+            border: 1px solid var(--border); transition: color 0.3s var(--ease-out-quart), border-color 0.3s var(--ease-out-quart), transform 0.3s var(--ease-out-quart);
         }
         .page-bottom-nav a:hover { color: var(--text-primary); border-color: var(--accent); transform: translateY(-2px); }
 
@@ -617,6 +638,22 @@
                 height: 24px;
                 flex-shrink: 0;
             }
+
+            @media (prefers-reduced-motion: reduce) {
+                html { scroll-behavior: auto; }
+                *, *::before, *::after {
+                    animation: none !important;
+                    transition-duration: 0.01ms !important;
+                    transition-delay: 0ms !important;
+                }
+                .modal-metric:hover,
+                .modal-feature-card:hover,
+                .modal-role-item:hover,
+                .bv-live-primary:hover,
+                .page-bottom-nav a:hover {
+                    transform: none;
+                }
+            }
     </style>
 </head>
 <body>
@@ -660,7 +697,7 @@
                 <h3 data-i18n="modal.bv.livePriorityTitle">Click first. Explore the real product before reading the case study.</h3>
                 <p data-i18n="modal.bv.livePriorityDesc">The live site now reflects the latest visual redesign. Open it now to feel the interactions, then come back for design decisions and technical breakdown.</p>
                 <div class="bv-live-actions">
-                    <a href="https://billvampire.com/" target="_blank" class="bv-live-primary">
+                    <a href="https://billvampire.com/" target="_blank" rel="noopener noreferrer" class="bv-live-primary" aria-label="Open Bill Vampire live demo in a new tab">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         <span data-i18n="modal.bv.livePriorityCta">Open Live Demo</span>
                     </a>
@@ -1133,7 +1170,13 @@
             }
         };
 
-        let currentLang = localStorage.getItem('lang') || 'en';
+        function detectLang() {
+            const saved = localStorage.getItem('lang');
+            if (saved) return saved;
+            const sysLang = navigator.language || navigator.userLanguage || '';
+            return sysLang.startsWith('zh') ? 'zh' : 'en';
+        }
+        let currentLang = detectLang();
 
         function setLanguage(lang) {
             currentLang = lang;

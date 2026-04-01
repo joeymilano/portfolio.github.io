@@ -695,9 +695,9 @@
                 <li><a href="#" class="resume-btn" id="resume-trigger" data-i18n="nav.resume">Resume</a></li>
             </ul>
             <div class="lang-toggle">
-                <button id="lang-zh">中</button>
-                <span>/</span>
                 <button id="lang-en" class="active">EN</button>
+                <span>/</span>
+                <button id="lang-zh">中</button>
             </div>
         </div>
     </nav>
@@ -1767,7 +1767,13 @@
             }
         };
 
-        let currentLang = localStorage.getItem('lang') || 'en';
+        function detectLang() {
+            const saved = localStorage.getItem('lang');
+            if (saved) return saved;
+            const sysLang = navigator.language || navigator.userLanguage || '';
+            return sysLang.startsWith('zh') ? 'zh' : 'en';
+        }
+        let currentLang = detectLang();
 
         function setLanguage(lang) {
             currentLang = lang;
