@@ -4,6 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yue (Joey) Zhao | Sr. Product Designer</title>
+    <meta name="description" content="Yue (Joey) Zhao is a senior product designer in Shanghai focused on AI products, B2B SaaS, and growth design. Case studies include enterprise platforms, design systems, and fintech experiences.">
+    <meta name="keywords" content="Product Designer, AI Product Design, B2B SaaS, Shanghai Designer, UX Portfolio, Design System, Fintech UX">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Yue (Joey) Zhao | Product Designer">
+    <meta property="og:description" content="AI product, B2B SaaS, and growth-focused case studies with measurable impact.">
+    <meta property="og:url" content="https://joeyzhao.cc/">
+    <meta property="og:image" content="https://joeyzhao.cc/images/joey-photo.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Yue (Joey) Zhao | Product Designer">
+    <meta name="twitter:description" content="AI product, B2B SaaS, and growth-focused case studies with measurable impact.">
+    <link rel="canonical" href="https://joeyzhao.cc/">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Yue (Joey) Zhao",
+            "jobTitle": "Senior Product Designer",
+            "url": "https://joeyzhao.cc/",
+            "image": "https://joeyzhao.cc/images/joey-photo.jpg",
+            "email": "mailto:super666joey@gmail.com",
+            "sameAs": [
+                "https://www.linkedin.com/in/joey-zhao-b8576b91/"
+            ],
+            "knowsAbout": [
+                "AI Product Design",
+                "B2B SaaS",
+                "Design Systems",
+                "UX Strategy",
+                "Growth Design"
+            ],
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Shanghai",
+                "addressCountry": "CN"
+            }
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -73,6 +111,32 @@
         }
         .hero-title { font-size: clamp(56px, 12vw, 100px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin-bottom: 20px; opacity: 0; animation: fadeUp 1s ease 0.2s forwards; }
         .hero-subtitle { font-size: clamp(20px, 3vw, 28px); font-weight: 400; color: var(--text-secondary); margin-bottom: 48px; opacity: 0; animation: fadeUp 1s ease 0.3s forwards; }
+        .hero-proofline {
+            max-width: 760px;
+            margin: -26px auto 28px;
+            font-size: clamp(15px, 2.2vw, 18px);
+            color: color-mix(in oklab, var(--text-primary) 78%, var(--accent) 22%);
+            opacity: 0;
+            animation: fadeUp 1s ease 0.35s forwards;
+        }
+        .hero-highlights {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 26px;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.38s forwards;
+        }
+        .hero-highlights span {
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid color-mix(in oklab, var(--accent) 50%, transparent);
+            background: color-mix(in oklab, var(--accent) 10%, var(--bg-elevated) 90%);
+            font-size: 12px;
+            letter-spacing: 0.03em;
+            color: var(--text-secondary);
+        }
         .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s ease 0.4s forwards; }
         .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; text-decoration: none; padding: 14px 28px; border-radius: 980px; font-weight: 500; transition: all 0.3s; }
         .btn-primary { background: var(--text-primary); color: var(--bg); }
@@ -81,6 +145,34 @@
         .btn-secondary:hover { background: var(--bg-card); border-color: var(--text-tertiary); }
         .btn svg { width: 16px; height: 16px; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .proof-strip {
+            max-width: 1080px;
+            margin: -14px auto 44px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .proof-item {
+            background: linear-gradient(145deg, color-mix(in oklab, var(--accent) 12%, var(--bg-elevated) 88%), var(--bg-card));
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+        }
+        .proof-kpi {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: color-mix(in oklab, var(--text-primary) 75%, var(--accent) 25%);
+        }
+        .proof-label {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
 
         /* Sections */
         #projects { padding: 120px 24px; background: var(--bg); }
@@ -270,7 +362,8 @@
 
         /* Responsive */
         @media (max-width: 1024px) { .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: repeat(2, 1fr); } .modal-metrics { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .nav-links { display: none; } .nav-content { justify-content: center; } section { padding: 80px 24px; } .skills-grid, .skills-resume-grid, .modal-image-grid { grid-template-columns: 1fr; } .modal-header, .modal-body { padding: 32px 24px; } .modal-metrics { grid-template-columns: 1fr; } .exp-header { flex-direction: column; } .resume-contact-row { flex-direction: column; align-items: center; } .hero-photo { width: 100px; height: 100px; } .contact-links { flex-direction: column; align-items: center; } }
+        @media (max-width: 900px) { .proof-strip { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .nav-links { display: none; } .nav-content { justify-content: center; } section { padding: 80px 24px; } .skills-grid, .skills-resume-grid, .modal-image-grid { grid-template-columns: 1fr; } .modal-header, .modal-body { padding: 32px 24px; } .modal-metrics { grid-template-columns: 1fr; } .exp-header { flex-direction: column; } .resume-contact-row { flex-direction: column; align-items: center; } .hero-photo { width: 100px; height: 100px; } .contact-links { flex-direction: column; align-items: center; } .hero-proofline { margin: -20px auto 24px; } .proof-strip { grid-template-columns: 1fr; margin-top: -10px; } }
 
         /* ===== Collov Project Enhanced Styles ===== */
         #modal-collov .modal-container {
@@ -705,16 +798,41 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-photo" id="hero-photo"></div>
-            <h1 class="hero-title" data-i18n="hero.name">Yue (Joey) Zhao</h1>
-            <p class="hero-subtitle" data-i18n="hero.subtitle">Sr. Product Designer · B2B SaaS · AI Tools</p>
+            <h1 class="hero-title" data-i18n="hero.name">Joey Zhao</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">AI Product Design Lead · B2B SaaS · Growth</p>
+            <p class="hero-proofline" data-i18n="hero.proofline">I design and ship AI products that drive business outcomes, from enterprise workflows to consumer growth loops.</p>
+            <div class="hero-highlights">
+                <span data-i18n="hero.highlight1">$100M+ Enterprise Revenue Context</span>
+                <span data-i18n="hero.highlight2">400M+ User Platform Exposure</span>
+                <span data-i18n="hero.highlight3">0 to 1 to Scale Execution</span>
+            </div>
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-primary" data-i18n="hero.viewWork">View My Work</a>
-                <a href="#" class="btn btn-secondary" id="hero-resume-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    <span data-i18n="nav.resume">Resume</span>
+                <a href="#contact" class="btn btn-secondary" id="hero-contact-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span data-i18n="hero.getInTouch">Get in Touch</span>
                 </a>
             </div>
         </div>
+    </section>
+
+    <section class="proof-strip" aria-label="Quick Proof">
+        <article class="proof-item">
+            <div class="proof-kpi">5+ Years</div>
+            <div class="proof-label" data-i18n="proof.years">B2B SaaS and AI Product Design</div>
+        </article>
+        <article class="proof-item">
+            <div class="proof-kpi">$100M+</div>
+            <div class="proof-label" data-i18n="proof.revenue">Business Context and Revenue Impact</div>
+        </article>
+        <article class="proof-item">
+            <div class="proof-kpi">400M+</div>
+            <div class="proof-label" data-i18n="proof.users">Large-Scale Consumer Product Exposure</div>
+        </article>
+        <article class="proof-item">
+            <div class="proof-kpi">3x</div>
+            <div class="proof-label" data-i18n="proof.domains">AI, Enterprise SaaS, Design Systems</div>
+        </article>
     </section>
 
     <section id="projects">
@@ -1019,9 +1137,17 @@
                 'nav.contact': 'Contact',
                 'nav.resume': 'Resume',
                 'hero.name': 'Joey Zhao',
-                'hero.subtitle': 'Sr. Product Designer · B2B SaaS · AI Tools',
+                'hero.subtitle': 'AI Product Design Lead · B2B SaaS · Growth',
+                'hero.proofline': 'I design and ship AI products that drive business outcomes, from enterprise workflows to consumer growth loops.',
+                'hero.highlight1': '$100M+ Enterprise Revenue Context',
+                'hero.highlight2': '400M+ User Platform Exposure',
+                'hero.highlight3': '0 to 1 to Scale Execution',
                 'hero.viewWork': 'View My Work',
                 'hero.getInTouch': 'Get in Touch',
+                'proof.years': 'B2B SaaS and AI Product Design',
+                'proof.revenue': 'Business Context and Revenue Impact',
+                'proof.users': 'Large-Scale Consumer Product Exposure',
+                'proof.domains': 'AI, Enterprise SaaS, Design Systems',
                 'projects.eyebrow': 'Selected Work',
                 'projects.title': 'Designed for impact.',
                 'project.collov.tag': 'AI Product · 2024',
@@ -1395,9 +1521,17 @@
                 'nav.contact': '联系',
                 'nav.resume': '简历',
                 'hero.name': '赵越',
-                'hero.subtitle': '高级产品设计师 · B2B SaaS · AI工具',
+                'hero.subtitle': 'AI 产品设计负责人 · B2B SaaS · 增长设计',
+                'hero.proofline': '我专注设计并落地能带来业务结果的 AI 产品，覆盖企业级复杂流程与消费增长场景。',
+                'hero.highlight1': '$100M+ 业务营收场景经验',
+                'hero.highlight2': '400M+ 用户平台实战经验',
+                'hero.highlight3': '从 0 到 1 到规模化落地',
                 'hero.viewWork': '查看作品集',
                 'hero.getInTouch': '联系我',
+                'proof.years': '5年以上 B2B SaaS 与 AI 产品设计经验',
+                'proof.revenue': '覆盖高价值业务与营收增长场景',
+                'proof.users': '具备超大规模用户产品设计经验',
+                'proof.domains': 'AI、企业 SaaS、设计系统多领域',
                 'projects.eyebrow': '精选作品',
                 'projects.title': '为影响力而设计',
                 'project.collov.tag': 'AI产品 · 2024',

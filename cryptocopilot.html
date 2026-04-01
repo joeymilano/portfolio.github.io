@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Copilot | Joey Zhao</title>
+    <meta name="description" content="Crypto Copilot case study: AI-powered fintech product turning algorithmic trading into a visual no-code strategy builder.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Crypto Copilot | Joey Zhao">
+    <meta property="og:description" content="A detailed product design case study for an AI fintech platform with a visual strategy canvas.">
+    <meta property="og:url" content="https://joeyzhao.cc/cryptocopilot.html">
+    <meta property="og:image" content="https://joeyzhao.cc/images/crypto-copilot-icon-clean.svg">
     <style>
         :root {
             --bg: #000;
@@ -180,12 +186,82 @@
             font-size: 32px; font-weight: 700; color: var(--text-primary);
             letter-spacing: -0.02em;
         }
+        .cc-hero-logo-wrap {
+            width: 100%;
+            margin-top: 0;
+            border-radius: 0;
+            background: linear-gradient(135deg, #0a0b0f 0%, #12141a 42%, #1a1d26 75%, #0a0b0f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 16px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .cc-hero-glow {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 65%),
+                linear-gradient(120deg, transparent 0%, rgba(99, 102, 241, 0.05) 50%, transparent 100%);
+            pointer-events: none;
+        }
+        .cc-hero-logo {
+            width: min(200px, 70vw);
+            max-height: 200px;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 32px rgba(99, 102, 241, 0.3));
+            position: relative;
+            z-index: 1;
+            animation: ccHeroFloat 5.5s ease-in-out infinite;
+        }
+        @keyframes ccHeroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
 
         /* Tech stack */
         .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
         .tech-badge {
             background: var(--bg-elevated); padding: 8px 14px; border-radius: 8px;
             font-size: 13px; color: var(--text-secondary); border: 1px solid var(--border);
+        }
+        .case-fastlane {
+            margin: 0 48px 24px;
+            padding: 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(12, 20, 18, 0.92));
+        }
+        .case-fastlane-label {
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #6ee7b7;
+            margin-bottom: 12px;
+        }
+        .case-fastlane-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+        .case-fastlane-item {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.25);
+        }
+        .case-fastlane-item span {
+            display: block;
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+        .case-fastlane-item strong {
+            font-size: 14px;
+            color: var(--text-primary);
         }
 
         /* Bottom nav */
@@ -203,6 +279,8 @@
             .modal-metrics { grid-template-columns: repeat(2, 1fr); }
             .modal-body { padding: 0 24px 40px; }
             .modal-header { padding: 32px 24px 24px; }
+            .case-fastlane { margin: 0 24px 20px; }
+            .case-fastlane-grid { grid-template-columns: 1fr; }
             .modal-process-enhanced { flex-direction: column; }
             .modal-process-item:not(:last-child)::after { content: '↓'; right: auto; top: auto; bottom: -12px; left: 50%; transform: translateX(-50%); }
             .feature-showcase-grid { grid-template-columns: 1fr !important; }
@@ -223,9 +301,9 @@
 
     <div class="modal-container">
         <!-- Hero Banner -->
-        <div class="cc-hero-logo-wrap" style="width: 100%; margin-top: 0; border-radius: 0; background: linear-gradient(135deg, #0a0b0f 0%, #12141a 42%, #1a1d26 75%, #0a0b0f 100%); display: flex; align-items: center; justify-content: center; padding: 60px 16px; border-bottom: 1px solid var(--border); position: relative;">
-            <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.08) 0%, transparent 70%); pointer-events: none;"></div>
-            <img src="images/crypto-copilot-icon-clean.svg" alt="Crypto Copilot Logo" class="cc-hero-logo" style="width: min(200px, 70vw); max-height: 200px; object-fit: contain; filter: drop-shadow(0 12px 32px rgba(99, 102, 241, 0.25)); position: relative; z-index: 1;">
+        <div class="cc-hero-logo-wrap">
+            <div class="cc-hero-glow"></div>
+            <img src="images/crypto-copilot-icon-clean.svg" alt="Crypto Copilot Logo" class="cc-hero-logo">
         </div>
 
         <!-- Header -->
@@ -252,6 +330,15 @@
                 </div>
             </div>
         </div>
+
+        <section class="case-fastlane" aria-label="Quick Read">
+            <p class="case-fastlane-label">Quick Read</p>
+            <div class="case-fastlane-grid">
+                <article class="case-fastlane-item"><span>Problem</span><strong>Complex trading logic was inaccessible to non-coders</strong></article>
+                <article class="case-fastlane-item"><span>Solution</span><strong>Visual WHEN IF THEN strategy builder with AI guidance</strong></article>
+                <article class="case-fastlane-item"><span>Signal</span><strong>No-code execution flow with real-time portfolio intelligence</strong></article>
+            </div>
+        </section>
 
         <!-- Body -->
         <div class="modal-body">
