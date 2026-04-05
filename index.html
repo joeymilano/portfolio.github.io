@@ -98,19 +98,52 @@
 
         /* Hero */
         .hero {
+            position: relative;
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
             padding: 120px 24px 80px;
-            background: radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.15) 0%, transparent 60%);
+            background: #000;
+            overflow: hidden;
         }
-        .hero-content { max-width: 900px; text-align: center; }
+        /* Video Background */
+        .hero-video-wrapper {
+            position: absolute; inset: 0; z-index: 0; overflow: hidden;
+        }
+        .hero-video {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center center;
+            animation: kenBurns 20s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        @keyframes kenBurns {
+            0% { transform: scale(1.0); }
+            100% { transform: scale(1.08); }
+        }
+        /* Cinematic Overlay — guarantees WCAG AA contrast */
+        .hero-overlay {
+            position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(180deg,
+                rgba(0,0,0,0.72) 0%,
+                rgba(0,0,0,0.4) 30%,
+                rgba(0,0,0,0.35) 50%,
+                rgba(0,0,0,0.5) 80%,
+                rgba(0,0,0,0.88) 100%
+            );
+        }
+        /* Accent Glow — SpaceX spectral feel */
+        .hero-glow {
+            position: absolute; inset: 0; z-index: 2;
+            background: radial-gradient(ellipse at 50% 40%, rgba(168,85,247,0.14) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 3; max-width: 900px; text-align: center; }
         .hero-photo {
             width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 40px;
             background-size: cover; background-position: center center;
             box-shadow: 0 0 80px rgba(168, 85, 247, 0.4);
             opacity: 0; animation: fadeUp 1s ease 0.1s forwards;
         }
-        .hero-title { font-size: clamp(56px, 12vw, 100px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin-bottom: 20px; opacity: 0; animation: fadeUp 1s ease 0.2s forwards; }
-        .hero-subtitle { font-size: clamp(20px, 3vw, 28px); font-weight: 400; color: var(--text-secondary); margin-bottom: 48px; opacity: 0; animation: fadeUp 1s ease 0.3s forwards; }
+        .hero-title { font-size: clamp(56px, 12vw, 100px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin-bottom: 20px; opacity: 0; animation: fadeUp 1s ease 0.2s forwards; text-shadow: 0 2px 40px rgba(0,0,0,0.5), 0 0 80px rgba(168,85,247,0.15); }
+        .hero-subtitle { font-size: clamp(20px, 3vw, 28px); font-weight: 400; color: var(--text-secondary); margin-bottom: 48px; opacity: 0; animation: fadeUp 1s ease 0.3s forwards; text-shadow: 0 1px 20px rgba(0,0,0,0.4); }
         .hero-proofline {
             max-width: 760px;
             margin: -26px auto 28px;
@@ -118,6 +151,7 @@
             color: color-mix(in oklab, var(--text-primary) 78%, var(--accent) 22%);
             opacity: 0;
             animation: fadeUp 1s ease 0.35s forwards;
+            text-shadow: 0 1px 16px rgba(0,0,0,0.35);
         }
         .hero-highlights {
             display: flex;
@@ -131,11 +165,13 @@
         .hero-highlights span {
             padding: 8px 14px;
             border-radius: 999px;
-            border: 1px solid color-mix(in oklab, var(--accent) 50%, transparent);
-            background: color-mix(in oklab, var(--accent) 10%, var(--bg-elevated) 90%);
+            border: 1px solid rgba(168,85,247,0.35);
+            background: rgba(168,85,247,0.08);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             font-size: 12px;
             letter-spacing: 0.03em;
-            color: var(--text-secondary);
+            color: rgba(245,245,247,0.85);
+            text-shadow: 0 1px 8px rgba(0,0,0,0.3);
         }
         .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s ease 0.4s forwards; }
         .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; text-decoration: none; padding: 14px 28px; border-radius: 980px; font-weight: 500; transition: all 0.3s; }
@@ -144,9 +180,44 @@
         .btn-secondary { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border); }
         .btn-secondary:hover { background: var(--bg-card); border-color: var(--text-tertiary); }
         .btn svg { width: 16px; height: 16px; }
+        /* Hero ghost/frosted buttons — SpaceX cinematic style */
+        .hero .btn-primary {
+            background: rgba(255,255,255,0.08); color: var(--text-primary);
+            border: 1px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        }
+        .hero .btn-primary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(168,85,247,0.6);
+            box-shadow: 0 0 30px rgba(168,85,247,0.2), 0 0 60px rgba(168,85,247,0.08);
+        }
+        .hero .btn-secondary {
+            background: rgba(255,255,255,0.04); color: var(--text-primary);
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        }
+        .hero .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+        /* Scroll Indicator */
+        .hero-scroll-indicator {
+            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+            z-index: 3; opacity: 0; animation: fadeUp 1s ease 1.2s forwards;
+        }
+        .hero-scroll-line {
+            width: 1px; height: 48px;
+            background: linear-gradient(180deg, rgba(168,85,247,0.6), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.4; transform: scaleY(0.6); transform-origin: top; }
+            50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+        }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .proof-strip {
+            position: relative; z-index: 4;
             max-width: 1080px;
             margin: -14px auto 44px;
             padding: 0 24px;
@@ -363,7 +434,7 @@
         /* Responsive */
         @media (max-width: 1024px) { .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: repeat(2, 1fr); } .modal-metrics { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 900px) { .proof-strip { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .nav-links { display: none; } .nav-content { justify-content: center; } section { padding: 80px 24px; } .skills-grid, .skills-resume-grid, .modal-image-grid { grid-template-columns: 1fr; } .modal-header, .modal-body { padding: 32px 24px; } .modal-metrics { grid-template-columns: 1fr; } .exp-header { flex-direction: column; } .resume-contact-row { flex-direction: column; align-items: center; } .hero-photo { width: 100px; height: 100px; } .contact-links { flex-direction: column; align-items: center; } .hero-proofline { margin: -20px auto 24px; } .proof-strip { grid-template-columns: 1fr; margin-top: -10px; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .nav-content { justify-content: center; } section { padding: 80px 24px; } .skills-grid, .skills-resume-grid, .modal-image-grid { grid-template-columns: 1fr; } .modal-header, .modal-body { padding: 32px 24px; } .modal-metrics { grid-template-columns: 1fr; } .exp-header { flex-direction: column; } .resume-contact-row { flex-direction: column; align-items: center; } .hero-photo { width: 100px; height: 100px; } .contact-links { flex-direction: column; align-items: center; } .hero-proofline { margin: -20px auto 24px; } .proof-strip { grid-template-columns: 1fr; margin-top: -10px; } .hero-video { animation: none; } .hero-scroll-indicator { display: none; } }
 
         /* ===== Collov Project Enhanced Styles ===== */
         #modal-collov .modal-container {
@@ -773,6 +844,12 @@
                 transition-duration: 0.01ms !important;
                 transition-delay: 0ms !important;
             }
+            .hero-video { display: none; }
+            .hero-video-wrapper {
+                background-image: url('video/hero-poster.jpg');
+                background-size: cover;
+                background-position: center center;
+            }
         }
     </style>
 </head>
@@ -795,7 +872,19 @@
         </div>
     </nav>
 
-    <section class="hero">
+    <section class="hero" aria-label="Hero introduction">
+        <!-- Video Background Layer -->
+        <div class="hero-video-wrapper" aria-hidden="true">
+            <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" poster="video/hero-poster.jpg">
+                <source src="video/hero-bg.webm" type="video/webm">
+                <source src="video/hero-bg.mp4" type="video/mp4">
+            </video>
+        </div>
+        <!-- Cinematic Overlay -->
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <!-- Accent Glow -->
+        <div class="hero-glow" aria-hidden="true"></div>
+        <!-- Content -->
         <div class="hero-content">
             <div class="hero-photo" id="hero-photo"></div>
             <h1 class="hero-title" data-i18n="hero.name">Joey Zhao</h1>
@@ -813,6 +902,10 @@
                     <span data-i18n="hero.getInTouch">Get in Touch</span>
                 </a>
             </div>
+        </div>
+        <!-- Scroll Indicator -->
+        <div class="hero-scroll-indicator" aria-hidden="true">
+            <div class="hero-scroll-line"></div>
         </div>
     </section>
 
@@ -1121,6 +1214,74 @@
                 document.body.classList.remove('modal-open');
             }
         });
+
+        // Hero video initialization
+        (function initHeroVideo() {
+            const video = document.getElementById('hero-video');
+            if (!video) return;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (prefersReducedMotion.matches) {
+                video.removeAttribute('autoplay');
+                video.pause();
+                return;
+            }
+            prefersReducedMotion.addEventListener('change', function(e) {
+                if (e.matches) { video.pause(); } else { video.play().catch(function(){}); }
+            });
+            // Swap to mobile video on small screens
+            if (window.innerWidth <= 768) {
+                var sources = video.querySelectorAll('source');
+                sources.forEach(function(source) {
+                    if (source.type === 'video/mp4') { source.src = 'video/hero-bg-mobile.mp4'; }
+                    else if (source.type === 'video/webm') { source.remove(); }
+                });
+                video.load();
+            }
+            video.play().catch(function(){});
+        })();
+
+        // Hero scroll parallax fade
+        (function initHeroScrollEffect() {
+            var hero = document.querySelector('.hero');
+            var heroContent = document.querySelector('.hero-content');
+            var heroVideo = document.querySelector('.hero-video-wrapper');
+            if (!hero || !heroContent) return;
+            var ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var scrollY = window.scrollY;
+                        var heroHeight = hero.offsetHeight;
+                        var scrollRatio = Math.min(scrollY / heroHeight, 1);
+                        heroContent.style.opacity = Math.max(1 - scrollRatio * 1.5, 0);
+                        heroContent.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
+                        if (heroVideo) {
+                            heroVideo.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+        })();
+
+        // Pause hero video when not visible
+        (function initVideoPauseOnHidden() {
+            var video = document.getElementById('hero-video');
+            if (!video) return;
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) { video.play().catch(function(){}); }
+                    else { video.pause(); }
+                });
+            }, { threshold: 0.1 });
+            obs.observe(video);
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) { video.pause(); }
+                else if (video.getBoundingClientRect().top < window.innerHeight) { video.play().catch(function(){}); }
+            });
+        })();
 
         // Scroll animations
         const observer = new IntersectionObserver((entries) => {
