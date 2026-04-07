@@ -1,0 +1,10 @@
+/* Custom cursor — icons8 glassmorphism 3D pointer */
+
+html {
+    cursor: url('cursor-default.png') 5 2, auto;
+}
+
+/* Disable on touch devices — use native cursors */
+@media (pointer: coarse) {
+    html { cursor: auto; }
+}
