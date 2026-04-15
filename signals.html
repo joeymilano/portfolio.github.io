@@ -12,8 +12,11 @@
     <meta property="og:image" content="https://joeyzhao.cc/images/page14_img1.jpeg">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://joeyzhao.cc/signals.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        /* Fonts loaded via <link> in <head> for performance */
         :root {
             --bg: #000;
             --bg-secondary: #0d0d0d;
@@ -247,6 +250,10 @@
         .modal-insight { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 24px 0; border: 1px solid var(--border); }
         .modal-insight-icon { font-size: 24px; margin-bottom: 12px; }
         .modal-insight-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; font-style: italic; }
+        .modal-decision { background: linear-gradient(135deg, rgba(168,85,247,0.06), rgba(168,85,247,0.02)); border-radius: 16px; padding: 24px 28px; margin: 28px 0; border: 1px solid rgba(168,85,247,0.15); position: relative; }
+        .modal-decision-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .modal-decision-title { font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+        .modal-decision-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
         .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
         .modal-challenge-list { list-style: none; margin: 20px 0; }
         .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
@@ -672,7 +679,7 @@
             line-height: 1.35;
         }
         .page-bottom-nav {
-            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; text-align: center;
+            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
         }
         .page-bottom-nav a {
             display: inline-flex; align-items: center; gap: 8px;
@@ -815,6 +822,12 @@
                     </div>
                 </div>
 
+                <div class="modal-decision">
+                    <div class="modal-decision-label" data-i18n="modal.signals.decision1Label">Design Decision</div>
+                    <div class="modal-decision-title" data-i18n="modal.signals.decision1Title">Map-first visualization over table-first approach</div>
+                    <div class="modal-decision-text" data-i18n="modal.signals.decision1Text">Competitors all default to table views. But user interviews revealed scientists think in relationships, not rows. I chose an interactive map as the primary view with table as secondary — matching their mental model of biological lineage. This reduced tracing time by 66% because users no longer had to mentally reconstruct hierarchies from flat data.</div>
+                </div>
+
                 <!-- Process Section -->
                 <div class="modal-section">
                     <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.signals.section5Title">Design Process</span></h3>
@@ -898,6 +911,10 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             <span data-i18n="nav.backToWork">Back to All Work</span>
         </a>
+        <a href="collov.html">
+            <span data-i18n="nav.nextProject">Next: CollovGPT</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
     </div>
 
     <script>
@@ -906,6 +923,7 @@
             en: {
                 'nav.back': 'Back',
                 'nav.backToWork': 'Back to All Work',
+                'nav.nextProject': 'Next Project',
                 'modal.signals.eyebrow': 'Enterprise B2B \u00b7 2021-Present',
                 'modal.signals.title': 'Signals Notebook',
                 'modal.signals.subtitle': 'Lineage Visualization for Pharmaceutical Giants',
@@ -958,6 +976,9 @@
                 'modal.signals.comp3Pros': '\u2713 Robust cell line genealogy and compliance features',
                 'modal.signals.comp3Cons': '\u2717 Complex interfaces for non-technical users',
                 'modal.signals.insightText2': 'Key insight: Scientists don\\'t think in database queries\u2014they think in relationships. \u201cWhere did this cell line come from? What experiments used it? What batches were derived from it?\u201d The solution needed to mirror this mental model.',
+                'modal.signals.decision1Label': 'Design Decision',
+                'modal.signals.decision1Title': 'Map-first visualization over table-first approach',
+                'modal.signals.decision1Text': 'Competitors all default to table views. But user interviews revealed scientists think in relationships, not rows. I chose an interactive map as the primary view with table as secondary \u2014 matching their mental model of biological lineage. This reduced tracing time by 66% because users no longer had to mentally reconstruct hierarchies from flat data.',
                 'modal.signals.section5Title': 'Design Process',
                 'modal.signals.section5P1': 'I designed a streamlined workflow that lets scientists trace lineage in seconds instead of hours:',
                 'modal.signals.process1': 'Materials Smart Folder',
@@ -1040,6 +1061,9 @@
                 'modal.signals.comp3Pros': '✓ 强大的细胞系族谱和合规功能',
                 'modal.signals.comp3Cons': '✗ 对非技术用户而言界面复杂',
                 'modal.signals.insightText2': '核心洞察：科学家不会用数据库查询来思考——他们用关系来思考。"这个细胞系从哪里来？哪些实验使用了它？从它衍生了哪些批次？"解决方案需要映射这种思维模型。',
+                'modal.signals.decision1Label': '设计决策',
+                'modal.signals.decision1Title': '选择地图优先而非表格优先的可视化方案',
+                'modal.signals.decision1Text': '竞品全部默认使用表格视图。但用户访谈揭示科学家用关系而非行列思考。我选择交互式地图作为主视图，表格作为辅助——匹配他们对生物谱系的心智模型。这使追溯时间减少了66%，因为用户不再需要从扁平数据中手动重建层级关系。',
                 'modal.signals.section5Title': '设计流程',
                 'modal.signals.section5P1': '我设计了一个精简的工作流，让科学家在几秒钟内（而非几小时）完成谱系追溯：',
                 'modal.signals.process1': '材料智能文件夹',

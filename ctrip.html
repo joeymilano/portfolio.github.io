@@ -12,8 +12,11 @@
     <meta property="og:image" content="https://joeyzhao.cc/images/page16_img1.jpeg">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://joeyzhao.cc/ctrip.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        /* Fonts loaded via <link> in <head> for performance */
         :root {
             --bg: #000;
             --bg-secondary: #0d0d0d;
@@ -247,6 +250,10 @@
         .modal-insight { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 24px 0; border: 1px solid var(--border); }
         .modal-insight-icon { font-size: 24px; margin-bottom: 12px; }
         .modal-insight-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; font-style: italic; }
+        .modal-decision { background: linear-gradient(135deg, rgba(168,85,247,0.06), rgba(168,85,247,0.02)); border-radius: 16px; padding: 24px 28px; margin: 28px 0; border: 1px solid rgba(168,85,247,0.15); position: relative; }
+        .modal-decision-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .modal-decision-title { font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+        .modal-decision-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
         .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
         .modal-challenge-list { list-style: none; margin: 20px 0; }
         .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
@@ -672,7 +679,7 @@
             line-height: 1.35;
         }
         .page-bottom-nav {
-            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; text-align: center;
+            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
         }
         .page-bottom-nav a {
             display: inline-flex; align-items: center; gap: 8px;
@@ -838,6 +845,12 @@
                     </div>
                 </div>
 
+                <div class="modal-decision">
+                    <div class="modal-decision-label" data-i18n="modal.ctrip.decision1Label">Design Decision</div>
+                    <div class="modal-decision-title" data-i18n="modal.ctrip.decision1Title">Video covers as social proof, not decoration</div>
+                    <div class="modal-decision-text" data-i18n="modal.ctrip.decision1Text">Data showed static images had declining click-through rates, but simply adding video wasn't enough — users needed to see real guest experiences within 3 seconds. I designed video covers to auto-play the most engaging 3-second clip (selected by AI) with a progress indicator, turning passive browsing into active engagement. A/B testing confirmed a 5.32% indirect conversion lift.</div>
+                </div>
+
                 <!-- Before/After Showcase -->
                 <div class="modal-section">
                     <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.ctrip.section5Title">Design Showcase</span></h3>
@@ -889,6 +902,10 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             <span data-i18n="nav.backToWork">Back to All Work</span>
         </a>
+        <a href="unifyux.html">
+            <span data-i18n="nav.nextProject">Next: UnifyUX</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
     </div>
 
     <script>
@@ -897,6 +914,7 @@
             en: {
                 'nav.back': 'Back',
                 'nav.backToWork': 'Back to All Work',
+                'nav.nextProject': 'Next Project',
                 'modal.ctrip.eyebrow': 'Travel \u00b7 C2C \u00b7 Well Group \u00d7 Ctrip',
                 'modal.ctrip.title': 'Ctrip Hotel',
                 'modal.ctrip.subtitle': 'Hotel Video Cover Upgrade',
@@ -960,6 +978,9 @@
                 'modal.ctrip.compPros4': 'Sound-on CTR: 8.4% vs Muted CTR: 1.1%',
                 'modal.ctrip.compCons4': 'Users strongly prefer audio-enabled videos',
                 'modal.ctrip.insightText2': 'Key insight: The data showed users want immersive video experiences with sound\u2014contrary to the assumption that muted autoplay was better for UX. This counter-intuitive finding drove our solution.',
+                'modal.ctrip.decision1Label': 'Design Decision',
+                'modal.ctrip.decision1Title': 'Video covers as social proof, not decoration',
+                'modal.ctrip.decision1Text': 'Data showed static images had declining click-through rates, but simply adding video wasn\\'t enough \u2014 users needed to see real guest experiences within 3 seconds. I designed video covers to auto-play the most engaging 3-second clip (selected by AI) with a progress indicator, turning passive browsing into active engagement. A/B testing confirmed a 5.32% indirect conversion lift.',
                 'modal.ctrip.section5Title': 'Design Showcase',
                 'modal.ctrip.section5P1': 'Complete analysis and solution design for the hotel cover upgrade:',
                 'modal.ctrip.caption1': 'Overview & Results \u2014 5.32% indirect conversion rate improvement via A/B testing',
@@ -1044,6 +1065,9 @@
                 'modal.ctrip.compPros4': '有声点击率：8.4% vs 静音点击率：1.1%',
                 'modal.ctrip.compCons4': '用户强烈偏好有声视频',
                 'modal.ctrip.insightText2': '关键洞察：数据显示用户希望获得有声的沉浸式视频体验——这与"静音自动播放对UX更好"的假设相反。这一反直觉的发现驱动了我们的解决方案。',
+                'modal.ctrip.decision1Label': '设计决策',
+                'modal.ctrip.decision1Title': '视频封面作为社交证明，而非装饰',
+                'modal.ctrip.decision1Text': '数据显示静态图片的点击率持续下降，但仅仅添加视频还不够——用户需要在3秒内看到真实的住客体验。我设计了视频封面自动播放由AI选取的最引人入胜的3秒片段，配合进度指示器，将被动浏览转化为主动参与。A/B测试确认间接转化率提升了5.32%。',
                 'modal.ctrip.section5Title': '设计展示',
                 'modal.ctrip.section5P1': '酒店封面升级的完整分析与解决方案设计：',
                 'modal.ctrip.caption1': '概览与结果——通过A/B测试实现5.32%间接转化率提升',

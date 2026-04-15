@@ -12,8 +12,11 @@
     <meta property="og:image" content="https://joeyzhao.cc/images/page13_img1.jpeg">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://joeyzhao.cc/collov.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        /* Fonts loaded via <link> in <head> for performance */
         :root {
             --bg: #000;
             --bg-secondary: #0d0d0d;
@@ -247,6 +250,10 @@
         .modal-insight { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 24px 0; border: 1px solid var(--border); }
         .modal-insight-icon { font-size: 24px; margin-bottom: 12px; }
         .modal-insight-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; font-style: italic; }
+        .modal-decision { background: linear-gradient(135deg, rgba(168,85,247,0.06), rgba(168,85,247,0.02)); border-radius: 16px; padding: 24px 28px; margin: 28px 0; border: 1px solid rgba(168,85,247,0.15); position: relative; }
+        .modal-decision-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .modal-decision-title { font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+        .modal-decision-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
         .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
         .modal-challenge-list { list-style: none; margin: 20px 0; }
         .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
@@ -672,7 +679,7 @@
             line-height: 1.35;
         }
         .page-bottom-nav {
-            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; text-align: center;
+            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
         }
         .page-bottom-nav a {
             display: inline-flex; align-items: center; gap: 8px;
@@ -819,10 +826,16 @@
                     </div>
                 </div>
 
+                <div class=”modal-decision”>
+                    <div class=”modal-decision-label” data-i18n=”modal.collov.decision1Label”>Design Decision</div>
+                    <div class=”modal-decision-title” data-i18n=”modal.collov.decision1Title”>Dual-mode UX over one-size-fits-all interface</div>
+                    <div class=”modal-decision-text” data-i18n=”modal.collov.decision1Text”>Data showed 72% of churned users were professionals who found the tool too basic, while new users loved the simplicity. Instead of compromising for either group, I designed two distinct modes: “Home Mode” for casual users and “Pro Mode” for designers. This preserved the low barrier to entry while unlocking professional workflows — reducing churn from 28.2% to 3.8%.</div>
+                </div>
+
                 <!-- Process Section -->
-                <div class="modal-section">
-                    <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.collov.section5Title">Design Process</span></h3>
-                    <p data-i18n="modal.collov.section5P1">I proposed a dual-mode approach: keeping the simple “Home Mode” for casual users while adding a “Pro Mode” for professionals.</p>
+                <div class=”modal-section”>
+                    <h3 class=”modal-section-title”><span class=”modal-section-number”>5</span><span data-i18n=”modal.collov.section5Title”>Design Process</span></h3>
+                    <p data-i18n=”modal.collov.section5P1”>I proposed a dual-mode approach: keeping the simple “Home Mode” for casual users while adding a “Pro Mode” for professionals.</p>
                     <div class="modal-process-enhanced">
                         <div class="modal-process-item">
                             <div class="modal-process-number">1</div>
@@ -959,6 +972,10 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             <span data-i18n="nav.backToWork">Back to All Work</span>
         </a>
+        <a href="ctrip.html">
+            <span data-i18n="nav.nextProject">Next: Ctrip Hotel</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
     </div>
 
     <script>
@@ -967,6 +984,7 @@
             en: {
                 'nav.back': 'Back',
                 'nav.backToWork': 'Back to All Work',
+                'nav.nextProject': 'Next Project',
                 'modal.collov.eyebrow': 'AI Product · 2024 · B2C',
                 'modal.collov.title': 'CollovGPT',
                 'modal.collov.subtitle': 'AI Interior Design Tool for US Market',
@@ -1021,6 +1039,9 @@
                 'modal.collov.comp4Pros': '\u2713 High-quality 3D rendering, VR capabilities',
                 'modal.collov.comp4Cons': '\u2717 Cluttered interface, steep learning curve',
                 'modal.collov.insightText2': 'Key insight: No competitor offered a complete solution that served both professional designers AND casual users. This was our opportunity.',
+                'modal.collov.decision1Label': 'Design Decision',
+                'modal.collov.decision1Title': 'Dual-mode UX over one-size-fits-all interface',
+                'modal.collov.decision1Text': 'Data showed 72% of churned users were professionals who found the tool too basic, while new users loved the simplicity. Instead of compromising for either group, I designed two distinct modes: \u201cHome Mode\u201d for casual users and \u201cPro Mode\u201d for designers. This preserved the low barrier to entry while unlocking professional workflows \u2014 reducing churn from 28.2% to 3.8%.',
                 'modal.collov.section5Title': 'Design Process',
                 'modal.collov.section5P1': 'I proposed a dual-mode approach: keeping the simple \u201cHome Mode\u201d for casual users while adding a \u201cPro Mode\u201d for professionals.',
                 'modal.collov.process1': 'Import Floor Plan / Photo',
@@ -1109,6 +1130,9 @@
                 'modal.collov.comp4Pros': '✓ 高质量3D渲染，VR功能',
                 'modal.collov.comp4Cons': '✗ 界面杂乱，学习曲线陡峭',
                 'modal.collov.insightText2': '关键洞察：没有竞品能提供同时服务专业设计师和普通用户的完整解决方案。这就是我们的机会。',
+                'modal.collov.decision1Label': '设计决策',
+                'modal.collov.decision1Title': '双模式体验优于一刀切界面',
+                'modal.collov.decision1Text': '数据显示72%的流失用户是觉得工具过于简单的专业人士，而新用户却喜欢这种简洁。我没有为任何一方妥协，而是设计了两种模式："家居模式"面向普通用户，"专业模式"面向设计师。这保留了低门槛的同时解锁了专业工作流——将流失率从28.2%降至3.8%。',
                 'modal.collov.section5Title': '设计流程',
                 'modal.collov.section5P1': '我提出了双模式方案：保留面向普通用户的简单"家居模式"，同时为专业人士增加"专业模式"。',
                 'modal.collov.process1': '导入户型图/照片',

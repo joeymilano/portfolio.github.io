@@ -12,8 +12,11 @@
     <meta property="og:image" content="https://joeyzhao.cc/images/page15_img1.jpeg">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://joeyzhao.cc/unifyux.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        /* Fonts loaded via <link> in <head> for performance */
         :root {
             --bg: #000;
             --bg-secondary: #0d0d0d;
@@ -247,6 +250,10 @@
         .modal-insight { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 24px 0; border: 1px solid var(--border); }
         .modal-insight-icon { font-size: 24px; margin-bottom: 12px; }
         .modal-insight-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; font-style: italic; }
+        .modal-decision { background: linear-gradient(135deg, rgba(168,85,247,0.06), rgba(168,85,247,0.02)); border-radius: 16px; padding: 24px 28px; margin: 28px 0; border: 1px solid rgba(168,85,247,0.15); position: relative; }
+        .modal-decision-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .modal-decision-title { font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+        .modal-decision-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
         .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
         .modal-challenge-list { list-style: none; margin: 20px 0; }
         .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
@@ -672,7 +679,7 @@
             line-height: 1.35;
         }
         .page-bottom-nav {
-            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; text-align: center;
+            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
         }
         .page-bottom-nav a {
             display: inline-flex; align-items: center; gap: 8px;
@@ -828,6 +835,12 @@
                     </div>
                 </div>
 
+                <div class="modal-decision">
+                    <div class="modal-decision-label" data-i18n="modal.unifyux.decision1Label">Design Decision</div>
+                    <div class="modal-decision-title" data-i18n="modal.unifyux.decision1Title">Evolve existing patterns rather than rebuild from scratch</div>
+                    <div class="modal-decision-text" data-i18n="modal.unifyux.decision1Text">Three products had diverged into incompatible design languages over years. A full redesign would break existing user muscle memory and require massive dev effort. I chose an incremental unification strategy: establish shared tokens and primitives first, then gradually converge components — cutting iteration time by 25% while maintaining continuity for existing users.</div>
+                </div>
+
                 <!-- Design System Showcase -->
                 <div class="modal-section">
                     <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.unifyux.section5Title">Design System Showcase</span></h3>
@@ -883,6 +896,10 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             <span data-i18n="nav.backToWork">Back to All Work</span>
         </a>
+        <a href="signals.html">
+            <span data-i18n="nav.nextProject">Next: Signals Notebook</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
     </div>
 
     <script>
@@ -891,6 +908,7 @@
             en: {
                 'nav.back': 'Back',
                 'nav.backToWork': 'Back to All Work',
+                'nav.nextProject': 'Next Project',
                 'modal.unifyux.eyebrow': 'Design System \u00b7 2024',
                 'modal.unifyux.title': 'UnifyUX',
                 'modal.unifyux.subtitle': 'United in Product User Experience',
@@ -944,6 +962,9 @@
                 'modal.unifyux.process3': 'Pattern Library',
                 'modal.unifyux.process4': 'Documentation',
                 'modal.unifyux.insightText1': '<strong>Design Tokens:</strong> I created semantic tokens for colors (Primary, Success, Warning, Danger, Neutral), typography (native Roboto font system with Display, Heading, and Body scales), and spacing\u2014all with AA-compliant contrast ratios.',
+                'modal.unifyux.decision1Label': 'Design Decision',
+                'modal.unifyux.decision1Title': 'Evolve existing patterns rather than rebuild from scratch',
+                'modal.unifyux.decision1Text': 'Three products had diverged into incompatible design languages over years. A full redesign would break existing user muscle memory and require massive dev effort. I chose an incremental unification strategy: establish shared tokens and primitives first, then gradually converge components \u2014 cutting iteration time by 25% while maintaining continuity for existing users.',
                 'modal.unifyux.section5Title': 'Design System Showcase',
                 'modal.unifyux.section5P1': 'Complete design system documentation \u2014 from UX principles to component library:',
                 'modal.unifyux.caption1': 'UX Design Principles \u2014 Customers First, Facts Over Opinions, Always WIP, Usable by Everyone',
@@ -1020,6 +1041,9 @@
                 'modal.unifyux.process3': '模式库',
                 'modal.unifyux.process4': '文档',
                 'modal.unifyux.insightText1': '<strong>设计令牌：</strong>我创建了颜色（Primary、Success、Warning、Danger、Neutral）、排版（原生Roboto字体系统，含Display、Heading和Body层级）和间距的语义化令牌——全部符合AA级对比度标准。',
+                'modal.unifyux.decision1Label': '设计决策',
+                'modal.unifyux.decision1Title': '渐进演化现有模式而非从零重建',
+                'modal.unifyux.decision1Text': '三个产品在多年间分化出了不兼容的设计语言。全面重设计会破坏用户肌肉记忆并需要大量开发投入。我选择了渐进式统一策略：先建立共享的设计令牌和基础元素，然后逐步融合组件——在保持现有用户连续性的同时将迭代时间缩短了25%。',
                 'modal.unifyux.section5Title': '设计系统展示',
                 'modal.unifyux.section5P1': '完整的设计系统文档——从UX原则到组件库：',
                 'modal.unifyux.caption1': 'UX设计原则——客户优先、事实胜于观点、永远在进步中、人人可用',
