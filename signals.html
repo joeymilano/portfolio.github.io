@@ -238,6 +238,49 @@
         .modal-image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
         .modal-image-grid img { width: 100%; border-radius: 12px; }
         .modal-image-caption { font-size: 13px; color: var(--text-tertiary); text-align: center; margin-top: 8px; }
+        .case-visual-stack { display: grid; gap: 18px; margin: 36px 0 10px; }
+        .case-proof-frame,
+        .case-visual-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 1px solid rgba(168,85,247,0.22);
+            background: linear-gradient(145deg, rgba(168,85,247,0.08), rgba(41,151,255,0.035)), var(--bg-elevated);
+            box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+        }
+        .case-proof-frame::before,
+        .case-visual-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 30% 0%, rgba(168,85,247,0.2), transparent 34%), linear-gradient(115deg, transparent 34%, rgba(255,255,255,0.12) 48%, transparent 62%);
+            opacity: 0;
+            transform: translateX(-18%);
+            transition: opacity 0.45s ease, transform 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+            z-index: 2;
+        }
+        .case-proof-frame:hover::before,
+        .case-visual-card:hover::before { opacity: 1; transform: translateX(18%); }
+        .case-proof-frame img,
+        .case-visual-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.75s cubic-bezier(0.32, 0.72, 0, 1), filter 0.45s ease;
+        }
+        .case-proof-frame:hover img,
+        .case-visual-card:hover img { transform: scale(1.025); filter: saturate(1.08) contrast(1.04); }
+        .case-proof-caption,
+        .case-visual-caption { padding: 20px 22px 22px; }
+        .case-proof-caption { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 18px; align-items: start; }
+        .case-visual-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+        .case-visual-kicker { display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+        .case-visual-title { font-size: 20px; font-weight: 700; color: var(--text-primary); line-height: 1.25; margin: 0; }
+        .case-visual-text { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+        .case-visual-card .case-visual-title { font-size: 16px; margin-bottom: 8px; }
         .modal-process { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 24px 0; padding: 24px; background: var(--bg-elevated); border-radius: 12px; }
         .modal-process-step { padding: 10px 16px; background: var(--bg-card); border-radius: 8px; font-size: 13px; color: var(--text-secondary); }
         .modal-process-step.highlight { background: var(--accent); color: white; }
@@ -304,10 +347,10 @@
         .modal-metric.case-reveal.is-visible:hover { transform: translateY(-3px); }
         .modal-decision.case-reveal.is-visible:hover { transform: translateY(-4px); }
         .modal-image.case-reveal.is-visible:hover { transform: scale(1.01); }
-        @media (max-width: 900px) { .case-storyline { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .modal-role-grid { grid-template-columns: 1fr; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-enhanced::before { display: none; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } .case-storyline { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .case-storyline { grid-template-columns: repeat(2, 1fr); } .case-proof-caption, .case-visual-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .modal-role-grid { grid-template-columns: 1fr; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-enhanced::before { display: none; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } .case-storyline { grid-template-columns: 1fr; } .case-proof-caption, .case-visual-caption { padding: 18px; } .case-visual-title { font-size: 17px; } }
         @media (prefers-reduced-motion: reduce) {
-            .case-reveal, .case-story-item, .case-story-item::after, .modal-metric, .modal-decision, .modal-image, .modal-process-enhanced::before, .modal-process-item { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
+            .case-reveal, .case-story-item, .case-story-item::after, .case-proof-frame, .case-proof-frame::before, .case-visual-card, .case-visual-card::before, .case-proof-frame img, .case-visual-card img, .modal-metric, .modal-decision, .modal-image, .modal-process-enhanced::before, .modal-process-item { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
         }
 
         /* Responsive */
@@ -762,7 +805,7 @@
 
     <!-- Signals Notebook Project Modal -->
     <div class="modal-container">
-            <img class="modal-hero-image" src="images/signals-cover.jpg" alt="Signals Notebook">
+            <img class="modal-hero-image" src="images/signals-ai-lineage-map.png" alt="Signals Notebook lineage map interface">
             <div class="modal-header">
                 <p class="modal-eyebrow" data-i18n="modal.signals.eyebrow">Enterprise B2B · 2021-Present</p>
                 <h2 class="modal-title" data-i18n="modal.signals.title">Signals Notebook</h2>
@@ -824,6 +867,37 @@
                     <div class="modal-metric"><div class="modal-metric-value">$100M+</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel3">Annual Revenue</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc3">Contribution</div></div>
                     <div class="modal-metric"><div class="modal-metric-value">1M+</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel4">Workflows</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc4">Annually</div></div>
                 </div>
+
+                <section class="case-visual-stack case-reveal" aria-label="Visual proof">
+                    <figure class="case-proof-frame">
+                        <img src="images/signals-ai-lineage-map.png" alt="High fidelity lineage map product interface" loading="lazy">
+                        <figcaption class="case-proof-caption">
+                            <div>
+                                <span class="case-visual-kicker" data-i18n="modal.signals.visualHeroLabel">Visual System</span>
+                                <h3 class="case-visual-title" data-i18n="modal.signals.visualHeroTitle">A map-first interface that makes scientific relationships visible.</h3>
+                            </div>
+                            <p class="case-visual-text" data-i18n="modal.signals.visualHeroText">The case now leads with the product behavior: scientists can scan parent-child material relationships, inspect evidence, and move from node to source record without mentally rebuilding the hierarchy.</p>
+                        </figcaption>
+                    </figure>
+                    <div class="case-visual-grid">
+                        <figure class="case-visual-card">
+                            <img src="images/signals-ai-decision-frame.png" alt="Table-first to map-first design decision comparison" loading="lazy">
+                            <figcaption class="case-visual-caption">
+                                <span class="case-visual-kicker" data-i18n="modal.signals.visualDecisionLabel">Decision Frame</span>
+                                <h3 class="case-visual-title" data-i18n="modal.signals.visualDecisionTitle">From fragmented tables to connected clarity.</h3>
+                                <p class="case-visual-text" data-i18n="modal.signals.visualDecisionText">This reframes the design choice as a before/after system decision, not just a feature improvement.</p>
+                            </figcaption>
+                        </figure>
+                        <figure class="case-visual-card">
+                            <img src="images/signals-ai-workflow-console.png" alt="Lineage configuration export and compliance workflow interface" loading="lazy">
+                            <figcaption class="case-visual-caption">
+                                <span class="case-visual-kicker" data-i18n="modal.signals.visualWorkflowLabel">Workflow Confidence</span>
+                                <h3 class="case-visual-title" data-i18n="modal.signals.visualWorkflowTitle">Trace, configure, export, and prove compliance in one flow.</h3>
+                                <p class="case-visual-text" data-i18n="modal.signals.visualWorkflowText">The visual story connects usability to enterprise trust: fewer clicks, clearer evidence, and safer handoff for regulated teams.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </section>
 
                 <div class="modal-divider"></div>
 
@@ -1038,6 +1112,15 @@
                 'modal.signals.metricDesc3': 'Contribution',
                 'modal.signals.metricLabel4': 'Workflows',
                 'modal.signals.metricDesc4': 'Annually',
+                'modal.signals.visualHeroLabel': 'Visual System',
+                'modal.signals.visualHeroTitle': 'A map-first interface that makes scientific relationships visible.',
+                'modal.signals.visualHeroText': 'The case now leads with the product behavior: scientists can scan parent-child material relationships, inspect evidence, and move from node to source record without mentally rebuilding the hierarchy.',
+                'modal.signals.visualDecisionLabel': 'Decision Frame',
+                'modal.signals.visualDecisionTitle': 'From fragmented tables to connected clarity.',
+                'modal.signals.visualDecisionText': 'This reframes the design choice as a before/after system decision, not just a feature improvement.',
+                'modal.signals.visualWorkflowLabel': 'Workflow Confidence',
+                'modal.signals.visualWorkflowTitle': 'Trace, configure, export, and prove compliance in one flow.',
+                'modal.signals.visualWorkflowText': 'The visual story connects usability to enterprise trust: fewer clicks, clearer evidence, and safer handoff for regulated teams.',
                 'modal.signals.section1Title': 'My Role & Context',
                 'modal.signals.roleLabel1': 'My Responsibilities',
                 'modal.signals.roleValue1': 'End-to-end product design: wireframing, prototyping, user testing, design handoff, and cross-functional collaboration',
@@ -1138,6 +1221,15 @@
                 'modal.signals.metricDesc3': '贡献',
                 'modal.signals.metricLabel4': '工作流',
                 'modal.signals.metricDesc4': '每年',
+                'modal.signals.visualHeroLabel': '视觉系统',
+                'modal.signals.visualHeroTitle': '用图谱优先的界面，让科学关系一眼可见。',
+                'modal.signals.visualHeroText': '案例现在先展示产品行为：科学家可以快速扫描材料之间的亲子关系，检查证据，并从节点跳转到源记录，而不用在脑中重建层级。',
+                'modal.signals.visualDecisionLabel': '决策框架',
+                'modal.signals.visualDecisionTitle': '从碎片化表格，转向连接清晰的图谱。',
+                'modal.signals.visualDecisionText': '这让设计选择变成一个系统级前后对比，而不只是单点功能优化。',
+                'modal.signals.visualWorkflowLabel': '工作流信任感',
+                'modal.signals.visualWorkflowTitle': '追溯、配置、导出和合规证明在一个流程中完成。',
+                'modal.signals.visualWorkflowText': '视觉叙事把易用性和企业信任连接起来：更少点击、更清晰证据、更安全的合规交付。',
                 'modal.signals.section1Title': '我的角色与背景',
                 'modal.signals.roleLabel1': '我的职责',
                 'modal.signals.roleValue1': '端到端产品设计：线框图、原型设计、用户测试、设计交付及跨职能协作',
@@ -1233,7 +1325,7 @@
         // Case-study motion: reveal key proof, then light the process progressively.
         (function initCaseMotion() {
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const revealItems = document.querySelectorAll('.case-reveal, .case-story-item, .modal-section, .modal-image');
+            const revealItems = document.querySelectorAll('.case-reveal, .case-story-item, .case-proof-frame, .case-visual-card, .modal-section, .modal-image');
             const process = document.querySelector('.modal-process-enhanced');
             const processSteps = process ? Array.from(process.querySelectorAll('.modal-process-item')) : [];
 
