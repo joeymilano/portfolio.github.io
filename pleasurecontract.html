@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pleasure Contract | Joey Zhao</title>
+    <meta name="description" content="Pleasure Contract: A dark-fantasy card roguelike set in supernatural Seoul. 153 cards, 6 characters, 8 endings, built by a solo dev with AI Agent.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Pleasure Contract | Joey Zhao">
+    <meta property="og:description" content="Dark-fantasy card roguelike — supernatural contracts, relationship networks, and deck-building in neon Seoul.">
+    <meta property="og:url" content="https://joeyzhao.cc/pleasurecontract.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://joeyzhao.cc/pleasurecontract.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: oklch(0.14 0.015 200);
+            --bg-secondary: oklch(0.18 0.018 200);
+            --bg-elevated: oklch(0.22 0.02 200);
+            --bg-card: oklch(0.25 0.022 200);
+            --text-primary: oklch(0.95 0.01 200);
+            --text-secondary: oklch(0.75 0.015 200);
+            --text-tertiary: oklch(0.6 0.015 200);
+            --accent: oklch(0.7 0.16 195);
+            --accent-light: oklch(0.8 0.12 195);
+            --accent-dark: oklch(0.55 0.16 195);
+            --border: color-mix(in oklab, var(--text-primary) 10%, transparent);
+            --font: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.5; padding-top: 52px; }
+        ::selection { background: color-mix(in oklab, var(--accent) 60%, black); color: var(--text-primary); }
+        a, button { outline: none; }
+        a:focus-visible, button:focus-visible { box-shadow: 0 0 0 2px color-mix(in oklab, var(--bg) 55%, transparent), 0 0 0 4px color-mix(in oklab, var(--accent) 76%, transparent); }
+
+        .project-page-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 52px;
+            background: rgba(0,0,0,0.85); backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-page-nav .nav-content {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; width: 100%; padding: 0 24px;
+        }
+        .back-link {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 14px;
+            min-height: 44px; padding: 0 6px; border-radius: 10px;
+            transition: color 0.28s var(--ease-out-quart), background-color 0.28s var(--ease-out-quart);
+        }
+        .back-link:hover { color: var(--text-primary); background: color-mix(in oklab, var(--bg-elevated) 85%, transparent); }
+        .lang-toggle { display: flex; align-items: center; gap: 4px; }
+        .lang-toggle button {
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 14px; min-height: 44px; min-width: 44px; padding: 8px 12px; border-radius: 20px;
+            cursor: pointer; transition: color 0.28s var(--ease-out-quart), background-color 0.28s var(--ease-out-quart);
+            font-family: var(--font);
+        }
+        .lang-toggle button:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle button.active { color: var(--text-primary); font-weight: 600; }
+        .lang-toggle span { color: var(--text-tertiary); }
+
+        .modal-container {
+            max-width: 1000px; margin: 40px auto; overflow: hidden;
+            background: linear-gradient(180deg, #080e12 0%, #0a1218 100%);
+            border-radius: 24px; border: 1px solid rgba(6, 182, 212, 0.12);
+            box-shadow: 0 0 80px rgba(6, 182, 212, 0.04);
+        }
+        .modal-header {
+            position: relative; padding: 56px 48px 36px; text-align: center;
+            background: radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+        }
+        .modal-eyebrow { font-size: 11px; font-weight: 600; color: #22d3ee; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px; }
+        .modal-title { font-size: 44px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.015em; margin-bottom: 8px; color: color-mix(in oklab, var(--text-primary) 92%, var(--accent-light)); }
+        .modal-subtitle { font-size: 18px; color: var(--text-secondary); margin-bottom: 24px; }
+        .modal-meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .modal-meta-item { text-align: center; }
+        .modal-meta-label { font-size: 10px; color: #06b6d4; text-transform: uppercase; letter-spacing: 0.12em; }
+        .modal-meta-value { font-size: 15px; font-weight: 500; margin-top: 4px; }
+        .modal-body { padding: 0 48px 60px; }
+        .modal-section { margin-bottom: 48px; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .modal-section-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary); }
+        .modal-section p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+        .modal-section-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border-radius: 50%; font-size: 13px; font-weight: 700; margin-right: 12px; box-shadow: 0 2px 12px rgba(6, 182, 212, 0.3); }
+
+        .modal-tldr {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(6, 182, 212, 0.04));
+            border-left: 3px solid #06b6d4; border-radius: 0 20px 20px 0;
+            padding: 28px 32px; margin-bottom: 40px; backdrop-filter: blur(20px);
+        }
+        .modal-tldr-label { font-size: 11px; font-weight: 700; color: #22d3ee; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; }
+        .modal-tldr-text { font-size: 18px; font-weight: 500; color: var(--text-primary); line-height: 1.5; }
+
+        .modal-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+        .modal-metric {
+            background: linear-gradient(145deg, rgba(6, 182, 212, 0.08), rgba(6, 182, 212, 0.02));
+            border: 1px solid rgba(6, 182, 212, 0.12); border-radius: 20px;
+            padding: 28px 16px; text-align: center;
+            transition: transform 0.4s var(--ease-out-quart), border-color 0.4s var(--ease-out-quart);
+        }
+        .modal-metric:hover { transform: translateY(-4px); border-color: rgba(6, 182, 212, 0.3); box-shadow: 0 12px 40px rgba(6, 182, 212, 0.1); }
+        .modal-metric-value { font-size: 32px; font-weight: 800; background: linear-gradient(135deg, #22d3ee, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .modal-metric-label { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .modal-quote { font-size: 22px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid #06b6d4; background: linear-gradient(135deg, rgba(6,182,212,0.08), rgba(10,18,24,0.6)); border-radius: 0 16px 16px 0; font-style: italic; }
+        .modal-feature-card { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 16px 0; border: 1px solid var(--border); transition: border-color 0.3s var(--ease-out-quart), transform 0.3s var(--ease-out-quart); }
+        .modal-feature-card:hover { border-color: rgba(6,182,212,0.4); transform: translateY(-2px); }
+        .modal-feature-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .modal-feature-title::before { content: '\2726'; color: #22d3ee; }
+        .modal-feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+        .modal-challenge-list { list-style: none; margin: 20px 0; }
+        .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+        .modal-challenge-list li:last-child { border-bottom: none; }
+        .modal-challenge-list li::before { content: ''; width: 8px; height: 8px; background: #06b6d4; border-radius: 50%; margin-top: 8px; flex-shrink: 0; box-shadow: 0 0 6px rgba(6,182,212,0.5); }
+
+        .modal-feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+
+        .modal-reflection {
+            background: linear-gradient(135deg, rgba(6,182,212,0.08), rgba(10,18,24,0.9));
+            border: 1px solid rgba(6,182,212,0.12); border-radius: 20px; padding: 36px; margin-top: 40px;
+        }
+        .modal-reflection-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
+        .modal-reflection-text { font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+
+        .modal-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(6,182,212,0.3), transparent); margin: 48px 0; }
+        .modal-image { width: 100%; border-radius: 12px; margin: 20px 0; border: 1px solid var(--border); }
+        .modal-image-caption { font-size: 13px; color: var(--text-tertiary); text-align: center; margin-top: 8px; margin-bottom: 16px; }
+
+        .pc-hero-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+
+        .pc-art-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
+        .pc-art-grid img { width: 100%; border-radius: 12px; aspect-ratio: 3/4; object-fit: cover; border: 1px solid var(--border); transition: transform 0.3s var(--ease-out-quart), border-color 0.3s; }
+        .pc-art-grid img:hover { transform: scale(1.02); border-color: rgba(6,182,212,0.3); }
+        .pc-art-grid.wide img { aspect-ratio: 16/9; }
+        .pc-art-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+        .pc-art-grid.four-col { grid-template-columns: repeat(4, 1fr); }
+
+        .pc-code-block {
+            background: #0d1117; border: 1px solid rgba(6,182,212,0.15); border-radius: 12px;
+            padding: 24px; margin: 20px 0; font-family: var(--font-mono); font-size: 13px;
+            line-height: 1.8; overflow-x: auto;
+        }
+        .pc-code-block .comment { color: #6a737d; }
+        .pc-code-block .keyword { color: #ff7b72; }
+        .pc-code-block .number { color: #79c0ff; }
+        .pc-code-block .func { color: #d2a8ff; }
+        .pc-code-block .var { color: #ffa657; }
+
+        .pc-module-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 24px 0; }
+        .pc-module-item {
+            background: var(--bg-elevated); border-radius: 12px; padding: 16px 20px;
+            border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;
+        }
+        .pc-module-name { font-size: 14px; font-weight: 500; font-family: var(--font-mono); }
+        .pc-module-lines { font-size: 13px; color: var(--text-tertiary); }
+        .pc-module-item.new { border-color: rgba(6,182,212,0.2); }
+        .pc-module-item.new .pc-module-name { color: #22d3ee; }
+
+        .pc-process-flow { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin: 32px 0; padding: 28px; background: var(--bg-elevated); border-radius: 16px; flex-wrap: wrap; }
+        .pc-process-item { flex: 1; min-width: 80px; text-align: center; position: relative; }
+        .pc-process-item:not(:last-child)::after { content: '\2192'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font-size: 18px; }
+        .pc-process-number { width: 36px; height: 36px; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; margin: 0 auto 8px; }
+        .pc-process-label { font-size: 12px; color: var(--text-secondary); }
+
+        .page-bottom-nav { padding: 40px 0 60px; text-align: center; }
+        .page-bottom-nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .page-bottom-nav a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .modal-container { margin: 16px; border-radius: 20px; }
+            .modal-header { padding: 32px 24px 24px; }
+            .modal-title { font-size: 32px; }
+            .modal-body { padding: 0 24px 40px; }
+            .modal-metrics { grid-template-columns: repeat(2, 1fr); }
+            .modal-meta { gap: 24px; }
+            .modal-feature-grid { grid-template-columns: 1fr; }
+            .pc-module-grid { grid-template-columns: 1fr; }
+            .pc-art-grid { grid-template-columns: repeat(2, 1fr); }
+            .pc-art-grid.two-col { grid-template-columns: 1fr; }
+            .pc-art-grid.four-col { grid-template-columns: repeat(2, 1fr); }
+            .pc-process-flow { flex-direction: column; align-items: center; }
+            .pc-process-item:not(:last-child)::after { content: '\2193'; position: static; transform: none; margin: 6px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="project-page-nav">
+    <div class="nav-content">
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="nav.back">All Work</span>
+        </a>
+        <div class="lang-toggle">
+            <button id="lang-en" class="active">EN</button>
+            <span>/</span>
+            <button id="lang-zh">中</button>
+        </div>
+    </div>
+</nav>
+
+<div class="modal-container">
+
+    <!-- Hero Image -->
+    <img src="images/pc-cg-rooftop.png" alt="Pleasure Contract key visual" class="pc-hero-image">
+
+    <!-- Header -->
+    <div class="modal-header">
+        <p class="modal-eyebrow" data-i18n="modal.pc.eyebrow">Card Roguelike &middot; 2026 &middot; Godot 4</p>
+        <h2 class="modal-title">Pleasure Contract</h2>
+        <p class="modal-subtitle" data-i18n="modal.pc.subtitle">A dark-fantasy card roguelike set in supernatural Seoul — deck-building, relationship networks, and 8 diverging endings</p>
+        <div class="modal-meta">
+            <div class="modal-meta-item">
+                <div class="modal-meta-label" data-i18n="modal.pc.metaLabel1">Role</div>
+                <div class="modal-meta-value" data-i18n="modal.pc.metaValue1">Solo Dev + AI Agent</div>
+            </div>
+            <div class="modal-meta-item">
+                <div class="modal-meta-label" data-i18n="modal.pc.metaLabel2">Genre</div>
+                <div class="modal-meta-value" data-i18n="modal.pc.metaValue2">Card Roguelike + VN</div>
+            </div>
+            <div class="modal-meta-item">
+                <div class="modal-meta-label" data-i18n="modal.pc.metaLabel3">Engine</div>
+                <div class="modal-meta-value" data-i18n="modal.pc.metaValue3">Godot 4 + GDScript</div>
+            </div>
+            <div class="modal-meta-item">
+                <div class="modal-meta-label" data-i18n="modal.pc.metaLabel4">Timeline</div>
+                <div class="modal-meta-value" data-i18n="modal.pc.metaValue4">4 Weeks</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+
+        <!-- TL;DR -->
+        <div class="modal-tldr">
+            <div class="modal-tldr-label">TL;DR</div>
+            <div class="modal-tldr-text" data-i18n="modal.pc.tldr">Slay the Spire meets supernatural K-drama. Build card decks, manage dangerous alliances with 6 characters, and survive three chapters of escalating contracts in neon Seoul.</div>
+        </div>
+
+        <!-- Metrics -->
+        <div class="modal-metrics">
+            <div class="modal-metric">
+                <div class="modal-metric-value">153</div>
+                <div class="modal-metric-label" data-i18n="modal.pc.metricLabel1">Cards</div>
+            </div>
+            <div class="modal-metric">
+                <div class="modal-metric-value">6</div>
+                <div class="modal-metric-label" data-i18n="modal.pc.metricLabel2">Characters</div>
+            </div>
+            <div class="modal-metric">
+                <div class="modal-metric-value">8</div>
+                <div class="modal-metric-label" data-i18n="modal.pc.metricLabel3">Endings</div>
+            </div>
+            <div class="modal-metric">
+                <div class="modal-metric-value">3</div>
+                <div class="modal-metric-label" data-i18n="modal.pc.metricLabel4">Chapters</div>
+            </div>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <!-- Section 1: World Setting -->
+        <div class="modal-section">
+            <h3 class="modal-section-title"><span class="modal-section-number">1</span> <span data-i18n="modal.pc.s1Title">World Setting</span></h3>
+            <p data-i18n="modal.pc.s1P1">After midnight, Seoul reveals a second city visible only to those bound by invisible debts. VIP booths become altars, corporate contracts bind souls, and idol agency agreements imprison spirits. You're a young man dragged into supernatural debt — survive three nights and find out who wrote your name in the Night Board's ledger.</p>
+            <div class="pc-art-grid two-col wide">
+                <img src="images/pc-bg-banquet.png" alt="Chaebol banquet hall">
+                <img src="images/pc-bg-cathedral.png" alt="Moonlit cathedral">
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s1Cap1">Key environments: Chaebol Penthouse Banquet / Moonlit Cathedral Boardroom</p>
+            <div class="pc-art-grid wide">
+                <img src="images/pc-bg-nightclub.png" alt="Nightclub ritual room">
+                <img src="images/pc-environments.png" alt="Environment sheet" style="aspect-ratio:16/9; grid-column: span 2;">
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s1Cap2">Nightclub ritual chamber and environment concept sheet (Mirror Backstage, Rooftop, Apartment, Cathedral)</p>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <!-- Section 2: Card & Combat -->
+        <div class="modal-section">
+            <h3 class="modal-section-title"><span class="modal-section-number">2</span> <span data-i18n="modal.pc.s2Title">Card & Combat System</span></h3>
+            <p data-i18n="modal.pc.s2P1">Slay the Spire-inspired combat: draw cards each turn, spend energy to play attacks/blocks/skills, manage deck through rewards and shops. Two core resources drive risk: Affection scales your power but triggers jealousy across allies; Contract gives explosive cards but drains your life.</p>
+            <div class="pc-art-grid">
+                <img src="images/pc-card-neon-cut.png" alt="Neon Cut — attack card">
+                <img src="images/pc-card-red-room.png" alt="Red Room Feint — mirror dodge">
+                <img src="images/pc-card-exorcism.png" alt="Exorcism Live — ritual card">
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s2Cap1">Card art — Neon Cut (attack), Red Room Feint (evasion), Exorcism Live (purification)</p>
+
+            <div class="modal-feature-grid">
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s2F1">Neon Blade</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F1D">Low-cost attacks, multi-hit combos, energy refund on kill. Rush down enemies before they scale.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s2F2">Silk Guard</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F2D">High block, counterattack triggers, sustained defense. Outlast and punish.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s2F3">Contract Burst</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F3D">Stack contract debt for explosive damage. High ceiling, high floor — one bad draw and you bleed out.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s2F4">Affection Engine</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F4D">Scale damage through relationship depth. Slow start, snowball finish — if jealousy doesn't destroy you first.</div>
+                </div>
+            </div>
+
+            <div class="pc-art-grid four-col">
+                <img src="images/pc-card-talisman.png" alt="Paper Talisman">
+                <img src="images/pc-card-black-card.png" alt="Black Card">
+                <img src="images/pc-card-backstage.png" alt="Backstage Pass">
+                <img src="images/pc-card-oracle.png" alt="Oracle Reversal">
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s2Cap2">More card art — Paper Talisman, Black Card, Backstage Pass, Oracle Reversal</p>
+
+            <img src="images/pc-shop-ui.png" alt="Card shop UI" class="modal-image" style="margin-top:8px">
+            <p class="modal-image-caption" data-i18n="modal.pc.s2Cap3">Card shop interface: purchase cards, relics, and services between encounters</p>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <!-- Section 3: Enemies & Chapters -->
+        <div class="modal-section">
+            <h3 class="modal-section-title"><span class="modal-section-number">3</span> <span data-i18n="modal.pc.s3Title">Enemies & Chapter Design</span></h3>
+            <p data-i18n="modal.pc.s3P1">Three chapters, each with unique thematic enemies, elite bosses, and corruption modifiers. The roguelike map includes combat nodes, character events, confession rooms, shops, contract altars, and multi-phase bosses.</p>
+
+            <div class="modal-feature-grid">
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch1">Ch.1 — Mirror Stage</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch1D">Idol industry. Enemies copy your cards, shred your defenses, and feed you debt. Boss: Mirror Host — duplicates your last played card.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch2">Ch.2 — Chaebol Banquet</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch2D">Corporate underworld. Enemies stack contract, steal rewards, and shield each other. Boss: VP Han — a walking contract that shreds HP per stack.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch3">Ch.3 — Moonlit Cathedral</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch3D">Supernatural judgment. Enemies counter purification, rewrite your draws, and demand sacrifice. Final Boss: Chairwoman of Night — form-shifts based on your highest resource.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s3Mod">Corruption Modifiers</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s3ModD">Per-run affixes that alter rules: Torn Night (lower thresholds), Expensive Desire (stronger cards cost double), Mirror Tax (skip penalty), Confession Hour (purify bonus).</div>
+                </div>
+            </div>
+
+            <div class="pc-art-grid two-col" style="margin-top:16px">
+                <img src="images/pc-protagonist-anim.png" alt="Protagonist combat animation" style="aspect-ratio:auto; object-fit:contain; background:#000">
+                <img src="images/pc-enemy-wraith.png" alt="Neon Wraith boss" style="aspect-ratio:auto; object-fit:contain; background:#111">
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s3Cap">Protagonist combat sprite sheet (16 frames) / Neon Wraith — Chapter 1 elite boss</p>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <!-- Section 4: Relationship Network -->
+        <div class="modal-section">
+            <h3 class="modal-section-title"><span class="modal-section-number">4</span> <span data-i18n="modal.pc.s4Title">Relationship Network</span></h3>
+            <p data-i18n="modal.pc.s4P1">6 characters, each tracked across 7 dimensions: affection, jealousy, trust, secret progress, route stage, betrayal risk, and flags. Favor one ally and others grow jealous — above threshold, they confront you in combat. The party system uses 3 slots: Main Partner, Side Partner, and Support.</p>
+
+
+            <div class="pc-art-grid two-col">
+                <img src="images/pc-card-red-thread.png" alt="Red Thread — relationship card">
+                <img src="images/pc-relic-rosary.png" alt="Neon Rosary relic">
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s4Cap1">Red Thread (relationship binding card) / Neon Rosary (hidden character unlock relic)</p>
+
+            <p data-i18n="modal.pc.s4P2">The ending resolver checks 8 conditions in strict priority: betrayal ending, harem collapse, single-route true end, contract overload, purification path, hidden character route, neutral escape, and bad end. Each requires a unique state combination — no two playthroughs end the same way.</p>
+
+            <div class="pc-art-grid two-col wide">
+                <img src="images/pc-card-moon-contract.png" alt="Moon Contract" style="aspect-ratio:3/4">
+                <img src="images/pc-card-covenant.png" alt="Covenant Reset" style="aspect-ratio:3/4">
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s4Cap2">Moon Contract (seal relationship permanently) / Covenant Reset (break all bonds, restart path)</p>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <!-- Section 5: Roguelike Systems -->
+        <div class="modal-section">
+            <h3 class="modal-section-title"><span class="modal-section-number">5</span> <span data-i18n="modal.pc.s5Title">Roguelike Systems</span></h3>
+            <p data-i18n="modal.pc.s5P1">Each run generates a unique path through combat, events, and shops. Character events, recruitment moments, and confrontation scenes are all data-driven — no hardcoded content. The game ships with 31 JSON data files totaling 31,588 lines.</p>
+
+            <ul class="modal-challenge-list">
+                <li data-i18n="modal.pc.s5L1">153 cards across 5 archetypes + 12 synergy cards (activate when specific character pairs are together)</li>
+                <li data-i18n="modal.pc.s5L2">Roguelike map: combat, elite, event, confession, shop, altar, boss nodes per chapter</li>
+                <li data-i18n="modal.pc.s5L3">13,310 lines of branching visual novel dialogue (Chinese + English)</li>
+                <li data-i18n="modal.pc.s5L4">Per-run corruption affixes create unique rule variations every playthrough</li>
+                <li data-i18n="modal.pc.s5L5">Dual currency tension: Affection (power) vs Contract (risk) — every card choice is a trade-off</li>
+            </ul>
+
+            <div class="pc-art-grid">
+                <img src="images/pc-relic-case.png" alt="Red Lacquer Case relic">
+                <img src="images/pc-card-velvet-finale.png" alt="Velvet Finale">
+                <img src="images/pc-card-invitation.png" alt="Final Invitation">
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s5Cap">Relics & late-game cards: Red Lacquer Case, Velvet Finale, Final Invitation</p>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <!-- Section 6: AI Development (Condensed) -->
+        <div class="modal-section">
+            <h3 class="modal-section-title"><span class="modal-section-number">6</span> <span data-i18n="modal.pc.s6Title">Built by AI Agent</span></h3>
+            <p data-i18n="modal.pc.s6P1">The entire codebase — 10,551 lines of GDScript across 12 modules — was generated by Claude Code from 8 handwritten design documents. Human provided creative direction; AI handled architecture, code generation, data balancing, and cross-file QA.</p>
+
+            <div class="pc-process-flow">
+                <div class="pc-process-item">
+                    <div class="pc-process-number">1</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc1">Design Docs</div>
+                </div>
+                <div class="pc-process-item">
+                    <div class="pc-process-number">2</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc2">Architecture</div>
+                </div>
+                <div class="pc-process-item">
+                    <div class="pc-process-number">3</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc3">Modules</div>
+                </div>
+                <div class="pc-process-item">
+                    <div class="pc-process-number">4</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc4">Integration</div>
+                </div>
+                <div class="pc-process-item">
+                    <div class="pc-process-number">5</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc5">QA Audit</div>
+                </div>
+            </div>
+
+            <div class="modal-feature-grid">
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s6F1">Safe Refactoring</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s6F1D">8,957-line monolith decomposed into 12 modules using const-delegation. 88 constant references migrated with zero breakage.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s6F2">Cross-File Bug Detection</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s6F2D">4 bugs auto-detected and fixed: nested effects ignored, infinite confrontation loop, missing card IDs, locked character selectable.</div>
+                </div>
+            </div>
+
+            <div class="pc-module-grid">
+                <div class="pc-module-item"><span class="pc-module-name">Main.gd</span><span class="pc-module-lines">8,957 lines</span></div>
+                <div class="pc-module-item"><span class="pc-module-name">AudioBus.gd</span><span class="pc-module-lines">252 lines</span></div>
+                <div class="pc-module-item new"><span class="pc-module-name">RelationshipManager.gd</span><span class="pc-module-lines">219 lines</span></div>
+                <div class="pc-module-item new"><span class="pc-module-name">MiriamSystem.gd</span><span class="pc-module-lines">153 lines</span></div>
+                <div class="pc-module-item new"><span class="pc-module-name">EndingResolver.gd</span><span class="pc-module-lines">126 lines</span></div>
+                <div class="pc-module-item new"><span class="pc-module-name">JealousySystem.gd</span><span class="pc-module-lines">108 lines</span></div>
+            </div>
+            <p class="modal-image-caption" data-i18n="modal.pc.s6ModCap">Cyan = AI-generated relationship network modules</p>
+        </div>
+
+        <!-- Reflection -->
+        <div class="modal-reflection">
+            <div class="modal-reflection-title" data-i18n="modal.pc.reflTitle">Reflection</div>
+            <div class="modal-reflection-text" data-i18n="modal.pc.reflText">This project proved that AI Agents can serve as full-stack game engineers when given clear architecture boundaries. The human role shifts from writing code to designing systems and verifying outputs — a new kind of solo development where one person's design vision becomes a complete game in weeks, not months.</div>
+        </div>
+
+    </div>
+</div>
+
+<div class="page-bottom-nav">
+    <a href="index.html" data-i18n="nav.backAll">&larr; Back to All Work</a>
+</div>
+
+<script>
+const translations = {
+    en: {
+        'nav.back': 'All Work',
+        'nav.backAll': '← Back to All Work',
+        'modal.pc.eyebrow': 'Card Roguelike · 2026 · Godot 4',
+        'modal.pc.subtitle': 'A dark-fantasy card roguelike set in supernatural Seoul — deck-building, relationship networks, and 8 diverging endings',
+        'modal.pc.metaLabel1': 'Role',
+        'modal.pc.metaValue1': 'Solo Dev + AI Agent',
+        'modal.pc.metaLabel2': 'Genre',
+        'modal.pc.metaValue2': 'Card Roguelike + VN',
+        'modal.pc.metaLabel3': 'Engine',
+        'modal.pc.metaValue3': 'Godot 4 + GDScript',
+        'modal.pc.metaLabel4': 'Timeline',
+        'modal.pc.metaValue4': '4 Weeks',
+        'modal.pc.tldr': 'Slay the Spire meets supernatural K-drama. Build card decks, manage dangerous alliances with 6 characters, and survive three chapters of escalating contracts in neon Seoul.',
+        'modal.pc.metricLabel1': 'Cards',
+        'modal.pc.metricLabel2': 'Characters',
+        'modal.pc.metricLabel3': 'Endings',
+        'modal.pc.metricLabel4': 'Chapters',
+        'modal.pc.s1Title': 'World Setting',
+        'modal.pc.s1P1': 'After midnight, Seoul reveals a second city visible only to those bound by invisible debts. VIP booths become altars, corporate contracts bind souls, and idol agency agreements imprison spirits. You\'re a young man dragged into supernatural debt — survive three nights and find out who wrote your name in the Night Board\'s ledger.',
+        'modal.pc.s1Cap1': 'Key environments: Chaebol Penthouse Banquet / Moonlit Cathedral Boardroom',
+        'modal.pc.s1Cap2': 'Nightclub ritual chamber and environment concept sheet (Mirror Backstage, Rooftop, Apartment, Cathedral)',
+        'modal.pc.s2Title': 'Card & Combat System',
+        'modal.pc.s2P1': 'Slay the Spire-inspired combat: draw cards each turn, spend energy to play attacks/blocks/skills, manage deck through rewards and shops. Two core resources drive risk: Affection scales your power but triggers jealousy across allies; Contract gives explosive cards but drains your life.',
+        'modal.pc.s2Cap1': 'Card art — Neon Cut (attack), Red Room Feint (evasion), Exorcism Live (purification)',
+        'modal.pc.s2F1': 'Neon Blade',
+        'modal.pc.s2F1D': 'Low-cost attacks, multi-hit combos, energy refund on kill. Rush down enemies before they scale.',
+        'modal.pc.s2F2': 'Silk Guard',
+        'modal.pc.s2F2D': 'High block, counterattack triggers, sustained defense. Outlast and punish.',
+        'modal.pc.s2F3': 'Contract Burst',
+        'modal.pc.s2F3D': 'Stack contract debt for explosive damage. High ceiling, high floor — one bad draw and you bleed out.',
+        'modal.pc.s2F4': 'Affection Engine',
+        'modal.pc.s2F4D': 'Scale damage through relationship depth. Slow start, snowball finish — if jealousy doesn\'t destroy you first.',
+        'modal.pc.s2Cap2': 'More card art — Paper Talisman, Black Card, Backstage Pass, Oracle Reversal',
+        'modal.pc.s2Cap3': 'Card shop interface: purchase cards, relics, and services between encounters',
+        'modal.pc.s3Title': 'Enemies & Chapter Design',
+        'modal.pc.s3P1': 'Three chapters, each with unique thematic enemies, elite bosses, and corruption modifiers. The roguelike map includes combat nodes, character events, confession rooms, shops, contract altars, and multi-phase bosses.',
+        'modal.pc.s3Ch1': 'Ch.1 — Mirror Stage',
+        'modal.pc.s3Ch1D': 'Idol industry. Enemies copy your cards, shred your defenses, and feed you debt. Boss: Mirror Host — duplicates your last played card.',
+        'modal.pc.s3Ch2': 'Ch.2 — Chaebol Banquet',
+        'modal.pc.s3Ch2D': 'Corporate underworld. Enemies stack contract, steal rewards, and shield each other. Boss: VP Han — a walking contract that shreds HP per stack.',
+        'modal.pc.s3Ch3': 'Ch.3 — Moonlit Cathedral',
+        'modal.pc.s3Ch3D': 'Supernatural judgment. Enemies counter purification, rewrite your draws, and demand sacrifice. Final Boss: Chairwoman of Night — form-shifts based on your highest resource.',
+        'modal.pc.s3Mod': 'Corruption Modifiers',
+        'modal.pc.s3ModD': 'Per-run affixes that alter rules: Torn Night (lower thresholds), Expensive Desire (stronger cards cost double), Mirror Tax (skip penalty), Confession Hour (purify bonus).',
+        'modal.pc.s3Cap': 'Protagonist combat sprite sheet (16 frames) / Neon Wraith — Chapter 1 elite boss',
+        'modal.pc.s4Title': 'Relationship Network',
+        'modal.pc.s4P1': '6 characters, each tracked across 7 dimensions: affection, jealousy, trust, secret progress, route stage, betrayal risk, and flags. Favor one ally and others grow jealous — above threshold, they confront you in combat. The party system uses 3 slots: Main Partner, Side Partner, and Support.',
+        'modal.pc.s4Cap1': 'Red Thread (relationship binding card) / Neon Rosary (hidden character unlock relic)',
+        'modal.pc.s4P2': 'The ending resolver checks 8 conditions in strict priority: betrayal ending, harem collapse, single-route true end, contract overload, purification path, hidden character route, neutral escape, and bad end. Each requires a unique state combination — no two playthroughs end the same way.',
+        'modal.pc.s4Cap2': 'Moon Contract (seal relationship permanently) / Covenant Reset (break all bonds, restart path)',
+        'modal.pc.s5Title': 'Roguelike Systems',
+        'modal.pc.s5P1': 'Each run generates a unique path through combat, events, and shops. Character events, recruitment moments, and confrontation scenes are all data-driven — no hardcoded content. The game ships with 31 JSON data files totaling 31,588 lines.',
+        'modal.pc.s5L1': '153 cards across 5 archetypes + 12 synergy cards (activate when specific character pairs are together)',
+        'modal.pc.s5L2': 'Roguelike map: combat, elite, event, confession, shop, altar, boss nodes per chapter',
+        'modal.pc.s5L3': '13,310 lines of branching visual novel dialogue (Chinese + English)',
+        'modal.pc.s5L4': 'Per-run corruption affixes create unique rule variations every playthrough',
+        'modal.pc.s5L5': 'Dual currency tension: Affection (power) vs Contract (risk) — every card choice is a trade-off',
+        'modal.pc.s5Cap': 'Relics & late-game cards: Red Lacquer Case, Velvet Finale, Final Invitation',
+        'modal.pc.s6Title': 'Built by AI Agent',
+        'modal.pc.s6P1': 'The entire codebase — 10,551 lines of GDScript across 12 modules — was generated by Claude Code from 8 handwritten design documents. Human provided creative direction; AI handled architecture, code generation, data balancing, and cross-file QA.',
+        'modal.pc.proc1': 'Design Docs',
+        'modal.pc.proc2': 'Architecture',
+        'modal.pc.proc3': 'Modules',
+        'modal.pc.proc4': 'Integration',
+        'modal.pc.proc5': 'QA Audit',
+        'modal.pc.s6F1': 'Safe Refactoring',
+        'modal.pc.s6F1D': '8,957-line monolith decomposed into 12 modules using const-delegation. 88 constant references migrated with zero breakage.',
+        'modal.pc.s6F2': 'Cross-File Bug Detection',
+        'modal.pc.s6F2D': '4 bugs auto-detected and fixed: nested effects ignored, infinite confrontation loop, missing card IDs, locked character selectable.',
+        'modal.pc.s6ModCap': 'Cyan = AI-generated relationship network modules',
+        'modal.pc.reflTitle': 'Reflection',
+        'modal.pc.reflText': 'This project proved that AI Agents can serve as full-stack game engineers when given clear architecture boundaries. The human role shifts from writing code to designing systems and verifying outputs — a new kind of solo development where one person\'s design vision becomes a complete game in weeks, not months.'
+    },
+    zh: {
+        'nav.back': '所有作品',
+        'nav.backAll': '← 返回所有作品',
+        'modal.pc.eyebrow': '卡牌 Roguelike · 2026 · Godot 4',
+        'modal.pc.subtitle': '设定在超自然首尔的暗黑奇幻卡牌 Roguelike——构筑牌组、关系网络、和 8 条分岐结局',
+        'modal.pc.metaLabel1': '角色',
+        'modal.pc.metaValue1': '独立开发 + AI Agent',
+        'modal.pc.metaLabel2': '类型',
+        'modal.pc.metaValue2': '卡牌 Roguelike + VN',
+        'modal.pc.metaLabel3': '引擎',
+        'modal.pc.metaValue3': 'Godot 4 + GDScript',
+        'modal.pc.metaLabel4': '周期',
+        'modal.pc.metaValue4': '4 周',
+        'modal.pc.tldr': '杀戮尖塔 × 超自然韩剧。构筑卡组、经营危险同盟、在霜虹首尔的三章契约升级中求生。',
+        'modal.pc.metricLabel1': '张卡牌',
+        'modal.pc.metricLabel2': '个角色',
+        'modal.pc.metricLabel3': '种结局',
+        'modal.pc.metricLabel4': '个章节',
+        'modal.pc.s1Title': '世界观设定',
+        'modal.pc.s1P1': '午夜之后，首尔显现出一座只有背负“不可见债务”的人才能看到的第二座城市。VIP 包厢是祭坛，企业合同束缚灵魂，偶像经纪协议囚禁精神。你是一个被卷入灵异债务的年轻人——活过三个夜晚，查出是谁把你的名字写进了“夜之董事会”的账本。',
+        'modal.pc.s1Cap1': '核心场景：财阀顶层夜宴 / 月下教堂董事会',
+        'modal.pc.s1Cap2': '夜店仪式空间与环境概念图（镜中后台、天台、公寓、教堂）',
+        'modal.pc.s2Title': '卡牌与战斗系统',
+        'modal.pc.s2P1': '杀戮尖塔式战斗：每回合抽牌、花费能量打出攻击/格挡/技能、通过奖励和商店管理牌组。两个核心资源驱动风险：好感提升力量但触发嫉妒；契约给予爆发牌但消耗生命。',
+        'modal.pc.s2Cap1': '卡牌插画——霸虹斩（攻击）、红房闪避（闪避）、驱魔直播（净化）',
+        'modal.pc.s2F1': '霸虹刀锋',
+        'modal.pc.s2F1D': '低费攻击、连击组合、击杀返还能量。在敌人成长前将其击溃。',
+        'modal.pc.s2F2': '丝绒防线',
+        'modal.pc.s2F2D': '高格挡、反击触发、持续防御。耗尽敌人并予以惩罚。',
+        'modal.pc.s2F3': '契约爆发',
+        'modal.pc.s2F3D': '叠加契约债务换取爆发伤害。上限极高、下限也极高——一次坏抽就会失血而亡。',
+        'modal.pc.s2F4': '好感引擎',
+        'modal.pc.s2F4D': '通过关系深度缩放伤害。慢热开局、滚雪球结尾——如果嫉妒不先摧毁你的话。',
+        'modal.pc.s2Cap2': '更多卡牌插画——纸符咒、黑卡、后台通行证、神谕逆转',
+        'modal.pc.s2Cap3': '卡牌商店界面：在战斗间歇购买卡牌、遗物和服务',
+        'modal.pc.s3Title': '敌人与章节设计',
+        'modal.pc.s3P1': '三个章节，各有独特主题敌人、精英 Boss 和腐化词缀。Roguelike 地图包含战斗、角色事件、告解室、商店、契约祭坛和多阶段 Boss。',
+        'modal.pc.s3Ch1': '第一章——镜中后台',
+        'modal.pc.s3Ch1D': '偶像产业。敌人复制你的牌、撕裂防御、塞入债务。Boss：镜中主持——复制你上一张打出的牌。',
+        'modal.pc.s3Ch2': '第二章——财阀夜宴',
+        'modal.pc.s3Ch2D': '企业暗面。敌人叠加契约、窃取奖励、互相护盾。Boss：副总裁韩——一个会走路的合同，每层契约都撕裂血量。',
+        'modal.pc.s3Ch3': '第三章——月下教堂',
+        'modal.pc.s3Ch3D': '超自然审判。敌人反制净化、改写抽牌、要求牺牲。最终 Boss：夜之董事长——根据你最高资源切换形态。',
+        'modal.pc.s3Mod': '腐化词缀',
+        'modal.pc.s3ModD': '每局随机词缀改变规则：撕裂之夜（降低阈值）、昂贵欲望（强牌加倍代价）、镜之税（跳过惩罚）、告解时刻（净化加成）。',
+        'modal.pc.s3Cap': '男主战斗动画表（16 帧）/ 霸虹幽灵——第一章精英 Boss',
+        'modal.pc.s4Title': '关系网络系统',
+        'modal.pc.s4P1': '6 个角色，各追踪 7 个维度：好感、嫉妒、信任、秘密进度、路线阶段、背叛风险、标记。偏爱一个盟友，其他人会嫉妒——超过阈值就会在战斗中对峰你。队伍系统使用 3 个槽位：主搭档、副搭档、支援。',
+        'modal.pc.s4Cap1': '红线（关系绑定牌）/ 霸虹念珠（隐藏角色解锁遗物）',
+        'modal.pc.s4P2': '结局解析器按严格优先级检查 8 个条件：背叛结局、后宫崩溃、单路线真结局、契约过载、净化之路、隐藏角色路线、中立逃脱、坏结局。每个需要独特的状态组合——不会有两次通关结果相同。',
+        'modal.pc.s4Cap2': '月契约（永久封印关系）/ 契约重置（断开所有纽带，重启路线）',
+        'modal.pc.s5Title': 'Roguelike 系统',
+        'modal.pc.s5P1': '每局生成独特的路径：战斗、事件、商店。角色事件、招募时刻、对峰场景全部数据驱动——零硬编码内容。游戏包含 31 个 JSON 数据文件，共 31,588 行。',
+        'modal.pc.s5L1': '153 张卡牌，5 种流派 + 12 张协同卡（特定角色组合时激活）',
+        'modal.pc.s5L2': 'Roguelike 地图：每章含战斗、精英、事件、告解、商店、祭坛、Boss 节点',
+        'modal.pc.s5L3': '13,310 行分支视觉小说对话（中文 + 英文）',
+        'modal.pc.s5L4': '每局随机腐化词缀创造独特规则变体',
+        'modal.pc.s5L5': '双货币张力：好感（力量）vs 契约（风险）——每次选牌都是取舍',
+        'modal.pc.s5Cap': '遗物与后期卡牌：红漆匣、天鹅绒终曲、最终邀请',
+        'modal.pc.s6Title': '由 AI Agent 构建',
+        'modal.pc.s6P1': '整个代码库——10,551 行 GDScript，12 个模块——由 Claude Code 从 8 份手写设计文档生成。人类提供创意方向；AI 负责架构、代码生成、数据平衡和跨文件 QA。',
+        'modal.pc.proc1': '设计文档',
+        'modal.pc.proc2': '架构规划',
+        'modal.pc.proc3': '模块实现',
+        'modal.pc.proc4': '集成联调',
+        'modal.pc.proc5': 'QA 审计',
+        'modal.pc.s6F1': '安全重构',
+        'modal.pc.s6F1D': '8,957 行单体文件通过 const 委托模式分解为 12 个模块。88 个常量引用迁移，零破坏。',
+        'modal.pc.s6F2': '跨文件 Bug 检测',
+        'modal.pc.s6F2D': '自动检测并修复 4 个 Bug：嵌套 effects 被忽略、对峰无限循环、卡牌 ID 缺失、锁定角色可选择。',
+        'modal.pc.s6ModCap': '青色 = AI 生成的关系网络模块',
+        'modal.pc.reflTitle': '反思',
+        'modal.pc.reflText': '这个项目证明了当给予清晰的架构边界时，AI Agent 能作为全栈游戏工程师。人类的角色从写代码转变为设计系统和验证输出——一种新的独立开发模式，让一个人的设计愿景在数周内而非数月内变成完整游戏。'
+    }
+};
+
+let currentLang = localStorage.getItem('lang') || (navigator.language.startsWith('zh') ? 'zh' : 'en');
+
+function applyTranslations(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            el.textContent = translations[lang][key];
+        }
+    });
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+}
+
+document.getElementById('lang-en').addEventListener('click', () => applyTranslations('en'));
+document.getElementById('lang-zh').addEventListener('click', () => applyTranslations('zh'));
+applyTranslations(currentLang);
+</script>
+</body>
+</html>

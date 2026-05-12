@@ -305,7 +305,7 @@
         .section-eyebrow { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; }
         .section-title { font-size: clamp(36px, 5vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
         .projects-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .side-projects-grid { grid-template-columns: repeat(3, 1fr); }
+        .side-projects-grid { grid-template-columns: repeat(2, 1fr); }
         .side-projects-grid .project-card { aspect-ratio: 16/10; }
         .project-card { position: relative; aspect-ratio: 16/10; border-radius: 20px; overflow: hidden; cursor: pointer; background: var(--bg-card); display: block; text-decoration: none; color: inherit; border: 1px solid rgba(255,255,255,0.06); transition: transform 0.45s var(--ease-out-quart), border-color 0.45s, box-shadow 0.45s; }
         .project-card::after { content: ''; position: absolute; inset: -1px; background: linear-gradient(115deg, transparent 0%, transparent 36%, rgba(255,255,255,0.2) 49%, transparent 62%, transparent 100%); transform: translateX(-120%); opacity: 0; pointer-events: none; z-index: 2; transition: transform 0.85s var(--ease-out-quart), opacity 0.35s; }
@@ -952,6 +952,28 @@
             stroke: #34d399;
         }
 
+        .project-card[data-project="pleasurecontract"] {
+            border: 1px solid rgba(6, 182, 212, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card[data-project="pleasurecontract"]:hover {
+            border-color: rgba(6, 182, 212, 0.2);
+            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.12);
+        }
+        .project-card[data-project="pleasurecontract"] .project-card-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(5,15,20,0.92) 100%);
+        }
+        .project-card[data-project="pleasurecontract"] .project-tag {
+            background: rgba(6, 182, 212, 0.2);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+        }
+        .project-card[data-project="pleasurecontract"] .project-metric {
+            color: #22d3ee;
+        }
+        .project-card[data-project="pleasurecontract"] .project-metric svg {
+            stroke: #22d3ee;
+        }
+
         @media (max-width: 768px) {
             #modal-collov .modal-header { padding: 36px 24px 24px; }
             #modal-collov .modal-title { font-size: 32px; }
@@ -1147,6 +1169,23 @@
                             <line x1="12" y1="22.08" x2="12" y2="12"/>
                         </svg>
                         <span data-i18n="project.cryptocopilot.metric">Design Exploration</span>
+                    </span>
+                    <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                </div>
+            </a>
+            <a href="pleasurecontract.html" class="project-card" data-project="pleasurecontract">
+                <div class="project-card-bg" id="pleasurecontract-bg"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <span class="project-tag" data-i18n="project.pleasurecontract.tag">AI-Built Game · 2026</span>
+                    <h3 class="project-title" data-i18n="project.pleasurecontract.title">Pleasure Contract</h3>
+                    <p class="project-subtitle" data-i18n="project.pleasurecontract.subtitle">Card Roguelike Built Entirely by AI Agent</p>
+                    <span class="project-metric">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="4 17 10 11 4 5"/>
+                            <line x1="12" y1="19" x2="20" y2="19"/>
+                        </svg>
+                        <span data-i18n="project.pleasurecontract.metric">10K+ Lines GDScript</span>
                     </span>
                     <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
                 </div>
@@ -1360,6 +1399,8 @@
         document.getElementById('weneed-bg').innerHTML = '<img src="we_logo.png" alt="WeNeed" style="width: 100px; height: 100px; border-radius: 20px; filter: drop-shadow(0 10px 30px rgba(59, 130, 246, 0.3)); position: relative; z-index: 1;" />';
 
         document.getElementById('cryptocopilot-bg').style.cssText = "background: url('images/cryptocopilot-dashboard.jpg') center/cover;";
+
+        document.getElementById('pleasurecontract-bg').style.cssText = "background: url('images/pc-cg-rooftop.png') center/cover;";
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1623,6 +1664,10 @@
                 'project.cryptocopilot.title': 'Crypto Copilot',
                 'project.cryptocopilot.subtitle': 'AI-powered investment platform with no-code strategy builder',
                 'project.cryptocopilot.metric': 'Design Exploration',
+                'project.pleasurecontract.tag': 'AI-Built Game · 2026',
+                'project.pleasurecontract.title': 'Pleasure Contract',
+                'project.pleasurecontract.subtitle': 'Card Roguelike Built Entirely by AI Agent',
+                'project.pleasurecontract.metric': '10K+ Lines GDScript',
                 'project.viewCase': 'View case',
                 'skills.eyebrow': 'Expertise',
                 'skills.title': 'My design operating system.',
@@ -2074,6 +2119,10 @@
                 'project.cryptocopilot.title': 'Crypto Copilot',
                 'project.cryptocopilot.subtitle': 'AI驱动的投资平台与可视化策略构建器',
                 'project.cryptocopilot.metric': '设计探索',
+                'project.pleasurecontract.tag': 'AI 游戏开发 · 2026',
+                'project.pleasurecontract.title': 'Pleasure Contract',
+                'project.pleasurecontract.subtitle': '完全由 AI Agent 构建的卡牌 Roguelike',
+                'project.pleasurecontract.metric': '10K+ 行 GDScript',
                 'project.viewCase': '查看案例',
                 'skills.eyebrow': '专业优势',
                 'skills.title': '我的设计操作系统',
