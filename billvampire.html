@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill Vampire | Joey Zhao</title>
-    <meta name="description" content="Bill Vampire case study: AI-powered subscription tracker with clear information architecture, behavior design, and conversion-focused flows.">
+    <meta name="description" content="Bill Vampire case study: an AI subscription emergency kit redesigned around conversion, analytics, pricing, and commercial product thinking.">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Bill Vampire | Joey Zhao">
-    <meta property="og:description" content="Side project case study covering AI UX, product thinking, and practical implementation details.">
+    <meta property="og:description" content="AI subscription rescue product case study covering visual redesign, event taxonomy, conversion funnel, and monetization strategy.">
     <meta property="og:url" content="https://joeyzhao.cc/billvampire.html">
-    <meta property="og:image" content="https://joeyzhao.cc/images/billvampire-landing.jpg">
+    <meta property="og:image" content="https://joeyzhao.cc/images/billvampire-hero-vampire-advocate.webp">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://joeyzhao.cc/billvampire.html">
+    <link rel="icon" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -134,24 +135,26 @@
 
         /* Bill Vampire Custom Styles */
         .modal-container {
-            background: linear-gradient(180deg, #0a0a12 0%, #0d0d1a 100%);
-            border: 1px solid rgba(225, 29, 72, 0.12);
-            box-shadow: 0 0 80px rgba(225, 29, 72, 0.06);
+            background:
+                radial-gradient(circle at 50% -12%, rgba(244, 63, 94, 0.2), transparent 38%),
+                linear-gradient(180deg, #0b0b11 0%, #120910 46%, #09090f 100%);
+            border: 1px solid rgba(244, 63, 94, 0.16);
+            box-shadow: 0 0 90px rgba(244, 63, 94, 0.08), 0 40px 120px rgba(0, 0, 0, 0.5);
         }
         .modal-header {
             position: relative;
             padding: 56px 48px 36px;
             background: radial-gradient(ellipse at 50% 0%, rgba(225, 29, 72, 0.08) 0%, transparent 70%);
         }
-        .modal-eyebrow { color: #fb7185; letter-spacing: 0.18em; font-size: 11px; }
+        .modal-eyebrow { color: #f4c979; letter-spacing: 0.18em; font-size: 11px; }
         .modal-title {
-            font-size: 44px;
+            font-size: 48px;
             font-family: var(--font-display);
             font-weight: 700;
-            color: color-mix(in oklab, var(--text-primary) 92%, var(--accent-light));
-            letter-spacing: -0.015em;
+            color: #fff7ed;
+            letter-spacing: 0;
         }
-        .modal-meta-label { color: #e11d48; font-size: 10px; letter-spacing: 0.12em; }
+        .modal-meta-label { color: #f4c979; font-size: 10px; letter-spacing: 0.12em; }
         .modal-tldr {
             background: linear-gradient(135deg, rgba(225, 29, 72, 0.14), rgba(116, 29, 53, 0.08));
             border-left: 3px solid #e11d48; border-radius: 0 20px 20px 0;
@@ -159,14 +162,14 @@
         }
         .modal-tldr-label { color: #fb7185; }
         .modal-metric {
-            background: linear-gradient(145deg, rgba(225, 29, 72, 0.08), rgba(225, 29, 72, 0.03));
-            border: 1px solid rgba(225, 29, 72, 0.12); border-radius: 20px;
+            background: linear-gradient(145deg, rgba(244, 63, 94, 0.1), rgba(245, 158, 11, 0.04));
+            border: 1px solid rgba(244, 63, 94, 0.16); border-radius: 20px;
             padding: 28px 16px; transition: transform 0.4s var(--ease-out-quart), border-color 0.4s var(--ease-out-quart), box-shadow 0.4s var(--ease-out-quart);
         }
         .modal-metric:hover { transform: translateY(-4px); border-color: rgba(225, 29, 72, 0.3); box-shadow: 0 12px 40px rgba(225, 29, 72, 0.12); }
         .modal-metric-value {
             font-size: 32px; font-weight: 800;
-            background: linear-gradient(135deg, #fb7185, #e11d48);
+            background: linear-gradient(135deg, #f7d08a, #fb7185 48%, #e11d48);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
         .modal-section-number { background: linear-gradient(135deg, #e11d48, #9f1239); box-shadow: 0 2px 12px rgba(225, 29, 72, 0.3); }
@@ -191,21 +194,74 @@
 
         /* Hero banner */
         .bv-hero-banner {
-            width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden;
-            background: linear-gradient(135deg, #110d14 0%, #251520 42%, #371d2b 72%, #2b1323 100%);
-            display: flex; align-items: center; justify-content: center;
+            width: 100%; min-height: 560px; position: relative; overflow: hidden;
+            background:
+                linear-gradient(90deg, rgba(8, 7, 10, 0.88) 0%, rgba(12, 9, 15, 0.7) 42%, rgba(20, 9, 16, 0.3) 100%),
+                radial-gradient(circle at 18% 16%, rgba(244, 63, 94, 0.24), transparent 34%),
+                radial-gradient(circle at 82% 16%, rgba(124, 58, 237, 0.2), transparent 34%),
+                #0b0b11;
+            display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr); align-items: center; gap: 28px;
+            padding: 56px 48px 48px;
         }
         .bv-hero-banner::before {
-            content: ''; position: absolute; top: 20%; left: 15%; width: 200px; height: 200px;
-            background: radial-gradient(circle, rgba(225, 29, 72, 0.2) 0%, transparent 70%);
-            border-radius: 50%; filter: blur(40px);
+            content: ''; position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: linear-gradient(180deg, rgba(0,0,0,0.55), transparent 78%);
+            pointer-events: none;
         }
         .bv-hero-banner::after {
-            content: ''; position: absolute; top: 30%; right: 10%; width: 250px; height: 250px;
-            background: radial-gradient(circle, rgba(191, 71, 108, 0.16) 0%, transparent 70%);
-            border-radius: 50%; filter: blur(50px);
+            content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
+            background: linear-gradient(180deg, transparent, rgba(11, 11, 17, 0.92));
+            pointer-events: none;
         }
-        .bv-hero-banner img { width: 220px; height: 220px; position: relative; z-index: 1; filter: drop-shadow(0 20px 60px rgba(225, 29, 72, 0.3)); }
+        .bv-hero-copy { position: relative; z-index: 2; max-width: 610px; }
+        .bv-brand-lockup { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 34px; }
+        .bv-brand-lockup img {
+            width: 64px; height: 64px; border-radius: 18px;
+            box-shadow: 0 18px 44px rgba(244, 63, 94, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+        }
+        .bv-brand-lockup strong { display: block; color: #fff7ed; font-size: 24px; line-height: 1.1; }
+        .bv-brand-lockup span { display: block; color: #f4c979; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+        .bv-price-pill {
+            display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px;
+            padding: 11px 18px; border-radius: 999px;
+            color: #fecdd3; background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.14);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); font-size: 14px; font-weight: 700;
+        }
+        .bv-hero-title {
+            margin: 0 0 20px; font-family: var(--font); font-size: clamp(42px, 5.4vw, 64px); line-height: 1.04;
+            letter-spacing: 0; font-weight: 800; color: #fff7ed;
+            max-width: 560px;
+        }
+        .bv-hero-subcopy { max-width: 570px; color: #c7b9b5; font-size: 20px; line-height: 1.65; margin-bottom: 28px; }
+        .bv-proof-strip { display: flex; flex-wrap: wrap; gap: 10px; }
+        .bv-proof-strip span {
+            display: inline-flex; align-items: center; min-height: 36px; padding: 8px 12px; border-radius: 999px;
+            background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); color: #e9d5c5; font-size: 13px;
+        }
+        .bv-hero-art { position: relative; z-index: 1; align-self: end; margin: 0; border-radius: 24px; overflow: hidden; border: 1px solid rgba(244, 63, 94, 0.2); box-shadow: 0 34px 90px rgba(0,0,0,0.55); }
+        .bv-hero-art img { display: block; width: 100%; height: 430px; object-fit: cover; object-position: 52% 42%; filter: saturate(1.08) contrast(1.03); }
+        .bv-hero-banner > img[alt="Bill Vampire"] { display: none; }
+
+        .bv-commercial-grid {
+            display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 22px 0;
+        }
+        .bv-commercial-card {
+            min-height: 170px; padding: 18px; border-radius: 18px;
+            background: linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .bv-commercial-card span { display: block; margin-bottom: 12px; color: #f4c979; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 800; }
+        .bv-commercial-card strong { display: block; margin-bottom: 8px; color: #fff7ed; font-size: 17px; line-height: 1.25; }
+        .bv-commercial-card p { margin: 0; color: #c7b9b5; font-size: 13px; line-height: 1.6; }
+        .bv-event-table { margin-top: 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; overflow: hidden; }
+        .bv-event-row { display: grid; grid-template-columns: 1.1fr 1.25fr 1fr; gap: 14px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.026); }
+        .bv-event-row:last-child { border-bottom: none; }
+        .bv-event-row.head { color: #f4c979; background: rgba(244, 63, 94, 0.1); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 800; }
+        .bv-event-row:not(.head) { color: #d9d2cf; font-size: 13px; }
+        .bv-event-row code { color: #fecdd3; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
 
         /* App preview frame */
         .bv-app-preview {
@@ -632,9 +688,12 @@
 
         /* Visual Break */
         .bv-visual-break {
-            background: linear-gradient(135deg, rgba(225,29,72,0.06) 0%, rgba(139,92,246,0.06) 50%, rgba(225,29,72,0.06) 100%);
-            border-radius: 20px; padding: 48px 32px; margin: 40px 0; text-align: center;
-            border: 1px solid rgba(225,29,72,0.08); position: relative; overflow: hidden;
+            background:
+                linear-gradient(135deg, rgba(8,7,10,0.82) 0%, rgba(60, 12, 30, 0.72) 100%),
+                url('images/billvampire-evidence-still.webp') center/cover;
+            border-radius: 20px; padding: 64px 32px; margin: 40px 0; text-align: center;
+            border: 1px solid rgba(244, 63, 94, 0.18); position: relative; overflow: hidden;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 70px rgba(0,0,0,0.28);
         }
         .bv-visual-break::before {
             content: ''; position: absolute; top: -30%; left: -10%; width: 200px; height: 200px;
@@ -648,8 +707,10 @@
         }
         .bv-visual-icon { font-size: 48px; margin-bottom: 16px; position: relative; z-index: 1; }
         .bv-visual-tagline {
-            font-size: 20px; font-weight: 600; color: var(--text-primary);
+            max-width: 620px; margin: 0 auto;
+            font-size: 24px; font-weight: 700; color: #fff7ed;
             position: relative; z-index: 1; letter-spacing: -0.02em;
+            text-shadow: 0 2px 24px rgba(0,0,0,0.55);
         }
 
         /* Phone Showcase Responsive */
@@ -666,6 +727,13 @@
             .modal-header, .modal-body { padding: 32px 24px; }
             .modal-title { font-size: 32px; }
             .modal-metrics { grid-template-columns: 1fr; }
+            .bv-hero-banner { min-height: auto; grid-template-columns: 1fr; padding: 34px 22px 28px; }
+            .bv-brand-lockup { margin-bottom: 24px; }
+            .bv-hero-title { font-size: 42px; letter-spacing: 0; }
+            .bv-hero-subcopy { font-size: 16px; }
+            .bv-hero-art img { height: 280px; }
+            .bv-commercial-grid { grid-template-columns: 1fr; }
+            .bv-event-row { grid-template-columns: 1fr; gap: 6px; }
             .modal-role-grid { grid-template-columns: 1fr; }
             .modal-process-enhanced { flex-direction: column; align-items: center; }
             .modal-process-item:not(:last-child)::after { display: none; }
@@ -731,27 +799,44 @@
     <div class="modal-container">
         <!-- Hero Banner -->
         <div class="bv-hero-banner">
+            <div class="bv-hero-copy">
+                <div class="bv-brand-lockup">
+                    <img src="images/billvampire-icon.png" alt="Bill Vampire logo">
+                    <div><strong>Bill Vampire</strong><span data-i18n="modal.bv.heroBrandSub">Emergency Kit</span></div>
+                </div>
+                <div class="bv-price-pill" data-i18n="modal.bv.heroPill">$4.99 one-time · No bank login · Cancel and refund scripts</div>
+                <h1 class="bv-hero-title" data-i18n="modal.bv.heroHeadline">Stop your next surprise subscription charge.</h1>
+                <p class="bv-hero-subcopy" data-i18n="modal.bv.heroSubcopy">Paste a billing email, upload a screenshot, or say the trial out loud. Bill Vampire builds a cancel/refund plan before the next renewal bites.</p>
+                <div class="bv-proof-strip">
+                    <span data-i18n="modal.bv.heroProof1">$128,400 risk spotted</span>
+                    <span data-i18n="modal.bv.heroProof2">150+ services detected</span>
+                    <span data-i18n="modal.bv.heroProof3">No signup before results</span>
+                </div>
+            </div>
+            <figure class="bv-hero-art">
+                <img src="images/billvampire-hero-vampire-advocate.webp" alt="Bill Vampire emergency kit gothic advocate visual">
+            </figure>
             <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmRhNGFmIi8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNlMTFkNDgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM5ZjEyMzkiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iY2FwZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM1YjIxYjYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxZTFiNGIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iY2FwZUlubmVyIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzdjM2FlZCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzRjMWQ5NSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJza2luIiB4MT0iNTAlIiB5MT0iMCUiIHgyPSI1MCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmVmY2U4Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmVmMDhhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImhhaXIiIHgxPSI1MCUiIHkxPSIwJSIgeDI9IjUwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzMTJlODEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwZjBhMmUiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iYmlsbCIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2YxZjVmOSIvPjwvbGluZWFyR3JhZGllbnQ+PGZpbHRlciBpZD0ic2hhZG93IiB4PSItMTAlIiB5PSItMTAlIiB3aWR0aD0iMTMwJSIgaGVpZ2h0PSIxMzAlIj48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iNCIgc3RkRGV2aWF0aW9uPSI2IiBmbG9vZC1jb2xvcj0iIzAwMDAwMDMzIi8+PC9maWx0ZXI+PGZpbHRlciBpZD0iZ2xvdyIgeD0iLTIwJSIgeT0iLTIwJSIgd2lkdGg9IjE0MCUiIGhlaWdodD0iMTQwJSI+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMyIgcmVzdWx0PSJibHVyIi8+PGZlTWVyZ2U+PGZlTWVyZ2VOb2RlIGluPSJibHVyIi8+PGZlTWVyZ2VOb2RlIGluPSJTb3VyY2VHcmFwaGljIi8+PC9mZU1lcmdlPjwvZmlsdGVyPjxyYWRpYWxHcmFkaWVudCBpZD0iZXllLWdsb3ciIGN4PSI1MCUiIGN5PSI0MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2ZjYTVhNSIvPjxzdG9wIG9mZnNldD0iNjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGMyNjI2Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN2YxZDFkIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMDgiIGZpbGw9InVybCgjYmcpIi8+PHBhdGggZD0iTTEyMCAyNjAgQzEwMCAzMDAgODIgMzkwIDc4IDQ2NSBMNDM0IDQ2NSBDNDMwIDM5MCA0MTIgMzAwIDM5MiAyNjAgQzM4MCAyNzIgMzY1IDI4MCAzNDggMjgwIEwxNjQgMjgwIEMxNDcgMjgwIDEzMiAyNzIgMTIwIDI2MCBaIiBmaWxsPSJ1cmwoI2NhcGUpIiBmaWx0ZXI9InVybCgjc2hhZG93KSIvPjxwYXRoIGQ9Ik0xNTAgMjgwIEMxMzggMzIwIDEyNSAzOTUgMTIyIDQ1NSBMMzkwIDQ1NSBDMzg3IDM5NSAzNzQgMzIwIDM2MiAyODAgWiIgZmlsbD0idXJsKCNjYXBlSW5uZXIpIiBvcGFjaXR5PSIwLjUiLz48cGF0aCBkPSJNMjEwIDI3MiBMMjE4IDM1MCBMMjk0IDM1MCBMMzAyIDI3MiBaIiBmaWxsPSIjMWUxYjRiIi8+PGxpbmUgeDE9IjI1NiIgeTE9IjI3OCIgeDI9IjI1NiIgeTI9IjM1MCIgc3Ryb2tlPSIjMzEyZTgxIiBzdHJva2Utd2lkdGg9IjIiLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMTk1IiByeD0iNzgiIHJ5PSI4NSIgZmlsbD0idXJsKCNza2luKSIgZmlsdGVyPSJ1cmwoI3NoYWRvdykiLz48ZWxsaXBzZSBjeD0iMTk4IiBjeT0iMjE4IiByeD0iMTgiIHJ5PSIxMCIgZmlsbD0iI2ZkYTRhZiIgb3BhY2l0eT0iMC40Ii8+PGVsbGlwc2UgY3g9IjMxNCIgY3k9IjIxOCIgcng9IjE4IiByeT0iMTAiIGZpbGw9IiNmZGE0YWYiIG9wYWNpdHk9IjAuNCIvPjxwYXRoIGQ9Ik0xNzggMTkwIEMxNzggMTMwIDIwNSA5NSAyNTYgODggQzMwNyA5NSAzMzQgMTMwIDMzNCAxOTAgQzMzNCAxNjAgMzE1IDEyMCAyNTYgMTEyIEMxOTcgMTIwIDE3OCAxNjAgMTc4IDE5MCBaIiBmaWxsPSJ1cmwoI2hhaXIpIi8+PHBhdGggZD0iTTIyNiAxMzIgTDI1NiAxNjggTDI4NiAxMzIgQzI3MyAxMTIgMjM5IDExMiAyMjYgMTMyIFoiIGZpbGw9InVybCgjaGFpcikiLz48cGF0aCBkPSJNMTc4IDE5MCBDMTcyIDE3NSAxNzAgMTU4IDE3OCAxNDIgTDE4OCAxNjggWiIgZmlsbD0idXJsKCNoYWlyKSIvPjxwYXRoIGQ9Ik0zMzQgMTkwIEMzNDAgMTc1IDM0MiAxNTggMzM0IDE0MiBMMzI0IDE2OCBaIiBmaWxsPSJ1cmwoI2hhaXIpIi8+PHBhdGggZD0iTTE3OCAxOTUgTDE1MiAxNTUgTDE4MiAxODgiIGZpbGw9InVybCgjc2tpbikiLz48cGF0aCBkPSJNMzM0IDE5NSBMMzYwIDE1NSBMMzMwIDE4OCIgZmlsbD0idXJsKCNza2luKSIvPjxwYXRoIGQ9Ik0yMDYgMTcyIFEyMjQgMTU4IDI0OCAxNjgiIHN0cm9rZT0iIzFlMWI0YiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjY0IDE2OCBRMjg4IDE1OCAzMDYgMTcyIiBzdHJva2U9IiMxZTFiNGIiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGVsbGlwc2UgY3g9IjIyNiIgY3k9IjE5OCIgcng9IjIwIiByeT0iMjIiIGZpbGw9IndoaXRlIi8+PGVsbGlwc2UgY3g9IjI4NiIgY3k9IjE5OCIgcng9IjIwIiByeT0iMjIiIGZpbGw9IndoaXRlIi8+PGVsbGlwc2UgY3g9IjIzMCIgY3k9IjIwMCIgcng9IjEzIiByeT0iMTQiIGZpbGw9InVybCgjZXllLWdsb3cpIi8+PGVsbGlwc2UgY3g9IjI5MCIgY3k9IjIwMCIgcng9IjEzIiByeT0iMTQiIGZpbGw9InVybCgjZXllLWdsb3cpIi8+PGVsbGlwc2UgY3g9IjIzMiIgY3k9IjIwMCIgcng9IjQiIHJ5PSIxMCIgZmlsbD0iIzFlMWI0YiIvPjxlbGxpcHNlIGN4PSIyOTIiIGN5PSIyMDAiIHJ4PSI0IiByeT0iMTAiIGZpbGw9IiMxZTFiNGIiLz48ZWxsaXBzZSBjeD0iMjM2IiBjeT0iMTk0IiByeD0iNCIgcnk9IjMuNSIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOSIvPjxlbGxpcHNlIGN4PSIyOTYiIGN5PSIxOTQiIHJ4PSI0IiByeT0iMy41IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PHBhdGggZD0iTTI1MiAyMTggUTI1NiAyMjQgMjYwIDIxOCIgc3Ryb2tlPSIjZDRhNTc0IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjggMjQwIFEyNDIgMjUyIDI1NiAyNDggUTI3MCAyNTIgMjg0IDI0MCIgc3Ryb2tlPSIjMWUxYjRiIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMzQgMjQwIEwyMjggMjYyIEwyNDAgMjQyIiBmaWxsPSJ3aGl0ZSIgZmlsdGVyPSJ1cmwoI2dsb3cpIi8+PHBhdGggZD0iTTI3OCAyNDAgTDI4NCAyNjIgTDI3MiAyNDIiIGZpbGw9IndoaXRlIiBmaWx0ZXI9InVybCgjZ2xvdykiLz48cGF0aCBkPSJNMjM0IDI2OCBMMjU2IDI4MCBMMjc4IDI2OCBMMjc4IDI5MCBMMjU2IDI3OCBMMjM0IDI5MCBaIiBmaWxsPSIjZGMyNjI2Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjc5IiByPSI2IiBmaWxsPSIjZmJiZjI0Ii8+PHBhdGggZD0iTTE5NSAzMDUgQzE3NSAzMzAgMTYwIDM1NSAxNjUgMzg1IEwxODUgMzg1IEMxODUgMzYwIDE4MiAzMzggMjAwIDMxNSBaIiBmaWxsPSJ1cmwoI3NraW4pIi8+PHBhdGggZD0iTTMxNyAzMDUgQzMzNSAzMzAgMzQ1IDM1NSAzNDAgMzg1IEwzMjAgMzg1IEMzMjIgMzYwIDMyNSAzMzggMzEwIDMxNSBaIiBmaWxsPSJ1cmwoI3NraW4pIi8+PGcgdHJhbnNmb3JtPSJyb3RhdGUoLTUgMjU2IDQwMCkiIGZpbHRlcj0idXJsKCNzaGFkb3cpIj48cmVjdCB4PSIxNzUiIHk9IjM0NSIgd2lkdGg9IjE2MiIgaGVpZ2h0PSIxMjAiIHJ4PSI2IiBmaWxsPSJ1cmwoI2JpbGwpIi8+PHBhdGggZD0iTTMyMiAzNDUgTDMyMiAzNjggUTMxMiAzNjAgMzA4IDM0NSBaIiBmaWxsPSJ1cmwoI2JnKSIvPjxjaXJjbGUgY3g9IjMxNyIgY3k9IjM1MiIgcj0iNSIgZmlsbD0idXJsKCNiZykiLz48dGV4dCB4PSIyMjAiIHk9IjQwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI1MiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMwNTk2NjkiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiI+JDwvdGV4dD48cmVjdCB4PSIyNDUiIHk9IjM3OCIgd2lkdGg9Ijc1IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNjYmQ1ZTEiLz48cmVjdCB4PSIyNDUiIHk9IjM5NSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNjYmQ1ZTEiLz48cmVjdCB4PSIyNDUiIHk9IjQxMiIgd2lkdGg9IjY4IiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMTk1IiB5MT0iNDMyIiB4Mj0iMzIwIiB5Mj0iNDMyIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtZGFzaGFycmF5PSI1LDMiLz48cmVjdCB4PSIxOTUiIHk9IjQ0MCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjYiIHJ4PSIzIiBmaWxsPSIjZWY0NDQ0Ii8+PHBhdGggZD0iTTMxOCAzNTYgQzMyMCAzNjggMzE3IDM3OCAzMTYgMzg0IEMzMTUgMzc4IDMxOCAzNjggMzE4IDM1NiIgZmlsbD0iI2VmNDQ0NCIgb3BhY2l0eT0iMC44NSIvPjxlbGxpcHNlIGN4PSIzMTYiIGN5PSIzODYiIHJ4PSIzIiByeT0iNCIgZmlsbD0iI2VmNDQ0NCIgb3BhY2l0eT0iMC43Ii8+PC9nPjxwYXRoIGQ9Ik0xNjggMzc4IEMxNjIgMzg1IDE2NCAzOTggMTcyIDQwMCBDMTc2IDQwMSAxODAgMzk2IDE3OCAzOTAgWiIgZmlsbD0iI2ZlZjA4YSIvPjxwYXRoIGQ9Ik0xNzUgMzc0IEMxNjggMzgwIDE3MCAzOTQgMTc4IDM5NiBDMTgyIDM5NyAxODYgMzkyIDE4NCAzODYgWiIgZmlsbD0iI2ZlZjA4YSIvPjxwYXRoIGQ9Ik0xODIgMzcyIEMxNzYgMzc3IDE3NyAzOTAgMTg1IDM5MiBDMTg5IDM5MyAxOTIgMzg4IDE5MCAzODIgWiIgZmlsbD0iI2ZlZjA4YSIvPjxwYXRoIGQ9Ik0xNjUgMzg0IEMxNjAgMzkwIDE2MiA0MDAgMTcwIDQwMiBMMTcyIDQwMCBDMTY2IDM5NiAxNjQgMzkwIDE2OCAzODQgWiIgZmlsbD0iI2ZkZTY4YSIvPjxwYXRoIGQ9Ik0zMzggMzc4IEMzNDQgMzg1IDM0MiAzOTggMzM0IDQwMCBDMzMwIDQwMSAzMjYgMzk2IDMyOCAzOTAgWiIgZmlsbD0iI2ZlZjA4YSIvPjxwYXRoIGQ9Ik0zMzEgMzc0IEMzMzggMzgwIDMzNiAzOTQgMzI4IDM5NiBDMzI0IDM5NyAzMjAgMzkyIDMyMiAzODYgWiIgZmlsbD0iI2ZlZjA4YSIvPjxwYXRoIGQ9Ik0zMjQgMzcyIEMzMzAgMzc3IDMyOSAzOTAgMzIxIDM5MiBDMzE3IDM5MyAzMTQgMzg4IDMxNiAzODIgWiIgZmlsbD0iI2ZlZjA4YSIvPjxwYXRoIGQ9Ik0zNDEgMzg0IEMzNDYgMzkwIDM0NCA0MDAgMzM2IDQwMiBMMzM0IDQwMCBDMzQwIDM5NiAzNDIgMzkwIDMzOCAzODQgWiIgZmlsbD0iI2ZkZTY4YSIvPjwvc3ZnPg==" alt="Bill Vampire" />
         </div>
 
         <div class="modal-header">
-            <p class="modal-eyebrow" data-i18n="modal.bv.eyebrow">AI Side Project &middot; 2025 &middot; PWA</p>
+            <p class="modal-eyebrow" data-i18n="modal.bv.eyebrow">AI Product &middot; Emergency Kit &middot; 2025</p>
             <h2 class="modal-title" data-i18n="modal.bv.title">Bill Vampire</h2>
-            <p class="modal-subtitle" data-i18n="modal.bv.subtitle">An AI-powered subscription tracker that roasts your spending habits</p>
+            <p class="modal-subtitle" data-i18n="modal.bv.subtitle">A $4.99 AI rescue kit for surprise subscription charges, cancellation paths, refund scripts, and proof files.</p>
             <div class="modal-meta">
                 <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.bv.metaLabel1">Role</span><span class="modal-meta-value" data-i18n="modal.bv.metaValue1">Designer + Developer</span></div>
-                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.bv.metaLabel2">Type</span><span class="modal-meta-value" data-i18n="modal.bv.metaValue2">Side Project</span></div>
-                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.bv.metaLabel3">Timeline</span><span class="modal-meta-value" data-i18n="modal.bv.metaValue3">2 Weeks</span></div>
-                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.bv.metaLabel4">Stack</span><span class="modal-meta-value" data-i18n="modal.bv.metaValue4">React, Tailwind, Gemini AI</span></div>
+                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.bv.metaLabel2">Type</span><span class="modal-meta-value" data-i18n="modal.bv.metaValue2">Commercial AI Tool</span></div>
+                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.bv.metaLabel3">Focus</span><span class="modal-meta-value" data-i18n="modal.bv.metaValue3">Conversion + Monetization</span></div>
+                <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.bv.metaLabel4">Stack</span><span class="modal-meta-value" data-i18n="modal.bv.metaValue4">React, Gemini, GA4</span></div>
             </div>
         </div>
 
         <div class="modal-body">
             <!-- Live Demo Priority -->
             <div class="bv-live-priority">
-                <div class="bv-live-chip" data-i18n="modal.bv.livePriorityChip">Live Demo First</div>
-                <h3 data-i18n="modal.bv.livePriorityTitle">Click first. Explore the real product before reading the case study.</h3>
-                <p data-i18n="modal.bv.livePriorityDesc">The live site now reflects the latest visual redesign. Open it now to feel the interactions, then come back for design decisions and technical breakdown.</p>
+                <div class="bv-live-chip" data-i18n="modal.bv.livePriorityChip">Latest Product Live</div>
+                <h3 data-i18n="modal.bv.livePriorityTitle">Open the live funnel first. The redesign is built around intent, urgency, and checkout readiness.</h3>
+                <p data-i18n="modal.bv.livePriorityDesc">The current version frames Bill Vampire as an emergency subscription rescue kit: no bank login, no signup before results, and a one-time $4.99 unlock when the user needs scripts and proof.</p>
                 <div class="bv-live-actions">
                     <a href="https://billvampire.com/" target="_blank" rel="noopener noreferrer" class="bv-live-primary" aria-label="Open Bill Vampire live demo in a new tab">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -760,12 +845,12 @@
                 </div>
 
                 <div class="bv-live-quick-grid">
-                    <div class="bv-live-quick-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn5O3PC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.quick1">Smart Import</span></div>
-                    <div class="bv-live-quick-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn6SWPC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.quick2">AI Roast</span></div>
-                    <div class="bv-live-quick-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn46vPC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.quick3">Alt Finder</span></div>
-                    <div class="bv-live-quick-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn5OKPC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.quick4">Spend Charts</span></div>
-                    <div class="bv-live-quick-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn5OFPC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.quick5">Streak Loop</span></div>
-                    <div class="bv-live-quick-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn5SSPC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.quick6">Privacy First</span></div>
+                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick1">Emergency Intake</span></div>
+                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick2">No Bank Login</span></div>
+                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick3">Cancel Paths</span></div>
+                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick4">Refund Scripts</span></div>
+                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick5">Evidence File</span></div>
+                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick6">$4.99 Unlock</span></div>
                 </div>
 
                 <!-- App Screenshots Showcase (integrated into Live Demo) -->
@@ -774,13 +859,12 @@
                         <div class="bv-phone">
                             <div class="bv-phone-notch"></div>
                             <div class="bv-screen-content bv-screen-bills">
-                                <div class="screen-title">💀 MY BILLS</div>
-                                <div class="screen-total">$127<span>.94/mo</span></div>
-                                <div class="bill-item"><span class="name">🎬 Netflix</span><span class="price">$15.49</span></div>
-                                <div class="bill-item"><span class="name">🎵 Spotify</span><span class="price">$10.99</span></div>
-                                <div class="bill-item"><span class="name">🤖 ChatGPT Plus</span><span class="price">$20.00</span></div>
-                                <div class="bill-item"><span class="name">☁️ iCloud+</span><span class="price">$2.99</span></div>
-                                <div class="bill-item"><span class="name">📺 YouTube</span><span class="price">$13.99</span></div>
+                                <div class="screen-title">NEXT CHARGE RISK</div>
+                                <div class="screen-total">$119<span>.99</span></div>
+                                <div class="bill-item"><span class="name">Canva Pro trial</span><span class="price">Tuesday</span></div>
+                                <div class="bill-item"><span class="name">Detected from email</span><span class="price">High</span></div>
+                                <div class="bill-item"><span class="name">Refund window</span><span class="price">Open</span></div>
+                                <div class="bill-item"><span class="name">Proof needed</span><span class="price">3 items</span></div>
                             </div>
                         </div>
                         <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel1">Subscription Tracker</div>
@@ -789,10 +873,10 @@
                         <div class="bv-phone">
                             <div class="bv-phone-notch"></div>
                             <div class="bv-screen-content bv-screen-roast">
-                                <div class="screen-title">🧛 AI ROAST</div>
-                                <div class="bv-roast-msg">“You’re paying $15/mo to watch The Office for the 47th time...”</div>
-                                <div class="bv-roast-msg">“$21/mo for ChatGPT? It literally told you to cancel subscriptions. Ironic.”</div>
-                                <div class="bv-roast-tip">💡 Try Tubi (free) or Kanopy (free w/ library card)</div>
+                                <div class="screen-title">RESCUE KIT</div>
+                                <div class="bv-roast-msg">1. Open account settings, then Billing.</div>
+                                <div class="bv-roast-msg">2. Copy the refund email with amount, date, and intent filled.</div>
+                                <div class="bv-roast-tip">Save screenshot, confirmation number, and support thread.</div>
                             </div>
                         </div>
                         <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel2">AI Roast Advisor</div>
@@ -801,8 +885,8 @@
                         <div class="bv-phone">
                             <div class="bv-phone-notch"></div>
                             <div class="bv-screen-content bv-screen-cal">
-                                <div class="screen-title">📅 NO-SPEND STREAK</div>
-                                <div class="bv-cal-month">March 2025</div>
+                                <div class="screen-title">CHECKOUT MOMENT</div>
+                                <div class="bv-cal-month">Emergency Kit - $4.99</div>
                                 <div class="bv-cal-days">
                                     <div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div><div class="bv-cal-day empty"></div>
                                     <div class="bv-cal-day checked">1</div>
@@ -827,7 +911,7 @@
                                     <div class="bv-cal-day checked">20</div>
                                     <div class="bv-cal-day checked">21</div>
                                 </div>
-                                <div class="bv-streak-badge">🔥 4-day streak!</div>
+                                <div class="bv-streak-badge">Cancel path + refund script + evidence checklist</div>
                             </div>
                         </div>
                         <div class="bv-phone-label" data-i18n="modal.bv.phoneLabel3">Streak Calendar</div>
@@ -838,68 +922,86 @@
             <!-- TL;DR -->
             <div class="modal-tldr">
                 <div class="modal-tldr-label" data-i18n="modal.bv.tldrLabel">TL;DR</div>
-                <div class="modal-tldr-text" data-i18n="modal.bv.tldrText">Track. Roast. Save. One playful finance app.</div>
+                <div class="modal-tldr-text" data-i18n="modal.bv.tldrText">Repositioned Bill Vampire from a playful tracker into a high-intent emergency kit with measurable acquisition, activation, checkout, and retention signals.</div>
             </div>
 
             <!-- Metrics -->
             <div class="modal-metrics">
-                <div class="modal-metric"><div class="modal-metric-value">PWA</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel1">App Type</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc1">Install on any device</div></div>
-                <div class="modal-metric"><div class="modal-metric-value">6</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel2">Currencies</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc2">USD, CNY, EUR, GBP, JPY, HKD</div></div>
-                <div class="modal-metric"><div class="modal-metric-value">AI</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel3">Gemini 2.5</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc3">3 AI features</div></div>
-                <div class="modal-metric"><div class="modal-metric-value">2</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel4">Languages</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc4">English & Chinese</div></div>
+                <div class="modal-metric"><div class="modal-metric-value">$4.99</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel1">One-Time Kit</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc1">Clear emergency price</div></div>
+                <div class="modal-metric"><div class="modal-metric-value">0</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel2">Bank Logins</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc2">Lower trust friction</div></div>
+                <div class="modal-metric"><div class="modal-metric-value">60+</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel3">Cancel Paths</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc3">Known service routes</div></div>
+                <div class="modal-metric"><div class="modal-metric-value">150+</div><div class="modal-metric-label" data-i18n="modal.bv.metricLabel4">Services</div><div class="modal-metric-desc" data-i18n="modal.bv.metricDesc4">Automatic detection scope</div></div>
             </div>
 
             <div class="modal-divider"></div>
 
+            <!-- Section 1: Commercial System -->
+            <div class="modal-section">
+                <h3 class="modal-section-title"><span class="modal-section-number">1</span><span data-i18n="modal.bv.commerceTitle">Commercial Design System</span></h3>
+                <p data-i18n="modal.bv.commerceIntro">The update is not only a visual refresh. It reframes the product around an urgent job-to-be-done, a low-friction preview, a clear one-time price, and analytics that show where intent turns into payment.</p>
+                <div class="bv-commercial-grid">
+                    <div class="bv-commercial-card"><span data-i18n="modal.bv.commerceKicker1">Acquisition</span><strong data-i18n="modal.bv.commerceCard1Title">Problem-first landing</strong><p data-i18n="modal.bv.commerceCard1Desc">Lead with the painful moment: surprise charge, trial renewal, or hard-to-cancel service.</p></div>
+                    <div class="bv-commercial-card"><span data-i18n="modal.bv.commerceKicker2">Activation</span><strong data-i18n="modal.bv.commerceCard2Title">Results before account</strong><p data-i18n="modal.bv.commerceCard2Desc">Let users paste, upload, or speak before signup so the product proves value early.</p></div>
+                    <div class="bv-commercial-card"><span data-i18n="modal.bv.commerceKicker3">Monetization</span><strong data-i18n="modal.bv.commerceCard3Title">One-time rescue kit</strong><p data-i18n="modal.bv.commerceCard3Desc">Package payment around urgency: cancel path, refund script, evidence list, and reminder.</p></div>
+                    <div class="bv-commercial-card"><span data-i18n="modal.bv.commerceKicker4">Measurement</span><strong data-i18n="modal.bv.commerceCard4Title">Event taxonomy</strong><p data-i18n="modal.bv.commerceCard4Desc">Instrument each decision point from landing view to kit purchase and saved case file.</p></div>
+                </div>
+                <div class="bv-event-table" aria-label="Bill Vampire event taxonomy">
+                    <div class="bv-event-row head"><span data-i18n="modal.bv.eventHead1">Event</span><span data-i18n="modal.bv.eventHead2">Question Answered</span><span data-i18n="modal.bv.eventHead3">Design Lever</span></div>
+                    <div class="bv-event-row"><code>landing_viewed</code><span data-i18n="modal.bv.event1Question">Does the emergency positioning attract the right traffic?</span><span data-i18n="modal.bv.event1Lever">Hero, price pill, trust claims</span></div>
+                    <div class="bv-event-row"><code>emergency_selected</code><span data-i18n="modal.bv.event2Question">Which pain mode has strongest intent?</span><span data-i18n="modal.bv.event2Lever">Scenario cards and copy hierarchy</span></div>
+                    <div class="bv-event-row"><code>preview_generated</code><span data-i18n="modal.bv.event3Question">Can users reach value before signup?</span><span data-i18n="modal.bv.event3Lever">Input flow and AI extraction confidence</span></div>
+                    <div class="bv-event-row"><code>checkout_clicked</code><span data-i18n="modal.bv.event4Question">Is the $4.99 kit value obvious enough?</span><span data-i18n="modal.bv.event4Lever">Paywall timing and unlock language</span></div>
+                </div>
+            </div>
+
             <!-- Section 1: Context -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">1</span><span data-i18n="modal.bv.section1Title">Background & Motivation</span></h3>
-                <div class="modal-quote" data-i18n="modal.bv.quote">"The average person spends $273/month on subscriptions they forget about"</div>
-                <p data-i18n="modal.bv.section1P1">Finance tools are often dull. Bill Vampire turns the same data into a playful visual experience.</p>
+                <h3 class="modal-section-title"><span class="modal-section-number">2</span><span data-i18n="modal.bv.section1Title">Background & Motivation</span></h3>
+                <div class="modal-quote" data-i18n="modal.bv.quote">"A user who just got charged does not want a dashboard. They want the next action."</div>
+                <p data-i18n="modal.bv.section1P1">The original subscription tracker had personality, but the updated product needed sharper commercial intent. I moved the value proposition from broad spending awareness to a specific rescue workflow: detect the charge, choose the emergency, generate the kit, then unlock the assets worth paying for.</p>
                 <div class="bv-context-grid">
-                    <div class="bv-context-card"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn5G7PC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.context1">Vampire personality UI</span></div>
-                    <div class="bv-context-card"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn46vPC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.context2">Cheaper alternatives surfaced fast</span></div>
-                    <div class="bv-context-card"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn5SlPC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.context3">Streaks that reward consistency</span></div>
+                    <div class="bv-context-card"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.context1">Urgent rescue positioning</span></div>
+                    <div class="bv-context-card"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.context2">No-bank-login trust strategy</span></div>
+                    <div class="bv-context-card"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.context3">Pay only for the complete kit</span></div>
                 </div>
             </div>
 
             <!-- Visual Break -->
             <div class="bv-visual-break">
-                <div class="bv-visual-icon">🧛</div>
-                <div class="bv-visual-tagline" data-i18n="modal.bv.tagline1">Feed the vampire. Track your bills.</div>
+                <div class="bv-visual-tagline" data-i18n="modal.bv.tagline1">Luxury gothic visuals make the emergency feel serious, memorable, and monetizable.</div>
             </div>
 
             <!-- Section 2: Infographics -->
             <div class="modal-section" id="infographics">
-                <h3 class="modal-section-title"><span class="modal-section-number">2</span><span data-i18n="modal.bv.infoSectionTitle">Infographic Snapshot</span></h3>
-                <p data-i18n="modal.bv.infoSectionIntro">A quick visual summary of where the product creates value: spending visibility, upgrade value clarity, and AI guidance loop.</p>
+                <h3 class="modal-section-title"><span class="modal-section-number">3</span><span data-i18n="modal.bv.infoSectionTitle">Funnel & Value Snapshot</span></h3>
+                <p data-i18n="modal.bv.infoSectionIntro">A quick visual summary of where the product creates value: emergency segmentation, free preview clarity, and paid kit packaging.</p>
                 <div class="bv-infographic-grid">
                     <div class="bv-info-card">
-                        <div class="bv-info-head"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn5OKPC90ZXh0Pjwvc3ZnPg==" alt=""><h4 data-i18n="modal.bv.infoCard1Title">Monthly Drain Anatomy</h4></div>
+                        <div class="bv-info-head"><img src="images/billvampire-icon.png" alt=""><h4 data-i18n="modal.bv.infoCard1Title">Emergency Funnel Anatomy</h4></div>
                         <div class="bv-bars">
-                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar1">Entertainment</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 42%"></div></div><strong>42%</strong></div>
-                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar2">Productivity</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 35%"></div></div><strong>35%</strong></div>
-                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar3">Lifestyle</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 23%"></div></div><strong>23%</strong></div>
+                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar1">Surprise charge</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 46%"></div></div><strong>46%</strong></div>
+                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar2">Renewal soon</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 34%"></div></div><strong>34%</strong></div>
+                            <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar3">Hard to cancel</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 20%"></div></div><strong>20%</strong></div>
                         </div>
                     </div>
 
                     <div class="bv-info-card">
-                        <div class="bv-info-head"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn4+377iPPC90ZXh0Pjwvc3ZnPg==" alt=""><h4 data-i18n="modal.bv.infoCard2Title">Free vs Pro Value</h4></div>
+                        <div class="bv-info-head"><img src="images/billvampire-icon.png" alt=""><h4 data-i18n="modal.bv.infoCard2Title">Free Preview vs Emergency Kit</h4></div>
                         <div class="bv-vs-grid">
-                            <div></div><div class="head" data-i18n="modal.bv.infoFree">Free</div><div class="head" data-i18n="modal.bv.infoPro">Pro</div>
-                            <div class="row-label" data-i18n="modal.bv.infoRow1">AI analyses / day</div><div class="cell">3</div><div class="cell pro">Unlimited</div>
-                            <div class="row-label" data-i18n="modal.bv.infoRow2">Smart Import</div><div class="cell">Text only</div><div class="cell pro">Text + Image + PDF</div>
-                            <div class="row-label" data-i18n="modal.bv.infoRow3">Price model</div><div class="cell">$0</div><div class="cell pro">9.99 USD once</div>
+                            <div></div><div class="head" data-i18n="modal.bv.infoFree">Free</div><div class="head" data-i18n="modal.bv.infoPro">Kit</div>
+                            <div class="row-label" data-i18n="modal.bv.infoRow1">Preview</div><div class="cell">Risk read</div><div class="cell pro">Full action plan</div>
+                            <div class="row-label" data-i18n="modal.bv.infoRow2">Assets</div><div class="cell">Summary</div><div class="cell pro">Scripts + proof</div>
+                            <div class="row-label" data-i18n="modal.bv.infoRow3">Price model</div><div class="cell">$0</div><div class="cell pro">$4.99 once</div>
                         </div>
                     </div>
 
                     <div class="bv-info-card bv-flow">
-                        <div class="bv-info-head"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn6SWPC90ZXh0Pjwvc3ZnPg==" alt=""><h4 data-i18n="modal.bv.infoCard3Title">AI Guidance Loop</h4></div>
+                        <div class="bv-info-head"><img src="images/billvampire-icon.png" alt=""><h4 data-i18n="modal.bv.infoCard3Title">Measured Conversion Loop</h4></div>
                         <div class="bv-flow-track">
-                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow1">Import Bills</div>
-                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow2">AI Roast</div>
-                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow3">Cheaper Alternatives</div>
-                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow4">No-Spend Streak</div>
+                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow1">Landing Viewed</div>
+                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow2">Emergency Selected</div>
+                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow3">Preview Generated</div>
+                            <div class="bv-flow-node" data-i18n="modal.bv.infoFlow4">Checkout Clicked</div>
                         </div>
                     </div>
                 </div>
@@ -907,19 +1009,19 @@
 
             <!-- Section 3: My Role -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">3</span><span data-i18n="modal.bv.section2Title">My Role</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">4</span><span data-i18n="modal.bv.section2Title">My Role</span></h3>
                 <div class="modal-role-grid">
                     <div class="modal-role-item">
                         <div class="modal-role-label" data-i18n="modal.bv.roleLabel1">Design</div>
-                        <div class="modal-role-value" data-i18n="modal.bv.roleValue1">Brand identity, custom vampire mascot, dark-mode UI with glassmorphism, mobile-first responsive layout</div>
+                        <div class="modal-role-value" data-i18n="modal.bv.roleValue1">New logo integration, gothic luxury art direction, conversion-first landing system, mobile-first responsive layout</div>
                     </div>
                     <div class="modal-role-item">
                         <div class="modal-role-label" data-i18n="modal.bv.roleLabel2">Development</div>
-                        <div class="modal-role-value" data-i18n="modal.bv.roleValue2">React 19 + Tailwind CSS 4, Vite build, Gemini AI integration, Chart.js visualizations, PWA with service worker</div>
+                        <div class="modal-role-value" data-i18n="modal.bv.roleValue2">React 19 + Tailwind CSS 4, Vite build, Gemini extraction flow, analytics instrumentation, PWA deployment</div>
                     </div>
                     <div class="modal-role-item">
                         <div class="modal-role-label" data-i18n="modal.bv.roleLabel3">Product</div>
-                        <div class="modal-role-value" data-i18n="modal.bv.roleValue3">Feature scoping, monetization strategy (freemium + one-time Pro), i18n for EN/ZH markets</div>
+                        <div class="modal-role-value" data-i18n="modal.bv.roleValue3">Event taxonomy, emergency segmentation, $4.99 kit packaging, paywall timing, EN/ZH market framing</div>
                     </div>
                     <div class="modal-role-item">
                         <div class="modal-role-label" data-i18n="modal.bv.roleLabel4">Deployment</div>
@@ -930,17 +1032,17 @@
 
             <!-- Section 4: Challenges -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">4</span><span data-i18n="modal.bv.section3Title">Design Challenges</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.bv.section3Title">Design Challenges</span></h3>
                 <ul class="modal-challenge-list">
-                    <li data-i18n="modal.bv.challenge1">Making financial tracking feel fun, not guilt-inducing - the vampire theme turns spending awareness into entertainment</li>
-                    <li data-i18n="modal.bv.challenge2">Balancing AI personality with usefulness - roasts need to be funny but the alternatives and advice must be genuinely helpful</li>
-                    <li data-i18n="modal.bv.challenge3">Designing a cohesive dark-mode UI that works across tabs (bills, calendar, stats) while maintaining the spooky brand aesthetic</li>
+                    <li data-i18n="modal.bv.challenge1">Move from entertainment to urgency without losing the memorable Bill Vampire brand.</li>
+                    <li data-i18n="modal.bv.challenge2">Earn trust without bank access by showing clear inputs, evidence handling, and practical next steps.</li>
+                    <li data-i18n="modal.bv.challenge3">Create a $4.99 pay moment that feels like a fair unlock, not a surprise paywall.</li>
                 </ul>
             </div>
 
             <!-- Section 5: Features -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.bv.section4Title">Key Features I Designed & Built</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">6</span><span data-i18n="modal.bv.section4Title">Key Features I Designed & Built</span></h3>
                 <div class="modal-feature-card">
                     <div class="modal-feature-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NCIgaGVpZ2h0PSI5NCIgdmlld0JveD0iMCAwIDk0IDk0Ij48dGV4dCB4PSI0NyIgeT0iNjIiIGZvbnQtc2l6ZT0iNTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIj7wn5OKPC90ZXh0Pjwvc3ZnPg==" alt=""><span data-i18n="modal.bv.feature1Title">Subscription Tracker with Multi-Currency</span></div>
                     <div class="modal-feature-desc" data-i18n="modal.bv.feature1Desc">6 currencies, one monthly view.</div>
@@ -965,35 +1067,35 @@
 
             <!-- Section 6: Design Process -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">6</span><span data-i18n="modal.bv.section5Title">Design & Development Process</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">7</span><span data-i18n="modal.bv.section5Title">Design & Development Process</span></h3>
                 <div class="modal-process-enhanced">
                     <div class="modal-process-item">
                         <div class="modal-process-number">1</div>
-                        <div class="modal-process-label" data-i18n="modal.bv.process1">Concept & Brand</div>
+                        <div class="modal-process-label" data-i18n="modal.bv.process1">Positioning</div>
                     </div>
                     <div class="modal-process-item">
                         <div class="modal-process-number">2</div>
-                        <div class="modal-process-label" data-i18n="modal.bv.process2">UI Design</div>
+                        <div class="modal-process-label" data-i18n="modal.bv.process2">Event Map</div>
                     </div>
                     <div class="modal-process-item">
                         <div class="modal-process-number">3</div>
-                        <div class="modal-process-label" data-i18n="modal.bv.process3">React Build</div>
+                        <div class="modal-process-label" data-i18n="modal.bv.process3">Funnel Build</div>
                     </div>
                     <div class="modal-process-item">
                         <div class="modal-process-number">4</div>
-                        <div class="modal-process-label" data-i18n="modal.bv.process4">AI Integration</div>
+                        <div class="modal-process-label" data-i18n="modal.bv.process4">AI Kit Logic</div>
                     </div>
                     <div class="modal-process-item">
                         <div class="modal-process-number">5</div>
-                        <div class="modal-process-label" data-i18n="modal.bv.process5">Deploy & Iterate</div>
+                        <div class="modal-process-label" data-i18n="modal.bv.process5">Measure & Iterate</div>
                     </div>
                 </div>
-                <p data-i18n="modal.bv.section5P1">The project started as a weekend concept but evolved into a full product with monetization. I designed the custom vampire mascot as an SVG, built the entire frontend in React with Tailwind CSS, integrated Gemini AI for three distinct features, and deployed on Cloudflare Pages as a PWA.</p>
+                <p data-i18n="modal.bv.section5P1">The redesign started by clarifying the monetizable job: rescue users from a charge right now. From there I mapped events, rebuilt the landing hierarchy, packaged the Emergency Kit, and used analytics to connect design decisions with conversion behavior.</p>
             </div>
 
             <!-- Section 7: Tech Stack -->
             <div class="modal-section">
-                <h3 class="modal-section-title"><span class="modal-section-number">7</span><span data-i18n="modal.bv.section6Title">Tech Stack</span></h3>
+                <h3 class="modal-section-title"><span class="modal-section-number">8</span><span data-i18n="modal.bv.section6Title">Tech Stack</span></h3>
                 <div class="tech-stack">
                     <span class="tech-badge">React 19</span>
                     <span class="tech-badge">Tailwind CSS 4</span>
@@ -1029,200 +1131,262 @@
             en: {
                 'nav.back': 'Back',
                 'nav.backToWork': 'Back to All Work',
-                'modal.bv.eyebrow': 'AI Side Project \u00b7 2025 \u00b7 PWA',
+                'modal.bv.heroBrandSub': 'Emergency Kit',
+                'modal.bv.heroPill': '$4.99 one-time · No bank login · Cancel and refund scripts',
+                'modal.bv.heroHeadline': 'Stop your next surprise subscription charge.',
+                'modal.bv.heroSubcopy': 'Paste a billing email, upload a screenshot, or say the trial out loud. Bill Vampire builds a cancel/refund plan before the next renewal bites.',
+                'modal.bv.heroProof1': '$128,400 risk spotted',
+                'modal.bv.heroProof2': '150+ services detected',
+                'modal.bv.heroProof3': 'No signup before results',
+                'modal.bv.eyebrow': 'AI Product · Emergency Kit · 2025',
                 'modal.bv.title': 'Bill Vampire',
-                'modal.bv.subtitle': 'An AI-powered subscription tracker that roasts your spending habits',
+                'modal.bv.subtitle': 'A $4.99 AI rescue kit for surprise subscription charges, cancellation paths, refund scripts, and proof files.',
                 'modal.bv.metaLabel1': 'Role',
                 'modal.bv.metaValue1': 'Designer + Developer',
                 'modal.bv.metaLabel2': 'Type',
-                'modal.bv.metaValue2': 'Side Project',
-                'modal.bv.metaLabel3': 'Timeline',
-                'modal.bv.metaValue3': '2 Weeks',
+                'modal.bv.metaValue2': 'Commercial AI Tool',
+                'modal.bv.metaLabel3': 'Focus',
+                'modal.bv.metaValue3': 'Conversion + Monetization',
                 'modal.bv.metaLabel4': 'Stack',
-                'modal.bv.metaValue4': 'React, Tailwind, Gemini AI',
+                'modal.bv.metaValue4': 'React, Gemini, GA4',
                 'modal.bv.tldrLabel': 'TL;DR',
-                'modal.bv.tldrText': 'Track. Roast. Save. One playful finance app.',
-                'modal.bv.livePriorityChip': 'Live Demo First',
-                'modal.bv.livePriorityTitle': 'Open it first. Feel the product in 10 seconds.',
-                'modal.bv.livePriorityDesc': 'The latest redesign is live. Explore first, read details later.',
+                'modal.bv.tldrText': 'Repositioned Bill Vampire from a playful tracker into a high-intent emergency kit with measurable acquisition, activation, checkout, and retention signals.',
+                'modal.bv.livePriorityChip': 'Latest Product Live',
+                'modal.bv.livePriorityTitle': 'Open the live funnel first. The redesign is built around intent, urgency, and checkout readiness.',
+                'modal.bv.livePriorityDesc': 'The current version frames Bill Vampire as an emergency subscription rescue kit: no bank login, no signup before results, and a one-time $4.99 unlock when the user needs scripts and proof.',
                 'modal.bv.livePriorityCta': 'Open Live Demo',
-                'modal.bv.quick1': 'Smart Import',
-                'modal.bv.quick2': 'AI Roast',
-                'modal.bv.quick3': 'Alt Finder',
-                'modal.bv.quick4': 'Spend Charts',
-                'modal.bv.quick5': 'Streak Loop',
-                'modal.bv.quick6': 'Privacy First',
-                'modal.bv.metricLabel1': 'App Type',
-                'modal.bv.metricDesc1': 'Install on any device',
-                'modal.bv.metricLabel2': 'Currencies',
-                'modal.bv.metricDesc2': 'USD, CNY, EUR, GBP, JPY, HKD',
-                'modal.bv.metricLabel3': 'Gemini 2.5',
-                'modal.bv.metricDesc3': '3 AI features',
-                'modal.bv.metricLabel4': 'Languages',
-                'modal.bv.metricDesc4': 'English & Chinese',
-                'modal.bv.phoneLabel1': 'Subscription Tracker',
-                'modal.bv.phoneLabel2': 'AI Roast Advisor',
-                'modal.bv.phoneLabel3': 'Streak Calendar',
-                'modal.bv.tagline1': 'Feed the vampire. Track your bills.',
-                'modal.bv.infoSectionTitle': 'Infographic Snapshot',
-                'modal.bv.infoSectionIntro': 'A quick visual summary of where the product creates value: spending visibility, upgrade value clarity, and AI guidance loop.',
-                'modal.bv.infoCard1Title': 'Monthly Drain Anatomy',
-                'modal.bv.infoBar1': 'Entertainment',
-                'modal.bv.infoBar2': 'Productivity',
-                'modal.bv.infoBar3': 'Lifestyle',
-                'modal.bv.infoCard2Title': 'Free vs Pro Value',
+                'modal.bv.quick1': 'Emergency Intake',
+                'modal.bv.quick2': 'No Bank Login',
+                'modal.bv.quick3': 'Cancel Paths',
+                'modal.bv.quick4': 'Refund Scripts',
+                'modal.bv.quick5': 'Evidence File',
+                'modal.bv.quick6': '$4.99 Unlock',
+                'modal.bv.metricLabel1': 'One-Time Kit',
+                'modal.bv.metricDesc1': 'Clear emergency price',
+                'modal.bv.metricLabel2': 'Bank Logins',
+                'modal.bv.metricDesc2': 'Lower trust friction',
+                'modal.bv.metricLabel3': 'Cancel Paths',
+                'modal.bv.metricDesc3': 'Known service routes',
+                'modal.bv.metricLabel4': 'Services',
+                'modal.bv.metricDesc4': 'Automatic detection scope',
+                'modal.bv.phoneLabel1': 'Risk Detection',
+                'modal.bv.phoneLabel2': 'Action Kit',
+                'modal.bv.phoneLabel3': 'Paid Unlock',
+                'modal.bv.commerceTitle': 'Commercial Design System',
+                'modal.bv.commerceIntro': 'The update is not only a visual refresh. It reframes the product around an urgent job-to-be-done, a low-friction preview, a clear one-time price, and analytics that show where intent turns into payment.',
+                'modal.bv.commerceKicker1': 'Acquisition',
+                'modal.bv.commerceCard1Title': 'Problem-first landing',
+                'modal.bv.commerceCard1Desc': 'Lead with the painful moment: surprise charge, trial renewal, or hard-to-cancel service.',
+                'modal.bv.commerceKicker2': 'Activation',
+                'modal.bv.commerceCard2Title': 'Results before account',
+                'modal.bv.commerceCard2Desc': 'Let users paste, upload, or speak before signup so the product proves value early.',
+                'modal.bv.commerceKicker3': 'Monetization',
+                'modal.bv.commerceCard3Title': 'One-time rescue kit',
+                'modal.bv.commerceCard3Desc': 'Package payment around urgency: cancel path, refund script, evidence list, and reminder.',
+                'modal.bv.commerceKicker4': 'Measurement',
+                'modal.bv.commerceCard4Title': 'Event taxonomy',
+                'modal.bv.commerceCard4Desc': 'Instrument each decision point from landing view to kit purchase and saved case file.',
+                'modal.bv.eventHead1': 'Event',
+                'modal.bv.eventHead2': 'Question Answered',
+                'modal.bv.eventHead3': 'Design Lever',
+                'modal.bv.event1Question': 'Does the emergency positioning attract the right traffic?',
+                'modal.bv.event1Lever': 'Hero, price pill, trust claims',
+                'modal.bv.event2Question': 'Which pain mode has strongest intent?',
+                'modal.bv.event2Lever': 'Scenario cards and copy hierarchy',
+                'modal.bv.event3Question': 'Can users reach value before signup?',
+                'modal.bv.event3Lever': 'Input flow and AI extraction confidence',
+                'modal.bv.event4Question': 'Is the $4.99 kit value obvious enough?',
+                'modal.bv.event4Lever': 'Paywall timing and unlock language',
+                'modal.bv.tagline1': 'Luxury gothic visuals make the emergency feel serious, memorable, and monetizable.',
+                'modal.bv.infoSectionTitle': 'Funnel & Value Snapshot',
+                'modal.bv.infoSectionIntro': 'A quick visual summary of where the product creates value: emergency segmentation, free preview clarity, and paid kit packaging.',
+                'modal.bv.infoCard1Title': 'Emergency Funnel Anatomy',
+                'modal.bv.infoBar1': 'Surprise charge',
+                'modal.bv.infoBar2': 'Renewal soon',
+                'modal.bv.infoBar3': 'Hard to cancel',
+                'modal.bv.infoCard2Title': 'Free Preview vs Emergency Kit',
                 'modal.bv.infoFree': 'Free',
-                'modal.bv.infoPro': 'Pro',
-                'modal.bv.infoRow1': 'AI analyses / day',
-                'modal.bv.infoRow2': 'Smart Import',
+                'modal.bv.infoPro': 'Kit',
+                'modal.bv.infoRow1': 'Preview',
+                'modal.bv.infoRow2': 'Assets',
                 'modal.bv.infoRow3': 'Price model',
-                'modal.bv.infoCard3Title': 'AI Guidance Loop',
-                'modal.bv.infoFlow1': 'Import Bills',
-                'modal.bv.infoFlow2': 'AI Roast',
-                'modal.bv.infoFlow3': 'Cheaper Alternatives',
-                'modal.bv.infoFlow4': 'No-Spend Streak',
+                'modal.bv.infoCard3Title': 'Measured Conversion Loop',
+                'modal.bv.infoFlow1': 'Landing Viewed',
+                'modal.bv.infoFlow2': 'Emergency Selected',
+                'modal.bv.infoFlow3': 'Preview Generated',
+                'modal.bv.infoFlow4': 'Checkout Clicked',
                 'modal.bv.section1Title': 'Background & Motivation',
-                'modal.bv.quote': '"The average person spends $273/month on subscriptions they forget about"',
-                'modal.bv.section1P1': 'Finance tools are often dull. Bill Vampire makes the same data playful and actionable.',
-                'modal.bv.section1P2': 'Personality + AI + visual feedback keeps users coming back.',
-                'modal.bv.context1': 'Vampire personality UI',
-                'modal.bv.context2': 'Cheaper alternatives fast',
-                'modal.bv.context3': 'Streaks build habit',
+                'modal.bv.quote': '"A user who just got charged does not want a dashboard. They want the next action."',
+                'modal.bv.section1P1': 'The original subscription tracker had personality, but the updated product needed sharper commercial intent. I moved the value proposition from broad spending awareness to a specific rescue workflow: detect the charge, choose the emergency, generate the kit, then unlock the assets worth paying for.',
+                'modal.bv.context1': 'Urgent rescue positioning',
+                'modal.bv.context2': 'No-bank-login trust strategy',
+                'modal.bv.context3': 'Pay only for the complete kit',
                 'modal.bv.section2Title': 'My Role',
                 'modal.bv.roleLabel1': 'Design',
-                'modal.bv.roleValue1': 'Brand, mascot, visual system',
+                'modal.bv.roleValue1': 'New logo integration, gothic luxury art direction, conversion-first landing system, mobile-first responsive layout',
                 'modal.bv.roleLabel2': 'Development',
-                'modal.bv.roleValue2': 'React, Tailwind, Gemini, PWA',
+                'modal.bv.roleValue2': 'React 19 + Tailwind CSS 4, Vite build, Gemini extraction flow, analytics instrumentation, PWA deployment',
                 'modal.bv.roleLabel3': 'Product',
-                'modal.bv.roleValue3': 'Scope, pricing, bilingual UX',
+                'modal.bv.roleValue3': 'Event taxonomy, emergency segmentation, $4.99 kit packaging, paywall timing, EN/ZH market framing',
                 'modal.bv.roleLabel4': 'Deployment',
                 'modal.bv.roleValue4': 'Cloudflare Pages + CI/CD',
                 'modal.bv.section3Title': 'Design Challenges',
-                'modal.bv.challenge1': 'Make money tracking fun, not stressful',
-                'modal.bv.challenge2': 'Balance humor with useful advice',
-                'modal.bv.challenge3': 'Keep one visual language across tabs',
+                'modal.bv.challenge1': 'Move from entertainment to urgency without losing the memorable Bill Vampire brand.',
+                'modal.bv.challenge2': 'Earn trust without bank access by showing clear inputs, evidence handling, and practical next steps.',
+                'modal.bv.challenge3': 'Create a $4.99 pay moment that feels like a fair unlock, not a surprise paywall.',
                 'modal.bv.section4Title': 'Key Features I Designed & Built',
-                'modal.bv.feature1Title': 'Subscription Tracker with Multi-Currency',
-                'modal.bv.feature1Desc': '6 currencies, one monthly view.',
-                'modal.bv.feature2Title': 'AI Roast Advisor (Gemini 2.5 Flash)',
-                'modal.bv.feature2Desc': 'Snarky roasts + practical save tips.',
-                'modal.bv.feature3Title': 'AI Alternative Finder',
-                'modal.bv.feature3Desc': 'Free and cheaper swaps in one tap.',
-                'modal.bv.feature4Title': 'No-Spend Streak Calendar',
-                'modal.bv.feature4Desc': 'Daily check-ins that build momentum.',
-                'modal.bv.feature5Title': 'Shareable Spending Cards & PDF Export',
-                'modal.bv.feature5Desc': 'One-click share cards and print-ready reports.',
+                'modal.bv.feature1Title': 'Emergency Intake Flow',
+                'modal.bv.feature1Desc': 'Scenario cards for surprise charge, renewal risk, and hard-to-cancel services.',
+                'modal.bv.feature2Title': 'AI Bill Extraction',
+                'modal.bv.feature2Desc': 'Email, screenshot, PDF, text, and voice inputs become structured service, amount, date, and status.',
+                'modal.bv.feature3Title': 'Cancel Path Resolver',
+                'modal.bv.feature3Desc': 'Known service routes reduce search friction when the user is under pressure.',
+                'modal.bv.feature4Title': 'Refund Script Builder',
+                'modal.bv.feature4Desc': 'Polite, specific, evidence-ready messages with amount, date, and intent filled in.',
+                'modal.bv.feature5Title': 'Proof File & Reminder Loop',
+                'modal.bv.feature5Desc': 'Confirmation numbers, screenshots, support threads, and renewal reminders stay together.',
                 'modal.bv.section5Title': 'Design & Development Process',
-                'modal.bv.process1': 'Concept & Brand',
-                'modal.bv.process2': 'UI Design',
-                'modal.bv.process3': 'React Build',
-                'modal.bv.process4': 'AI Integration',
-                'modal.bv.process5': 'Deploy & Iterate',
-                'modal.bv.section5P1': 'From weekend concept to shippable product with monetization and PWA deployment.',
+                'modal.bv.process1': 'Positioning',
+                'modal.bv.process2': 'Event Map',
+                'modal.bv.process3': 'Funnel Build',
+                'modal.bv.process4': 'AI Kit Logic',
+                'modal.bv.process5': 'Measure & Iterate',
+                'modal.bv.section5P1': 'The redesign started by clarifying the monetizable job: rescue users from a charge right now. From there I mapped events, rebuilt the landing hierarchy, packaged the Emergency Kit, and used analytics to connect design decisions with conversion behavior.',
                 'modal.bv.section6Title': 'Tech Stack',
                 'modal.bv.section7Title': 'Live Demo',
                 'modal.bv.liveLink': 'Open Bill Vampire',
                 'modal.bv.reflectionTitle': 'What I Learned',
-                'modal.bv.reflectionText': '<strong>Personality + visual clarity</strong> beats boring finance dashboards. A playful system made users explore, act, and save faster.'
+                'modal.bv.reflectionText': '<strong>Commercial design is product strategy in interface form.</strong> The strongest update was not a prettier UI; it was connecting brand, price, trust, analytics, and the exact next action a stressed user needs.'
             },
             zh: {
-                'nav.back': '\u8fd4\u56de',
-                'nav.backToWork': '\u8fd4\u56de\u6240\u6709\u4f5c\u54c1',
-                'modal.bv.eyebrow': 'AI \u4e2a\u4eba\u9879\u76ee \u00b7 2025 \u00b7 PWA',
+                'nav.back': '返回',
+                'nav.backToWork': '返回所有作品',
+                'modal.bv.heroBrandSub': '应急工具包',
+                'modal.bv.heroPill': '$4.99 一次性付费 · 无需银行登录 · 取消与退款脚本',
+                'modal.bv.heroHeadline': '阻止下一笔意外订阅扣费。',
+                'modal.bv.heroSubcopy': '粘贴账单邮件、上传截图，或直接说出试用信息。Bill Vampire 会在下一次扣费前生成取消与退款行动方案。',
+                'modal.bv.heroProof1': '已识别 $128,400 风险',
+                'modal.bv.heroProof2': '识别 150+ 订阅服务',
+                'modal.bv.heroProof3': '看到结果前无需注册',
+                'modal.bv.eyebrow': 'AI 产品 · 应急工具包 · 2025',
                 'modal.bv.title': 'Bill Vampire',
-                'modal.bv.subtitle': '\u4e00\u6b3eAI\u9a71\u52a8\u7684\u8ba2\u9605\u8ffd\u8e2a\u5668\uff0c\u6bd2\u820c\u70b9\u8bc4\u4f60\u7684\u6d88\u8d39\u4e60\u60ef',
-                'modal.bv.metaLabel1': '\u89d2\u8272',
-                'modal.bv.metaValue1': '\u8bbe\u8ba1\u5e08 + \u5f00\u53d1\u8005',
-                'modal.bv.metaLabel2': '\u7c7b\u578b',
-                'modal.bv.metaValue2': '\u4e2a\u4eba\u9879\u76ee',
-                'modal.bv.metaLabel3': '\u5468\u671f',
-                'modal.bv.metaValue3': '2\u5468',
-                'modal.bv.metaLabel4': '\u6280\u672f\u6808',
-                'modal.bv.metaValue4': 'React, Tailwind, Gemini AI',
-                'modal.bv.tldrLabel': '\u6458\u8981',
-                'modal.bv.tldrText': '\u8bb0\u8d26\u3001\u6bd2\u820c\u3001\u7701\u94b1\uff0c\u4e00\u4e2a\u597d\u73a9\u7684\u7406\u8d22 App\u3002',
-                'modal.bv.livePriorityChip': '\u5728\u7ebf\u4f53\u9a8c\u4f18\u5148',
-                'modal.bv.livePriorityTitle': '\u5148\u6253\u5f00\uff0c10\u79d2\u5185\u611f\u53d7\u4ea7\u54c1\u3002',
-                'modal.bv.livePriorityDesc': '\u6700\u65b0\u8bbe\u8ba1\u5df2\u4e0a\u7ebf\uff0c\u5148\u4f53\u9a8c\u518d\u770b\u6848\u4f8b\u62c6\u89e3\u3002',
-                'modal.bv.livePriorityCta': '\u6253\u5f00 Live Demo',
-                'modal.bv.quick1': '\u667a\u80fd\u5bfc\u5165',
-                'modal.bv.quick2': 'AI \u6bd2\u820c',
-                'modal.bv.quick3': '\u5e73\u66ff\u5bfb\u627e',
-                'modal.bv.quick4': '\u652f\u51fa\u56fe\u8868',
-                'modal.bv.quick5': '\u6253\u5361\u95ed\u73af',
-                'modal.bv.quick6': '\u9690\u79c1\u4f18\u5148',
-                'modal.bv.metricLabel1': '\u5e94\u7528\u7c7b\u578b',
-                'modal.bv.metricDesc1': '\u652f\u6301\u4efb\u4f55\u8bbe\u5907\u5b89\u88c5',
-                'modal.bv.metricLabel2': '\u5e01\u79cd',
-                'modal.bv.metricDesc2': '\u7f8e\u5143\u3001\u4eba\u6c11\u5e01\u3001\u6b27\u5143\u3001\u82f1\u938a\u3001\u65e5\u5143\u3001\u6e2f\u5e01',
-                'modal.bv.metricLabel3': 'Gemini 2.5',
-                'modal.bv.metricDesc3': '3\u9879AI\u529f\u80fd',
-                'modal.bv.metricLabel4': '\u8bed\u8a00',
-                'modal.bv.metricDesc4': '\u82f1\u6587\u548c\u4e2d\u6587',
-                'modal.bv.phoneLabel1': '\u8ba2\u9605\u8ffd\u8e2a',
-                'modal.bv.phoneLabel2': 'AI\u6bd2\u820c\u987e\u95ee',
-                'modal.bv.phoneLabel3': '\u6253\u5361\u65e5\u5386',
-                'modal.bv.tagline1': '\u5582\u9971\u5438\u8840\u9b3c\uff0c\u7ba1\u597d\u4f60\u7684\u8d26\u5355\u3002',
-                'modal.bv.infoSectionTitle': '\u4fe1\u606f\u56fe\u901f\u89c8',
-                'modal.bv.infoSectionIntro': '\u7528\u4e09\u4e2a\u56fe\u5f62\u5feb\u901f\u770b\u61c2\u8fd9\u4e2a\u4ea7\u54c1\u7684\u4ef7\u503c\u7ed3\u6784\uff1a\u82b1\u8d39\u53ef\u89c1\u6027\u3001\u5347\u7ea7\u4ef7\u503c\u548c AI \u5f15\u5bfc\u95ed\u73af\u3002',
-                'modal.bv.infoCard1Title': '\u6708\u5ea6\u652f\u51fa\u5438\u8840\u7ed3\u6784',
-                'modal.bv.infoBar1': '\u5a31\u4e50',
-                'modal.bv.infoBar2': '\u751f\u4ea7\u529b',
-                'modal.bv.infoBar3': '\u751f\u6d3b',
-                'modal.bv.infoCard2Title': 'Free vs Pro \u4ef7\u503c\u5bf9\u6bd4',
-                'modal.bv.infoFree': 'Free',
-                'modal.bv.infoPro': 'Pro',
-                'modal.bv.infoRow1': 'AI \u6b21\u6570 / \u5929',
-                'modal.bv.infoRow2': '\u667a\u80fd\u5bfc\u5165',
-                'modal.bv.infoRow3': '\u4ef7\u683c\u6a21\u578b',
-                'modal.bv.infoCard3Title': 'AI \u5f15\u5bfc\u95ed\u73af',
-                'modal.bv.infoFlow1': '\u5bfc\u5165\u8d26\u5355',
-                'modal.bv.infoFlow2': 'AI \u6bd2\u820c\u5206\u6790',
-                'modal.bv.infoFlow3': '\u66f4\u4fbf\u5b9c\u66ff\u4ee3\u65b9\u6848',
-                'modal.bv.infoFlow4': '\u4e0d\u6d88\u8d39\u6253\u5361',
-                'modal.bv.section1Title': '\u80cc\u666f\u4e0e\u52a8\u673a',
-                'modal.bv.quote': '"\u666e\u901a\u4eba\u5e73\u5747\u6bcf\u6708\u5728\u5fd8\u8bb0\u7684\u8ba2\u9605\u4e0a\u82b1\u8d39273\u7f8e\u5143"',
-                'modal.bv.section1P1': '\u4f20\u7edf\u8bb0\u8d26\u5de5\u5177\u5f88\u65e0\u804a\uff0cBill Vampire \u7528\u6e38\u620f\u5316\u89c6\u89c9\u8ba9\u4eba\u66f4\u613f\u610f\u6253\u5f00\u3002',
-                'modal.bv.section1P2': '\u4eba\u8bbe + AI + \u53cd\u9988\u95ed\u73af\uff0c\u63d0\u9ad8\u7559\u5b58\u548c\u884c\u52a8\u7387\u3002',
-                'modal.bv.context1': '\u5438\u8840\u9b3c\u4eba\u8bbe\u754c\u9762',
-                'modal.bv.context2': '\u5feb\u901f\u627e\u5230\u5e73\u66ff',
-                'modal.bv.context3': '\u6253\u5361\u9a71\u52a8\u4e60\u60ef',
-                'modal.bv.section2Title': '\u6211\u7684\u89d2\u8272',
-                'modal.bv.roleLabel1': '\u8bbe\u8ba1',
-                'modal.bv.roleValue1': '\u54c1\u724c\u3001\u5409\u7965\u7269\u3001\u89c6\u89c9\u7cfb\u7edf',
-                'modal.bv.roleLabel2': '\u5f00\u53d1',
-                'modal.bv.roleValue2': 'React + Tailwind + Gemini + PWA',
-                'modal.bv.roleLabel3': '\u4ea7\u54c1',
-                'modal.bv.roleValue3': '\u8303\u56f4\u3001\u5b9a\u4ef7\u3001\u53cc\u8bed UX',
-                'modal.bv.roleLabel4': '\u90e8\u7f72',
+                'modal.bv.subtitle': '面向意外订阅扣费的 $4.99 AI 救援工具包，包含取消路径、退款脚本和证据文件。',
+                'modal.bv.metaLabel1': '角色',
+                'modal.bv.metaValue1': '设计师 + 开发者',
+                'modal.bv.metaLabel2': '类型',
+                'modal.bv.metaValue2': '商业化 AI 工具',
+                'modal.bv.metaLabel3': '重点',
+                'modal.bv.metaValue3': '转化 + 商业化',
+                'modal.bv.metaLabel4': '技术栈',
+                'modal.bv.metaValue4': 'React, Gemini, GA4',
+                'modal.bv.tldrLabel': '摘要',
+                'modal.bv.tldrText': '将 Bill Vampire 从有趣的订阅追踪器，重新定位为高意图应急工具包，并围绕获客、激活、支付和留存建立可衡量信号。',
+                'modal.bv.livePriorityChip': '最新产品已上线',
+                'modal.bv.livePriorityTitle': '先打开真实漏斗。新版围绕用户意图、紧迫感和支付准备度设计。',
+                'modal.bv.livePriorityDesc': '当前版本把 Bill Vampire 定位为订阅应急救援工具：无需银行登录、看到结果前无需注册，当用户需要脚本和证据时再用 $4.99 一次性解锁。',
+                'modal.bv.livePriorityCta': '打开 Live Demo',
+                'modal.bv.quick1': '应急入口',
+                'modal.bv.quick2': '无需银行登录',
+                'modal.bv.quick3': '取消路径',
+                'modal.bv.quick4': '退款脚本',
+                'modal.bv.quick5': '证据文件',
+                'modal.bv.quick6': '$4.99 解锁',
+                'modal.bv.metricLabel1': '一次性工具包',
+                'modal.bv.metricDesc1': '清晰的应急价格',
+                'modal.bv.metricLabel2': '银行登录',
+                'modal.bv.metricDesc2': '降低信任摩擦',
+                'modal.bv.metricLabel3': '取消路径',
+                'modal.bv.metricDesc3': '覆盖常见服务路线',
+                'modal.bv.metricLabel4': '订阅服务',
+                'modal.bv.metricDesc4': '自动识别范围',
+                'modal.bv.phoneLabel1': '风险识别',
+                'modal.bv.phoneLabel2': '行动工具包',
+                'modal.bv.phoneLabel3': '付费解锁',
+                'modal.bv.commerceTitle': '商业设计系统',
+                'modal.bv.commerceIntro': '这次更新不只是视觉刷新，而是围绕一个紧急任务重构产品：低摩擦预览、明确的一次性价格，以及能看清用户意图如何转化为支付的埋点体系。',
+                'modal.bv.commerceKicker1': '获客',
+                'modal.bv.commerceCard1Title': '问题优先的落地页',
+                'modal.bv.commerceCard1Desc': '先呈现痛点场景：意外扣费、试用即将续费、服务难以取消。',
+                'modal.bv.commerceKicker2': '激活',
+                'modal.bv.commerceCard2Title': '先给结果再要账号',
+                'modal.bv.commerceCard2Desc': '允许用户先粘贴、上传或语音输入，让产品在注册前证明价值。',
+                'modal.bv.commerceKicker3': '商业化',
+                'modal.bv.commerceCard3Title': '一次性救援工具包',
+                'modal.bv.commerceCard3Desc': '围绕紧迫任务打包付费价值：取消路径、退款脚本、证据清单和提醒。',
+                'modal.bv.commerceKicker4': '衡量',
+                'modal.bv.commerceCard4Title': '事件埋点体系',
+                'modal.bv.commerceCard4Desc': '从落地页浏览到工具包购买和保存案例，记录每个关键决策点。',
+                'modal.bv.eventHead1': '事件',
+                'modal.bv.eventHead2': '回答的问题',
+                'modal.bv.eventHead3': '设计杠杆',
+                'modal.bv.event1Question': '应急定位是否吸引了正确流量？',
+                'modal.bv.event1Lever': 'Hero、价格标签、信任声明',
+                'modal.bv.event2Question': '哪类痛点场景的意图最强？',
+                'modal.bv.event2Lever': '场景卡片和文案层级',
+                'modal.bv.event3Question': '用户能否在注册前获得价值？',
+                'modal.bv.event3Lever': '输入流程和 AI 提取可信度',
+                'modal.bv.event4Question': '$4.99 工具包的价值是否足够清楚？',
+                'modal.bv.event4Lever': '付费墙时机和解锁文案',
+                'modal.bv.tagline1': '奢华哥特视觉让应急场景更严肃、更好记，也更具商业转化力。',
+                'modal.bv.infoSectionTitle': '漏斗与价值速览',
+                'modal.bv.infoSectionIntro': '用可视化快速说明产品价值：应急场景分层、免费预览清晰度，以及付费工具包包装。',
+                'modal.bv.infoCard1Title': '应急漏斗结构',
+                'modal.bv.infoBar1': '意外扣费',
+                'modal.bv.infoBar2': '即将续费',
+                'modal.bv.infoBar3': '难以取消',
+                'modal.bv.infoCard2Title': '免费预览 vs 应急工具包',
+                'modal.bv.infoFree': '免费',
+                'modal.bv.infoPro': '工具包',
+                'modal.bv.infoRow1': '预览',
+                'modal.bv.infoRow2': '资产',
+                'modal.bv.infoRow3': '价格模型',
+                'modal.bv.infoCard3Title': '可衡量转化闭环',
+                'modal.bv.infoFlow1': '浏览落地页',
+                'modal.bv.infoFlow2': '选择应急场景',
+                'modal.bv.infoFlow3': '生成免费预览',
+                'modal.bv.infoFlow4': '点击支付',
+                'modal.bv.section1Title': '背景与动机',
+                'modal.bv.quote': '“刚被扣费的用户不需要仪表盘，他们需要下一步行动。”',
+                'modal.bv.section1P1': '原来的订阅追踪器有记忆点，但新版产品需要更强的商业意图。我把价值主张从宽泛的消费意识，转为具体救援流程：识别扣费、选择应急场景、生成方案，再解锁真正值得付费的行动资产。',
+                'modal.bv.context1': '紧急救援定位',
+                'modal.bv.context2': '无需银行登录的信任策略',
+                'modal.bv.context3': '只为完整工具包付费',
+                'modal.bv.section2Title': '我的角色',
+                'modal.bv.roleLabel1': '设计',
+                'modal.bv.roleValue1': '新 LOGO 整合、奢华哥特视觉方向、转化优先的落地页系统、移动端响应式布局',
+                'modal.bv.roleLabel2': '开发',
+                'modal.bv.roleValue2': 'React 19 + Tailwind CSS 4、Vite 构建、Gemini 提取流程、埋点集成、PWA 部署',
+                'modal.bv.roleLabel3': '产品',
+                'modal.bv.roleValue3': '事件体系、应急场景分层、$4.99 工具包包装、付费墙时机、EN/ZH 市场表达',
+                'modal.bv.roleLabel4': '部署',
                 'modal.bv.roleValue4': 'Cloudflare Pages + CI/CD',
-                'modal.bv.section3Title': '\u8bbe\u8ba1\u6311\u6218',
-                'modal.bv.challenge1': '\u8ba9\u8bb0\u8d26\u6709\u8da3\u800c\u4e0d\u7126\u8651',
-                'modal.bv.challenge2': '\u5e73\u8861\u5e7d\u9ed8\u4e0e\u6709\u7528\u5efa\u8bae',
-                'modal.bv.challenge3': '\u8de8\u6a21\u5757\u7edf\u4e00\u89c6\u89c9\u4f53\u7cfb',
-                'modal.bv.section4Title': '\u6211\u8bbe\u8ba1\u5e76\u5f00\u53d1\u7684\u6838\u5fc3\u529f\u80fd',
-                'modal.bv.feature1Title': '\u591a\u5e01\u79cd\u8ba2\u9605\u8ffd\u8e2a',
-                'modal.bv.feature1Desc': '6 \u79cd\u8d27\u5e01\uff0c\u4e00\u4e2a\u6708\u5ea6\u89c6\u56fe\u3002',
-                'modal.bv.feature2Title': 'AI\u6bd2\u820c\u987e\u95ee\uff08Gemini 2.5 Flash\uff09',
-                'modal.bv.feature2Desc': '\u6bd2\u820c\u8bc4\u8bba + \u53ef\u6267\u884c\u7701\u94b1\u5efa\u8bae\u3002',
-                'modal.bv.feature3Title': 'AI\u5e73\u66ff\u63a2\u7d22\u5668',
-                'modal.bv.feature3Desc': '\u4e00\u952e\u7ed9\u51fa\u66f4\u4fbf\u5b9c\u6216\u514d\u8d39\u66ff\u4ee3\u3002',
-                'modal.bv.feature4Title': '\u4e0d\u6d88\u8d39\u6253\u5361\u65e5\u5386',
-                'modal.bv.feature4Desc': '\u6bcf\u65e5\u6253\u5361\uff0c\u8fde\u7eed\u79ef\u7d2f\u7701\u94b1\u52a8\u529b\u3002',
-                'modal.bv.feature5Title': '\u53ef\u5206\u4eab\u6d88\u8d39\u5361\u7247\u548cPDF\u5bfc\u51fa',
-                'modal.bv.feature5Desc': '\u4e00\u952e\u751f\u6210\u5206\u4eab\u5361\u7247\u548c\u6253\u5370\u62a5\u544a\u3002',
-                'modal.bv.section5Title': '\u8bbe\u8ba1\u4e0e\u5f00\u53d1\u6d41\u7a0b',
-                'modal.bv.process1': '\u6982\u5ff5\u4e0e\u54c1\u724c',
-                'modal.bv.process2': 'UI\u8bbe\u8ba1',
-                'modal.bv.process3': 'React\u5f00\u53d1',
-                'modal.bv.process4': 'AI\u96c6\u6210',
-                'modal.bv.process5': '\u90e8\u7f72\u4e0e\u8fed\u4ee3',
-                'modal.bv.section5P1': '\u4ece\u5468\u672b\u6982\u5ff5\u5230\u53ef\u4e0a\u7ebf\u4ea7\u54c1\uff0c\u540c\u6b65\u5b8c\u6210\u5546\u4e1a\u5316\u4e0e PWA \u90e8\u7f72\u3002',
-                'modal.bv.section6Title': '\u6280\u672f\u6808',
-                'modal.bv.section7Title': '\u5728\u7ebf\u6f14\u793a',
-                'modal.bv.liveLink': '\u6253\u5f00 Bill Vampire',
-                'modal.bv.reflectionTitle': '\u6211\u7684\u6536\u83b7',
-                'modal.bv.reflectionText': '<strong>\u4eba\u8bbe + \u89c6\u89c9\u6e05\u6670\u5ea6</strong>\u80fd\u663e\u8457\u63d0\u9ad8\u53c2\u4e0e\u611f\u3002\u7528\u6237\u66f4\u5feb\u7406\u89e3\u3001\u66f4\u5feb\u884c\u52a8\u3001\u66f4\u5bb9\u6613\u575a\u6301\u3002'
+                'modal.bv.section3Title': '设计挑战',
+                'modal.bv.challenge1': '从娱乐化转向紧迫任务，同时保留 Bill Vampire 的品牌记忆点。',
+                'modal.bv.challenge2': '在不接入银行的前提下，通过清晰输入、证据处理和实际下一步建立信任。',
+                'modal.bv.challenge3': '让 $4.99 付费节点像公平解锁，而不是突兀付费墙。',
+                'modal.bv.section4Title': '我设计并开发的核心功能',
+                'modal.bv.feature1Title': '应急入口流程',
+                'modal.bv.feature1Desc': '用场景卡片区分意外扣费、续费风险和难以取消的服务。',
+                'modal.bv.feature2Title': 'AI 账单提取',
+                'modal.bv.feature2Desc': '邮件、截图、PDF、文本和语音输入被结构化成服务、金额、日期和状态。',
+                'modal.bv.feature3Title': '取消路径解析',
+                'modal.bv.feature3Desc': '用已知服务路线减少用户在压力下查找入口的成本。',
+                'modal.bv.feature4Title': '退款脚本生成',
+                'modal.bv.feature4Desc': '生成礼貌、具体、证据充分的邮件，自动带入金额、日期和诉求。',
+                'modal.bv.feature5Title': '证据文件与提醒闭环',
+                'modal.bv.feature5Desc': '把确认码、截图、客服记录和续费提醒放在同一个行动文件里。',
+                'modal.bv.section5Title': '设计与开发流程',
+                'modal.bv.process1': '定位',
+                'modal.bv.process2': '事件地图',
+                'modal.bv.process3': '漏斗构建',
+                'modal.bv.process4': 'AI 工具包逻辑',
+                'modal.bv.process5': '衡量与迭代',
+                'modal.bv.section5P1': '这次 redesign 从明确可商业化任务开始：立刻帮用户从扣费中脱身。随后我梳理事件、重建落地页层级、包装 Emergency Kit，并用埋点把设计决策和转化行为连接起来。',
+                'modal.bv.section6Title': '技术栈',
+                'modal.bv.section7Title': '在线演示',
+                'modal.bv.liveLink': '打开 Bill Vampire',
+                'modal.bv.reflectionTitle': '我的收获',
+                'modal.bv.reflectionText': '<strong>商业设计是以界面形式呈现的产品策略。</strong> 这次最重要的不是把 UI 做漂亮，而是把品牌、价格、信任、埋点和用户当下需要的下一步行动连成一个系统。'
             }
         };
 
