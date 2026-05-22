@@ -194,55 +194,57 @@
 
         /* Hero banner */
         .bv-hero-banner {
-            width: 100%; min-height: 560px; position: relative; overflow: hidden;
-            background:
-                linear-gradient(90deg, rgba(8, 7, 10, 0.88) 0%, rgba(12, 9, 15, 0.7) 42%, rgba(20, 9, 16, 0.3) 100%),
-                radial-gradient(circle at 18% 16%, rgba(244, 63, 94, 0.24), transparent 34%),
-                radial-gradient(circle at 82% 16%, rgba(124, 58, 237, 0.2), transparent 34%),
-                #0b0b11;
-            display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr); align-items: center; gap: 28px;
-            padding: 56px 48px 48px;
+            width: 100%; position: relative; overflow: hidden;
+            background: #0b0b11;
+            display: flex; flex-direction: column;
+            padding: 0;
         }
         .bv-hero-banner::before {
             content: ''; position: absolute; inset: 0;
             background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
             background-size: 44px 44px;
             mask-image: linear-gradient(180deg, rgba(0,0,0,0.55), transparent 78%);
-            pointer-events: none;
+            pointer-events: none; z-index: 1;
         }
-        .bv-hero-banner::after {
-            content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
-            background: linear-gradient(180deg, transparent, rgba(11, 11, 17, 0.92));
-            pointer-events: none;
+        .bv-hero-banner::after { display: none; }
+        .bv-hero-copy {
+            position: relative; z-index: 2; max-width: 680px;
+            padding: 56px 48px 40px;
         }
-        .bv-hero-copy { position: relative; z-index: 2; max-width: 610px; }
-        .bv-brand-lockup { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 34px; }
+        .bv-brand-lockup { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 28px; }
         .bv-brand-lockup img {
-            width: 64px; height: 64px; border-radius: 18px; padding: 14px;
+            width: 56px; height: 56px; border-radius: 16px; padding: 12px;
             background: linear-gradient(135deg, rgba(225, 29, 72, 0.2), rgba(60, 12, 30, 0.6));
-            box-shadow: 0 18px 44px rgba(244, 63, 94, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+            box-shadow: 0 12px 32px rgba(244, 63, 94, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
         }
-        .bv-brand-lockup strong { display: block; color: #fff7ed; font-size: 24px; line-height: 1.1; }
-        .bv-brand-lockup span { display: block; color: #f4c979; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+        .bv-brand-lockup strong { display: block; color: #fff7ed; font-size: 22px; line-height: 1.1; }
+        .bv-brand-lockup span { display: block; color: #f4c979; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
         .bv-price-pill {
-            display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px;
-            padding: 11px 18px; border-radius: 999px;
+            display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px;
+            padding: 10px 16px; border-radius: 999px;
             color: #fecdd3; background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.14);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); font-size: 14px; font-weight: 700;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); font-size: 13px; font-weight: 700;
         }
         .bv-hero-title {
-            margin: 0 0 20px; font-family: var(--font); font-size: clamp(42px, 5.4vw, 64px); line-height: 1.04;
-            letter-spacing: 0; font-weight: 800; color: #fff7ed;
-            max-width: 560px;
+            margin: 0 0 16px; font-family: var(--font); font-size: clamp(36px, 4.8vw, 56px); line-height: 1.08;
+            letter-spacing: -0.02em; font-weight: 800; color: #fff7ed;
+            max-width: 580px;
         }
-        .bv-hero-subcopy { max-width: 570px; color: #c7b9b5; font-size: 20px; line-height: 1.65; margin-bottom: 28px; }
+        .bv-hero-subcopy { max-width: 560px; color: #c7b9b5; font-size: 18px; line-height: 1.65; margin-bottom: 24px; }
         .bv-proof-strip { display: flex; flex-wrap: wrap; gap: 10px; }
         .bv-proof-strip span {
-            display: inline-flex; align-items: center; min-height: 36px; padding: 8px 12px; border-radius: 999px;
+            display: inline-flex; align-items: center; min-height: 34px; padding: 7px 12px; border-radius: 999px;
             background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); color: #e9d5c5; font-size: 13px;
         }
-        .bv-hero-art { position: relative; z-index: 1; align-self: end; margin: 0; border-radius: 24px; overflow: hidden; border: 1px solid rgba(244, 63, 94, 0.2); box-shadow: 0 34px 90px rgba(0,0,0,0.55); }
-        .bv-hero-art img { display: block; width: 100%; height: auto; object-fit: contain; filter: saturate(1.08) contrast(1.03); }
+        .bv-hero-art {
+            position: relative; z-index: 1; margin: 0; overflow: hidden;
+            border-top: 1px solid rgba(244, 63, 94, 0.12);
+        }
+        .bv-hero-art img {
+            display: block; width: 100%; height: 480px;
+            object-fit: cover; object-position: 50% 25%;
+            filter: saturate(1.08) contrast(1.03);
+        }
         .bv-hero-banner > img[alt="Bill Vampire"] { display: none; }
 
         .bv-commercial-grid {
@@ -728,17 +730,18 @@
             .modal-header, .modal-body { padding: 32px 24px; }
             .modal-title { font-size: 32px; }
             .modal-metrics { grid-template-columns: 1fr; }
-            .bv-hero-banner { min-height: auto; grid-template-columns: 1fr; padding: 34px 22px 28px; }
-            .bv-brand-lockup { margin-bottom: 24px; }
-            .bv-hero-title { font-size: 42px; letter-spacing: 0; }
-            .bv-hero-subcopy { font-size: 16px; }
-            .bv-hero-art img { max-height: 400px; object-fit: cover; object-position: 50% 30%; }
+            .bv-hero-banner { padding: 0; }
+            .bv-hero-copy { padding: 32px 22px 28px; }
+            .bv-brand-lockup { margin-bottom: 20px; }
+            .bv-hero-title { font-size: 34px; letter-spacing: -0.01em; }
+            .bv-hero-subcopy { font-size: 15px; }
+            .bv-hero-art img { height: 320px; object-position: 50% 25%; }
             .bv-commercial-grid { grid-template-columns: 1fr; }
             .bv-event-row { grid-template-columns: 1fr; gap: 6px; }
             .modal-role-grid { grid-template-columns: 1fr; }
             .modal-process-enhanced { flex-direction: column; align-items: center; }
             .modal-process-item:not(:last-child)::after { display: none; }
-            .bv-hero-banner img { width: 150px; height: 150px; }
+            .bv-hero-banner > img[alt="Bill Vampire"] { display: none; }
             .modal-quote { font-size: 18px; padding: 20px 24px; }
             .bv-live-priority { padding: 20px; }
             .bv-live-priority h3 { font-size: 24px; }
