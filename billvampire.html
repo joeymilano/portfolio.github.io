@@ -218,7 +218,8 @@
         .bv-hero-copy { position: relative; z-index: 2; max-width: 610px; }
         .bv-brand-lockup { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 34px; }
         .bv-brand-lockup img {
-            width: 64px; height: 64px; border-radius: 18px;
+            width: 64px; height: 64px; border-radius: 18px; padding: 14px;
+            background: linear-gradient(135deg, rgba(225, 29, 72, 0.2), rgba(60, 12, 30, 0.6));
             box-shadow: 0 18px 44px rgba(244, 63, 94, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
         }
         .bv-brand-lockup strong { display: block; color: #fff7ed; font-size: 24px; line-height: 1.1; }
@@ -241,7 +242,7 @@
             background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1); color: #e9d5c5; font-size: 13px;
         }
         .bv-hero-art { position: relative; z-index: 1; align-self: end; margin: 0; border-radius: 24px; overflow: hidden; border: 1px solid rgba(244, 63, 94, 0.2); box-shadow: 0 34px 90px rgba(0,0,0,0.55); }
-        .bv-hero-art img { display: block; width: 100%; height: 430px; object-fit: cover; object-position: 52% 42%; filter: saturate(1.08) contrast(1.03); }
+        .bv-hero-art img { display: block; width: 100%; height: 520px; object-fit: cover; object-position: 50% 15%; filter: saturate(1.08) contrast(1.03); }
         .bv-hero-banner > img[alt="Bill Vampire"] { display: none; }
 
         .bv-commercial-grid {
@@ -731,7 +732,7 @@
             .bv-brand-lockup { margin-bottom: 24px; }
             .bv-hero-title { font-size: 42px; letter-spacing: 0; }
             .bv-hero-subcopy { font-size: 16px; }
-            .bv-hero-art img { height: 280px; }
+            .bv-hero-art img { height: 340px; object-position: 50% 10%; }
             .bv-commercial-grid { grid-template-columns: 1fr; }
             .bv-event-row { grid-template-columns: 1fr; gap: 6px; }
             .modal-role-grid { grid-template-columns: 1fr; }
@@ -801,7 +802,7 @@
         <div class="bv-hero-banner">
             <div class="bv-hero-copy">
                 <div class="bv-brand-lockup">
-                    <img src="images/billvampire-icon.png" alt="Bill Vampire logo">
+                    <img src="https://api.iconify.design/lucide/skull.svg?color=%23fda4af" alt="Bill Vampire logo">
                     <div><strong>Bill Vampire</strong><span data-i18n="modal.bv.heroBrandSub">Emergency Kit</span></div>
                 </div>
                 <div class="bv-price-pill" data-i18n="modal.bv.heroPill">$4.99 one-time · No bank login · Cancel and refund scripts</div>
@@ -845,12 +846,12 @@
                 </div>
 
                 <div class="bv-live-quick-grid">
-                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick1">Emergency Intake</span></div>
-                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick2">No Bank Login</span></div>
-                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick3">Cancel Paths</span></div>
-                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick4">Refund Scripts</span></div>
-                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick5">Evidence File</span></div>
-                    <div class="bv-live-quick-item"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.quick6">$4.99 Unlock</span></div>
+                    <div class="bv-live-quick-item"><img src="https://api.iconify.design/lucide/triangle-alert.svg?color=%23fda4af" alt="Emergency intake icon"><span data-i18n="modal.bv.quick1">Emergency Intake</span></div>
+                    <div class="bv-live-quick-item"><img src="https://api.iconify.design/lucide/shield-check.svg?color=%23fda4af" alt="No bank login icon"><span data-i18n="modal.bv.quick2">No Bank Login</span></div>
+                    <div class="bv-live-quick-item"><img src="https://api.iconify.design/lucide/route.svg?color=%23fda4af" alt="Cancel paths icon"><span data-i18n="modal.bv.quick3">Cancel Paths</span></div>
+                    <div class="bv-live-quick-item"><img src="https://api.iconify.design/lucide/file-pen-line.svg?color=%23fda4af" alt="Refund scripts icon"><span data-i18n="modal.bv.quick4">Refund Scripts</span></div>
+                    <div class="bv-live-quick-item"><img src="https://api.iconify.design/lucide/folder-open.svg?color=%23fda4af" alt="Evidence file icon"><span data-i18n="modal.bv.quick5">Evidence File</span></div>
+                    <div class="bv-live-quick-item"><img src="https://api.iconify.design/lucide/credit-card.svg?color=%23fda4af" alt="Unlock icon"><span data-i18n="modal.bv.quick6">$4.99 Unlock</span></div>
                 </div>
 
                 <!-- App Screenshots Showcase (integrated into Live Demo) -->
@@ -960,9 +961,9 @@
                 <div class="modal-quote" data-i18n="modal.bv.quote">"A user who just got charged does not want a dashboard. They want the next action."</div>
                 <p data-i18n="modal.bv.section1P1">The original subscription tracker had personality, but the updated product needed sharper commercial intent. I moved the value proposition from broad spending awareness to a specific rescue workflow: detect the charge, choose the emergency, generate the kit, then unlock the assets worth paying for.</p>
                 <div class="bv-context-grid">
-                    <div class="bv-context-card"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.context1">Urgent rescue positioning</span></div>
-                    <div class="bv-context-card"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.context2">No-bank-login trust strategy</span></div>
-                    <div class="bv-context-card"><img src="images/billvampire-icon.png" alt=""><span data-i18n="modal.bv.context3">Pay only for the complete kit</span></div>
+                    <div class="bv-context-card"><img src="https://api.iconify.design/lucide/siren.svg?color=%23fda4af" alt="Urgent rescue icon"><span data-i18n="modal.bv.context1">Urgent rescue positioning</span></div>
+                    <div class="bv-context-card"><img src="https://api.iconify.design/lucide/lock-keyhole.svg?color=%23fda4af" alt="Trust strategy icon"><span data-i18n="modal.bv.context2">No-bank-login trust strategy</span></div>
+                    <div class="bv-context-card"><img src="https://api.iconify.design/lucide/package-check.svg?color=%23fda4af" alt="Complete kit icon"><span data-i18n="modal.bv.context3">Pay only for the complete kit</span></div>
                 </div>
             </div>
 
@@ -977,7 +978,7 @@
                 <p data-i18n="modal.bv.infoSectionIntro">A quick visual summary of where the product creates value: emergency segmentation, free preview clarity, and paid kit packaging.</p>
                 <div class="bv-infographic-grid">
                     <div class="bv-info-card">
-                        <div class="bv-info-head"><img src="images/billvampire-icon.png" alt=""><h4 data-i18n="modal.bv.infoCard1Title">Emergency Funnel Anatomy</h4></div>
+                        <div class="bv-info-head"><img src="https://api.iconify.design/lucide/funnel.svg?color=%23fda4af" alt=""><h4 data-i18n="modal.bv.infoCard1Title">Emergency Funnel Anatomy</h4></div>
                         <div class="bv-bars">
                             <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar1">Surprise charge</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 46%"></div></div><strong>46%</strong></div>
                             <div class="bv-bar-row"><span data-i18n="modal.bv.infoBar2">Renewal soon</span><div class="bv-bar-track"><div class="bv-bar-fill" style="width: 34%"></div></div><strong>34%</strong></div>
@@ -986,7 +987,7 @@
                     </div>
 
                     <div class="bv-info-card">
-                        <div class="bv-info-head"><img src="images/billvampire-icon.png" alt=""><h4 data-i18n="modal.bv.infoCard2Title">Free Preview vs Emergency Kit</h4></div>
+                        <div class="bv-info-head"><img src="https://api.iconify.design/lucide/columns-2.svg?color=%23fda4af" alt=""><h4 data-i18n="modal.bv.infoCard2Title">Free Preview vs Emergency Kit</h4></div>
                         <div class="bv-vs-grid">
                             <div></div><div class="head" data-i18n="modal.bv.infoFree">Free</div><div class="head" data-i18n="modal.bv.infoPro">Kit</div>
                             <div class="row-label" data-i18n="modal.bv.infoRow1">Preview</div><div class="cell">Risk read</div><div class="cell pro">Full action plan</div>
@@ -996,7 +997,7 @@
                     </div>
 
                     <div class="bv-info-card bv-flow">
-                        <div class="bv-info-head"><img src="images/billvampire-icon.png" alt=""><h4 data-i18n="modal.bv.infoCard3Title">Measured Conversion Loop</h4></div>
+                        <div class="bv-info-head"><img src="https://api.iconify.design/lucide/repeat-2.svg?color=%23fda4af" alt=""><h4 data-i18n="modal.bv.infoCard3Title">Measured Conversion Loop</h4></div>
                         <div class="bv-flow-track">
                             <div class="bv-flow-node" data-i18n="modal.bv.infoFlow1">Landing Viewed</div>
                             <div class="bv-flow-node" data-i18n="modal.bv.infoFlow2">Emergency Selected</div>
