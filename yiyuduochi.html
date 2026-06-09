@@ -161,7 +161,7 @@
 
         /* Hero banner */
         .yw-hero-logo-wrap {
-            width: 100%; padding: 64px 16px;
+            width: 100%; padding: 56px 24px 0;
             background: linear-gradient(135deg, #0a0700 0%, #130e00 42%, #1a1400 72%, #0a0700 100%);
             display: flex; align-items: center; justify-content: center;
             border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
@@ -169,19 +169,58 @@
         .yw-hero-glow {
             position: absolute; inset: 0;
             background:
-                radial-gradient(ellipse at center, rgba(245, 158, 11, 0.14) 0%, transparent 65%),
+                radial-gradient(ellipse 70% 55% at 50% 30%, rgba(245, 158, 11, 0.18) 0%, transparent 65%),
                 linear-gradient(120deg, transparent 0%, rgba(245, 158, 11, 0.06) 50%, transparent 100%);
             pointer-events: none;
         }
+        .yw-hero-inner {
+            position: relative; z-index: 1; width: 100%; max-width: 860px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
         .yw-hero-logo {
-            width: min(150px, 55vw); max-height: 150px; object-fit: contain;
-            filter: drop-shadow(0 12px 32px rgba(245, 158, 11, 0.35));
-            position: relative; z-index: 1;
+            width: min(170px, 54vw); max-height: 110px; object-fit: contain;
+            filter: drop-shadow(0 10px 28px rgba(245, 158, 11, 0.3));
             animation: ywHeroFloat 6s ease-in-out infinite;
         }
+        .yw-hero-tagline {
+            margin-top: 18px; font-size: clamp(15px, 2vw, 19px); font-weight: 600;
+            color: var(--text-secondary); letter-spacing: -0.01em;
+        }
+        .yw-hero-browser {
+            margin-top: 36px; width: 100%; border-radius: 14px 14px 0 0; overflow: hidden;
+            border: 1px solid rgba(245, 158, 11, 0.18); border-bottom: none;
+            background: #15110a;
+            box-shadow: 0 -2px 0 rgba(245,158,11,0.08), 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(245, 158, 11, 0.06);
+            transform: perspective(1600px) rotateX(2.5deg); transform-origin: bottom center;
+            animation: ywHeroRise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .yw-hero-browser-bar {
+            display: flex; align-items: center; gap: 7px; padding: 11px 16px;
+            background: linear-gradient(180deg, #1c1710, #15110a); border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .yw-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+        .yw-dot:nth-child(1) { background: #f87171; }
+        .yw-dot:nth-child(2) { background: #fbbf24; }
+        .yw-dot:nth-child(3) { background: #34d399; }
+        .yw-hero-url {
+            margin-left: 12px; flex: 1; max-width: 320px;
+            font-size: 11px; color: var(--text-tertiary); text-align: center;
+            background: rgba(0,0,0,0.35); border-radius: 7px; padding: 5px 12px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .yw-hero-shot { display: block; width: 100%; }
         @keyframes ywHeroFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-6px); }
+        }
+        @keyframes ywHeroRise {
+            from { opacity: 0; transform: perspective(1600px) rotateX(2.5deg) translateY(40px); }
+            to { opacity: 1; transform: perspective(1600px) rotateX(2.5deg) translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .yw-hero-logo-wrap { padding: 40px 16px 0; }
+            .yw-hero-browser { transform: none; }
+            .yw-hero-url { display: none; }
         }
 
         /* Quick read */
@@ -256,13 +295,23 @@
         <!-- Hero Banner -->
         <div class="yw-hero-logo-wrap">
             <div class="yw-hero-glow"></div>
-            <img src="images/yiyuduochi-logo.png" alt="一鱼多吃 · Repurpose" class="yw-hero-logo">
+            <div class="yw-hero-inner">
+                <img src="images/yiyuduochi-logo.png" alt="一鱼多吃 · Repurpose" class="yw-hero-logo">
+                <p class="yw-hero-tagline" data-i18n="hero.tagline">One brief in. Eleven platform-native posts out.</p>
+                <div class="yw-hero-browser">
+                    <div class="yw-hero-browser-bar">
+                        <span class="yw-dot"></span><span class="yw-dot"></span><span class="yw-dot"></span>
+                        <div class="yw-hero-url">repurpose.pages.dev/dashboard</div>
+                    </div>
+                    <img src="images/yiyuduochi-dashboard-full.png" alt="Repurpose growth dashboard" class="yw-hero-shot">
+                </div>
+            </div>
         </div>
 
         <!-- Header -->
         <div class="modal-header">
             <p class="modal-eyebrow" data-i18n="header.eyebrow">AI SIDE PROJECT · CONTENT TOOLING · 2026</p>
-            <h2 class="modal-title" data-i18n="header.title">一鱼多吃 · Repurpose</h2>
+            <h2 class="modal-title" data-i18n="header.title">Repurpose</h2>
             <p class="modal-subtitle" data-i18n="header.subtitle">What if one product brief could launch across eleven platforms at once — each post native to its channel, brand-safe, and ready to publish?</p>
             <a href="https://repurpose.pages.dev" target="_blank" rel="noopener noreferrer" class="yw-demo-cta" aria-label="Open Repurpose live demo in a new tab">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -330,10 +379,6 @@
                     <div class="modal-metric-desc" data-i18n="metrics.pricing.desc">Solo to team</div>
                 </div>
             </div>
-
-            <!-- Hero screenshot -->
-            <img src="images/yiyuduochi-dashboard-full.png" alt="Repurpose growth dashboard" class="modal-image">
-            <p class="yw-shot-caption" data-i18n="shot.dashboard">Growth Dashboard — north-star reach, daily brief, and a live 11-channel operations matrix.</p>
 
             <div class="modal-divider"></div>
 
@@ -546,7 +591,8 @@
                 'nav.back': '← Back',
                 'nav.backtowork': '← Back to Work',
                 'header.eyebrow': 'AI SIDE PROJECT · CONTENT TOOLING · 2026',
-                'header.title': '一鱼多吃 · Repurpose',
+                'hero.tagline': 'One brief in. Eleven platform-native posts out.',
+                'header.title': 'Repurpose',
                 'header.subtitle': 'What if one product brief could launch across eleven platforms at once — each post native to its channel, brand-safe, and ready to publish?',
                 'header.demoCta': 'Preview Demo →',
                 'meta.role.label': 'Role',
@@ -641,7 +687,8 @@
                 'nav.back': '← 返回',
                 'nav.backtowork': '← 返回作品',
                 'header.eyebrow': 'AI 个人项目 · 内容工具 · 2026',
-                'header.title': '一鱼多吃 · Repurpose',
+                'hero.tagline': '一个 brief 进，11 条平台原生内容出。',
+                'header.title': '一鱼多吃',
                 'header.subtitle': '如果一份产品 brief 能同时在 11 个平台发布——每条内容都贴合该渠道的语境、符合品牌规范、即可发布，会怎样？',
                 'header.demoCta': '预览 Demo →',
                 'meta.role.label': '角色',
