@@ -307,6 +307,8 @@
         .projects-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .side-projects-grid { grid-template-columns: repeat(2, 1fr); }
         .side-projects-grid .project-card { aspect-ratio: 16/10; }
+        .side-projects-grid .project-card:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 32/10; }
+        @media (max-width: 640px) { .side-projects-grid .project-card:last-child:nth-child(odd) { grid-column: 1; aspect-ratio: 16/10; } }
         .project-card { position: relative; aspect-ratio: 16/10; border-radius: 20px; overflow: hidden; cursor: pointer; background: var(--bg-card); display: block; text-decoration: none; color: inherit; border: 1px solid rgba(255,255,255,0.06); transition: transform 0.45s var(--ease-out-quart), border-color 0.45s, box-shadow 0.45s; }
         .project-card::after { content: ''; position: absolute; inset: -1px; background: linear-gradient(115deg, transparent 0%, transparent 36%, rgba(255,255,255,0.2) 49%, transparent 62%, transparent 100%); transform: translateX(-120%); opacity: 0; pointer-events: none; z-index: 2; transition: transform 0.85s var(--ease-out-quart), opacity 0.35s; }
         .project-card-bg { position: absolute; inset: 0; background-size: cover; background-position: center center; transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.6s; opacity: 0.9; }
@@ -974,6 +976,30 @@
             stroke: #22d3ee;
         }
 
+        /* 一鱼多吃 / Repurpose Project Card */
+        .project-card[data-project="yiyuduochi"] {
+            border: 1px solid rgba(245, 158, 11, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card[data-project="yiyuduochi"]:hover {
+            border-color: rgba(245, 158, 11, 0.28);
+            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.14);
+        }
+        .project-card[data-project="yiyuduochi"] .project-card-overlay {
+            background: linear-gradient(110deg, rgba(10,8,0,0.82) 0%, rgba(15,11,2,0.55) 48%, rgba(20,14,4,0.3) 100%);
+        }
+        .project-card[data-project="yiyuduochi"] .project-tag {
+            background: rgba(245, 158, 11, 0.18);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            backdrop-filter: blur(12px);
+        }
+        .project-card[data-project="yiyuduochi"] .project-metric {
+            color: #fbbf24;
+        }
+        .project-card[data-project="yiyuduochi"] .project-metric svg {
+            stroke: #fbbf24;
+        }
+
         @media (max-width: 768px) {
             #modal-collov .modal-header { padding: 36px 24px 24px; }
             #modal-collov .modal-title { font-size: 32px; }
@@ -1190,6 +1216,24 @@
                     <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
                 </div>
             </a>
+            <a href="yiyuduochi.html" class="project-card" data-project="yiyuduochi">
+                <div class="project-card-bg" id="yiyuduochi-bg"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <span class="project-tag" data-i18n="project.yiyuduochi.tag">AI Side Project · 2026</span>
+                    <h3 class="project-title" data-i18n="project.yiyuduochi.title">一鱼多吃 · Repurpose</h3>
+                    <p class="project-subtitle" data-i18n="project.yiyuduochi.subtitle">Cross-Platform Content OS — one brief, eleven native posts</p>
+                    <span class="project-metric">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            <line x1="8" y1="9" x2="16" y2="9"/>
+                            <line x1="8" y1="13" x2="13" y2="13"/>
+                        </svg>
+                        <span data-i18n="project.yiyuduochi.metric">AI × 11 Platforms · Full-Stack</span>
+                    </span>
+                    <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -1401,6 +1445,8 @@
         document.getElementById('cryptocopilot-bg').style.cssText = "background: url('images/cryptocopilot-dashboard.jpg') center/cover;";
 
         document.getElementById('pleasurecontract-bg').style.cssText = "background: url('images/pc-cg-rooftop.png') center/cover;";
+        document.getElementById('yiyuduochi-bg').style.cssText = "background: linear-gradient(115deg, #0d0800 0%, #1a1100 45%, #100a00 100%); position: absolute; inset: 0; overflow: hidden;";
+        document.getElementById('yiyuduochi-bg').innerHTML = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 42%, rgba(245,158,11,0.18) 0%, transparent 60%);pointer-events:none;"></div><img src="images/yiyuduochi-dashboard.png" alt="Repurpose dashboard" style="position:absolute;right:-2%;top:50%;transform:translateY(-50%) rotate(-4deg);width:52%;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(245,158,11,0.12);" /><img src="images/fish-mark-yiyuduochi.png" alt="一鱼多吃" style="position:absolute;left:48px;top:42px;width:56px;height:56px;object-fit:contain;filter:drop-shadow(0 6px 20px rgba(245,158,11,0.4));" />';
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1668,6 +1714,10 @@
                 'project.pleasurecontract.title': 'Pleasure Contract',
                 'project.pleasurecontract.subtitle': 'Card Roguelike Built Entirely by AI Agent',
                 'project.pleasurecontract.metric': '10K+ Lines GDScript',
+                'project.yiyuduochi.tag': 'AI Side Project · 2026',
+                'project.yiyuduochi.title': '一鱼多吃 · Repurpose',
+                'project.yiyuduochi.subtitle': 'Cross-Platform Content OS — one brief, eleven native posts',
+                'project.yiyuduochi.metric': 'AI × 11 Platforms · Full-Stack',
                 'project.viewCase': 'View case',
                 'skills.eyebrow': 'Expertise',
                 'skills.title': 'My design operating system.',
@@ -2128,6 +2178,10 @@
                 'project.pleasurecontract.title': 'Pleasure Contract',
                 'project.pleasurecontract.subtitle': '完全由 AI Agent 构建的卡牌 Roguelike',
                 'project.pleasurecontract.metric': '10K+ 行 GDScript',
+                'project.yiyuduochi.tag': 'AI 个人项目 · 2026',
+                'project.yiyuduochi.title': '一鱼多吃 · Repurpose',
+                'project.yiyuduochi.subtitle': '跨平台内容操作系统 —— 一个 brief，11 个平台原生内容',
+                'project.yiyuduochi.metric': 'AI × 11 平台 · 全栈自建',
                 'project.viewCase': '查看案例',
                 'skills.eyebrow': '专业优势',
                 'skills.title': '我的设计操作系统',
