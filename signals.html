@@ -270,6 +270,16 @@
         .modal-decision-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
         .modal-decision-title { font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
         .modal-decision-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+        .case-reasoning { display: grid; grid-template-columns: 1.05fr 1fr; gap: 18px; margin: -18px 0 42px; }
+        .case-reasoning-card { background: rgba(255,255,255,0.028); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+        .case-reasoning-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .case-reasoning-title { font-size: 17px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin-bottom: 10px; }
+        .case-reasoning-text { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
+        .case-tradeoff-list { display: grid; gap: 14px; }
+        .case-tradeoff-item { display: grid; grid-template-columns: 112px 1fr; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+        .case-tradeoff-item:last-child { padding-bottom: 0; border-bottom: 0; }
+        .case-tradeoff-label { font-size: 12px; font-weight: 700; color: var(--text-primary); line-height: 1.45; }
+        .case-tradeoff-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
         .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
         .modal-challenge-list { list-style: none; margin: 20px 0; }
         .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
@@ -301,13 +311,13 @@
         .modal-competitor-pros, .modal-competitor-cons { font-size: 13px; margin-bottom: 8px; }
         .modal-competitor-pros { color: #4ade80; }
         .modal-competitor-cons { color: #f87171; }
-        .case-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.32, 0.72, 0, 1); }
+        .case-reveal { opacity: 1; transform: translateY(10px); transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1); }
         .case-reveal.is-visible { opacity: 1; transform: translateY(0); }
         .modal-metric.case-reveal.is-visible:hover { transform: translateY(-3px); }
         .modal-decision.case-reveal.is-visible:hover { transform: translateY(-4px); }
         .modal-image.case-reveal.is-visible:hover { transform: scale(1.01); }
         @media (max-width: 900px) { .case-storyline { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .modal-role-grid { grid-template-columns: 1fr; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-enhanced::before { display: none; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } .case-storyline { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .modal-role-grid, .case-reasoning { grid-template-columns: 1fr; } .case-tradeoff-item { grid-template-columns: 1fr; gap: 6px; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-enhanced::before { display: none; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } .case-storyline { grid-template-columns: 1fr; } }
         @media (prefers-reduced-motion: reduce) {
             .case-reveal, .case-story-item, .case-story-item::after, .modal-metric, .modal-decision, .modal-image, .modal-process-enhanced::before, .modal-process-item { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
         }
@@ -764,7 +774,7 @@
 
     <!-- Signals Notebook Project Modal -->
     <div class="modal-container">
-            <img class="modal-hero-image" src="images/signals-cover.jpg" alt="Signals Notebook">
+            <img class="modal-hero-image" src="images/signals-cover.jpg?v=20260613" alt="Signals Notebook">
             <div class="modal-header">
                 <p class="modal-eyebrow" data-i18n="modal.signals.eyebrow">Enterprise B2B · 2021-Present</p>
                 <h2 class="modal-title" data-i18n="modal.signals.title">Signals Notebook</h2>
@@ -789,7 +799,7 @@
                     </article>
                     <article class="case-fastlane-pill result">
                         <span data-i18n="modal.signals.fastlaneResultLabel">Result</span>
-                        <strong data-i18n="modal.signals.fastlaneResult">-66% tracing time, from 2 hours to 40 minutes.</strong>
+                    <strong data-i18n="modal.signals.fastlaneResult">-66% tracing time in task-based usability checks, from 2 hours to 40 minutes.</strong>
                     </article>
                 </div>
             </section>
@@ -797,7 +807,7 @@
                 <!-- TL;DR Section -->
                 <div class="modal-tldr case-reveal">
                     <div class="modal-tldr-label" data-i18n="modal.signals.tldrLabel">TL;DR</div>
-                    <div class="modal-tldr-text" data-i18n="modal.signals.tldrText">Reduced lineage tracing time by 66% (from 2 hours to 40 minutes) by designing an interactive visualization system for tracking complex biological material relationships in pharmaceutical research.</div>
+                    <div class="modal-tldr-text" data-i18n="modal.signals.tldrText">Reduced lineage tracing time by 66% in task-based usability checks (from 2 hours to 40 minutes) by designing an interactive visualization system for complex biological material relationships. The measure reflects the tracing workflow, while adoption and NPS were also affected by rollout timing, product maturity, and customer context.</div>
                 </div>
 
                 <div class="case-storyline" aria-label="Case story">
@@ -821,8 +831,8 @@
 
                 <!-- Impact Metrics -->
                 <div class="modal-metrics case-reveal">
-                    <div class="modal-metric"><div class="modal-metric-value">+20%</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel1">NPS Score</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc1">25 → 30</div></div>
-                    <div class="modal-metric featured"><div class="modal-metric-value">-66%</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel2">Tracing Time</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc2">2hrs → 40min</div></div>
+                    <div class="modal-metric"><div class="modal-metric-value">+20%</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel1">NPS Score</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc1">25 → 30, post-release pulse</div></div>
+                    <div class="modal-metric featured"><div class="modal-metric-value">-66%</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel2">Tracing Time</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc2">Task check: 2hrs → 40min</div></div>
                     <div class="modal-metric"><div class="modal-metric-value">$100M+</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel3">Annual Revenue</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc3">Contribution</div></div>
                     <div class="modal-metric"><div class="modal-metric-value">1M+</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel4">Workflows</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc4">Annually</div></div>
                 </div>
@@ -905,7 +915,32 @@
                 <div class="modal-decision case-reveal">
                     <div class="modal-decision-label" data-i18n="modal.signals.decision1Label">Design Decision</div>
                     <div class="modal-decision-title" data-i18n="modal.signals.decision1Title">Map-first visualization over table-first approach</div>
-                    <div class="modal-decision-text" data-i18n="modal.signals.decision1Text">Competitors all default to table views. But user interviews revealed scientists think in relationships, not rows. I chose an interactive map as the primary view with table as secondary — matching their mental model of biological lineage. This reduced tracing time by 66% because users no longer had to mentally reconstruct hierarchies from flat data.</div>
+                    <div class="modal-decision-text" data-i18n="modal.signals.decision1Text">Competitors all default to table views. But user interviews revealed scientists think in relationships, not rows. I chose an interactive map as the primary view with table as secondary — matching their mental model of biological lineage. In task-based usability checks, this reduced tracing time by 66% because users no longer had to mentally reconstruct hierarchies from flat data; the design contribution was strongest in discovery, orientation, and export readiness.</div>
+                </div>
+
+                <div class="case-reasoning case-reveal">
+                    <article class="case-reasoning-card">
+                        <div class="case-reasoning-label" data-i18n="modal.signals.influenceLabel">Influence & Alignment</div>
+                        <div class="case-reasoning-title" data-i18n="modal.signals.influenceTitle">Turned a risky visualization shift into a buildable enterprise workflow</div>
+                        <p class="case-reasoning-text" data-i18n="modal.signals.influenceText">The alignment challenge was not convincing people that lineage mattered; it was helping PM and engineering trust a map-first experience inside a compliance-heavy product. I framed the proposal around the scientist journey already in the product: find a material in Smart Folder, open the Lineage tab, move between graph and table, then configure and export. Keeping table view as evidence support reduced the perceived risk of moving away from a familiar grid, while still letting the primary experience match how scientists reason about relationships.</p>
+                    </article>
+                    <article class="case-reasoning-card">
+                        <div class="case-reasoning-label" data-i18n="modal.signals.tradeoffLabel">Trade-offs</div>
+                        <div class="case-tradeoff-list">
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff1Label">Map vs. Table</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff1Text">Made the map primary for orientation, but kept tables for audit, sorting, filtering, and export habits.</span>
+                            </div>
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff2Label">Depth vs. Clarity</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff2Text">Used progressive exploration instead of showing every relationship at once, so bench scientists could get answers without learning a data tool.</span>
+                            </div>
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff3Label">Scope vs. Scale</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff3Text">Started with Materials Smart Folder and Lineage tab while preserving a path to Inventa and BioDesign integration.</span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
 
                 <!-- Process Section -->
@@ -1021,9 +1056,9 @@
                 'modal.signals.fastlaneDecisionLabel': 'Decision',
                 'modal.signals.fastlaneDecision': 'Shifted lineage from table-first to map-first.',
                 'modal.signals.fastlaneResultLabel': 'Result',
-                'modal.signals.fastlaneResult': '-66% tracing time, from 2 hours to 40 minutes.',
+                'modal.signals.fastlaneResult': '-66% tracing time in task-based usability checks, from 2 hours to 40 minutes.',
                 'modal.signals.tldrLabel': 'TL;DR',
-                'modal.signals.tldrText': 'Reduced lineage tracing time by 66% (from 2 hours to 40 minutes) by designing an interactive visualization system for tracking complex biological material relationships in pharmaceutical research.',
+                'modal.signals.tldrText': 'Reduced lineage tracing time by 66% in task-based usability checks (from 2 hours to 40 minutes) by designing an interactive visualization system for complex biological material relationships. The measure reflects the tracing workflow, while adoption and NPS were also affected by rollout timing, product maturity, and customer context.',
                 'modal.signals.storyPainLabel': 'Pain',
                 'modal.signals.storyPain': 'Scientists needed 2+ hours to reconstruct one material lineage.',
                 'modal.signals.storyDecisionLabel': 'Decision',
@@ -1033,9 +1068,9 @@
                 'modal.signals.storyEvidenceLabel': 'Evidence',
                 'modal.signals.storyEvidence': 'Scaled inside a $100M+ enterprise product context.',
                 'modal.signals.metricLabel1': 'NPS Score',
-                'modal.signals.metricDesc1': '25 \u2192 30',
+                'modal.signals.metricDesc1': '25 \u2192 30, post-release pulse',
                 'modal.signals.metricLabel2': 'Tracing Time',
-                'modal.signals.metricDesc2': '2hrs \u2192 40min',
+                'modal.signals.metricDesc2': 'Task check: 2hrs \u2192 40min',
                 'modal.signals.metricLabel3': 'Annual Revenue',
                 'modal.signals.metricDesc3': 'Contribution',
                 'modal.signals.metricLabel4': 'Workflows',
@@ -1073,7 +1108,17 @@
                 'modal.signals.insightText2': 'Key insight: Scientists don\'t think in database queries\u2014they think in relationships. \u201cWhere did this cell line come from? What experiments used it? What batches were derived from it?\u201d The solution needed to mirror this mental model.',
                 'modal.signals.decision1Label': 'Design Decision',
                 'modal.signals.decision1Title': 'Map-first visualization over table-first approach',
-                'modal.signals.decision1Text': 'Competitors all default to table views. But user interviews revealed scientists think in relationships, not rows. I chose an interactive map as the primary view with table as secondary \u2014 matching their mental model of biological lineage. This reduced tracing time by 66% because users no longer had to mentally reconstruct hierarchies from flat data.',
+                'modal.signals.decision1Text': 'Competitors all default to table views. But user interviews revealed scientists think in relationships, not rows. I chose an interactive map as the primary view with table as secondary \u2014 matching their mental model of biological lineage. In task-based usability checks, this reduced tracing time by 66% because users no longer had to mentally reconstruct hierarchies from flat data; the design contribution was strongest in discovery, orientation, and export readiness.',
+                'modal.signals.influenceLabel': 'Influence & Alignment',
+                'modal.signals.influenceTitle': 'Turned a risky visualization shift into a buildable enterprise workflow',
+                'modal.signals.influenceText': 'The alignment challenge was not convincing people that lineage mattered; it was helping PM and engineering trust a map-first experience inside a compliance-heavy product. I framed the proposal around the scientist journey already in the product: find a material in Smart Folder, open the Lineage tab, move between graph and table, then configure and export. Keeping table view as evidence support reduced the perceived risk of moving away from a familiar grid, while still letting the primary experience match how scientists reason about relationships.',
+                'modal.signals.tradeoffLabel': 'Trade-offs',
+                'modal.signals.tradeoff1Label': 'Map vs. Table',
+                'modal.signals.tradeoff1Text': 'Made the map primary for orientation, but kept tables for audit, sorting, filtering, and export habits.',
+                'modal.signals.tradeoff2Label': 'Depth vs. Clarity',
+                'modal.signals.tradeoff2Text': 'Used progressive exploration instead of showing every relationship at once, so bench scientists could get answers without learning a data tool.',
+                'modal.signals.tradeoff3Label': 'Scope vs. Scale',
+                'modal.signals.tradeoff3Text': 'Started with Materials Smart Folder and Lineage tab while preserving a path to Inventa and BioDesign integration.',
                 'modal.signals.section5Title': 'Design Process',
                 'modal.signals.section5P1': 'I designed a streamlined workflow that lets scientists trace lineage in seconds instead of hours:',
                 'modal.signals.process1': 'Materials Smart Folder',
@@ -1121,9 +1166,9 @@
                 'modal.signals.fastlaneDecisionLabel': '决策',
                 'modal.signals.fastlaneDecision': '将谱系体验从表格优先转为图谱优先。',
                 'modal.signals.fastlaneResultLabel': '结果',
-                'modal.signals.fastlaneResult': '追溯时间减少 66%，从 2 小时降至 40 分钟。',
+                'modal.signals.fastlaneResult': '任务型可用性检查中，追溯时间减少 66%，从 2 小时降至 40 分钟。',
                 'modal.signals.tldrLabel': '概要',
-                'modal.signals.tldrText': '通过设计交互式可视化系统，追踪制药研究中复杂的生物材料关系，将谱系追溯时间缩短了66%（从2小时降至40分钟）。',
+                'modal.signals.tldrText': '通过设计交互式可视化系统，在任务型可用性检查中将谱系追溯时间缩短66%（从2小时降至40分钟）。该数据对应谱系追溯任务本身；采用率和NPS也会受到上线节奏、产品成熟度与客户环境影响。',
                 'modal.signals.storyPainLabel': '痛点',
                 'modal.signals.storyPain': '科学家需要2小时以上，才能重建一个材料谱系。',
                 'modal.signals.storyDecisionLabel': '决策',
@@ -1133,9 +1178,9 @@
                 'modal.signals.storyEvidenceLabel': '证据',
                 'modal.signals.storyEvidence': '在$100M+企业级产品场景中规模化落地。',
                 'modal.signals.metricLabel1': 'NPS评分',
-                'modal.signals.metricDesc1': '25 → 30',
+                'modal.signals.metricDesc1': '25 → 30，上线后脉冲调研',
                 'modal.signals.metricLabel2': '追溯时间',
-                'modal.signals.metricDesc2': '2小时 → 40分钟',
+                'modal.signals.metricDesc2': '任务检查：2小时 → 40分钟',
                 'modal.signals.metricLabel3': '年营收',
                 'modal.signals.metricDesc3': '贡献',
                 'modal.signals.metricLabel4': '工作流',
@@ -1173,7 +1218,17 @@
                 'modal.signals.insightText2': '核心洞察：科学家不会用数据库查询来思考——他们用关系来思考。"这个细胞系从哪里来？哪些实验使用了它？从它衍生了哪些批次？"解决方案需要映射这种思维模型。',
                 'modal.signals.decision1Label': '设计决策',
                 'modal.signals.decision1Title': '选择地图优先而非表格优先的可视化方案',
-                'modal.signals.decision1Text': '竞品全部默认使用表格视图。但用户访谈揭示科学家用关系而非行列思考。我选择交互式地图作为主视图，表格作为辅助——匹配他们对生物谱系的心智模型。这使追溯时间减少了66%，因为用户不再需要从扁平数据中手动重建层级关系。',
+                'modal.signals.decision1Text': '竞品全部默认使用表格视图。但用户访谈揭示科学家用关系而非行列思考。我选择交互式地图作为主视图，表格作为辅助——匹配他们对生物谱系的心智模型。在任务型可用性检查中，这使追溯时间减少66%，因为用户不再需要从扁平数据中手动重建层级关系；设计的直接贡献主要在发现路径、方向感和导出准备度。',
+                'modal.signals.influenceLabel': '影响力与对齐',
+                'modal.signals.influenceTitle': '把高风险的可视化转向，变成团队能落地的企业级工作流',
+                'modal.signals.influenceText': '真正的对齐难点不是让大家相信谱系重要，而是在合规要求很重的企业产品里，让产品经理和工程团队相信“图谱优先”可被实现、可被交付。我把方案绑定到产品中已有的科学家路径：在材料智能文件夹找到材料，进入谱系标签页，在图谱和表格间切换，最后配置并导出。保留表格作为证据支撑，降低了从熟悉网格界面迁移的风险，同时让主体验更贴近科学家用关系理解材料来源的方式。',
+                'modal.signals.tradeoffLabel': '关键取舍',
+                'modal.signals.tradeoff1Label': '图谱 vs. 表格',
+                'modal.signals.tradeoff1Text': '用图谱承担方向感和关系理解，但保留表格满足审计、排序、筛选和导出习惯。',
+                'modal.signals.tradeoff2Label': '深度 vs. 清晰',
+                'modal.signals.tradeoff2Text': '采用渐进探索，而不是一次性展示所有关系，让实验台科学家不必学习数据工具也能获得答案。',
+                'modal.signals.tradeoff3Label': '范围 vs. 扩展',
+                'modal.signals.tradeoff3Text': '先聚焦材料智能文件夹和谱系标签页，同时保留与 Inventa、BioDesign 集成的产品路径。',
                 'modal.signals.section5Title': '设计流程',
                 'modal.signals.section5P1': '我设计了一个精简的工作流，让科学家在几秒钟内（而非几小时）完成谱系追溯：',
                 'modal.signals.process1': '材料智能文件夹',
@@ -1268,8 +1323,12 @@
                         revealObserver.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+            }, { threshold: 0.08, rootMargin: '200px 0px 120px 0px' });
             revealItems.forEach(el => revealObserver.observe(el));
+            window.setTimeout(() => {
+                revealItems.forEach(revealNow);
+                activateProcess();
+            }, 3000);
 
             if (process) {
                 const processObserver = new IntersectionObserver(entries => {

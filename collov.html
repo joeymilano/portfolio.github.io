@@ -254,6 +254,16 @@
         .modal-decision-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
         .modal-decision-title { font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
         .modal-decision-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+        .case-reasoning { display: grid; grid-template-columns: 1.05fr 1fr; gap: 18px; margin: -8px 0 42px; }
+        .case-reasoning-card { background: rgba(255,255,255,0.028); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+        .case-reasoning-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .case-reasoning-title { font-size: 17px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin-bottom: 10px; }
+        .case-reasoning-text { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
+        .case-tradeoff-list { display: grid; gap: 14px; }
+        .case-tradeoff-item { display: grid; grid-template-columns: 112px 1fr; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+        .case-tradeoff-item:last-child { padding-bottom: 0; border-bottom: 0; }
+        .case-tradeoff-label { font-size: 12px; font-weight: 700; color: var(--text-primary); line-height: 1.45; }
+        .case-tradeoff-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
         .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
         .modal-challenge-list { list-style: none; margin: 20px 0; }
         .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
@@ -280,7 +290,7 @@
         .modal-competitor-pros, .modal-competitor-cons { font-size: 13px; margin-bottom: 8px; }
         .modal-competitor-pros { color: #4ade80; }
         .modal-competitor-cons { color: #f87171; }
-        @media (max-width: 768px) { .modal-role-grid { grid-template-columns: 1fr; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .modal-role-grid, .case-reasoning { grid-template-columns: 1fr; } .case-tradeoff-item { grid-template-columns: 1fr; gap: 6px; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } }
 
         /* Responsive */
         @media (max-width: 1024px) { .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: repeat(2, 1fr); } .modal-metrics { grid-template-columns: repeat(2, 1fr); } }
@@ -720,13 +730,13 @@
 
     <!-- Collov Project Modal -->
     <div id="modal-collov" class="modal-container">
-            <img class="modal-hero-image" src="images/collov-cover.jpg" alt="CollovGPT">
+            <img class="modal-hero-image" src="images/collov-cover.jpg?v=20260613" alt="CollovGPT">
             <div class="modal-header">
                 <p class="modal-eyebrow" data-i18n="modal.collov.eyebrow">AI Product · 2024 · B2C</p>
                 <h2 class="modal-title" data-i18n="modal.collov.title">CollovGPT</h2>
                 <p class="modal-subtitle" data-i18n="modal.collov.subtitle">AI Interior Design Tool for US Market</p>
                 <div class="modal-meta">
-                    <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.collov.metaLabel1">Role</span><span class="modal-meta-value" data-i18n="modal.collov.metaValue1">Product Designer</span></div>
+                    <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.collov.metaLabel1">Role</span><span class="modal-meta-value" data-i18n="modal.collov.metaValue1">Sr. Product Designer</span></div>
                     <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.collov.metaLabel2">Team</span><span class="modal-meta-value" data-i18n="modal.collov.metaValue2">PM + 3 Engineers</span></div>
                     <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.collov.metaLabel3">Timeline</span><span class="modal-meta-value" data-i18n="modal.collov.metaValue3">6 Months</span></div>
                     <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.collov.metaLabel4">Tools</span><span class="modal-meta-value" data-i18n="modal.collov.metaValue4">Figma, Jira, Miro</span></div>
@@ -736,14 +746,14 @@
                 <!-- TL;DR Section -->
                 <div class="modal-tldr">
                     <div class="modal-tldr-label" data-i18n="modal.collov.tldrLabel">TL;DR</div>
-                    <div class="modal-tldr-text" data-i18n="modal.collov.tldrText">Reduced subscription drop-off rate from 28.2% to 3.8% by designing a Pro Mode that bridges the gap between casual users and professional interior designers.</div>
+                    <div class="modal-tldr-text" data-i18n="modal.collov.tldrText">Helped reduce tracked subscription drop-off from 28.2% to 3.8% during the rollout window by designing a Pro Mode that bridged casual users and professional interior designers. The figure reflects the subscription funnel in that period; pricing, acquisition mix, and market timing were also shared variables.</div>
                 </div>
 
                 <!-- Impact Metrics -->
                 <div class="modal-metrics">
                     <div class="modal-metric"><div class="modal-metric-value">50K</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel1">New Users</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc1">May 2024 only</div></div>
-                    <div class="modal-metric"><div class="modal-metric-value">+29%</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel2">YoY Revenue</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc2">After launch</div></div>
-                    <div class="modal-metric"><div class="modal-metric-value">3.8%</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel3">Drop-off Rate</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc3">Down from 28.2%</div></div>
+                    <div class="modal-metric"><div class="modal-metric-value">+29%</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel2">YoY Revenue</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc2">Business result after launch</div></div>
+                    <div class="modal-metric"><div class="modal-metric-value">3.8%</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel3">Drop-off Rate</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc3">Tracked funnel, down from 28.2%</div></div>
                     <div class="modal-metric"><div class="modal-metric-value">3M+</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel4">Registered</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc4">Total users</div></div>
                 </div>
 
@@ -759,7 +769,7 @@
                         </div>
                         <div class="modal-role-item">
                             <div class="modal-role-label" data-i18n="modal.collov.roleLabel2">Team</div>
-                            <div class="modal-role-value" data-i18n="modal.collov.roleValue2">Me (Product Designer), 1 Product Manager, 3 Dev Engineers</div>
+                            <div class="modal-role-value" data-i18n="modal.collov.roleValue2">Me (Sr. Product Designer), 1 Product Manager, 3 Dev Engineers</div>
                         </div>
                         <div class="modal-role-item">
                             <div class="modal-role-label" data-i18n="modal.collov.roleLabel3">Timeline</div>
@@ -826,16 +836,41 @@
                     </div>
                 </div>
 
-                <div class=”modal-decision”>
-                    <div class=”modal-decision-label” data-i18n=”modal.collov.decision1Label”>Design Decision</div>
-                    <div class=”modal-decision-title” data-i18n=”modal.collov.decision1Title”>Dual-mode UX over one-size-fits-all interface</div>
-                    <div class=”modal-decision-text” data-i18n=”modal.collov.decision1Text”>Data showed 72% of churned users were professionals who found the tool too basic, while new users loved the simplicity. Instead of compromising for either group, I designed two distinct modes: “Home Mode” for casual users and “Pro Mode” for designers. This preserved the low barrier to entry while unlocking professional workflows — reducing churn from 28.2% to 3.8%.</div>
+                <div class="modal-decision">
+                    <div class="modal-decision-label" data-i18n="modal.collov.decision1Label">Design Decision</div>
+                    <div class="modal-decision-title" data-i18n="modal.collov.decision1Title">Dual-mode UX over one-size-fits-all interface</div>
+                    <div class="modal-decision-text" data-i18n="modal.collov.decision1Text">Data showed 72% of churned users were professionals who found the tool too basic, while new users loved the simplicity. Instead of compromising for either group, I designed two distinct modes: “Home Mode” for casual users and “Pro Mode” for designers. This preserved the low barrier to entry while unlocking professional workflows. During the rollout window, the tracked subscription funnel moved from 28.2% drop-off to 3.8%; design contributed most directly to segmentation clarity, pro workflow activation, and purchase-flow continuity.</div>
+                </div>
+
+                <div class="case-reasoning">
+                    <article class="case-reasoning-card">
+                        <div class="case-reasoning-label" data-i18n="modal.collov.influenceLabel">Influence & Alignment</div>
+                        <div class="case-reasoning-title" data-i18n="modal.collov.influenceTitle">Reframed feature expansion into a clearer mode strategy</div>
+                        <p class="case-reasoning-text" data-i18n="modal.collov.influenceText">The alignment challenge was balancing two user groups without turning Collov into two separate products. I used stakeholder interviews, churn analysis, and competitor gaps to frame the decision for PM and engineering: keep Home Mode simple for casual users, but create a Pro Mode path for designers who needed CAD import, floor-plan precision, presentation, and purchasing workflows. This narrowed the team from "add more advanced features everywhere" to a clearer build sequence: import, generate, render and edit, then present and buy.</p>
+                    </article>
+                    <article class="case-reasoning-card">
+                        <div class="case-reasoning-label" data-i18n="modal.collov.tradeoffLabel">Trade-offs</div>
+                        <div class="case-tradeoff-list">
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff1Label">One UI vs. Modes</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff1Text">Separated Home and Pro paths so beginners kept a low-friction start while professionals gained room for precision.</span>
+                            </div>
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff2Label">AI Wow vs. Utility</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff2Text">Connected generation to editing, presentation, and shopping, so AI outputs could move toward a real purchase workflow.</span>
+                            </div>
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff3Label">Power vs. Onboarding</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff3Text">Kept advanced CAD and measurement tools inside Pro Mode instead of exposing them during the first casual-user session.</span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
 
                 <!-- Process Section -->
-                <div class=”modal-section”>
-                    <h3 class=”modal-section-title”><span class=”modal-section-number”>5</span><span data-i18n=”modal.collov.section5Title”>Design Process</span></h3>
-                    <p data-i18n=”modal.collov.section5P1”>I proposed a dual-mode approach: keeping the simple “Home Mode” for casual users while adding a “Pro Mode” for professionals.</p>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.collov.section5Title">Design Process</span></h3>
+                    <p data-i18n="modal.collov.section5P1">I proposed a dual-mode approach: keeping the simple “Home Mode” for casual users while adding a “Pro Mode” for professionals.</p>
                     <div class="modal-process-enhanced">
                         <div class="modal-process-item">
                             <div class="modal-process-number">1</div>
@@ -989,7 +1024,7 @@
                 'modal.collov.title': 'CollovGPT',
                 'modal.collov.subtitle': 'AI Interior Design Tool for US Market',
                 'modal.collov.metaLabel1': 'Role',
-                'modal.collov.metaValue1': 'Product Designer',
+                'modal.collov.metaValue1': 'Sr. Product Designer',
                 'modal.collov.metaLabel2': 'Team',
                 'modal.collov.metaValue2': 'PM + 3 Engineers',
                 'modal.collov.metaLabel3': 'Timeline',
@@ -997,20 +1032,20 @@
                 'modal.collov.metaLabel4': 'Tools',
                 'modal.collov.metaValue4': 'Figma, Jira, Miro',
                 'modal.collov.tldrLabel': 'TL;DR',
-                'modal.collov.tldrText': 'Reduced subscription drop-off rate from 28.2% to 3.8% by designing a Pro Mode that bridges the gap between casual users and professional interior designers.',
+                'modal.collov.tldrText': 'Helped reduce tracked subscription drop-off from 28.2% to 3.8% during the rollout window by designing a Pro Mode that bridged casual users and professional interior designers. The figure reflects the subscription funnel in that period; pricing, acquisition mix, and market timing were also shared variables.',
                 'modal.collov.metricLabel1': 'New Users',
                 'modal.collov.metricDesc1': 'May 2024 only',
                 'modal.collov.metricLabel2': 'YoY Revenue',
-                'modal.collov.metricDesc2': 'After launch',
+                'modal.collov.metricDesc2': 'Business result after launch',
                 'modal.collov.metricLabel3': 'Drop-off Rate',
-                'modal.collov.metricDesc3': 'Down from 28.2%',
+                'modal.collov.metricDesc3': 'Tracked funnel, down from 28.2%',
                 'modal.collov.metricLabel4': 'Registered',
                 'modal.collov.metricDesc4': 'Total users',
                 'modal.collov.section1Title': 'My Role & Context',
                 'modal.collov.roleLabel1': 'My Responsibilities',
                 'modal.collov.roleValue1': 'End-to-end product design: user research, wireframing, prototyping, usability testing, and design handoff',
                 'modal.collov.roleLabel2': 'Team',
-                'modal.collov.roleValue2': 'Me (Product Designer), 1 Product Manager, 3 Dev Engineers',
+                'modal.collov.roleValue2': 'Me (Sr. Product Designer), 1 Product Manager, 3 Dev Engineers',
                 'modal.collov.roleLabel3': 'Timeline',
                 'modal.collov.roleValue3': '~6 months (2024)',
                 'modal.collov.roleLabel4': 'Tools',
@@ -1041,7 +1076,17 @@
                 'modal.collov.insightText2': 'Key insight: No competitor offered a complete solution that served both professional designers AND casual users. This was our opportunity.',
                 'modal.collov.decision1Label': 'Design Decision',
                 'modal.collov.decision1Title': 'Dual-mode UX over one-size-fits-all interface',
-                'modal.collov.decision1Text': 'Data showed 72% of churned users were professionals who found the tool too basic, while new users loved the simplicity. Instead of compromising for either group, I designed two distinct modes: \u201cHome Mode\u201d for casual users and \u201cPro Mode\u201d for designers. This preserved the low barrier to entry while unlocking professional workflows \u2014 reducing churn from 28.2% to 3.8%.',
+                'modal.collov.decision1Text': 'Data showed 72% of churned users were professionals who found the tool too basic, while new users loved the simplicity. Instead of compromising for either group, I designed two distinct modes: \u201cHome Mode\u201d for casual users and \u201cPro Mode\u201d for designers. This preserved the low barrier to entry while unlocking professional workflows. During the rollout window, the tracked subscription funnel moved from 28.2% drop-off to 3.8%; design contributed most directly to segmentation clarity, pro workflow activation, and purchase-flow continuity.',
+                'modal.collov.influenceLabel': 'Influence & Alignment',
+                'modal.collov.influenceTitle': 'Reframed feature expansion into a clearer mode strategy',
+                'modal.collov.influenceText': 'The alignment challenge was balancing two user groups without turning Collov into two separate products. I used stakeholder interviews, churn analysis, and competitor gaps to frame the decision for PM and engineering: keep Home Mode simple for casual users, but create a Pro Mode path for designers who needed CAD import, floor-plan precision, presentation, and purchasing workflows. This narrowed the team from "add more advanced features everywhere" to a clearer build sequence: import, generate, render and edit, then present and buy.',
+                'modal.collov.tradeoffLabel': 'Trade-offs',
+                'modal.collov.tradeoff1Label': 'One UI vs. Modes',
+                'modal.collov.tradeoff1Text': 'Separated Home and Pro paths so beginners kept a low-friction start while professionals gained room for precision.',
+                'modal.collov.tradeoff2Label': 'AI Wow vs. Utility',
+                'modal.collov.tradeoff2Text': 'Connected generation to editing, presentation, and shopping, so AI outputs could move toward a real purchase workflow.',
+                'modal.collov.tradeoff3Label': 'Power vs. Onboarding',
+                'modal.collov.tradeoff3Text': 'Kept advanced CAD and measurement tools inside Pro Mode instead of exposing them during the first casual-user session.',
                 'modal.collov.section5Title': 'Design Process',
                 'modal.collov.section5P1': 'I proposed a dual-mode approach: keeping the simple \u201cHome Mode\u201d for casual users while adding a \u201cPro Mode\u201d for professionals.',
                 'modal.collov.process1': 'Import Floor Plan / Photo',
@@ -1080,7 +1125,7 @@
                 'modal.collov.title': 'CollovGPT',
                 'modal.collov.subtitle': '面向美国市场的AI室内设计工具',
                 'modal.collov.metaLabel1': '角色',
-                'modal.collov.metaValue1': '产品设计师',
+                'modal.collov.metaValue1': '高级产品设计师',
                 'modal.collov.metaLabel2': '团队',
                 'modal.collov.metaValue2': '产品经理 + 3名工程师',
                 'modal.collov.metaLabel3': '周期',
@@ -1088,20 +1133,20 @@
                 'modal.collov.metaLabel4': '工具',
                 'modal.collov.metaValue4': 'Figma, Jira, Miro',
                 'modal.collov.tldrLabel': '概述',
-                'modal.collov.tldrText': '通过设计Pro模式，将订阅流失率从28.2%降至3.8%，成功弥合了普通用户与专业室内设计师之间的需求鸿沟。',
+                'modal.collov.tldrText': '通过设计Pro模式，帮助项目周期内追踪到的订阅漏斗流失率从28.2%降至3.8%，弥合普通用户与专业室内设计师之间的需求鸿沟。该数据对应当期订阅漏斗；定价、获客结构和市场时机也是共同变量。',
                 'modal.collov.metricLabel1': '新用户',
                 'modal.collov.metricDesc1': '仅2024年5月',
                 'modal.collov.metricLabel2': '同比营收',
-                'modal.collov.metricDesc2': '上线后',
+                'modal.collov.metricDesc2': '上线后的业务结果',
                 'modal.collov.metricLabel3': '流失率',
-                'modal.collov.metricDesc3': '从28.2%降至',
+                'modal.collov.metricDesc3': '追踪漏斗，从28.2%降至',
                 'modal.collov.metricLabel4': '注册用户',
                 'modal.collov.metricDesc4': '总用户数',
                 'modal.collov.section1Title': '我的角色与背景',
                 'modal.collov.roleLabel1': '我的职责',
                 'modal.collov.roleValue1': '端到端产品设计：用户研究、线框图、原型设计、可用性测试及设计交付',
                 'modal.collov.roleLabel2': '团队',
-                'modal.collov.roleValue2': '我（产品设计师）、1名产品经理、3名开发工程师',
+                'modal.collov.roleValue2': '我（高级产品设计师）、1名产品经理、3名开发工程师',
                 'modal.collov.roleLabel3': '周期',
                 'modal.collov.roleValue3': '约6个月（2024年）',
                 'modal.collov.roleLabel4': '工具',
@@ -1132,7 +1177,17 @@
                 'modal.collov.insightText2': '关键洞察：没有竞品能提供同时服务专业设计师和普通用户的完整解决方案。这就是我们的机会。',
                 'modal.collov.decision1Label': '设计决策',
                 'modal.collov.decision1Title': '双模式体验优于一刀切界面',
-                'modal.collov.decision1Text': '数据显示72%的流失用户是觉得工具过于简单的专业人士，而新用户却喜欢这种简洁。我没有为任何一方妥协，而是设计了两种模式："家居模式"面向普通用户，"专业模式"面向设计师。这保留了低门槛的同时解锁了专业工作流——将流失率从28.2%降至3.8%。',
+                'modal.collov.decision1Text': '数据显示72%的流失用户是觉得工具过于简单的专业人士，而新用户却喜欢这种简洁。我没有为任何一方妥协，而是设计了两种模式："家居模式"面向普通用户，"专业模式"面向设计师。这保留了低门槛的同时解锁了专业工作流。项目周期内，追踪到的订阅漏斗流失率从28.2%降至3.8%；设计的直接贡献主要在分群清晰度、专业工作流激活和购买路径连续性。',
+                'modal.collov.influenceLabel': '影响力与对齐',
+                'modal.collov.influenceTitle': '把功能扩张问题，重新定义为更清晰的模式策略',
+                'modal.collov.influenceText': '真正的对齐难点，是在不把 Collov 拆成两个产品的前提下，同时服务两类用户。我结合利益相关者访谈、流失分析和竞品缺口，向产品经理和工程团队重新定义决策：家居模式继续保持普通用户的简单入口，而专业模式承接需要 CAD 导入、精确户型编辑、方案展示和购买流程的设计师。这让团队从“到处增加高级功能”收敛到更清晰的构建顺序：导入、生成、渲染编辑、展示购买。',
+                'modal.collov.tradeoffLabel': '关键取舍',
+                'modal.collov.tradeoff1Label': '单一界面 vs. 双模式',
+                'modal.collov.tradeoff1Text': '拆分家居和专业路径，让新手保留低摩擦起步，同时给专业用户足够的精度空间。',
+                'modal.collov.tradeoff2Label': 'AI 惊艳感 vs. 实用性',
+                'modal.collov.tradeoff2Text': '把生成结果连接到编辑、展示和购物，让 AI 输出能进入真实购买工作流。',
+                'modal.collov.tradeoff3Label': '强功能 vs. 新手引导',
+                'modal.collov.tradeoff3Text': '把高级 CAD 和测量工具放在专业模式内，而不是在普通用户首次体验时暴露。',
                 'modal.collov.section5Title': '设计流程',
                 'modal.collov.section5P1': '我提出了双模式方案：保留面向普通用户的简单"家居模式"，同时为专业人士增加"专业模式"。',
                 'modal.collov.process1': '导入户型图/照片',
