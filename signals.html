@@ -837,6 +837,11 @@
                     <div class="modal-metric"><div class="modal-metric-value">1M+</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel4">Workflows</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc4">Annually</div></div>
                 </div>
 
+                <div class="modal-insight case-reveal">
+                    <div class="modal-insight-icon">📌</div>
+                    <div class="modal-insight-text" data-i18n="modal.signals.measurementNote" data-i18n-html><strong>Measurement boundary:</strong> I present the -66% as a task-based usability outcome for the lineage tracing workflow, not as a claim that design alone changed all product behavior. NPS and revenue figures describe post-release/product context; the clearest design contribution is reducing the steps scientists needed for discovery, orientation, and export.</div>
+                </div>
+
                 <div class="modal-divider"></div>
 
                 <!-- My Role Section -->
@@ -845,7 +850,7 @@
                     <div class="modal-role-grid">
                         <div class="modal-role-item">
                             <div class="modal-role-label" data-i18n="modal.signals.roleLabel1">My Responsibilities</div>
-                            <div class="modal-role-value" data-i18n="modal.signals.roleValue1">End-to-end product design: wireframing, prototyping, user testing, design handoff, and cross-functional collaboration</div>
+                            <div class="modal-role-value" data-i18n="modal.signals.roleValue1">Owned the end-to-end lineage workflow design: research synthesis, IA, wireframes, prototypes, usability checks, engineering handoff, and PM/engineering alignment on scope</div>
                         </div>
                         <div class="modal-role-item">
                             <div class="modal-role-label" data-i18n="modal.signals.roleLabel2">Team</div>
@@ -859,6 +864,10 @@
                             <div class="modal-role-label" data-i18n="modal.signals.roleLabel4">Tools</div>
                             <div class="modal-role-value" data-i18n="modal.signals.roleValue4">Figma, Jira, Confluence, Miro</div>
                         </div>
+                    </div>
+                    <div class="modal-insight">
+                        <div class="modal-insight-icon">🧭</div>
+                        <div class="modal-insight-text" data-i18n="modal.signals.roleBoundary" data-i18n-html><strong>Role boundary:</strong> I was the sole product designer on this workflow, so I owned the design strategy and interaction model. Product prioritization, technical feasibility, and release timing were shared with the PM and engineering team; my senior-level contribution was making the trade-offs explicit enough for the team to commit.</div>
                     </div>
                 </div>
 
@@ -922,22 +931,22 @@
                     <article class="case-reasoning-card">
                         <div class="case-reasoning-label" data-i18n="modal.signals.influenceLabel">Influence & Alignment</div>
                         <div class="case-reasoning-title" data-i18n="modal.signals.influenceTitle">Turned a risky visualization shift into a buildable enterprise workflow</div>
-                        <p class="case-reasoning-text" data-i18n="modal.signals.influenceText">The alignment challenge was not convincing people that lineage mattered; it was helping PM and engineering trust a map-first experience inside a compliance-heavy product. I framed the proposal around the scientist journey already in the product: find a material in Smart Folder, open the Lineage tab, move between graph and table, then configure and export. Keeping table view as evidence support reduced the perceived risk of moving away from a familiar grid, while still letting the primary experience match how scientists reason about relationships.</p>
+                        <p class="case-reasoning-text" data-i18n="modal.signals.influenceText">The alignment challenge was not convincing people that lineage mattered; it was helping PM and engineering trust a map-first experience inside a compliance-heavy product. I reframed the proposal as a low-risk workflow change rather than a visual experiment: keep Smart Folder for discovery, put the graph inside a dedicated Lineage tab, retain table/export for audit, and avoid forcing users into a new information architecture. That compromise gave PM a clearer scope and gave engineers a buildable path.</p>
                     </article>
                     <article class="case-reasoning-card">
                         <div class="case-reasoning-label" data-i18n="modal.signals.tradeoffLabel">Trade-offs</div>
                         <div class="case-tradeoff-list">
                             <div class="case-tradeoff-item">
-                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff1Label">Map vs. Table</span>
-                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff1Text">Made the map primary for orientation, but kept tables for audit, sorting, filtering, and export habits.</span>
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff1Label">Rejected: Table-only</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff1Text">A table-only fix was safer to build, but it kept the core cognitive load: scientists still had to reconstruct parent-child relationships manually.</span>
                             </div>
                             <div class="case-tradeoff-item">
-                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff2Label">Depth vs. Clarity</span>
-                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff2Text">Used progressive exploration instead of showing every relationship at once, so bench scientists could get answers without learning a data tool.</span>
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff2Label">Constraint: Scale</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff2Text">Large material graphs could become unreadable and expensive to render, so I used progressive exploration rather than exposing every relationship at once.</span>
                             </div>
                             <div class="case-tradeoff-item">
-                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff3Label">Scope vs. Scale</span>
-                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff3Text">Started with Materials Smart Folder and Lineage tab while preserving a path to Inventa and BioDesign integration.</span>
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff3Label">Cut from v1</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff3Text">Full cross-product lineage was kept as a direction, while v1 focused on Materials Smart Folder, Lineage tab, table support, and export readiness.</span>
                             </div>
                         </div>
                     </article>
@@ -1075,15 +1084,17 @@
                 'modal.signals.metricDesc3': 'Contribution',
                 'modal.signals.metricLabel4': 'Workflows',
                 'modal.signals.metricDesc4': 'Annually',
+                'modal.signals.measurementNote': '<strong>Measurement boundary:</strong> I present the -66% as a task-based usability outcome for the lineage tracing workflow, not as a claim that design alone changed all product behavior. NPS and revenue figures describe post-release/product context; the clearest design contribution is reducing the steps scientists needed for discovery, orientation, and export.',
                 'modal.signals.section1Title': 'My Role & Context',
                 'modal.signals.roleLabel1': 'My Responsibilities',
-                'modal.signals.roleValue1': 'End-to-end product design: wireframing, prototyping, user testing, design handoff, and cross-functional collaboration',
+                'modal.signals.roleValue1': 'Owned the end-to-end lineage workflow design: research synthesis, IA, wireframes, prototypes, usability checks, engineering handoff, and PM/engineering alignment on scope',
                 'modal.signals.roleLabel2': 'Team',
                 'modal.signals.roleValue2': 'Me (Sr. Product Designer), 1 Product Manager, 10 Dev Engineers',
                 'modal.signals.roleLabel3': 'Timeline',
                 'modal.signals.roleValue3': '~5 months (2021-Present)',
                 'modal.signals.roleLabel4': 'Tools',
                 'modal.signals.roleValue4': 'Figma, Jira, Confluence, Miro',
+                'modal.signals.roleBoundary': '<strong>Role boundary:</strong> I was the sole product designer on this workflow, so I owned the design strategy and interaction model. Product prioritization, technical feasibility, and release timing were shared with the PM and engineering team; my senior-level contribution was making the trade-offs explicit enough for the team to commit.',
                 'modal.signals.section2Title': 'Understanding the Product',
                 'modal.signals.section2P1': 'Signals Notebook is an AI-powered electronic lab notebook (ELN) trusted by over 10,000 scientific teams worldwide. It connects with ChemDraw, Spotfire, and lab instruments via APIs, supporting over 1M workflows annually.',
                 'modal.signals.insightText1': '<strong>Key Clients:</strong> Pfizer, Roche, Novartis, Johnson & Johnson, Takeda, Moderna, GSK, Merck, AstraZeneca, Bayer, and more. These pharmaceutical giants rely on our software for mission-critical research.',
@@ -1111,14 +1122,14 @@
                 'modal.signals.decision1Text': 'Competitors all default to table views. But user interviews revealed scientists think in relationships, not rows. I chose an interactive map as the primary view with table as secondary \u2014 matching their mental model of biological lineage. In task-based usability checks, this reduced tracing time by 66% because users no longer had to mentally reconstruct hierarchies from flat data; the design contribution was strongest in discovery, orientation, and export readiness.',
                 'modal.signals.influenceLabel': 'Influence & Alignment',
                 'modal.signals.influenceTitle': 'Turned a risky visualization shift into a buildable enterprise workflow',
-                'modal.signals.influenceText': 'The alignment challenge was not convincing people that lineage mattered; it was helping PM and engineering trust a map-first experience inside a compliance-heavy product. I framed the proposal around the scientist journey already in the product: find a material in Smart Folder, open the Lineage tab, move between graph and table, then configure and export. Keeping table view as evidence support reduced the perceived risk of moving away from a familiar grid, while still letting the primary experience match how scientists reason about relationships.',
+                'modal.signals.influenceText': 'The alignment challenge was not convincing people that lineage mattered; it was helping PM and engineering trust a map-first experience inside a compliance-heavy product. I reframed the proposal as a low-risk workflow change rather than a visual experiment: keep Smart Folder for discovery, put the graph inside a dedicated Lineage tab, retain table/export for audit, and avoid forcing users into a new information architecture. That compromise gave PM a clearer scope and gave engineers a buildable path.',
                 'modal.signals.tradeoffLabel': 'Trade-offs',
-                'modal.signals.tradeoff1Label': 'Map vs. Table',
-                'modal.signals.tradeoff1Text': 'Made the map primary for orientation, but kept tables for audit, sorting, filtering, and export habits.',
-                'modal.signals.tradeoff2Label': 'Depth vs. Clarity',
-                'modal.signals.tradeoff2Text': 'Used progressive exploration instead of showing every relationship at once, so bench scientists could get answers without learning a data tool.',
-                'modal.signals.tradeoff3Label': 'Scope vs. Scale',
-                'modal.signals.tradeoff3Text': 'Started with Materials Smart Folder and Lineage tab while preserving a path to Inventa and BioDesign integration.',
+                'modal.signals.tradeoff1Label': 'Rejected: Table-only',
+                'modal.signals.tradeoff1Text': 'A table-only fix was safer to build, but it kept the core cognitive load: scientists still had to reconstruct parent-child relationships manually.',
+                'modal.signals.tradeoff2Label': 'Constraint: Scale',
+                'modal.signals.tradeoff2Text': 'Large material graphs could become unreadable and expensive to render, so I used progressive exploration rather than exposing every relationship at once.',
+                'modal.signals.tradeoff3Label': 'Cut from v1',
+                'modal.signals.tradeoff3Text': 'Full cross-product lineage was kept as a direction, while v1 focused on Materials Smart Folder, Lineage tab, table support, and export readiness.',
                 'modal.signals.section5Title': 'Design Process',
                 'modal.signals.section5P1': 'I designed a streamlined workflow that lets scientists trace lineage in seconds instead of hours:',
                 'modal.signals.process1': 'Materials Smart Folder',
@@ -1185,15 +1196,17 @@
                 'modal.signals.metricDesc3': '贡献',
                 'modal.signals.metricLabel4': '工作流',
                 'modal.signals.metricDesc4': '每年',
+                'modal.signals.measurementNote': '<strong>数据口径边界：</strong>-66% 是谱系追溯任务中的任务型可用性结果，不代表设计单独改变了所有产品行为。NPS 与营收数字用于说明上线后/产品背景；设计最直接的贡献，是减少科学家在发现、理解方向和导出过程中的操作成本。',
                 'modal.signals.section1Title': '我的角色与背景',
                 'modal.signals.roleLabel1': '我的职责',
-                'modal.signals.roleValue1': '端到端产品设计：线框图、原型设计、用户测试、设计交付及跨职能协作',
+                'modal.signals.roleValue1': '负责端到端谱系工作流设计：研究综合、信息架构、线框图、原型、可用性检查、工程交付，以及与产品/工程团队对齐范围',
                 'modal.signals.roleLabel2': '团队',
                 'modal.signals.roleValue2': '我（高级产品设计师）、1名产品经理、10名开发工程师',
                 'modal.signals.roleLabel3': '时间线',
                 'modal.signals.roleValue3': '约5个月（2021至今）',
                 'modal.signals.roleLabel4': '工具',
                 'modal.signals.roleValue4': 'Figma、Jira、Confluence、Miro',
+                'modal.signals.roleBoundary': '<strong>角色边界：</strong>我是该工作流唯一的产品设计师，因此负责设计策略和交互模型。产品优先级、技术可行性和上线节奏由产品经理与工程团队共同决策；我在 senior 层面的贡献，是把取舍讲清楚，让团队可以围绕同一范围推进。',
                 'modal.signals.section2Title': '了解产品',
                 'modal.signals.section2P1': 'Signals Notebook 是一款AI驱动的电子实验室笔记本（ELN），受到全球超过10,000个科研团队的信赖。它通过API与ChemDraw、Spotfire和实验室仪器连接，每年支持超过100万个工作流。',
                 'modal.signals.insightText1': '<strong>核心客户：</strong>辉瑞、罗氏、诺华、强生、武田、Moderna、GSK、默克、阿斯利康、拜耳等。这些制药巨头依赖我们的软件进行关键性研究。',
@@ -1221,14 +1234,14 @@
                 'modal.signals.decision1Text': '竞品全部默认使用表格视图。但用户访谈揭示科学家用关系而非行列思考。我选择交互式地图作为主视图，表格作为辅助——匹配他们对生物谱系的心智模型。在任务型可用性检查中，这使追溯时间减少66%，因为用户不再需要从扁平数据中手动重建层级关系；设计的直接贡献主要在发现路径、方向感和导出准备度。',
                 'modal.signals.influenceLabel': '影响力与对齐',
                 'modal.signals.influenceTitle': '把高风险的可视化转向，变成团队能落地的企业级工作流',
-                'modal.signals.influenceText': '真正的对齐难点不是让大家相信谱系重要，而是在合规要求很重的企业产品里，让产品经理和工程团队相信“图谱优先”可被实现、可被交付。我把方案绑定到产品中已有的科学家路径：在材料智能文件夹找到材料，进入谱系标签页，在图谱和表格间切换，最后配置并导出。保留表格作为证据支撑，降低了从熟悉网格界面迁移的风险，同时让主体验更贴近科学家用关系理解材料来源的方式。',
+                'modal.signals.influenceText': '真正的对齐难点不是让大家相信谱系重要，而是在合规要求很重的企业产品里，让产品经理和工程团队相信“图谱优先”可被实现、可被交付。我把方案重新定义为低风险工作流调整，而不是单纯的可视化实验：保留材料智能文件夹用于发现，把图谱放进独立谱系标签页，保留表格/导出用于审计，并避免强行改变用户已有的信息架构。这个折中让产品经理更容易确认范围，也让工程团队有可构建路径。',
                 'modal.signals.tradeoffLabel': '关键取舍',
-                'modal.signals.tradeoff1Label': '图谱 vs. 表格',
-                'modal.signals.tradeoff1Text': '用图谱承担方向感和关系理解，但保留表格满足审计、排序、筛选和导出习惯。',
-                'modal.signals.tradeoff2Label': '深度 vs. 清晰',
-                'modal.signals.tradeoff2Text': '采用渐进探索，而不是一次性展示所有关系，让实验台科学家不必学习数据工具也能获得答案。',
-                'modal.signals.tradeoff3Label': '范围 vs. 扩展',
-                'modal.signals.tradeoff3Text': '先聚焦材料智能文件夹和谱系标签页，同时保留与 Inventa、BioDesign 集成的产品路径。',
+                'modal.signals.tradeoff1Label': '否决：纯表格',
+                'modal.signals.tradeoff1Text': '纯表格修复更容易开发，但没有解决核心认知负担：科学家仍然要手动重建亲子关系。',
+                'modal.signals.tradeoff2Label': '约束：规模',
+                'modal.signals.tradeoff2Text': '大型材料图谱可能变得难以阅读且渲染成本较高，因此我采用渐进探索，而不是一次性暴露所有关系。',
+                'modal.signals.tradeoff3Label': 'v1 砍掉',
+                'modal.signals.tradeoff3Text': '完整跨产品谱系被保留为方向，v1 聚焦材料智能文件夹、谱系标签页、表格支持和导出准备度。',
                 'modal.signals.section5Title': '设计流程',
                 'modal.signals.section5P1': '我设计了一个精简的工作流，让科学家在几秒钟内（而非几小时）完成谱系追溯：',
                 'modal.signals.process1': '材料智能文件夹',

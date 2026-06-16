@@ -753,8 +753,13 @@
                 <div class="modal-metrics">
                     <div class="modal-metric"><div class="modal-metric-value">50K</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel1">New Users</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc1">May 2024 only</div></div>
                     <div class="modal-metric"><div class="modal-metric-value">+29%</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel2">YoY Revenue</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc2">Business result after launch</div></div>
-                    <div class="modal-metric"><div class="modal-metric-value">3.8%</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel3">Drop-off Rate</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc3">Tracked funnel, down from 28.2%</div></div>
+                    <div class="modal-metric"><div class="modal-metric-value">3.8%</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel3">Tracked Drop-off</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc3">Subscription funnel, from 28.2%</div></div>
                     <div class="modal-metric"><div class="modal-metric-value">3M+</div><div class="modal-metric-label" data-i18n="modal.collov.metricLabel4">Registered</div><div class="modal-metric-desc" data-i18n="modal.collov.metricDesc4">Total users</div></div>
+                </div>
+
+                <div class="modal-insight">
+                    <div class="modal-insight-icon">📌</div>
+                    <div class="modal-insight-text" data-i18n="modal.collov.measurementNote" data-i18n-html><strong>Measurement boundary:</strong> I do not present the 28.2% → 3.8% movement as a single-cause UX claim. It is a tracked subscription-funnel result during the rollout window; pricing, acquisition mix, AI output quality, and market timing were shared variables. The strongest design contribution was clarifying user segmentation, activating Pro workflows, and connecting generated designs to purchase intent.</div>
                 </div>
 
                 <div class="modal-divider"></div>
@@ -765,7 +770,7 @@
                     <div class="modal-role-grid">
                         <div class="modal-role-item">
                             <div class="modal-role-label" data-i18n="modal.collov.roleLabel1">My Responsibilities</div>
-                            <div class="modal-role-value" data-i18n="modal.collov.roleValue1">End-to-end product design: user research, wireframing, prototyping, usability testing, and design handoff</div>
+                            <div class="modal-role-value" data-i18n="modal.collov.roleValue1">Owned the end-to-end Pro Mode experience: stakeholder research, churn synthesis, workflow definition, wireframes, prototypes, usability checks, and engineering handoff</div>
                         </div>
                         <div class="modal-role-item">
                             <div class="modal-role-label" data-i18n="modal.collov.roleLabel2">Team</div>
@@ -779,6 +784,10 @@
                             <div class="modal-role-label" data-i18n="modal.collov.roleLabel4">Tools</div>
                             <div class="modal-role-value" data-i18n="modal.collov.roleValue4">Figma, Jira, Confluence, Miro</div>
                         </div>
+                    </div>
+                    <div class="modal-insight">
+                        <div class="modal-insight-icon">🧭</div>
+                        <div class="modal-insight-text" data-i18n="modal.collov.roleBoundary" data-i18n-html><strong>Role boundary:</strong> I was the sole product designer in a small PM + engineering team. I owned the segmentation logic, interaction model, and design handoff; pricing, acquisition, AI model quality, and business timing were cross-functional variables, so I frame the outcome as a product result with a clear design contribution rather than a design-only win.</div>
                     </div>
                 </div>
 
@@ -846,22 +855,22 @@
                     <article class="case-reasoning-card">
                         <div class="case-reasoning-label" data-i18n="modal.collov.influenceLabel">Influence & Alignment</div>
                         <div class="case-reasoning-title" data-i18n="modal.collov.influenceTitle">Reframed feature expansion into a clearer mode strategy</div>
-                        <p class="case-reasoning-text" data-i18n="modal.collov.influenceText">The alignment challenge was balancing two user groups without turning Collov into two separate products. I used stakeholder interviews, churn analysis, and competitor gaps to frame the decision for PM and engineering: keep Home Mode simple for casual users, but create a Pro Mode path for designers who needed CAD import, floor-plan precision, presentation, and purchasing workflows. This narrowed the team from "add more advanced features everywhere" to a clearer build sequence: import, generate, render and edit, then present and buy.</p>
+                        <p class="case-reasoning-text" data-i18n="modal.collov.influenceText">The alignment challenge was balancing two user groups without turning Collov into two separate products. I used stakeholder interviews, churn analysis, and competitor gaps to shift the team away from a vague "add more advanced features" request. The proposal became a sharper product decision: keep Home Mode simple for casual users, and create a Pro Mode path for designers who needed CAD import, floor-plan precision, presentation, and purchasing workflows. That gave PM a clearer positioning story and gave engineers a sequenced build path.</p>
                     </article>
                     <article class="case-reasoning-card">
                         <div class="case-reasoning-label" data-i18n="modal.collov.tradeoffLabel">Trade-offs</div>
                         <div class="case-tradeoff-list">
                             <div class="case-tradeoff-item">
-                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff1Label">One UI vs. Modes</span>
-                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff1Text">Separated Home and Pro paths so beginners kept a low-friction start while professionals gained room for precision.</span>
+                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff1Label">Rejected: One UI</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff1Text">A single interface would either overwhelm beginners or underserve professionals, so I separated Home and Pro entry paths.</span>
                             </div>
                             <div class="case-tradeoff-item">
-                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff2Label">AI Wow vs. Utility</span>
-                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff2Text">Connected generation to editing, presentation, and shopping, so AI outputs could move toward a real purchase workflow.</span>
+                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff2Label">Constraint: Scope</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff2Text">Instead of spreading advanced controls everywhere, we focused Pro Mode on the highest-intent workflow: import, generate, edit, present, and buy.</span>
                             </div>
                             <div class="case-tradeoff-item">
-                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff3Label">Power vs. Onboarding</span>
-                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff3Text">Kept advanced CAD and measurement tools inside Pro Mode instead of exposing them during the first casual-user session.</span>
+                                <span class="case-tradeoff-label" data-i18n="modal.collov.tradeoff3Label">Cut from v1</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.collov.tradeoff3Text">More pro controls could be added later, but v1 prioritized CAD/photo import, floor-plan precision, AI editing, and purchase continuity.</span>
                             </div>
                         </div>
                     </article>
@@ -1037,19 +1046,21 @@
                 'modal.collov.metricDesc1': 'May 2024 only',
                 'modal.collov.metricLabel2': 'YoY Revenue',
                 'modal.collov.metricDesc2': 'Business result after launch',
-                'modal.collov.metricLabel3': 'Drop-off Rate',
-                'modal.collov.metricDesc3': 'Tracked funnel, down from 28.2%',
+                'modal.collov.metricLabel3': 'Tracked Drop-off',
+                'modal.collov.metricDesc3': 'Subscription funnel, from 28.2%',
                 'modal.collov.metricLabel4': 'Registered',
                 'modal.collov.metricDesc4': 'Total users',
+                'modal.collov.measurementNote': '<strong>Measurement boundary:</strong> I do not present the 28.2% \u2192 3.8% movement as a single-cause UX claim. It is a tracked subscription-funnel result during the rollout window; pricing, acquisition mix, AI output quality, and market timing were shared variables. The strongest design contribution was clarifying user segmentation, activating Pro workflows, and connecting generated designs to purchase intent.',
                 'modal.collov.section1Title': 'My Role & Context',
                 'modal.collov.roleLabel1': 'My Responsibilities',
-                'modal.collov.roleValue1': 'End-to-end product design: user research, wireframing, prototyping, usability testing, and design handoff',
+                'modal.collov.roleValue1': 'Owned the end-to-end Pro Mode experience: stakeholder research, churn synthesis, workflow definition, wireframes, prototypes, usability checks, and engineering handoff',
                 'modal.collov.roleLabel2': 'Team',
                 'modal.collov.roleValue2': 'Me (Sr. Product Designer), 1 Product Manager, 3 Dev Engineers',
                 'modal.collov.roleLabel3': 'Timeline',
                 'modal.collov.roleValue3': '~6 months (2024)',
                 'modal.collov.roleLabel4': 'Tools',
                 'modal.collov.roleValue4': 'Figma, Jira, Confluence, Miro',
+                'modal.collov.roleBoundary': '<strong>Role boundary:</strong> I was the sole product designer in a small PM + engineering team. I owned the segmentation logic, interaction model, and design handoff; pricing, acquisition, AI model quality, and business timing were cross-functional variables, so I frame the outcome as a product result with a clear design contribution rather than a design-only win.',
                 'modal.collov.section2Title': 'Understanding the Business',
                 'modal.collov.section2P1': 'Collov is an AI-powered interior design platform that empowers anyone to visualize and create beautiful interiors effortlessly. The platform bridges AI technology with design creativity, offering drag-and-drop design tools, 3D visualization, and furniture shopping integration.',
                 'modal.collov.insightText1': 'With 3M+ registered users, 500+ AI-generated templates, and 50K+ monthly active users, Collov was one of the leading AI interior design platforms\u2014but struggling with user retention.',
@@ -1079,14 +1090,14 @@
                 'modal.collov.decision1Text': 'Data showed 72% of churned users were professionals who found the tool too basic, while new users loved the simplicity. Instead of compromising for either group, I designed two distinct modes: \u201cHome Mode\u201d for casual users and \u201cPro Mode\u201d for designers. This preserved the low barrier to entry while unlocking professional workflows. During the rollout window, the tracked subscription funnel moved from 28.2% drop-off to 3.8%; design contributed most directly to segmentation clarity, pro workflow activation, and purchase-flow continuity.',
                 'modal.collov.influenceLabel': 'Influence & Alignment',
                 'modal.collov.influenceTitle': 'Reframed feature expansion into a clearer mode strategy',
-                'modal.collov.influenceText': 'The alignment challenge was balancing two user groups without turning Collov into two separate products. I used stakeholder interviews, churn analysis, and competitor gaps to frame the decision for PM and engineering: keep Home Mode simple for casual users, but create a Pro Mode path for designers who needed CAD import, floor-plan precision, presentation, and purchasing workflows. This narrowed the team from "add more advanced features everywhere" to a clearer build sequence: import, generate, render and edit, then present and buy.',
+                'modal.collov.influenceText': 'The alignment challenge was balancing two user groups without turning Collov into two separate products. I used stakeholder interviews, churn analysis, and competitor gaps to shift the team away from a vague "add more advanced features" request. The proposal became a sharper product decision: keep Home Mode simple for casual users, and create a Pro Mode path for designers who needed CAD import, floor-plan precision, presentation, and purchasing workflows. That gave PM a clearer positioning story and gave engineers a sequenced build path.',
                 'modal.collov.tradeoffLabel': 'Trade-offs',
-                'modal.collov.tradeoff1Label': 'One UI vs. Modes',
-                'modal.collov.tradeoff1Text': 'Separated Home and Pro paths so beginners kept a low-friction start while professionals gained room for precision.',
-                'modal.collov.tradeoff2Label': 'AI Wow vs. Utility',
-                'modal.collov.tradeoff2Text': 'Connected generation to editing, presentation, and shopping, so AI outputs could move toward a real purchase workflow.',
-                'modal.collov.tradeoff3Label': 'Power vs. Onboarding',
-                'modal.collov.tradeoff3Text': 'Kept advanced CAD and measurement tools inside Pro Mode instead of exposing them during the first casual-user session.',
+                'modal.collov.tradeoff1Label': 'Rejected: One UI',
+                'modal.collov.tradeoff1Text': 'A single interface would either overwhelm beginners or underserve professionals, so I separated Home and Pro entry paths.',
+                'modal.collov.tradeoff2Label': 'Constraint: Scope',
+                'modal.collov.tradeoff2Text': 'Instead of spreading advanced controls everywhere, we focused Pro Mode on the highest-intent workflow: import, generate, edit, present, and buy.',
+                'modal.collov.tradeoff3Label': 'Cut from v1',
+                'modal.collov.tradeoff3Text': 'More pro controls could be added later, but v1 prioritized CAD/photo import, floor-plan precision, AI editing, and purchase continuity.',
                 'modal.collov.section5Title': 'Design Process',
                 'modal.collov.section5P1': 'I proposed a dual-mode approach: keeping the simple \u201cHome Mode\u201d for casual users while adding a \u201cPro Mode\u201d for professionals.',
                 'modal.collov.process1': 'Import Floor Plan / Photo',
@@ -1138,19 +1149,21 @@
                 'modal.collov.metricDesc1': '仅2024年5月',
                 'modal.collov.metricLabel2': '同比营收',
                 'modal.collov.metricDesc2': '上线后的业务结果',
-                'modal.collov.metricLabel3': '流失率',
-                'modal.collov.metricDesc3': '追踪漏斗，从28.2%降至',
+                'modal.collov.metricLabel3': '追踪流失率',
+                'modal.collov.metricDesc3': '订阅漏斗，基线为28.2%',
                 'modal.collov.metricLabel4': '注册用户',
                 'modal.collov.metricDesc4': '总用户数',
+                'modal.collov.measurementNote': '<strong>数据口径边界：</strong>我不会把 28.2% → 3.8% 表述为单一 UX 因果结果。它是项目周期内追踪到的订阅漏斗结果；定价、获客结构、AI 输出质量和市场时机都是共同变量。设计最明确的贡献，是澄清用户分群、激活专业工作流，并把生成结果连接到购买意图。',
                 'modal.collov.section1Title': '我的角色与背景',
                 'modal.collov.roleLabel1': '我的职责',
-                'modal.collov.roleValue1': '端到端产品设计：用户研究、线框图、原型设计、可用性测试及设计交付',
+                'modal.collov.roleValue1': '负责端到端专业模式体验：利益相关者研究、流失分析综合、工作流定义、线框图、原型、可用性检查和工程交付',
                 'modal.collov.roleLabel2': '团队',
                 'modal.collov.roleValue2': '我（高级产品设计师）、1名产品经理、3名开发工程师',
                 'modal.collov.roleLabel3': '周期',
                 'modal.collov.roleValue3': '约6个月（2024年）',
                 'modal.collov.roleLabel4': '工具',
                 'modal.collov.roleValue4': 'Figma、Jira、Confluence、Miro',
+                'modal.collov.roleBoundary': '<strong>角色边界：</strong>我是小型 PM + 工程团队中的唯一产品设计师，负责分群逻辑、交互模型和设计交付；定价、获客、AI 模型质量和商业时机是跨职能变量。因此我把结果表述为带有清晰设计贡献的产品结果，而不是“设计独立完成”的胜利。',
                 'modal.collov.section2Title': '了解业务',
                 'modal.collov.section2P1': 'Collov是一个AI驱动的室内设计平台，让任何人都能轻松地可视化和创建精美的室内设计。该平台将AI技术与设计创意相结合，提供拖放设计工具、3D可视化和家具购物集成。',
                 'modal.collov.insightText1': '拥有300万+注册用户、500+AI生成模板和5万+月活跃用户，Collov是领先的AI室内设计平台之一——但在用户留存方面面临困境。',
@@ -1180,14 +1193,14 @@
                 'modal.collov.decision1Text': '数据显示72%的流失用户是觉得工具过于简单的专业人士，而新用户却喜欢这种简洁。我没有为任何一方妥协，而是设计了两种模式："家居模式"面向普通用户，"专业模式"面向设计师。这保留了低门槛的同时解锁了专业工作流。项目周期内，追踪到的订阅漏斗流失率从28.2%降至3.8%；设计的直接贡献主要在分群清晰度、专业工作流激活和购买路径连续性。',
                 'modal.collov.influenceLabel': '影响力与对齐',
                 'modal.collov.influenceTitle': '把功能扩张问题，重新定义为更清晰的模式策略',
-                'modal.collov.influenceText': '真正的对齐难点，是在不把 Collov 拆成两个产品的前提下，同时服务两类用户。我结合利益相关者访谈、流失分析和竞品缺口，向产品经理和工程团队重新定义决策：家居模式继续保持普通用户的简单入口，而专业模式承接需要 CAD 导入、精确户型编辑、方案展示和购买流程的设计师。这让团队从“到处增加高级功能”收敛到更清晰的构建顺序：导入、生成、渲染编辑、展示购买。',
+                'modal.collov.influenceText': '真正的对齐难点，是在不把 Collov 拆成两个产品的前提下，同时服务两类用户。我结合利益相关者访谈、流失分析和竞品缺口，把团队从模糊的“增加更多高级功能”转向更清晰的产品决策：家居模式继续保持普通用户的简单入口，而专业模式承接需要 CAD 导入、精确户型编辑、方案展示和购买流程的设计师。这让产品经理更容易讲清定位，也让工程团队获得了可排序的构建路径。',
                 'modal.collov.tradeoffLabel': '关键取舍',
-                'modal.collov.tradeoff1Label': '单一界面 vs. 双模式',
-                'modal.collov.tradeoff1Text': '拆分家居和专业路径，让新手保留低摩擦起步，同时给专业用户足够的精度空间。',
-                'modal.collov.tradeoff2Label': 'AI 惊艳感 vs. 实用性',
-                'modal.collov.tradeoff2Text': '把生成结果连接到编辑、展示和购物，让 AI 输出能进入真实购买工作流。',
-                'modal.collov.tradeoff3Label': '强功能 vs. 新手引导',
-                'modal.collov.tradeoff3Text': '把高级 CAD 和测量工具放在专业模式内，而不是在普通用户首次体验时暴露。',
+                'modal.collov.tradeoff1Label': '否决：单一界面',
+                'modal.collov.tradeoff1Text': '单一界面要么压垮新手，要么无法满足专业人士，因此我拆分了家居和专业入口。',
+                'modal.collov.tradeoff2Label': '约束：范围',
+                'modal.collov.tradeoff2Text': '与其把高级控件铺满全站，我们把专业模式聚焦在最高意图工作流：导入、生成、编辑、展示和购买。',
+                'modal.collov.tradeoff3Label': 'v1 砍掉',
+                'modal.collov.tradeoff3Text': '更多专业控件可在后续加入，v1 优先保障 CAD/照片导入、户型精度、AI 编辑和购买连续性。',
                 'modal.collov.section5Title': '设计流程',
                 'modal.collov.section5P1': '我提出了双模式方案：保留面向普通用户的简单"家居模式"，同时为专业人士增加"专业模式"。',
                 'modal.collov.process1': '导入户型图/照片',
