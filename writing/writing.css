@@ -24,8 +24,8 @@ button { font: inherit; }
   background: rgba(5,5,5,.84); backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--line);
 }
-.nav-inner, .page-shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
-.nav-inner { height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.page-shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+.nav-inner { max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 24px; height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { text-decoration: none; font-weight: 700; letter-spacing: -.02em; }
 .brand-dot { color: var(--violet); }
 .nav-links { display: flex; align-items: center; gap: 22px; }
@@ -139,7 +139,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--violet); outlin
   .article-aside { position: static; border-top:1px solid var(--line); padding-top:28px; }
 }
 @media (max-width: 560px) {
-  .nav-inner, .page-shell { width:min(100% - 28px,1160px); }
+  .page-shell { width:min(100% - 28px,1160px); }
   .nav-links a:not([aria-current="page"]) { display:none; }
   .publication-hero, .article-header { padding-top:70px; }
   .featured { margin-top:44px; border-radius:16px; }
