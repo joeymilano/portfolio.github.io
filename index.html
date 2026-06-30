@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -67,7 +67,7 @@
             --blue: #2997ff;
             --border: rgba(255,255,255,0.08);
             --font: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
-            --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+            --font-display: var(--font);
             --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -426,21 +426,23 @@
         #writing { padding: 120px 24px; background: #050505; border-top: 1px solid var(--border); }
         .writing-shell { max-width: 1200px; margin: 0 auto; }
         .writing-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 54px; }
-        .writing-title { font-family: var(--font-display); font-size: clamp(48px, 7vw, 84px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em; }
+        .writing-title { font-family: var(--font); font-size: clamp(36px, 5vw, 56px); line-height: 1.08; font-weight: 700; letter-spacing: -0.03em; }
         .writing-lede { color: var(--text-secondary); font-size: 17px; line-height: 1.75; }
         .writing-feature { display: grid; grid-template-columns: 1.1fr .9fr; min-height: 360px; border: 1px solid var(--border); border-radius: 22px; overflow: hidden; color: inherit; text-decoration: none; background: var(--bg-elevated); transition: transform .4s var(--ease-out-quart), border-color .4s; }
         .writing-feature:hover { transform: translateY(-5px); border-color: rgba(168,85,247,.45); }
-        .writing-feature-art { position: relative; overflow: hidden; background: radial-gradient(circle at 24% 18%, rgba(183,108,255,.4), transparent 32%), linear-gradient(135deg,#13051f,#2d0d44 52%,#08101b); }
-        .writing-feature-art::before { content: 'AI'; position: absolute; left: 8%; bottom: -20%; font-family: var(--font-display); font-size: 240px; color: rgba(255,255,255,.07); }
+        .writing-feature-art { position: relative; min-height: 360px; overflow: hidden; background: #100b18; }
+        .writing-feature-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(.94) contrast(1.04); }
+        .writing-feature-art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 58%, rgba(5,5,5,.65)); pointer-events: none; }
+        .writing-feature-credit { position: absolute; z-index: 1; left: 18px; bottom: 14px; color: rgba(255,255,255,.58); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
         .writing-feature-copy { padding: clamp(30px,5vw,58px); display: flex; flex-direction: column; justify-content: center; }
-        .writing-feature-copy h3 { font-family: var(--font-display); font-size: clamp(34px,4vw,54px); line-height: 1.02; font-weight: 600; margin: 10px 0 16px; }
+        .writing-feature-copy h3 { font-family: var(--font); font-size: clamp(30px,3.5vw,46px); line-height: 1.08; font-weight: 700; letter-spacing: -0.025em; margin: 10px 0 16px; }
         .writing-feature-copy p { color: var(--text-secondary); line-height: 1.7; }
         .writing-meta { color: var(--accent); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
         .writing-more { display: inline-flex; margin-top: 28px; color: var(--accent-light); font-size: 13px; font-weight: 700; }
         .writing-secondary { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 16px; }
         .writing-story { padding: 26px; border: 1px solid var(--border); border-radius: 16px; color: inherit; text-decoration: none; background: rgba(255,255,255,.018); }
         .writing-story:hover { border-color: rgba(168,85,247,.4); }
-        .writing-story h3 { font-family: var(--font-display); font-size: 28px; line-height: 1.1; margin: 16px 0 0; font-weight: 600; }
+        .writing-story h3 { font-family: var(--font); font-size: 24px; line-height: 1.2; margin: 16px 0 0; font-weight: 700; letter-spacing: -0.02em; }
         @media (max-width: 768px) { .writing-intro, .writing-feature { grid-template-columns: 1fr; } .writing-feature-art { min-height: 240px; } .writing-secondary { grid-template-columns: 1fr; } }
 
         /* Contact */
@@ -1370,7 +1372,10 @@
                 <p class="writing-lede" data-i18n="writing.lede">Notes on AI products, complex systems, and design judgment — and what it really takes to ship one.</p>
             </div>
             <a class="writing-feature" href="writing/ai-designers-cannot-only-sell-screens.html">
-                <div class="writing-feature-art" aria-hidden="true"></div>
+                <div class="writing-feature-art">
+                    <img src="images/writing/ai-design-judgment-feature.jpg" alt="半透明界面平面延伸成由节点、路径与约束组成的三维决策系统" loading="lazy" decoding="async">
+                    <span class="writing-feature-credit">AI-generated concept art</span>
+                </div>
                 <div class="writing-feature-copy">
                     <span class="writing-meta">AI Product · Point of View</span>
                     <h3 data-i18n="writing.feature.title">AI 时代，设计师不能只卖页面</h3>

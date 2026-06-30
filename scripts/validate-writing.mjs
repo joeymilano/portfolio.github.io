@@ -45,16 +45,33 @@ function localAssetExists(src, htmlFile) {
 function validateLocalReferences(html, file) {
   for (const match of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
     const target = match[1];
-    if (/^(?:https?:|data:|mailto:|tel:|#)/.test(target)) continue;
+    if (/^(?:https?:|data:|mailto:|tel:|#|\/\/)/.test(target)) continue;
     if (!localAssetExists(target, file)) failures.push(`${file}: missing local reference ${target}`);
   }
 }
+
+const portfolioHome = read("index.html");
+requireMatch(
+  portfolioHome,
+  /<div class="writing-feature-art">[\s\S]*?<img[^>]+src="images\/writing\/ai-design-judgment-feature\.jpg"/,
+  "generated Writing feature image",
+  "index.html",
+);
+if (/Cormorant(?:\+| )Garamond/.test(portfolioHome)) {
+  failures.push("index.html: Writing typography must use the portfolio sans-serif family");
+}
+validateLocalReferences(portfolioHome, "index.html");
 
 const hub = read("writing/index.html");
 requireMatch(hub, /<title>[^<]+<\/title>/, "title", "writing/index.html");
 requireMatch(hub, /rel="canonical" href="https:\/\/joeyzhao\.cc\/writing\/"/, "canonical URL", "writing/index.html");
 requireMatch(hub, /<h1[\s>]/, "H1", "writing/index.html");
 validateLocalReferences(hub, "writing/index.html");
+
+const writingStyles = read("writing/writing.css");
+if (/Cormorant(?:\+| )Garamond/.test(writingStyles)) {
+  failures.push("writing/writing.css: standalone Writing typography must match the portfolio sans-serif family");
+}
 
 for (const slug of articles) {
   const file = `writing/${slug}.html`;

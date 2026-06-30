@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
 :root {
   --bg: #050505;
@@ -9,7 +9,7 @@
   --line: rgba(255, 255, 255, 0.11);
   --violet: #b76cff;
   --blue: #5bb7ff;
-  --serif: "Cormorant Garamond", "Songti SC", Georgia, serif;
+  --serif: "Plus Jakarta Sans", "Noto Sans SC", system-ui, sans-serif;
   --sans: "Plus Jakarta Sans", "Noto Sans SC", system-ui, sans-serif;
 }
 
