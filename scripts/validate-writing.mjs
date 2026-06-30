@@ -66,7 +66,7 @@ const hub = read("writing/index.html");
 requireMatch(hub, /<title>[^<]+<\/title>/, "title", "writing/index.html");
 requireMatch(hub, /rel="canonical" href="https:\/\/joeyzhao\.cc\/writing\/"/, "canonical URL", "writing/index.html");
 requireMatch(hub, /<h1[\s>]/, "H1", "writing/index.html");
-requireMatch(hub, /href="writing\.css\?v=20260630-2"/, "versioned Writing stylesheet", "writing/index.html");
+requireMatch(hub, /href="writing\.css\?v=[\d-]+"/, "versioned Writing stylesheet", "writing/index.html");
 validateLocalReferences(hub, "writing/index.html");
 
 const writingStyles = read("writing/writing.css");
@@ -88,7 +88,7 @@ for (const slug of articles) {
   }
   requireMatch(html, /<h1[\s>]/, "H1", file);
   requireMatch(html, /"@type":\s*"BlogPosting"/, "BlogPosting JSON-LD", file);
-  requireMatch(html, /href="writing\.css"/, "shared stylesheet", file);
+  requireMatch(html, /href="writing\.css(?:\?v=[\d-]+)?"/, "shared stylesheet", file);
   requireMatch(html, /https:\/\/x\.com\/JoeyKonad/, "X profile", file);
   requireMatch(html, /sphmQz03lemSzBD/, "WeChat Channels ID", file);
 

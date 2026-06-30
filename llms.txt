@@ -1,0 +1,36 @@
+# Joey Zhao
+
+> Personal portfolio and independent writing by Joey Zhao, a senior product designer in Shanghai focused on AI products, B2B SaaS, complex systems, and growth design.
+
+Canonical site: https://joeyzhao.cc/
+
+## Writing
+
+- Chinese Writing hub: https://joeyzhao.cc/writing/
+- English Writing hub: https://joeyzhao.cc/en/writing/
+- AI product design: https://joeyzhao.cc/en/writing/ai-designers-cannot-only-sell-screens.html
+- McDonald's seating and business trade-offs: https://joeyzhao.cc/en/writing/mcdonalds-seating-business-tradeoffs.html
+- Building a content repurposing workbench: https://joeyzhao.cc/en/writing/repurpose-one-brief-eleven-platforms.html
+- Elevator mirrors and inclusive design: https://joeyzhao.cc/en/writing/elevator-mirrors-four-problems.html
+- Portfolios as evidence of design judgment: https://joeyzhao.cc/en/writing/portfolio-as-evidence.html
+
+## Selected work
+
+- Signals Notebook, enterprise lineage visualization: https://joeyzhao.cc/signals.html
+- CollovGPT, AI interior design: https://joeyzhao.cc/collov.html
+- UnifyUX, enterprise design system: https://joeyzhao.cc/unifyux.html
+- Ctrip Hotel, video cover conversion: https://joeyzhao.cc/ctrip.html
+- One Brief, Eleven Platforms, AI Content OS: https://joeyzhao.cc/yiyuduochi.html
+- Bill Vampire, AI subscription analysis: https://joeyzhao.cc/billvampire.html
+- Crypto Copilot, visual algorithmic trading: https://joeyzhao.cc/cryptocopilot.html
+- WeNeed, short-video gifting community: https://joeyzhao.cc/weneed.html
+- Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract.html
+
+## Identity
+
+- Homepage: https://joeyzhao.cc/
+- LinkedIn: https://www.linkedin.com/in/joey-zhao-b8576b91/
+- X: https://x.com/JoeyKonad
+- Xiaohongshu: https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021
+
+The HTML pages and their canonical metadata are the source of truth. This file is a navigation aid, not a separate content edition.

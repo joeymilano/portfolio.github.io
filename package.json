@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "validate:writing": "node scripts/validate-writing.mjs"
+    "validate:writing": "node scripts/validate-writing.mjs",
+    "validate:seo": "node scripts/validate-seo.mjs"
   },
   "dependencies": {
     "puppeteer": "^24.40.0"
