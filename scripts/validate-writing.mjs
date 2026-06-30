@@ -66,11 +66,15 @@ const hub = read("writing/index.html");
 requireMatch(hub, /<title>[^<]+<\/title>/, "title", "writing/index.html");
 requireMatch(hub, /rel="canonical" href="https:\/\/joeyzhao\.cc\/writing\/"/, "canonical URL", "writing/index.html");
 requireMatch(hub, /<h1[\s>]/, "H1", "writing/index.html");
+requireMatch(hub, /href="writing\.css\?v=20260630-2"/, "versioned Writing stylesheet", "writing/index.html");
 validateLocalReferences(hub, "writing/index.html");
 
 const writingStyles = read("writing/writing.css");
 if (/Cormorant(?:\+| )Garamond/.test(writingStyles)) {
   failures.push("writing/writing.css: standalone Writing typography must match the portfolio sans-serif family");
+}
+if (/--serif|var\(--serif\)/.test(writingStyles)) {
+  failures.push("writing/writing.css: legacy serif display channel must be removed");
 }
 
 for (const slug of articles) {
@@ -88,7 +92,7 @@ for (const slug of articles) {
   requireMatch(html, /https:\/\/x\.com\/JoeyKonad/, "X profile", file);
   requireMatch(html, /sphmQz03lemSzBD/, "WeChat Channels ID", file);
 
-  const articleMatch = html.match(/<article class="article-body">([\s\S]*?)<\/article>/);
+  const articleMatch = html.match(/<article class="article-body"[^>]*>([\s\S]*?)<\/article>/);
   if (!articleMatch) {
     failures.push(`${file}: missing article body`);
     continue;
