@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>从一个 Brief 到 11 个平台：我如何设计「一鱼多吃」 | Joey Zhao</title>
+<meta name="description" content="一鱼多吃 Build in Public 复盘：如何把一个产品简报转成多平台原生内容，同时控制品牌、质量与发布节奏。">
+<link rel="canonical" href="https://joeyzhao.cc/writing/repurpose-one-brief-eleven-platforms.html">
+<meta property="og:type" content="article"><meta property="og:title" content="从一个 Brief 到 11 个平台"><meta property="og:description" content="我如何设计一鱼多吃的 AI 内容工作台。"><meta property="og:url" content="https://joeyzhao.cc/writing/repurpose-one-brief-eleven-platforms.html"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="writing.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"从一个 Brief 到 11 个平台：我如何设计「一鱼多吃」","datePublished":"2026-06-30","dateModified":"2026-06-30","inLanguage":"zh-CN","author":{"@type":"Person","name":"Yue (Joey) Zhao","url":"https://joeyzhao.cc/","sameAs":["https://www.linkedin.com/in/joey-zhao-b8576b91/","https://x.com/JoeyKonad","https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"]},"mainEntityOfPage":"https://joeyzhao.cc/writing/repurpose-one-brief-eleven-platforms.html"}</script>
+</head><body><nav class="site-nav"><div class="nav-inner"><a class="brand" href="../index.html">Joey Zhao<span class="brand-dot">.</span></a><div class="nav-links"><a href="../index.html#projects">Work</a><a href="index.html" aria-current="page">Writing</a><a href="../index.html#contact">Contact</a></div></div></nav>
+<main><div class="article-accent"></div><header class="article-header"><div class="page-shell"><p class="kicker">Build in public · AI product</p><h1>从一个 Brief 到 11 个平台</h1><p class="article-deck">我如何设计「一鱼多吃」：不是让 AI 批量复制文案，而是把品牌规则、平台差异和人工判断组织成一套真正可工作的内容系统。</p><div class="article-meta"><span>Yue (Joey) Zhao</span><time datetime="2026-06-30">2026.06.30</time><span>8 min read</span></div></div></header>
+<div class="page-shell article-layout"><article class="article-body">
+<p>做内容最累的部分，往往不是写出第一篇，而是把同一个核心信息重新组织成小红书图文、LinkedIn 观点、X thread、视频脚本和发布日历。简单复制会失去平台语境，逐个平台重写又消耗大量时间。</p>
+<p>我做「一鱼多吃」时，最初的想法很直接：输入一次产品 brief，得到多个平台的内容。但真正开始设计后，我发现“生成”反而是最容易的环节。</p>
+<div class="takeaway"><span class="label">Product principle</span><p>AI 内容产品的价值，不是一次生成多少，而是用户能否控制质量、理解差异，并放心把结果发出去。</p></div>
+<h2>问题不是一份内容变成十一份</h2>
+<p>每个平台都有自己的信息密度、语气、互动方式和阅读节奏。LinkedIn 需要职业语境，小红书依赖视觉叙事，X 需要观点密度，视频号需要口语化的节拍。如果系统只做长度裁剪，产出的只是十一份格式不同的同一篇文案。</p>
+<p>因此我把产品核心从“多平台生成器”改成了<strong>内容工作台</strong>：用户先定义品牌、受众、目标和证据，再查看每个平台为什么采用不同结构。</p>
+<h2>让品牌规则进入生成之前</h2>
+<p>很多 AI 工具把品牌校验放在最后，生成后再提醒“语气可能不一致”。我更希望规则成为输入：禁用词、必须保留的事实、可承诺边界、语气和 CTA 都在生成前明确。这样 guardrail 不是警告层，而是内容系统的一部分。</p>
+<p>我也坚持移除静默假数据和模板式兜底。如果真实模型失败，界面应该明确告诉用户哪里失败、如何恢复，而不是交付一份看起来完整但并非真实生成的结果。短期它会让 Demo 不够“丝滑”，长期却会建立更重要的信任。</p>
+<h2>工作台比聊天框更适合这类任务</h2>
+<p>内容生产不是一次问答。用户要比较版本、编辑局部、查看渠道状态、安排日期并返回修改。于是界面采用可扫描的工作台：左侧是来源和规则，中间是各渠道产物，右侧是检查与发布状态。每个被阻止的动作都说明具体原因，而不是只放一个灰色按钮。</p>
+<p class="pullquote">当任务包含多个对象、状态和决策时，聊天只是入口，工作台才是产品。</p>
+<h2>它也改变了我对个人内容飞轮的理解</h2>
+<p>做完这个产品，我反过来用同一套逻辑设计自己的写作：网站保存完整原文，LinkedIn 提炼职业判断，X 拆成实时观点，小红书把机制变成图文，视频号用真人表达建立信任。它们不是五次创作，而是一套有共同来源、不同表达的系统。</p>
+<h2>Build in public 对我意味着什么</h2>
+<p>不是每天宣布“我又做了一个功能”，而是把真实取舍公开：哪些假设错了、为什么删掉看起来很酷的功能、怎样处理模型失败、什么体验仍然没有解决。公开这些不完美，比只展示最终效果更能证明我如何做产品。</p>
+<div class="references"><strong>完整案例：</strong><a href="../yiyuduochi.html">查看「一鱼多吃」产品案例</a>，包括工作台、品牌 guardrail、计费与真实模型路径。</div>
+</article><aside class="article-aside"><span class="aside-label">Share / Follow</span><div class="aside-links"><a data-share-linkedin target="_blank" rel="noopener noreferrer">分享到 LinkedIn</a><a data-share-x target="_blank" rel="noopener noreferrer">分享到 X</a><button data-copy-link>复制文章链接</button><a href="https://x.com/JoeyKonad" target="_blank" rel="noopener noreferrer">关注 @JoeyKonad</a><a href="https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021" target="_blank" rel="noopener noreferrer">小红书</a><button class="channel-id" data-copy-channel>视频号 · Joey的产品美学<br>sphmQz03lemSzBD</button></div></aside></div></main>
+<section class="continue"><div class="page-shell"><h2>Continue reading</h2><div class="continue-grid"><a class="continue-card" href="ai-designers-cannot-only-sell-screens.html"><small>Point of view</small><h3>AI 时代，设计师不能只卖页面</h3></a><a class="continue-card" href="portfolio-as-evidence.html"><small>Career & craft</small><h3>作品集是思维方式的证据链</h3></a></div></div></section>
+<footer class="site-footer"><div class="page-shell footer-inner"><a href="index.html">← All writing</a><span>© 2026 Yue (Joey) Zhao</span></div></footer><script src="writing.js"></script></body></html>
+

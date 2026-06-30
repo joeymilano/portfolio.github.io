@@ -16,6 +16,7 @@
     <meta name="twitter:title" content="Yue (Joey) Zhao | Product Designer">
     <meta name="twitter:description" content="AI product, B2B SaaS, and growth-focused case studies with measurable impact.">
     <link rel="canonical" href="https://joeyzhao.cc/">
+    <link rel="alternate" type="application/rss+xml" title="Joey Zhao Writing" href="https://joeyzhao.cc/feed.xml">
     <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="favicon.png" sizes="512x512" type="image/png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
@@ -33,6 +34,7 @@
             "email": "mailto:super666joey@gmail.com",
             "sameAs": [
                 "https://www.linkedin.com/in/joey-zhao-b8576b91/",
+                "https://x.com/JoeyKonad",
                 "https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"
             ],
             "knowsAbout": [
@@ -420,6 +422,27 @@
             .revealable { opacity: 1; }
         }
 
+        /* Writing */
+        #writing { padding: 120px 24px; background: #050505; border-top: 1px solid var(--border); }
+        .writing-shell { max-width: 1200px; margin: 0 auto; }
+        .writing-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 54px; }
+        .writing-title { font-family: var(--font-display); font-size: clamp(48px, 7vw, 84px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em; }
+        .writing-lede { color: var(--text-secondary); font-size: 17px; line-height: 1.75; }
+        .writing-feature { display: grid; grid-template-columns: 1.1fr .9fr; min-height: 360px; border: 1px solid var(--border); border-radius: 22px; overflow: hidden; color: inherit; text-decoration: none; background: var(--bg-elevated); transition: transform .4s var(--ease-out-quart), border-color .4s; }
+        .writing-feature:hover { transform: translateY(-5px); border-color: rgba(168,85,247,.45); }
+        .writing-feature-art { position: relative; overflow: hidden; background: radial-gradient(circle at 24% 18%, rgba(183,108,255,.4), transparent 32%), linear-gradient(135deg,#13051f,#2d0d44 52%,#08101b); }
+        .writing-feature-art::before { content: 'AI'; position: absolute; left: 8%; bottom: -20%; font-family: var(--font-display); font-size: 240px; color: rgba(255,255,255,.07); }
+        .writing-feature-copy { padding: clamp(30px,5vw,58px); display: flex; flex-direction: column; justify-content: center; }
+        .writing-feature-copy h3 { font-family: var(--font-display); font-size: clamp(34px,4vw,54px); line-height: 1.02; font-weight: 600; margin: 10px 0 16px; }
+        .writing-feature-copy p { color: var(--text-secondary); line-height: 1.7; }
+        .writing-meta { color: var(--accent); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+        .writing-more { display: inline-flex; margin-top: 28px; color: var(--accent-light); font-size: 13px; font-weight: 700; }
+        .writing-secondary { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 16px; }
+        .writing-story { padding: 26px; border: 1px solid var(--border); border-radius: 16px; color: inherit; text-decoration: none; background: rgba(255,255,255,.018); }
+        .writing-story:hover { border-color: rgba(168,85,247,.4); }
+        .writing-story h3 { font-family: var(--font-display); font-size: 28px; line-height: 1.1; margin: 16px 0 0; font-weight: 600; }
+        @media (max-width: 768px) { .writing-intro, .writing-feature { grid-template-columns: 1fr; } .writing-feature-art { min-height: 240px; } .writing-secondary { grid-template-columns: 1fr; } }
+
         /* Contact */
         #contact { padding: 120px 24px; background: var(--bg); text-align: center; }
         .contact-title { font-size: clamp(40px, 8vw, 64px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 20px; }
@@ -429,6 +452,7 @@
         .contact-link:hover { background: var(--bg-card); transform: translateY(-2px); border-color: var(--accent); }
         .contact-link svg { width: 20px; height: 20px; stroke: var(--accent); }
         .contact-link span { font-size: 15px; color: var(--text-primary); }
+        button.contact-link { color: inherit; font-family: var(--font); cursor: pointer; }
 
         /* Footer */
         footer { padding: 24px; background: var(--bg); border-top: 1px solid var(--border); text-align: center; }
@@ -1034,6 +1058,7 @@
             <ul class="nav-links">
                 <li><a href="#projects" data-i18n="nav.work">Work</a></li>
                 <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+                <li><a href="writing/" data-i18n="nav.writing">Writing</a></li>
                 <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
                 <li><a href="resume/joey-zhao-resume.pdf" class="resume-btn" id="resume-trigger" target="_blank" rel="noopener noreferrer" data-i18n="nav.resume">Resume</a></li>
             </ul>
@@ -1051,6 +1076,7 @@
     <div class="mobile-menu-overlay" id="mobile-menu">
         <a href="#projects" data-i18n="nav.work">Work</a>
         <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="writing/" data-i18n="nav.writing">Writing</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
         <a href="resume/joey-zhao-resume.pdf" class="resume-btn" id="mobile-resume-trigger" target="_blank" rel="noopener noreferrer" data-i18n="nav.resume">Resume</a>
     </div>
@@ -1334,6 +1360,31 @@
         </div>
     </section>
 
+    <section id="writing">
+        <div class="writing-shell">
+            <div class="writing-intro">
+                <div>
+                    <p class="section-eyebrow" data-i18n="writing.eyebrow">Selected Writing</p>
+                    <h2 class="writing-title" data-i18n="writing.title" data-i18n-html>Work shows what I made.<br>Writing shows how I think.</h2>
+                </div>
+                <p class="writing-lede" data-i18n="writing.lede">Notes on AI products, complex systems, design judgment, and the messy work of turning ideas into shipped products.</p>
+            </div>
+            <a class="writing-feature" href="writing/ai-designers-cannot-only-sell-screens.html">
+                <div class="writing-feature-art" aria-hidden="true"></div>
+                <div class="writing-feature-copy">
+                    <span class="writing-meta">AI Product · Point of View</span>
+                    <h3 data-i18n="writing.feature.title">AI 时代，设计师不能只卖页面</h3>
+                    <p data-i18n="writing.feature.desc">页面正在变得便宜，判断力却越来越贵。真正需要重新定义的是我们究竟在交付什么。</p>
+                    <span class="writing-more" data-i18n="writing.read">Read the essay →</span>
+                </div>
+            </a>
+            <div class="writing-secondary">
+                <a class="writing-story" href="writing/mcdonalds-seating-business-tradeoffs.html"><span class="writing-meta">Design Observation</span><h3 data-i18n="writing.mcd.title">麦当劳的座椅，究竟在优化什么？</h3></a>
+                <a class="writing-story" href="writing/repurpose-one-brief-eleven-platforms.html"><span class="writing-meta">Build in Public</span><h3 data-i18n="writing.repurpose.title">从一个 Brief 到 11 个平台</h3></a>
+            </div>
+        </div>
+    </section>
+
     <section id="contact">
         <h2 class="contact-title" data-i18n="contact.title">Let's connect.</h2>
         <p class="contact-desc" data-i18n="contact.desc">Open to new opportunities in product design, AI tools, and cross-border products.</p>
@@ -1341,7 +1392,9 @@
             <a href="mailto:super666joey@gmail.com" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>super666joey@gmail.com</span></a>
             <a href="tel:+8618636129038" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+86 186 3612 9038</span></a>
             <a href="https://www.linkedin.com/in/joey-zhao-b8576b91/" target="_blank" rel="noopener noreferrer" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span data-i18n="contact.linkedin">LinkedIn</span></a>
+            <a href="https://x.com/JoeyKonad" target="_blank" rel="noopener noreferrer" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4l14 16M19 4L5 20"/></svg><span>X / Twitter</span></a>
             <a href="https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021" target="_blank" rel="noopener noreferrer" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L9.5 8.5H3l5.5 4-2 6.5L12 15l5.5 4-2-6.5 5.5-4h-6.5z"/></svg><span data-i18n="contact.xiaohongshu">Xiaohongshu</span></a>
+            <button type="button" class="contact-link" onclick="navigator.clipboard.writeText('sphmQz03lemSzBD'); this.querySelector('span').textContent='Channels ID copied ✓';"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></svg><span data-i18n="contact.channels">WeChat Channels · Joey的产品美学</span></button>
         </div>
     </section>
 
@@ -1666,6 +1719,7 @@
             en: {
                 'nav.work': 'Work',
                 'nav.skills': 'Skills',
+                'nav.writing': 'Writing',
                 'nav.contact': 'Contact',
                 'nav.resume': 'Resume',
                 'hero.name': 'Joey Zhao',
@@ -1740,6 +1794,15 @@
                 'contact.email': 'Email',
                 'contact.linkedin': 'LinkedIn',
                 'contact.xiaohongshu': 'Xiaohongshu',
+                'contact.channels': 'WeChat Channels · Joey的产品美学',
+                'writing.eyebrow': 'Selected Writing',
+                'writing.title': 'Work shows what I made.<br>Writing shows how I think.',
+                'writing.lede': 'Notes on AI products, complex systems, design judgment, and the messy work of turning ideas into shipped products.',
+                'writing.feature.title': 'AI 时代，设计师不能只卖页面',
+                'writing.feature.desc': 'Pages are becoming cheaper. Judgment is becoming more valuable. What needs redefining is what designers actually deliver.',
+                'writing.read': 'Read the essay →',
+                'writing.mcd.title': '麦当劳的座椅，究竟在优化什么？',
+                'writing.repurpose.title': 'From one brief to 11 platforms',
                 'contact.downloadCV': 'Download CV',
                 'footer.text': '© 2024 Joey Zhao. Crafted with intention.',
                 'resume.name': 'Joey Zhao',
@@ -2130,6 +2193,7 @@
             zh: {
                 'nav.work': '作品',
                 'nav.skills': '技能',
+                'nav.writing': '写作',
                 'nav.contact': '联系',
                 'nav.resume': '简历',
                 'hero.name': '赵越',
@@ -2202,6 +2266,15 @@
                 'contact.email': '邮箱',
                 'contact.linkedin': '领英',
                 'contact.xiaohongshu': '小红书',
+                'contact.channels': '视频号 · Joey的产品美学',
+                'writing.eyebrow': '精选写作',
+                'writing.title': '作品展示我做过什么。<br>写作展示我如何思考。',
+                'writing.lede': '关于 AI 产品、复杂系统、设计判断，以及把想法真正做上线的过程。',
+                'writing.feature.title': 'AI 时代，设计师不能只卖页面',
+                'writing.feature.desc': '页面正在变得便宜，判断力却越来越贵。真正需要重新定义的是我们究竟在交付什么。',
+                'writing.read': '阅读文章 →',
+                'writing.mcd.title': '麦当劳的座椅，究竟在优化什么？',
+                'writing.repurpose.title': '从一个 Brief 到 11 个平台',
                 'contact.downloadCV': '下载简历',
                 'footer.text': '© 2024 赵越。用心打造。',
                 'resume.name': '赵越',
