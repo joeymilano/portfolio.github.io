@@ -48,3 +48,14 @@ The primary outcome is stronger senior product design and AI product job opportu
 - Sitemap and RSS include all launch articles.
 - Validation and link checks pass without modifying unrelated screenshots or existing case-study assets.
 
+## Editorial Quality Revision
+
+The first structural launch did not meet the publication's editorial bar. The approved revision uses a field-note and evidence-led direction rather than short opinion posts.
+
+- `docs/editorial/joey-writing-standard.md` is the binding voice, evidence, image, sourcing, and acceptance standard.
+- Each launch article becomes a 2,500–4,000 Chinese-character essay grounded in Joey's photographs, product screens, decisions, and clearly bounded claims.
+- Every article contains 4–8 meaningful images with explanatory captions.
+- The Writing hub becomes a visual editorial cover using real project and observation imagery, replacing abstract placeholder artwork.
+- Product stories include decisions, trade-offs, failed assumptions, and what changed—not only final principles.
+- Design-observation stories distinguish visible evidence from interpretation and cite authoritative sources for regulation, history, or psychology.
+- Automated validation checks minimum substantive length, figure and caption counts, sources, alt text, and common AI filler phrases.
