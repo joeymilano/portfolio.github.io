@@ -31,6 +31,13 @@ button { font: inherit; }
 .nav-links { display: flex; align-items: center; gap: 22px; }
 .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); }
+.nav-links a.resume-btn { background: var(--violet); color: #fff; font-weight: 500; padding: 7px 14px; border-radius: 999px; }
+.nav-links a.resume-btn:hover { color: #fff; opacity: .88; }
+.lang-toggle { display: flex; align-items: center; gap: 2px; margin-left: 6px; }
+.lang-toggle button { background: none; border: none; color: var(--muted); font-size: 13px; padding: 6px 8px; border-radius: 999px; cursor: pointer; transition: color .3s; font-family: var(--sans); }
+.lang-toggle button:hover { color: var(--text); }
+.lang-toggle button.active { color: var(--text); font-weight: 600; }
+.lang-toggle span { color: #5d5a61; font-size: 12px; }
 
 .publication-hero { padding: 106px 0 72px; border-bottom: 1px solid var(--line); }
 .kicker { margin: 0 0 14px; color: var(--violet); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
