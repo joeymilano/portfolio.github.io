@@ -14,13 +14,13 @@ const casePages = [
   "signals.html",
   "unifyux.html",
   "weneed.html",
-  "yiyuduochi.html",
+  "finfold.html",
 ];
 
 const articleSlugs = [
   "ai-designers-cannot-only-sell-screens",
   "mcdonalds-seating-business-tradeoffs",
-  "repurpose-one-brief-eleven-platforms",
+  "finfold-one-brief-eleven-platforms",
   "elevator-mirrors-four-problems",
   "portfolio-as-evidence",
 ];

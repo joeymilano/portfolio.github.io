@@ -5,7 +5,7 @@ const root = process.cwd();
 const articles = [
   "ai-designers-cannot-only-sell-screens",
   "mcdonalds-seating-business-tradeoffs",
-  "repurpose-one-brief-eleven-platforms",
+  "finfold-one-brief-eleven-platforms",
   "elevator-mirrors-four-problems",
   "portfolio-as-evidence",
 ];

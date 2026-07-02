@@ -89,6 +89,25 @@ button { font: inherit; }
 .article-hero--concept img { aspect-ratio:2/1; object-position:center; }
 .article-hero figcaption { max-width:760px; margin:12px auto 0; padding:0 18px; color:var(--muted); font-size:12px; }
 .article-body figure { margin:44px 0; }
+.article-hero:has(img[src*="yiyuduochi"]),
+.article-body figure:has(img[src*="yiyuduochi"]) { position:relative; }
+.article-hero:has(img[src*="yiyuduochi"])::before,
+.article-body figure:has(img[src*="yiyuduochi"])::before {
+  content:"Finfold / 一鱼多吃";
+  position:absolute;
+  top:14px;
+  left:14px;
+  z-index:2;
+  padding:7px 11px;
+  border:1px solid rgba(16,185,129,.25);
+  border-radius:9px;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 6px 18px rgba(0,0,0,.14);
+  color:#111827;
+  font-family:var(--sans);
+  font-size:11px;
+  font-weight:800;
+}
 .article-body figure img { display:block; width:100%; height:auto; border-radius:14px; background:var(--surface-2); }
 .article-body figcaption { margin-top:11px; color:var(--muted); font-size:12px; line-height:1.65; }
 .figure-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finfold | Founding Product Design by Joey Zhao</title>
+    <meta name="description" content="Finfold is an AI content-growth workspace for founders and solo teams. One product signal becomes platform-native growth kits across 11 channels, with brand guardrails, editable AI output, agents, and a publishing calendar.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Finfold | Founding Product Design by Joey Zhao">
+    <meta property="og:description" content="An AI content-growth workspace that turns one product signal into platform-native growth kits. Designed from 0→1 by Finfold's Founding Product Designer.">
+    <meta property="og:url" content="https://joeyzhao.cc/finfold.html">
+    <meta property="og:image" content="https://joeyzhao.cc/images/yiyuduochi-dashboard.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://joeyzhao.cc/finfold.html">
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000;
+            --bg-secondary: #0d0d0d;
+            --bg-elevated: #1a1a1a;
+            --bg-card: #141414;
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --text-tertiary: #6e6e73;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --accent-dark: #d97706;
+            --border: rgba(255,255,255,0.08);
+            --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.5; padding-top: 52px; }
+        ::selection { background: var(--accent); color: #1a1100; }
+
+        /* Navigation */
+        .project-page-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 52px;
+            background: rgba(0,0,0,0.85); backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-page-nav .nav-content {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; width: 100%; padding: 0 24px;
+        }
+        .back-link {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 14px;
+            transition: all 0.3s; font-family: var(--font);
+        }
+        .back-link:hover { color: var(--text-primary); }
+        .lang-toggle { display: flex; align-items: center; gap: 4px; }
+        .lang-toggle button {
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 14px; padding: 8px 12px; border-radius: 20px;
+            cursor: pointer; transition: all 0.3s; font-family: var(--font);
+        }
+        .lang-toggle button:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle button.active { color: var(--text-primary); font-weight: 600; }
+        .lang-toggle span { color: var(--text-tertiary); }
+
+        /* Modal container */
+        .modal-container {
+            max-width: 1000px; margin: 40px auto; background: var(--bg-secondary);
+            border-radius: 24px; overflow: hidden;
+            background: linear-gradient(180deg, #120c02 0%, #0d0b00 100%);
+            border: 1px solid rgba(245, 158, 11, 0.12);
+            box-shadow: 0 0 80px rgba(245, 158, 11, 0.06);
+            transform: none !important;
+        }
+        .modal-header {
+            position: relative;
+            padding: 56px 48px 36px; text-align: center;
+            background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+        }
+        .modal-eyebrow { font-size: 11px; font-weight: 600; color: var(--accent-light); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px; }
+        .modal-title {
+            font-size: 44px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px;
+            background: linear-gradient(135deg, #f5f5f7 0%, #fde68a 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .modal-subtitle { font-size: 18px; color: var(--text-secondary); margin-bottom: 28px; max-width: 720px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+
+        /* Preview Demo button */
+        .yw-demo-cta {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 14px 28px; border-radius: 14px; margin-bottom: 32px;
+            font-size: 15px; font-weight: 600; text-decoration: none;
+            color: #1a1100;
+            background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
+            box-shadow: 0 12px 36px rgba(245, 158, 11, 0.28);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s;
+        }
+        .yw-demo-cta:hover { transform: translateY(-3px); box-shadow: 0 18px 48px rgba(245, 158, 11, 0.4); }
+        .yw-demo-cta svg { stroke: #1a1100; }
+
+        .modal-meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .modal-meta-item { text-align: center; }
+        .modal-meta-label { font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; }
+        .modal-meta-value { font-size: 15px; font-weight: 500; margin-top: 4px; }
+        .modal-body { padding: 0 48px 60px; }
+        .modal-section { margin-bottom: 48px; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .modal-section-title { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary); letter-spacing: -0.02em; }
+        .modal-section p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+        .modal-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+        .modal-metric {
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.03));
+            border: 1px solid rgba(245, 158, 11, 0.12); border-radius: 20px;
+            padding: 28px 16px; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-metric:hover { transform: translateY(-4px); border-color: rgba(245, 158, 11, 0.3); box-shadow: 0 12px 40px rgba(245, 158, 11, 0.12); }
+        .modal-metric-value {
+            font-size: 32px; font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-light), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .modal-metric-label { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .modal-metric-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        .modal-tldr {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.04));
+            border-left: 3px solid var(--accent); border-radius: 0 20px 20px 0;
+            padding: 28px 32px; margin-bottom: 40px; backdrop-filter: blur(20px);
+        }
+        .modal-tldr-label { font-size: 11px; font-weight: 700; color: var(--accent-light); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; }
+        .modal-tldr-text { font-size: 18px; font-weight: 500; color: var(--text-primary); line-height: 1.6; }
+        .modal-feature-card {
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.06), rgba(20, 14, 2, 0.8));
+            border: 1px solid rgba(245, 158, 11, 0.1); border-radius: 16px; padding: 24px; margin: 16px 0;
+            transition: all 0.3s;
+        }
+        .modal-feature-card:hover { border-color: rgba(245, 158, 11, 0.25); transform: translateY(-2px); }
+        .modal-feature-title { font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .modal-feature-title::before { content: ''; width: 4px; height: 20px; background: var(--accent); border-radius: 2px; }
+        .modal-feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+        .modal-quote {
+            font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.45; margin: 32px 0;
+            padding: 24px 32px; border-left: 4px solid var(--accent);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(20, 14, 2, 0.6));
+            border-radius: 0 16px 16px 0;
+        }
+        .modal-process-enhanced {
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin: 32px 0;
+            padding: 32px; background: var(--bg-elevated); border-radius: 16px; flex-wrap: wrap;
+        }
+        .modal-process-item { flex: 1; min-width: 100px; text-align: center; position: relative; }
+        .modal-process-item:not(:last-child)::after { content: '\2192'; position: absolute; right: -16px; top: 18px; color: var(--text-tertiary); font-size: 20px; }
+        .modal-process-number { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 12px; }
+        .modal-process-label { font-size: 13px; color: var(--text-secondary); }
+        .modal-reflection {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(20, 14, 2, 0.9));
+            border: 1px solid rgba(245, 158, 11, 0.12); border-radius: 20px; padding: 36px; margin-top: 40px;
+        }
+        .modal-reflection-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .modal-reflection-text { font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+        .modal-image { width: 100%; border-radius: 12px; margin: 20px 0; cursor: zoom-in; transition: transform 0.3s ease; border: 1px solid var(--border); }
+        .finfold-shot-frame { position: relative; margin: 20px 0; overflow: hidden; border-radius: 12px; }
+        .finfold-shot-frame .modal-image { margin: 0; }
+        .finfold-shot-brand {
+            position: absolute; top: 12px; left: 12px; z-index: 2;
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 7px 11px; border-radius: 9px;
+            color: #111827; background: rgba(255,255,255,0.96);
+            border: 1px solid rgba(16,185,129,0.24);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+            font-size: 12px; font-weight: 800; letter-spacing: -0.01em;
+        }
+        .finfold-shot-brand small { color: #6b7280; font-size: 10px; font-weight: 600; }
+        .modal-image:hover { transform: scale(1.01); }
+        .modal-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent); margin: 48px 0; }
+
+        /* Hero banner */
+        .yw-hero-logo-wrap {
+            width: 100%; padding: 56px 24px 0;
+            background: linear-gradient(135deg, #0a0700 0%, #130e00 42%, #1a1400 72%, #0a0700 100%);
+            display: flex; align-items: center; justify-content: center;
+            border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
+        }
+        .yw-hero-glow {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 70% 55% at 50% 30%, rgba(245, 158, 11, 0.18) 0%, transparent 65%),
+                linear-gradient(120deg, transparent 0%, rgba(245, 158, 11, 0.06) 50%, transparent 100%);
+            pointer-events: none;
+        }
+        .yw-hero-inner {
+            position: relative; z-index: 1; width: 100%; max-width: 860px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .yw-hero-logo {
+            width: min(220px, 62vw); height: auto; object-fit: contain;
+            opacity: 1; filter: drop-shadow(0 2px 14px rgba(0,0,0,0.4));
+            animation: ywHeroFloat 6s ease-in-out infinite;
+        }
+        .yw-hero-tagline {
+            margin-top: 18px; font-size: clamp(15px, 2vw, 19px); font-weight: 600;
+            color: var(--text-secondary); letter-spacing: -0.01em;
+        }
+        .yw-hero-browser {
+            margin-top: 36px; width: 100%; border-radius: 14px 14px 0 0; overflow: hidden;
+            border: 1px solid rgba(245, 158, 11, 0.18); border-bottom: none;
+            background: #15110a;
+            box-shadow: 0 -2px 0 rgba(245,158,11,0.08), 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(245, 158, 11, 0.06);
+            transform: perspective(1600px) rotateX(2.5deg); transform-origin: bottom center;
+            animation: ywHeroRise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .yw-hero-browser-bar {
+            display: flex; align-items: center; gap: 7px; padding: 11px 16px;
+            background: linear-gradient(180deg, #1c1710, #15110a); border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .yw-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+        .yw-dot:nth-child(1) { background: #f87171; }
+        .yw-dot:nth-child(2) { background: #fbbf24; }
+        .yw-dot:nth-child(3) { background: #34d399; }
+        .yw-hero-url {
+            margin-left: 12px; flex: 1; max-width: 320px;
+            font-size: 11px; color: var(--text-tertiary); text-align: center;
+            background: rgba(0,0,0,0.35); border-radius: 7px; padding: 5px 12px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .yw-hero-shot { display: block; width: 100%; }
+        .yw-hero-shot-frame { position: relative; overflow: hidden; }
+        @keyframes ywHeroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        @keyframes ywHeroRise {
+            from { opacity: 0; transform: perspective(1600px) rotateX(2.5deg) translateY(40px); }
+            to { opacity: 1; transform: perspective(1600px) rotateX(2.5deg) translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .yw-hero-logo-wrap { padding: 40px 16px 0; }
+            .yw-hero-browser { transform: none; }
+            .yw-hero-url { display: none; }
+        }
+
+        /* Quick read */
+        .case-fastlane {
+            margin: 0 48px 24px; padding: 18px; border-radius: 16px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.12), rgba(20, 14, 2, 0.92));
+        }
+        .case-fastlane-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--accent-light); margin-bottom: 12px; }
+        .case-fastlane-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+        .case-fastlane-item { border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px; background: rgba(0, 0, 0, 0.25); }
+        .case-fastlane-item span { display: block; font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px; }
+        .case-fastlane-item strong { font-size: 14px; color: var(--text-primary); }
+
+        /* Tech stack */
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+        .tech-badge { background: var(--bg-elevated); padding: 8px 14px; border-radius: 8px; font-size: 13px; color: var(--text-secondary); border: 1px solid var(--border); }
+
+        /* Pain / mini cards */
+        .yw-pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin: 32px 0; }
+        .yw-pain-card { text-align: center; padding: 28px 20px; background: var(--bg-elevated); border-radius: 16px; border: 1px solid var(--border); }
+        .yw-pain-emoji { font-size: 44px; margin-bottom: 12px; }
+        .yw-pain-title { font-size: 18px; font-weight: 700; color: var(--accent-light); margin-bottom: 8px; }
+        .yw-pain-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+        .yw-mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 18px; }
+        .yw-mini { padding: 14px; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); }
+        .yw-mini-icon { font-size: 22px; margin-bottom: 6px; }
+        .yw-mini-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: var(--text-primary); }
+        .yw-mini-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+        /* Image caption */
+        .yw-shot-caption { font-size: 12px; color: var(--text-tertiary); text-align: center; margin: -8px 0 4px; letter-spacing: 0.02em; }
+
+        /* Bottom nav */
+        .page-bottom-nav { max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; text-align: center; }
+        .page-bottom-nav a {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 15px;
+            padding: 12px 24px; border-radius: 12px; background: var(--bg-elevated);
+            border: 1px solid var(--border); transition: all 0.3s;
+        }
+        .page-bottom-nav a:hover { color: var(--text-primary); border-color: var(--accent); transform: translateY(-2px); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-metrics { grid-template-columns: repeat(2, 1fr); }
+            .modal-body { padding: 0 24px 40px; }
+            .modal-header { padding: 36px 24px 24px; }
+            .modal-title { font-size: 34px; }
+            .case-fastlane { margin: 0 24px 20px; }
+            .case-fastlane-grid { grid-template-columns: 1fr; }
+            .modal-process-enhanced { flex-direction: column; }
+            .modal-process-item:not(:last-child)::after { content: '↓'; right: auto; top: auto; bottom: -12px; left: 50%; transform: translateX(-50%); }
+        }
+    </style>
+    <link rel="stylesheet" href="cursor.css">
+    <script src="cursor.js" defer></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Finfold","alternateName":"一鱼多吃","description":"Finfold is an AI content-growth workspace for founders and solo teams. One product signal becomes platform-native growth kits across 11 channels, with brand guardrails, editable AI output, agents, and a publishing calendar.","url":"https://joeyzhao.cc/finfold.html","image":"https://joeyzhao.cc/images/yiyuduochi-dashboard.png","inLanguage":["en","zh-CN"],"creator":{"@type":"Person","name":"Joey Zhao","jobTitle":"Founding Product Designer","url":"https://joeyzhao.cc/","sameAs":["https://www.linkedin.com/in/joey-zhao-b8576b91/","https://x.com/JoeyKonad","https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"]}}</script>
+</head>
+<body>
+    <nav class="project-page-nav">
+        <div class="nav-content">
+            <a href="index.html#projects" class="back-link" data-i18n="nav.back">← Back</a>
+            <div class="lang-toggle">
+                <button id="lang-en" class="active">EN</button>
+                <span>/</span>
+                <button id="lang-zh">中</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal-container">
+        <!-- Hero Banner -->
+        <div class="yw-hero-logo-wrap">
+            <div class="yw-hero-glow"></div>
+            <div class="yw-hero-inner">
+                <img src="images/yiyuduochi-logo-light.png" alt="Finfold" class="yw-hero-logo">
+                <p class="yw-hero-tagline" data-i18n="hero.tagline">One product signal in. Platform-native growth kits out.</p>
+                <div class="yw-hero-browser">
+                    <div class="yw-hero-browser-bar">
+                        <span class="yw-dot"></span><span class="yw-dot"></span><span class="yw-dot"></span>
+                        <div class="yw-hero-url">finfold.app</div>
+                    </div>
+                    <div class="yw-hero-shot-frame">
+                        <img src="images/yiyuduochi-dashboard-hero.png" alt="Finfold growth dashboard" class="yw-hero-shot">
+                        <span class="finfold-shot-brand">Finfold <small>/ 一鱼多吃</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="modal-header">
+            <p class="modal-eyebrow" data-i18n="header.eyebrow">Founding Product Design · AI Content Growth · 2026</p>
+            <h2 class="modal-title" data-i18n="header.title">Finfold</h2>
+            <p class="modal-subtitle" data-i18n="header.subtitle">Turn one product signal into platform-native growth kits — on-brand, editable, and ready to ship.</p>
+            <a href="https://www.finfold.app/" target="_blank" rel="noopener noreferrer" class="yw-demo-cta" aria-label="Open Finfold live demo in a new tab">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <span data-i18n="header.demoCta">Preview Demo →</span>
+            </a>
+            <div class="modal-meta">
+                <div class="modal-meta-item">
+                    <span class="modal-meta-label" data-i18n="meta.role.label">Role</span>
+                    <span class="modal-meta-value" data-i18n="meta.role.value">Founding Product Designer</span>
+                </div>
+                <div class="modal-meta-item">
+                    <span class="modal-meta-label" data-i18n="meta.type.label">Type</span>
+                    <span class="modal-meta-value" data-i18n="meta.type.value">AI Content-Growth Workspace</span>
+                </div>
+                <div class="modal-meta-item">
+                    <span class="modal-meta-label" data-i18n="meta.stack.label">Stack</span>
+                    <span class="modal-meta-value" data-i18n="meta.stack.value">Next.js 15 · Supabase · Stripe</span>
+                </div>
+                <div class="modal-meta-item">
+                    <span class="modal-meta-label" data-i18n="meta.focus.label">Focus</span>
+                    <span class="modal-meta-value" data-i18n="meta.focus.value">Human-AI Workflow · Design Systems</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="case-fastlane" aria-label="Quick Read">
+            <p class="case-fastlane-label" data-i18n="fastlane.label">Quick Read</p>
+            <div class="case-fastlane-grid">
+                <article class="case-fastlane-item"><span data-i18n="fastlane.problem.label">Problem</span><strong data-i18n="fastlane.problem">Teams rewrite the same idea for every platform — and bleed brand voice each time</strong></article>
+                <article class="case-fastlane-item"><span data-i18n="fastlane.solution.label">Solution</span><strong data-i18n="fastlane.solution">A workbench that turns one brief into native kits for 11 channels, in parallel</strong></article>
+                <article class="case-fastlane-item"><span data-i18n="fastlane.signal.label">Signal</span><strong data-i18n="fastlane.signal">IA, design system, human-AI workflow, and high-fidelity product — owned end to end</strong></article>
+            </div>
+        </section>
+
+        <!-- Body -->
+        <div class="modal-body">
+            <!-- TL;DR -->
+            <div class="modal-tldr">
+                <div class="modal-tldr-label" data-i18n="tldr.label">TL;DR</div>
+                <div class="modal-tldr-text" data-i18n="tldr.text">
+                    Finfold is an AI content-growth workspace for founders and solo teams. Drop in one product signal or asset; it generates a full growth kit across WeChat, Xiaohongshu, TikTok, LinkedIn, X, and more. Every output is editable, native to its platform, and constrained by brand guardrails. The core product judgment: the same idea needs a different personality on every channel, and good design makes that translation feel effortless.
+                </div>
+            </div>
+
+            <!-- Metrics -->
+            <div class="modal-metrics">
+                <div class="modal-metric">
+                    <div class="modal-metric-value" data-i18n="metrics.platforms.value">11</div>
+                    <div class="modal-metric-label" data-i18n="metrics.platforms.label">PLATFORMS</div>
+                    <div class="modal-metric-desc" data-i18n="metrics.platforms.desc">CN + global channels</div>
+                </div>
+                <div class="modal-metric">
+                    <div class="modal-metric-value" data-i18n="metrics.brief.value">1 → ∞</div>
+                    <div class="modal-metric-label" data-i18n="metrics.brief.label">BRIEF → POSTS</div>
+                    <div class="modal-metric-desc" data-i18n="metrics.brief.desc">Parallel AI generation</div>
+                </div>
+                <div class="modal-metric">
+                    <div class="modal-metric-value" data-i18n="metrics.guardrails.value">0</div>
+                    <div class="modal-metric-label" data-i18n="metrics.guardrails.label">BRAND VIOLATIONS</div>
+                    <div class="modal-metric-desc" data-i18n="metrics.guardrails.desc">Guardrails enforced</div>
+                </div>
+                <div class="modal-metric">
+                    <div class="modal-metric-value" data-i18n="metrics.pricing.value">5</div>
+                    <div class="modal-metric-label" data-i18n="metrics.pricing.label">PRICING TIERS</div>
+                    <div class="modal-metric-desc" data-i18n="metrics.pricing.desc">Solo to team</div>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- The Problem -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="problem.title">Why this problem is worth solving</h3>
+
+                <div class="modal-quote" data-i18n="problem.quote">
+                    "A marketing manager runs six platforms. She writes the same product story six times — each version slightly worse, slightly off-brand. By the time she posts to LinkedIn, she's exhausted."
+                </div>
+
+                <p data-i18n="problem.p1">Content teams working across Chinese and global platforms face a compounding problem: every channel has its own tone, format, and algorithmic preference. WeChat rewards structured long-form prose. Xiaohongshu rewards aesthetic, first-person storytelling. TikTok rewards a hook in the first 1.5 seconds. LinkedIn rewards professional authority. These aren't just format differences — they're persona differences.</p>
+
+                <p data-i18n="problem.p2">The status-quo workflow is write-once, paste-everywhere, manually rewrite, lose consistency. General AI tools don't help structurally — they're blank-canvas chatbots that assume you already know what "native" means on each platform.</p>
+
+                <div class="yw-pain-grid">
+                    <div class="yw-pain-card">
+                        <div class="yw-pain-emoji">🔁</div>
+                        <div class="yw-pain-title" data-i18n="problem.card1.title">The copy-paste tax</div>
+                        <div class="yw-pain-desc" data-i18n="problem.card1.desc">One brief, rewritten six times.<br>Each version worse than the last.</div>
+                    </div>
+                    <div class="yw-pain-card">
+                        <div class="yw-pain-emoji">📢</div>
+                        <div class="yw-pain-title" data-i18n="problem.card2.title">Voice drift</div>
+                        <div class="yw-pain-desc" data-i18n="problem.card2.desc">Brand voice erodes with every<br>manual platform adaptation.</div>
+                    </div>
+                    <div class="yw-pain-card">
+                        <div class="yw-pain-emoji">⏱️</div>
+                        <div class="yw-pain-title" data-i18n="problem.card3.title">No rhythm</div>
+                        <div class="yw-pain-desc" data-i18n="problem.card3.desc">The content bottleneck breaks<br>any consistent publishing cadence.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Hard Design Problems -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="challenge.title">The hard design problems</h3>
+                <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 24px;" data-i18n="challenge.subtitle">
+                    How do you design for AI output that changes personality on every platform — without the UI feeling like a spreadsheet?
+                </p>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="challenge.card1.title">Platform persona vs. brand voice</div>
+                    <p class="modal-feature-desc" data-i18n="challenge.card1.desc">
+                        Each platform has a distinct register — emotional tone, sentence length, emoji use, CTA style. The AI must adopt the platform persona while staying inside the brand's defined voice and prohibited language. Design decision: guardrails are enforced silently inside the generation prompt, so users only ever see compliant output — never the constraint machinery. Violations surface in aggregate, not inline, which keeps the writing surface calm.
+                    </p>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="challenge.card2.title">The three-column workbench</div>
+                    <p class="modal-feature-desc" data-i18n="challenge.card2.desc">
+                        The workbench is the product's core surface. The journey is: (1) input brief + asset → (2) choose platforms, persona, and goal → (3) review the generated kit. A single scrolling form collapses this into a linear task with no spatial orientation. The three-column layout externalizes the mental model — left anchors intent, middle anchors context, right surfaces output. Borrowed from IDE layout theory: you don't read left-to-right, you triangulate.
+                    </p>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="challenge.card3.title">Agent state, made scannable</div>
+                    <p class="modal-feature-desc" data-i18n="challenge.card3.desc">
+                        The Agents surface runs recurring automations — gap scouting, scheduled production, QA, publishing. Workflows carry state (idle, scanning, ready, in review, paused) and that state must be triageable at a glance. Design decision: status uses color + icon + micro-label, and the running-state indicator changes the card's emphasis. You can spot a stalled workflow without opening a single one.
+                    </p>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="challenge.card4.title">Designing for output variance</div>
+                    <p class="modal-feature-desc" data-i18n="challenge.card4.desc">
+                        AI output is non-deterministic — the same brief run twice produces different copy. That's a feature, but it creates a UX expectation problem. Users need to regenerate one platform without losing the others. Design decision: each output is independently editable and regenerable, and a lock keeps the ones you like while you refresh the rest. Unpredictability turns from anxiety into exploration.
+                    </p>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Six Key Surfaces -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="screens.title">The key surfaces</h3>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="screens.workbench.title">Workbench — the production surface</div>
+                    <p class="modal-feature-desc" data-i18n="screens.workbench.desc">
+                        Brief input and media on the left; platform, buyer persona, and growth goal in the middle; the content-kit output board on the right. Each platform renders its own card — independently editable and regenerable. "Generate" is the product's moment of truth, so output streams in per card, making a 4-second wait feel like a show rather than a spinner.
+                    </p>
+                    <div class="finfold-shot-frame">
+                        <img src="images/yiyuduochi-workbench-full.png" alt="Finfold workbench" class="modal-image">
+                        <span class="finfold-shot-brand">Finfold <small>/ 一鱼多吃</small></span>
+                    </div>
+                    <div class="yw-mini-grid">
+                        <div class="yw-mini"><div class="yw-mini-icon">📝</div><div class="yw-mini-title" data-i18n="screens.workbench.m1t">Brief Input</div><div class="yw-mini-desc" data-i18n="screens.workbench.m1d">Text + media context</div></div>
+                        <div class="yw-mini"><div class="yw-mini-icon">🎯</div><div class="yw-mini-title" data-i18n="screens.workbench.m2t">Context Selectors</div><div class="yw-mini-desc" data-i18n="screens.workbench.m2d">Platform · persona · goal</div></div>
+                        <div class="yw-mini"><div class="yw-mini-icon">🤖</div><div class="yw-mini-title" data-i18n="screens.workbench.m3t">Output Board</div><div class="yw-mini-desc" data-i18n="screens.workbench.m3d">Streaming per-platform kits</div></div>
+                    </div>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="screens.agents.title">Agents — the automation layer</div>
+                    <p class="modal-feature-desc" data-i18n="screens.agents.desc">
+                        A self-driving content loop: agents read the dashboard, detect platform gaps, invoke workbench production, run brand-guardrail QA, and queue work for human approval. State-coded cards and a live run log make the automation legible. The design insight: enterprise buyers don't buy AI — they buy predictability. The Agents screen is built to feel like an ops console, not a wizard.
+                    </p>
+                    <div class="finfold-shot-frame">
+                        <img src="images/yiyuduochi-agents-full.png" alt="Finfold agent automation center" class="modal-image">
+                        <span class="finfold-shot-brand">Finfold <small>/ 一鱼多吃</small></span>
+                    </div>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="screens.guardrails.title">Guardrails — the brand immune system</div>
+                    <p class="modal-feature-desc" data-i18n="screens.guardrails.desc">
+                        A rules grid where brand managers define what the AI can and can't say: prohibited claims, CTA standards, persona-voice constraints, and commercial-asset license records. Each rule is bound straight into the workbench generation prompt. The principle: guardrails aren't censorship — they're institutional memory made machine-readable, and they sit at the top level of the nav as a deliberate trust signal.
+                    </p>
+                    <div class="finfold-shot-frame">
+                        <img src="images/yiyuduochi-guardrails-full.png" alt="Finfold brand guardrails" class="modal-image">
+                        <span class="finfold-shot-brand">Finfold <small>/ 一鱼多吃</small></span>
+                    </div>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="screens.calendar.title">Calendar — the publishing rhythm</div>
+                    <p class="modal-feature-desc" data-i18n="screens.calendar.desc">
+                        A weekly card grid of scheduled and published posts per channel. Diagnostics surface under-scheduled platforms ("Bilibili and Instagram each have only one post in a scheduled state"), topic conflicts, and review bottlenecks. The principle: the calendar is a pressure gauge, not a passive record — empty days carry visual weight, full days feel earned.
+                    </p>
+                    <div class="finfold-shot-frame">
+                        <img src="images/yiyuduochi-calendar-full.png" alt="Finfold publishing calendar" class="modal-image">
+                        <span class="finfold-shot-brand">Finfold <small>/ 一鱼多吃</small></span>
+                    </div>
+                </div>
+
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="screens.billing.title">Billing — the commercial spine</div>
+                    <p class="modal-feature-desc" data-i18n="screens.billing.desc">
+                        Five tiers — Free, Starter, Creator, Pro, Team — mapped to monthly kit volume and platform access. The page is engineered to make Creator the obvious choice: it's the only card that glows, carries the "Most Popular" tag, and unlocks multi-channel copy and export. Stripe handles subscriptions, with CNY billing for mainland China and USD via Stripe internationally.
+                    </p>
+                    <div class="finfold-shot-frame">
+                        <img src="images/yiyuduochi-billing-full.png" alt="Finfold pricing and billing" class="modal-image">
+                        <span class="finfold-shot-brand">Finfold <small>/ 一鱼多吃</small></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Craft Decisions -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="craft.title">Three craft decisions worth naming</h3>
+
+                <div class="modal-process-enhanced">
+                    <div class="modal-process-item"><div class="modal-process-number">1</div><div class="modal-process-label" data-i18n="craft.step1">Brief</div></div>
+                    <div class="modal-process-item"><div class="modal-process-number">2</div><div class="modal-process-label" data-i18n="craft.step2">Context</div></div>
+                    <div class="modal-process-item"><div class="modal-process-number">3</div><div class="modal-process-label" data-i18n="craft.step3">Generate</div></div>
+                    <div class="modal-process-item"><div class="modal-process-number">4</div><div class="modal-process-label" data-i18n="craft.step4">Review</div></div>
+                    <div class="modal-process-item"><div class="modal-process-number">5</div><div class="modal-process-label" data-i18n="craft.step5">Publish</div></div>
+                </div>
+
+                <div class="modal-quote" data-i18n="craft.quote">
+                    "The platform is the medium. The brand is the message. The AI is the translator. The designer's job is to make the translation invisible."
+                </div>
+
+                <p data-i18n="craft.p1" style="font-size: 15px; line-height: 1.7; margin-bottom: 16px;">
+                    <strong>1. The output board is an editing surface, not a preview.</strong> Early prototypes showed read-only previews with a separate edit step. Writers wanted to tweak inline, not open a new screen — so "preview" and "edit" collapse into one surface. Click anywhere in the copy to edit it. This is the single biggest time-to-publish win in the product.
+                </p>
+                <p data-i18n="craft.p2" style="font-size: 15px; line-height: 1.7; margin-bottom: 16px;">
+                    <strong>2. Guardrails are a first-class citizen, not a settings page.</strong> Most AI writers bury safety rules in a menu. Here, Guardrails is a top-level nav item, equal to Workbench and Calendar. That structural choice signals — before anyone types a word — that brand safety is a core product value, not an afterthought.
+                </p>
+                <p data-i18n="craft.p3" style="font-size: 15px; line-height: 1.7; margin-bottom: 16px;">
+                    <strong>3. Streaming output is performance design.</strong> Platforms generate in parallel, and each card renders token-by-token as its stream arrives. Technically it's the same total latency as a bulk load — but the experience turns a wait into a show, and the product simply feels fast.
+                </p>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Tech -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="tech.title">Technical foundation</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Next.js 15</span>
+                    <span class="tech-badge">React 19</span>
+                    <span class="tech-badge">TypeScript</span>
+                    <span class="tech-badge">Tailwind CSS</span>
+                    <span class="tech-badge">Supabase</span>
+                    <span class="tech-badge">Stripe</span>
+                    <span class="tech-badge">Cloudflare Pages</span>
+                    <span class="tech-badge">PostHog</span>
+                </div>
+                <p data-i18n="tech.summary" style="color: var(--text-secondary); font-size: 15px; line-height: 1.7; margin-top: 20px;">
+                    I owned Finfold's product definition, information architecture, design system, human-AI interaction patterns, and high-fidelity prototypes end to end. Working directly with engineering, I shaped the LLM API integration around editable output, guardrails, scheduling, and billing so the shipped product matched the interaction model.
+                </p>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <!-- Reflection -->
+            <div class="modal-section">
+                <h3 class="modal-section-title" data-i18n="reflection.title">What I learned building an AI product end-to-end</h3>
+
+                <div class="modal-quote" data-i18n="reflection.quote">
+                    "Working directly at the API seams changed how I design. You stop drawing idealized AI flows and start designing the real handoffs between intent, generation, review, and recovery."
+                </div>
+
+                <p data-i18n="reflection.p1" style="font-size: 15px; line-height: 1.7; margin-bottom: 16px;">
+                    <strong>1. AI products need a trust architecture, not just a UX.</strong> Users don't distrust AI because it's bad — they distrust it because they can't predict when it will be bad. Guardrails, per-card regeneration, and the human-approval boundary in agents are all trust mechanisms. The design job was to make uncertainty feel managed, not hidden.
+                </p>
+                <p data-i18n="reflection.p2" style="font-size: 15px; line-height: 1.7; margin-bottom: 16px;">
+                    <strong>2. Localization is a product problem, not a translation problem.</strong> Supporting both Chinese platforms (WeChat, Xiaohongshu, Douyin, Bilibili) and global ones (Instagram, LinkedIn, X) means "content" means different things in different contexts. The persona system is the design answer — personas encode cultural register, not just language.
+                </p>
+
+                <div class="modal-reflection">
+                    <div class="modal-reflection-title" data-i18n="reflection.nextsteps.title">What I'd build next</div>
+                    <div class="modal-reflection-text">
+                        <p data-i18n="reflection.nextsteps.p1"><strong>Performance analytics loop:</strong> feed published-post metrics back in, and train platform-tone models on what actually performs — guardrails become adaptive.</p>
+                        <p style="margin-top: 12px;" data-i18n="reflection.nextsteps.p2"><strong>Team collaboration layer:</strong> async comments on output cards, approval workflows, and role-based guardrail editing.</p>
+                        <p style="margin-top: 12px;" data-i18n="reflection.nextsteps.p3"><strong>Brand-voice learning:</strong> fine-tune on a team's existing content so the AI stops sounding generically "brand-safe" and starts sounding like them.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-bottom-nav">
+        <a href="index.html#projects" data-i18n="nav.backtowork">← Back to Work</a>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                'nav.back': '← Back',
+                'nav.backtowork': '← Back to Work',
+                'header.eyebrow': 'Founding Product Design · AI Content Growth · 2026',
+                'hero.tagline': 'One product signal in. Platform-native growth kits out.',
+                'header.title': 'Finfold',
+                'header.subtitle': 'Turn one product signal into platform-native growth kits — on-brand, editable, and ready to ship.',
+                'header.demoCta': 'Preview Demo →',
+                'meta.role.label': 'Role',
+                'meta.role.value': 'Founding Product Designer',
+                'meta.type.label': 'Type',
+                'meta.type.value': 'AI Content-Growth Workspace',
+                'meta.stack.label': 'Stack',
+                'meta.stack.value': 'Next.js 15 · Supabase · Stripe',
+                'meta.focus.label': 'Focus',
+                'meta.focus.value': 'Human-AI Workflow · Design Systems',
+                'fastlane.label': 'Quick Read',
+                'fastlane.problem.label': 'Problem',
+                'fastlane.problem': 'Teams rewrite the same idea for every platform — and bleed brand voice each time',
+                'fastlane.solution.label': 'Solution',
+                'fastlane.solution': 'A workbench that turns one brief into native kits for 11 channels, in parallel',
+                'fastlane.signal.label': 'Signal',
+                'fastlane.signal': 'IA, design system, human-AI workflow, and high-fidelity product — owned end to end',
+                'tldr.label': 'TL;DR',
+                'tldr.text': 'Finfold is an AI content-growth workspace for founders and solo teams. Drop in one product signal or asset; it generates a full growth kit across WeChat, Xiaohongshu, TikTok, LinkedIn, X, and more. Every output is editable, native to its platform, and constrained by brand guardrails. The core product judgment: the same idea needs a different personality on every channel, and good design makes that translation feel effortless.',
+                'metrics.platforms.value': '11',
+                'metrics.platforms.label': 'PLATFORMS',
+                'metrics.platforms.desc': 'CN + global channels',
+                'metrics.brief.value': '1 → ∞',
+                'metrics.brief.label': 'BRIEF → POSTS',
+                'metrics.brief.desc': 'Parallel AI generation',
+                'metrics.guardrails.value': '0',
+                'metrics.guardrails.label': 'BRAND VIOLATIONS',
+                'metrics.guardrails.desc': 'Guardrails enforced',
+                'metrics.pricing.value': '5',
+                'metrics.pricing.label': 'PRICING TIERS',
+                'metrics.pricing.desc': 'Solo to team',
+                'shot.dashboard': 'Growth Dashboard — north-star reach, the daily brief, and a live 11-channel operations matrix.',
+                'problem.title': 'Why this problem is worth solving',
+                'problem.quote': '"A marketing manager runs six platforms. She writes the same product story six times — each version a little worse, a little more off-brand. By the time she posts to LinkedIn, she\'s done."',
+                'problem.p1': 'Content teams working across Chinese and global platforms hit a compounding wall: every channel has its own tone, format, and algorithm. WeChat rewards structured long-form prose. Xiaohongshu rewards aesthetic, first-person storytelling. TikTok rewards a hook inside the first 1.5 seconds. LinkedIn rewards professional authority. These aren\'t format gaps — they\'re persona gaps.',
+                'problem.p2': 'The default workflow is write-once, paste-everywhere, rewrite-by-hand, lose the thread. Generic AI tools don\'t fix this structurally — they\'re blank-canvas chatbots that assume you already know what "native" means on each platform.',
+                'problem.card1.title': 'The copy-paste tax',
+                'problem.card1.desc': 'One brief, rewritten six times.<br>Each version worse than the last.',
+                'problem.card2.title': 'Voice drift',
+                'problem.card2.desc': 'Brand voice erodes with every<br>manual platform adaptation.',
+                'problem.card3.title': 'No rhythm',
+                'problem.card3.desc': 'The content bottleneck breaks<br>any consistent publishing cadence.',
+                'challenge.title': 'The hard design problems',
+                'challenge.subtitle': 'How do you design for AI output that switches personality on every platform — without the UI collapsing into a spreadsheet?',
+                'challenge.card1.title': 'Platform persona vs. brand voice',
+                'challenge.card1.desc': 'Each platform has its own register — emotional tone, sentence length, emoji use, CTA style. The AI has to take on the platform persona while staying inside the brand\'s voice and banned language. My call: guardrails run silently inside the generation prompt, so writers only ever see compliant output — never the machinery enforcing it. Violations surface in aggregate, not inline, which keeps the writing surface calm.',
+                'challenge.card2.title': 'The three-column workbench',
+                'challenge.card2.desc': 'The workbench is the product\'s core surface. The flow is: (1) drop in brief + asset → (2) pick platforms, persona, goal → (3) review the generated kit. A single scrolling form would crush this into a linear task with no spatial cues. The three-column layout externalizes the mental model — left anchors intent, middle anchors context, right surfaces output. Borrowed from IDE layout theory: you don\'t read left-to-right, you triangulate.',
+                'challenge.card3.title': 'Agent state, made scannable',
+                'challenge.card3.desc': 'The Agents surface runs recurring automations — gap scouting, scheduled production, QA, publishing. Each workflow carries state (idle, scanning, ready, in review, paused) and that state has to be triageable at a glance. My call: status uses color + icon + micro-label, and the running-state indicator shifts the card\'s emphasis. You can spot a stalled workflow without opening a single one.',
+                'challenge.card4.title': 'Designing for output variance',
+                'challenge.card4.desc': 'AI output is non-deterministic — the same brief run twice produces different copy. That\'s a feature, but it creates a UX expectation problem. Users need to regenerate one platform without losing the others. My call: each output is independently editable and regenerable, and a lock pins the ones you like while you refresh the rest. Unpredictability stops being anxiety and becomes exploration.',
+                'screens.title': 'The key surfaces',
+                'screens.workbench.title': 'Workbench — the production surface',
+                'screens.workbench.desc': 'Brief input and media on the left; platform, buyer persona, and growth goal in the middle; the content-kit output board on the right. Each platform renders its own card — independently editable and regenerable. "Generate" is the product\'s moment of truth, so output streams in per card, making a 4-second wait feel like a show rather than a spinner.',
+                'screens.workbench.m1t': 'Brief Input',
+                'screens.workbench.m1d': 'Text + media context',
+                'screens.workbench.m2t': 'Context Selectors',
+                'screens.workbench.m2d': 'Platform · persona · goal',
+                'screens.workbench.m3t': 'Output Board',
+                'screens.workbench.m3d': 'Streaming per-platform kits',
+                'screens.agents.title': 'Agents — the automation layer',
+                'screens.agents.desc': 'A self-driving content loop: agents read the dashboard, spot platform gaps, call the workbench to produce, run brand-guardrail QA, and queue work for human approval. State-coded cards and a live run log make the automation legible. The bet underneath: enterprise buyers don\'t buy AI — they buy predictability. The Agents screen is built to feel like an ops console, not a wizard.',
+                'screens.guardrails.title': 'Guardrails — the brand immune system',
+                'screens.guardrails.desc': 'A rules grid where brand managers define what the AI can and can\'t say: banned claims, CTA standards, persona-voice constraints, and commercial-asset license records. Each rule is bound straight into the workbench generation prompt. The principle: guardrails aren\'t censorship — they\'re institutional memory made machine-readable, and they sit at the top level of the nav as a deliberate trust signal.',
+                'screens.calendar.title': 'Calendar — the publishing rhythm',
+                'screens.calendar.desc': 'A weekly card grid of scheduled and published posts per channel. Diagnostics surface under-scheduled platforms ("Bilibili and Instagram each have only one post in a scheduled state"), topic conflicts, and review bottlenecks. The principle: the calendar is a pressure gauge, not a passive record — empty days carry visual weight, full days feel earned.',
+                'screens.billing.title': 'Billing — the commercial spine',
+                'screens.billing.desc': 'Five tiers — Free, Starter, Creator, Pro, Team — mapped to monthly kit volume and platform access. The page is engineered to make Creator the obvious pick: it\'s the only card that glows, carries the "Most Popular" tag, and unlocks multi-channel copy and export. Stripe runs subscriptions, with CNY billing for mainland China and USD via Stripe everywhere else.',
+                'craft.title': 'Three craft decisions worth naming',
+                'craft.step1': 'Brief',
+                'craft.step2': 'Context',
+                'craft.step3': 'Generate',
+                'craft.step4': 'Review',
+                'craft.step5': 'Publish',
+                'craft.quote': '"The platform is the medium. The brand is the message. The AI is the translator. The designer\'s job is to make the translation invisible."',
+                'craft.p1': '<strong>1. The output board is an editing surface, not a preview.</strong> Early prototypes showed read-only previews with a separate edit step. Writers wanted to tweak inline, not open a new screen — so "preview" and "edit" collapse into one surface. Click anywhere in the copy to edit it. This is the single biggest time-to-publish win in the product.',
+                'craft.p2': '<strong>2. Guardrails are a first-class citizen, not a settings page.</strong> Most AI writers bury safety rules in a menu. Here, Guardrails is a top-level nav item, equal to Workbench and Calendar. That structural choice signals — before anyone types a word — that brand safety is a core product value, not an afterthought.',
+                'craft.p3': '<strong>3. Streaming output is performance design.</strong> Platforms generate in parallel, and each card renders token-by-token as its stream arrives. Technically it\'s the same total latency as a bulk load — but the experience turns a wait into a show, and the product simply feels fast.',
+                'tech.title': 'Technical foundation',
+                'tech.summary': 'I owned Finfold\'s product definition, information architecture, design system, human-AI interaction patterns, and high-fidelity prototypes end to end. Working directly with engineering, I shaped the LLM API integration around editable output, guardrails, scheduling, and billing so the shipped product matched the interaction model.',
+                'reflection.title': 'What I learned building an AI product end-to-end',
+                'reflection.quote': '"Working directly at the API seams changed how I design. You stop drawing idealized AI flows and start designing the real handoffs between intent, generation, review, and recovery."',
+                'reflection.p1': '<strong>1. AI products need a trust architecture, not just a UX.</strong> Users don\'t distrust AI because it\'s bad — they distrust it because they can\'t predict when it\'ll be bad. Guardrails, per-card regeneration, and the human-approval boundary inside agents are all trust mechanisms. The design job was to make uncertainty feel managed, not hidden.',
+                'reflection.p2': '<strong>2. Localization is a product problem, not a translation problem.</strong> Supporting both Chinese platforms (WeChat, Xiaohongshu, Douyin, Bilibili) and global ones (Instagram, LinkedIn, X) means "content" means different things in different contexts. The persona system is the design answer — personas encode cultural register, not just language.',
+                'reflection.nextsteps.title': 'What I\'d build next',
+                'reflection.nextsteps.p1': '<strong>Performance analytics loop:</strong> feed published-post metrics back in, and train platform-tone models on what actually performs — guardrails become adaptive.',
+                'reflection.nextsteps.p2': '<strong>Team collaboration layer:</strong> async comments on output cards, approval workflows, and role-based guardrail editing.',
+                'reflection.nextsteps.p3': '<strong>Brand-voice learning:</strong> fine-tune on a team\'s existing content so the output stops sounding generically "brand-safe" and starts sounding like them.',
+
+            },
+            zh: {
+                'nav.back': '← 返回',
+                'nav.backtowork': '← 返回作品',
+                'header.eyebrow': '创始产品设计 · AI 内容增长 · 2026',
+                'hero.tagline': '一个 brief 进，11 条平台原生内容出。',
+                'header.title': '一鱼多吃',
+                'header.subtitle': '一份产品 brief，11 个平台——每条内容都贴该渠道的语境、守住品牌、发得出去。',
+                'header.demoCta': '预览 Demo →',
+                'meta.role.label': '角色',
+                'meta.role.value': '创始产品设计师',
+                'meta.type.label': '类型',
+                'meta.type.value': 'AI 内容增长工作台',
+                'meta.stack.label': '技术栈',
+                'meta.stack.value': 'Next.js 15 · Supabase · Stripe',
+                'meta.focus.label': '聚焦',
+                'meta.focus.value': '人机协作工作流 · 设计系统',
+                'fastlane.label': '快速了解',
+                'fastlane.problem.label': '问题',
+                'fastlane.problem': '团队为每个平台反复改写同一个想法——每改一次，品牌声音就掉一截',
+                'fastlane.solution.label': '方案',
+                'fastlane.solution': '一个工作台，把一份 brief 并行生成 11 个平台的原生内容包',
+                'fastlane.signal.label': '亮点',
+                'fastlane.signal': '信息架构、设计系统、人机协作流程与高保真产品——端到端负责',
+                'tldr.label': '一句话总结',
+                'tldr.text': '一鱼多吃——字面意思「一条鱼做出多道菜」——是面向产品营销团队的内容操作系统。丢进去一个产品想法或素材，它吐出整套平台内容包（公众号长文、小红书图文、TikTok 钩子、LinkedIn 帖、X thread 等等），每一条都按该平台的原生语境写、被你的品牌护栏钉死在合规范围里。核心判断：同一条信息在每个渠道都需要换一副人格，好的设计让这种切换隐形。',
+                'metrics.platforms.value': '11',
+                'metrics.platforms.label': '平台',
+                'metrics.platforms.desc': '国内 + 全球渠道',
+                'metrics.brief.value': '1 → ∞',
+                'metrics.brief.label': '一个 brief → 多条内容',
+                'metrics.brief.desc': '并行 AI 生成',
+                'metrics.guardrails.value': '0',
+                'metrics.guardrails.label': '品牌违规',
+                'metrics.guardrails.desc': '护栏强制执行',
+                'metrics.pricing.value': '5',
+                'metrics.pricing.label': '订阅档位',
+                'metrics.pricing.desc': '从个人到团队',
+                'shot.dashboard': '增长 Dashboard——北极星触达、今日运营简报，外加一张实时的 11 渠道运营矩阵。',
+                'problem.title': '这事为什么值得做',
+                'problem.quote': '「一位营销经理同时盯六个平台。她把同一个产品故事写六遍——每写一遍都更差一点、更偏一点。等轮到 LinkedIn，她已经写吐了。」',
+                'problem.p1': '横跨国内与全球平台的内容团队，撞的是一面越垒越高的墙：每个渠道的语气、格式、算法脾气都不一样。公众号吃结构化长文；小红书吃有审美的第一人称叙事；TikTok 要前 1.5 秒就把钩子抛出来；LinkedIn 看专业权威感。这些不是格式差异——是「人格」差异。',
+                'problem.p2': '现状工作流就四个字：写一遍、到处贴、手动改、丢一致性。通用 AI 工具在结构上帮不上忙——它们是空白画布的聊天机器人，默认你早就清楚每个平台的「原生」长什么样。',
+                'problem.card1.title': '复制粘贴税',
+                'problem.card1.desc': '一个 brief，改写六遍。<br>每一版都比上一版差。',
+                'problem.card2.title': '声音漂移',
+                'problem.card2.desc': '每手动适配一次平台，<br>品牌声音就被磨掉一层。',
+                'problem.card3.title': '没节奏',
+                'problem.card3.desc': '内容瓶颈把任何<br>稳定的发布节奏都打断了。',
+                'challenge.title': '真正难的设计问题',
+                'challenge.subtitle': '怎么给「每个平台换一副人格」的 AI 输出做设计——又不让界面塌成一张表格？',
+                'challenge.card1.title': '平台人格 vs. 品牌声音',
+                'challenge.card1.desc': '每个平台都有自己的语域——情绪基调、句子长短、emoji 用法、CTA 风格。AI 得套上平台人格，同时还得守住品牌定的声音和禁用语。我的取舍：品牌护栏在生成提示词里静默执行，写作者眼里永远只看得到合规输出——看不到背后那套约束机制。违规走聚合视图冒头，不内联弹，让写作界面始终安静。',
+                'challenge.card2.title': '三栏式工作台',
+                'challenge.card2.desc': '工作台是这个产品的核心界面。流程是：(1) 丢进 brief + 素材 → (2) 选平台、人群、目标 → (3) 审阅生成的内容包。单一滚动表单会把它压成一条没有空间方位的线性任务。三栏布局把心智模型摊到台面上——左栏锚意图，中栏锚上下文，右栏出输出。学的 IDE 布局那套：人不是从左往右读，是三角定位。',
+                'challenge.card3.title': '让 agent 状态一眼可读',
+                'challenge.card3.desc': 'Agents 界面跑的是循环自动化——缺口巡检、定时生产、质检、发布。每个工作流都带状态（空闲、巡检中、就绪、待审核、暂停），这些状态必须一眼能分诊。我的取舍：状态用「颜色 + 图标 + 微标签」三件套，运行态指示器直接改卡片的视觉重心。你不用点开任何一个，就能揪出哪个工作流卡住了。',
+                'challenge.card4.title': '为输出的不确定性做设计',
+                'challenge.card4.desc': 'AI 输出是非确定性的——同一个 brief 跑两次，文案不一样。这是特性不是 bug，但它制造了一个 UX 预期问题：用户得能在不丢其它平台的前提下，单独重生成某一个。我的取舍：每条输出都独立可编辑、可重生成，再给一个「锁定」保住满意的、刷新其余的。不确定性就这么从焦虑变成了探索。',
+                'screens.title': '关键界面',
+                'screens.workbench.title': '工作台——生产界面',
+                'screens.workbench.desc': '左侧是 brief 输入与素材；中间是平台、买家人群、增长目标；右侧是内容包输出板。每个平台各渲染一张卡片——可独立编辑、独立重生成。「生成」是这个产品的关键时刻，所以输出按卡片逐字流式呈现，让 4 秒的等待更像一场演出，而不是一个转圈。',
+                'screens.workbench.m1t': 'Brief 输入',
+                'screens.workbench.m1d': '文本 + 素材上下文',
+                'screens.workbench.m2t': '上下文选择器',
+                'screens.workbench.m2d': '平台 · 人群 · 目标',
+                'screens.workbench.m3t': '输出板',
+                'screens.workbench.m3d': '各平台流式内容包',
+                'screens.agents.title': 'Agents——自动化层',
+                'screens.agents.desc': '一条自驱动的内容闭环：agent 读 Dashboard、揪出平台缺口、调工作台生产、跑品牌护栏质检，再把活儿排进人工审核队列。状态编码的卡片加实时运行日志，让自动化可读。底下的判断很硬：企业买家买的不是 AI——买的是可预测性。Agents 界面被刻意做成像运营控制台，不是向导。',
+                'screens.guardrails.title': '品牌护栏——品牌免疫系统',
+                'screens.guardrails.desc': '一张规则网格，让品牌负责人定 AI 能说什么、不能说什么：禁用宣称、CTA 规范、人群语气约束、可商用素材许可记录。每条规则都直接注入工作台的生成提示词。原则一句话：护栏不是审查——是把机构记忆变成机器可读，再把它放在导航顶层，当一个刻意的信任信号。',
+                'screens.calendar.title': '内容排期——发布节奏',
+                'screens.calendar.desc': '一个按周排列的卡片网格，呈现各渠道的计划与已发布内容。诊断会冒出排期不足的平台（「B 站和 Instagram 本周各只有 1 条处于排期状态」）、主题冲突、审核阻塞。原则一句话：日历是压力表，不是被动记录——空白的日子有视觉重量，排满的日子才显得来之不易。',
+                'screens.billing.title': '订阅与额度——商业脊柱',
+                'screens.billing.desc': '五档——Free、Starter、Creator、Pro、Team——对应每月内容包额度和平台权限。页面被刻意做成让 Creator 成为那个显而易见的选择：它是唯一发光、带「最受欢迎」标签、解锁多渠道复制与导出的卡片。Stripe 跑订阅，国内人民币计费，海外走 Stripe 美元。',
+                'craft.title': '三个值得点名的设计决策',
+                'craft.step1': 'Brief',
+                'craft.step2': '上下文',
+                'craft.step3': '生成',
+                'craft.step4': '审阅',
+                'craft.step5': '发布',
+                'craft.quote': '「平台是媒介。品牌是信息。AI 是翻译者。设计师的活儿，是让这场翻译隐形。」',
+                'craft.p1': '<strong>1. 输出板是编辑界面，不是预览界面。</strong> 早期原型把输出做成只读预览，外加一步单独编辑。写作者想就地改，不想另开页面——于是「预览」和「编辑」收拢成一个界面。文案任意处点一下就能改。这是产品里最大的「发布时间」收益。',
+                'craft.p2': '<strong>2. 品牌护栏是一等公民，不是设置页。</strong> 多数 AI 写作工具把安全规则埋进菜单。在这里，护栏是顶层导航项，跟工作台、日历平起平坐。这个结构性选择——在任何人敲下第一个字之前——就把话挑明：品牌安全是核心产品价值，不是事后补丁。',
+                'craft.p3': '<strong>3. 流式输出是性能设计。</strong> 各平台并行生成，每张卡片随自己的流逐字渲染。技术上总延迟跟批量加载一样——但体验把等待变成了演出，产品就是「感觉快」。',
+                'tech.title': '技术基础',
+                'tech.summary': '我端到端负责一鱼多吃的产品定义、信息架构、设计系统、人机协作模式与高保真原型，并与工程直接协作，把 LLM API 接入做成可编辑输出、品牌护栏、排期与计费都能落地的完整产品。',
+                'reflection.title': '端到端做一个 AI 产品，我学到的事',
+                'reflection.quote': '「直接站在 API 接缝处工作，改变了我做设计的方式。你不再画理想化的 AI 流程，而是设计意图、生成、审核与恢复之间真实的交接。」',
+                'reflection.p1': '<strong>1. AI 产品需要的不是 UX，是一套信任架构。</strong> 用户不信 AI，不是因为它差——是因为他们没法预测它什么时候会差。品牌护栏、单卡重生成、agent 里的人工审核边界，全是信任机制。设计干的活，是让不确定性显得「被兜住了」，而不是「被藏起来了」。',
+                'reflection.p2': '<strong>2. 本地化是产品问题，不是翻译问题。</strong> 同时支持国内平台（公众号、小红书、抖音、B 站）和全球平台（Instagram、LinkedIn、X），意味着「内容」在不同语境里压根不是一回事。人群系统就是对此的设计回答——人群编码的是文化语域，不是语言。',
+                'reflection.nextsteps.title': '接下来我会做什么',
+                'reflection.nextsteps.p1': '<strong>表现分析闭环：</strong> 把已发布内容的数据回流进来，拿「真正跑得动的内容」训练平台语气模型——让品牌护栏变成自适应的。',
+                'reflection.nextsteps.p2': '<strong>团队协作层：</strong> 在输出卡片上异步评论、审批流、按角色分级编辑品牌护栏。',
+                'reflection.nextsteps.p3': '<strong>品牌声音学习：</strong> 用团队现有内容做微调，让输出不再是一股泛泛的「品牌安全」味儿，而是听起来就像你们自己。',
+
+            }
+        };
+
+        function detectLang() {
+            const saved = localStorage.getItem('lang');
+            if (saved) return saved;
+            const sysLang = navigator.language || navigator.userLanguage || '';
+            return sysLang.startsWith('zh') ? 'zh' : 'en';
+        }
+        let currentLang = detectLang();
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            const t = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    el.innerHTML = t[key];
+                }
+            });
+            document.documentElement.lang = lang === 'zh' ? 'zh' : 'en';
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+        }
+
+        document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+        document.getElementById('lang-zh').addEventListener('click', () => setLanguage('zh'));
+
+        setLanguage(currentLang);
+    </script>
+</body>
+</html>
