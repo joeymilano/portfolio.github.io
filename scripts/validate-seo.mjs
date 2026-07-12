@@ -138,6 +138,16 @@ function validateLocalReferences(html, file) {
   }
 }
 
+function validateAbsoluteSiteAssets(html, file) {
+  for (const match of html.matchAll(/https:\/\/joeyzhao\.cc\/([^"'<>\s?#]+(?:\?[^"'<>\s]*)?)/g)) {
+    const assetPath = decodeURIComponent(match[1].split("?")[0]);
+    if (!assetPath || assetPath.endsWith("/")) continue;
+    if (!fs.existsSync(path.join(root, assetPath))) {
+      failures.push(`${file}: missing site asset https://joeyzhao.cc/${assetPath}`);
+    }
+  }
+}
+
 const sitemap = read("sitemap.xml");
 const sitemapUrls = new Set(
   [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]),
@@ -189,6 +199,12 @@ for (const page of publicPages) {
   if (!jsonLd.some((block) => schemaContainsUrl(block, page.url))) {
     failures.push(`${page.file}: JSON-LD does not identify canonical URL ${page.url}`);
   }
+
+  if (page.schema === "CreativeWork") {
+    requirePattern(html, /<h1(?:\s[^>]*)?>[\s\S]*?<\/h1>/i, "primary h1", page.file);
+  }
+
+  validateAbsoluteSiteAssets(html, page.file);
 
   if (page.alternate) {
     const ownChinese =
