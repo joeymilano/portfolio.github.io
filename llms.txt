@@ -8,23 +8,23 @@ Canonical site: https://joeyzhao.cc/
 
 - Chinese Writing hub: https://joeyzhao.cc/writing/
 - English Writing hub: https://joeyzhao.cc/en/writing/
-- AI product design: https://joeyzhao.cc/en/writing/ai-designers-cannot-only-sell-screens.html
-- McDonald's seating and business trade-offs: https://joeyzhao.cc/en/writing/mcdonalds-seating-business-tradeoffs.html
-- Building Finfold, an AI content-growth workspace: https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms.html
-- Elevator mirrors and inclusive design: https://joeyzhao.cc/en/writing/elevator-mirrors-four-problems.html
-- Portfolios as evidence of design judgment: https://joeyzhao.cc/en/writing/portfolio-as-evidence.html
+- AI product design: https://joeyzhao.cc/en/writing/ai-designers-cannot-only-sell-screens
+- McDonald's seating and business trade-offs: https://joeyzhao.cc/en/writing/mcdonalds-seating-business-tradeoffs
+- Building Finfold, an AI content-growth workspace: https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms
+- Elevator mirrors and inclusive design: https://joeyzhao.cc/en/writing/elevator-mirrors-four-problems
+- Portfolios as evidence of design judgment: https://joeyzhao.cc/en/writing/portfolio-as-evidence
 
 ## Selected work
 
-- Signals Notebook, enterprise lineage visualization: https://joeyzhao.cc/signals.html
-- CollovGPT, AI interior design: https://joeyzhao.cc/collov.html
-- UnifyUX, enterprise design system: https://joeyzhao.cc/unifyux.html
-- Ctrip Hotel, video cover conversion: https://joeyzhao.cc/ctrip.html
-- Finfold, AI Content-Growth Workspace: https://joeyzhao.cc/finfold.html
-- Bill Vampire, AI subscription analysis: https://joeyzhao.cc/billvampire.html
-- Crypto Copilot, visual algorithmic trading: https://joeyzhao.cc/cryptocopilot.html
-- WeNeed, short-video gifting community: https://joeyzhao.cc/weneed.html
-- Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract.html
+- Signals Notebook, enterprise lineage visualization: https://joeyzhao.cc/signals
+- CollovGPT, AI interior design: https://joeyzhao.cc/collov
+- UnifyUX, enterprise design system: https://joeyzhao.cc/unifyux
+- Ctrip Hotel, video cover conversion: https://joeyzhao.cc/ctrip
+- Finfold, AI Content-Growth Workspace: https://joeyzhao.cc/finfold
+- Bill Vampire, AI subscription analysis: https://joeyzhao.cc/billvampire
+- Crypto Copilot, visual algorithmic trading: https://joeyzhao.cc/cryptocopilot
+- WeNeed, short-video gifting community: https://joeyzhao.cc/weneed
+- Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract
 
 ## Identity
 

@@ -39,7 +39,8 @@ function countMatches(content, pattern) {
 function localAssetExists(src, htmlFile) {
   if (/^(?:https?:|data:|#)/.test(src)) return true;
   const cleanPath = src.split("#")[0].split("?")[0];
-  return fs.existsSync(path.resolve(root, path.dirname(htmlFile), cleanPath));
+  const resolved = path.resolve(root, path.dirname(htmlFile), cleanPath);
+  return fs.existsSync(resolved) || (!path.extname(cleanPath) && fs.existsSync(`${resolved}.html`));
 }
 
 function validateLocalReferences(html, file) {
@@ -83,7 +84,7 @@ for (const slug of articles) {
   requireMatch(html, /<title>[^<]+<\/title>/, "title", file);
   requireMatch(html, /<meta name="description" content="[^"]+"/, "meta description", file);
   requireMatch(html, /<meta property="og:image" content="https:\/\/joeyzhao\.cc\/[^"]+"/, "Open Graph image", file);
-  if (!html.includes(`rel="canonical" href="https://joeyzhao.cc/writing/${slug}.html"`)) {
+  if (!html.includes(`rel="canonical" href="https://joeyzhao.cc/writing/${slug}"`)) {
     failures.push(`${file}: missing canonical URL`);
   }
   requireMatch(html, /<h1[\s>]/, "H1", file);
@@ -137,7 +138,7 @@ for (const slug of articles) {
 const sitemap = read("sitemap.xml");
 const feed = read("feed.xml");
 for (const slug of articles) {
-  const url = `https://joeyzhao.cc/writing/${slug}.html`;
+  const url = `https://joeyzhao.cc/writing/${slug}`;
   if (!sitemap.includes(url)) failures.push(`sitemap.xml: missing ${url}`);
   if (!feed.includes(url)) failures.push(`feed.xml: missing ${url}`);
 }

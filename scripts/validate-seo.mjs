@@ -25,11 +25,16 @@ const articleSlugs = [
   "portfolio-as-evidence",
 ];
 
+function publicUrlForFile(file) {
+  if (file === "index.html") return `${origin}/`;
+  return `${origin}/${file.replace(/(?:^|\/)index\.html$/, "").replace(/\.html$/, "")}`;
+}
+
 const publicPages = [
   { file: "index.html", url: `${origin}/`, lang: "en", schema: "Person" },
   ...casePages.map((file) => ({
     file,
-    url: `${origin}/${file}`,
+    url: publicUrlForFile(file),
     lang: "en",
     schema: "CreativeWork",
   })),
@@ -50,17 +55,17 @@ const publicPages = [
   ...articleSlugs.flatMap((slug) => [
     {
       file: `writing/${slug}.html`,
-      url: `${origin}/writing/${slug}.html`,
+      url: `${origin}/writing/${slug}`,
       lang: "zh-CN",
       schema: "BlogPosting",
-      alternate: `${origin}/en/writing/${slug}.html`,
+      alternate: `${origin}/en/writing/${slug}`,
     },
     {
       file: `en/writing/${slug}.html`,
-      url: `${origin}/en/writing/${slug}.html`,
+      url: `${origin}/en/writing/${slug}`,
       lang: "en",
       schema: "BlogPosting",
-      alternate: `${origin}/writing/${slug}.html`,
+      alternate: `${origin}/writing/${slug}`,
     },
   ]),
 ];
@@ -127,7 +132,8 @@ function localReferenceExists(target, htmlFile) {
   if (/^(?:https?:|mailto:|tel:|data:|#|\/\/)/.test(target)) return true;
   const cleanTarget = decodeURIComponent(target.split("#")[0].split("?")[0]);
   if (!cleanTarget) return true;
-  return fs.existsSync(path.resolve(root, path.dirname(htmlFile), cleanTarget));
+  const resolved = path.resolve(root, path.dirname(htmlFile), cleanTarget);
+  return fs.existsSync(resolved) || (!path.extname(cleanTarget) && fs.existsSync(`${resolved}.html`));
 }
 
 function validateLocalReferences(html, file) {
@@ -142,7 +148,8 @@ function validateAbsoluteSiteAssets(html, file) {
   for (const match of html.matchAll(/https:\/\/joeyzhao\.cc\/([^"'<>\s?#]+(?:\?[^"'<>\s]*)?)/g)) {
     const assetPath = decodeURIComponent(match[1].split("?")[0]);
     if (!assetPath || assetPath.endsWith("/")) continue;
-    if (!fs.existsSync(path.join(root, assetPath))) {
+    const resolved = path.join(root, assetPath);
+    if (!fs.existsSync(resolved) && (path.extname(assetPath) || !fs.existsSync(`${resolved}.html`))) {
       failures.push(`${file}: missing site asset https://joeyzhao.cc/${assetPath}`);
     }
   }
@@ -245,10 +252,10 @@ for (const page of publicPages) {
           page.lang === "zh-CN"
             ? page.file.endsWith("index.html")
               ? `/en/writing/`
-              : `/en/writing/${path.basename(page.file)}`
+              : `/en/writing/${path.basename(page.file, ".html")}`
             : page.file.endsWith("index.html")
               ? `../../writing/`
-              : `../../writing/${path.basename(page.file)}`,
+              : `../../writing/${path.basename(page.file, ".html")}`,
         )}["'][^>]*>`,
         "i",
       ),
@@ -294,8 +301,12 @@ requirePattern(
 
 const feed = read("feed.xml");
 for (const slug of articleSlugs) {
-  const url = `${origin}/writing/${slug}.html`;
+  const url = `${origin}/writing/${slug}`;
   if (!feed.includes(url)) failures.push(`feed.xml: missing ${url}`);
+}
+
+for (const url of sitemapUrls) {
+  if (url.endsWith(".html")) failures.push(`sitemap.xml: non-canonical .html URL ${url}`);
 }
 
 if (failures.length) {
