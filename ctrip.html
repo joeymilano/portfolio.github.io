@@ -280,7 +280,59 @@
         .modal-competitor-pros, .modal-competitor-cons { font-size: 13px; margin-bottom: 8px; }
         .modal-competitor-pros { color: #4ade80; }
         .modal-competitor-cons { color: #f87171; }
-        @media (max-width: 768px) { .modal-role-grid { grid-template-columns: 1fr; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } }
+
+        /* ===== Tiered Display Strategy (Economy / Midscale / Luxury) ===== */
+        .modal-tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0 8px; }
+        .modal-tier-card { background: var(--bg-elevated); border-radius: 16px; padding: 22px; border: 1px solid var(--border); position: relative; overflow: hidden; transition: transform 0.3s var(--ease-out-quart), border-color 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+        .modal-tier-card:hover { transform: translateY(-3px); }
+        /* luxury gets the glow — it's the tier that earns video */
+        .modal-tier-card[data-tier="luxury"] { border-color: rgba(168,85,247,0.28); box-shadow: 0 0 48px rgba(168,85,247,0.08); background: linear-gradient(180deg, rgba(168,85,247,0.05), var(--bg-elevated) 55%); }
+        .modal-tier-card[data-tier="luxury"]::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent-light), transparent); }
+        .modal-tier-card[data-tier="midscale"]::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(168,85,247,0.4), transparent); }
+        .modal-tier-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-tertiary); margin-bottom: 6px; }
+        .modal-tier-card[data-tier="luxury"] .modal-tier-label { color: var(--accent-light); }
+        .modal-tier-name { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 2px; }
+        .modal-tier-brands { font-size: 12px; color: var(--text-tertiary); margin-bottom: 14px; line-height: 1.5; }
+        .modal-tier-price { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 14px; padding: 4px 10px; background: rgba(168,85,247,0.1); border-radius: 20px; width: fit-content; }
+
+        /* Tier media — ONE hero image each, like real Ctrip list cards.
+           The tier difference is how that image is treated + what it opens on release. */
+        .modal-tier-media { height: 158px; border-radius: 10px; margin-bottom: 8px; position: relative; overflow: hidden; background-size: cover; background-position: center; background-color: var(--bg-card); border: 1px solid var(--border); }
+        .modal-tier-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 34%, transparent 56%, rgba(0,0,0,0.6) 100%); pointer-events: none; }
+        /* Economy → "album" tag, top-left (release opens the photo album) */
+        .modal-tier-media .mp-album { position: absolute; top: 9px; left: 9px; z-index: 2; font-size: 10px; font-weight: 600; color: #fff; background: rgba(0,0,0,0.6); padding: 4px 9px; border-radius: 14px; backdrop-filter: blur(8px); display: inline-flex; align-items: center; gap: 4px; }
+        .modal-tier-media .mp-album::before { content: '⊞'; font-size: 11px; }
+        /* Midscale → video bubble, bottom-right (release plays the video) */
+        .modal-tier-media--mix .mp-clip { position: absolute; bottom: 9px; right: 9px; z-index: 2; width: 32px; height: 32px; border-radius: 50%; background: rgba(168,85,247,0.92); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(168,85,247,0.45); }
+        .modal-tier-media--mix .mp-clip::after { content: ''; border-left: 9px solid #fff; border-top: 6px solid transparent; border-bottom: 6px solid transparent; margin-left: 3px; }
+        /* Luxury → centered play + sound tag (release opens hotel highlights) */
+        .modal-tier-media--video .mp-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 36px rgba(168,85,247,0.6); transition: transform 0.3s var(--ease-out-quart); }
+        .modal-tier-card:hover .mp-play { transform: translate(-50%,-50%) scale(1.08); }
+        .modal-tier-media--video .mp-play::after { content: ''; border-left: 14px solid #111; border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 5px; }
+        .modal-tier-media--video .mp-sound { position: absolute; bottom: 9px; right: 9px; z-index: 2; font-size: 9px; color: #fff; background: rgba(168,85,247,0.88); padding: 4px 10px; border-radius: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; backdrop-filter: blur(8px); }
+        /* "on release → opens X" hint, sits right under the hero image */
+        .modal-tier-tap { font-size: 11px; color: var(--text-tertiary); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .modal-tier-tap::before { content: '↗'; font-size: 12px; color: var(--accent); }
+        /* Hotel info + room/price block — the real focus on economy/midscale listing cards */
+        .modal-tier-hotel { display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px; }
+        .modal-tier-hotelname { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+        .modal-tier-tiertag { font-size: 10px; font-weight: 600; color: var(--text-tertiary); background: var(--bg-card); padding: 2px 8px; border-radius: 10px; flex-shrink: 0; }
+        .modal-tier-loc { font-size: 12px; color: var(--text-secondary); margin-bottom: 10px; }
+        .modal-tier-rooms { margin-bottom: 12px; }
+        .modal-tier-room { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 1px dashed var(--border); font-size: 13px; color: var(--text-secondary); }
+        .modal-tier-room:last-child { border-bottom: none; }
+        .modal-tier-room .price { font-size: 16px; font-weight: 700; color: var(--accent-light); letter-spacing: -0.01em; }
+
+        .modal-tier-strategy { font-size: 14px; color: var(--text-primary); font-weight: 500; line-height: 1.5; margin-bottom: 14px; }
+        .modal-tier-strategy strong { color: var(--accent-light); font-weight: 600; }
+        /* video-weight bar — the higher the tier, the heavier the fill */
+        .modal-tier-bar-label { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        .modal-tier-bar-label span:last-child { color: var(--accent); font-weight: 700; }
+        .modal-tier-bar { height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; margin-bottom: 14px; }
+        .modal-tier-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 3px; }
+        .modal-tier-reason { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+        .modal-source-note { font-size: 11px; color: var(--text-tertiary); margin: 16px 0 0; text-align: right; opacity: 0.65; }
+        @media (max-width: 768px) { .modal-role-grid { grid-template-columns: 1fr; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } .modal-tier-grid { grid-template-columns: 1fr; } }
 
         /* Responsive */
         @media (max-width: 1024px) { .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: repeat(2, 1fr); } .modal-metrics { grid-template-columns: repeat(2, 1fr); } }
@@ -852,9 +904,71 @@
                     <div class="modal-decision-text" data-i18n="modal.ctrip.decision1Text">Data showed static images had declining click-through rates, but simply adding video wasn't enough — users needed to see real guest experiences within 3 seconds. I designed video covers to auto-play the most engaging 3-second clip (selected by AI) with a progress indicator, turning passive browsing into active engagement. A/B testing confirmed a 5.32% indirect conversion lift.</div>
                 </div>
 
+                <!-- Tiered Display Strategy Section -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.ctrip.tierTitle">Not every hotel deserves a video</span></h3>
+                    <p data-i18n="modal.ctrip.tierIntro">The data said video wins. But Ctrip lists 1.5 million hotels — from a ¥99 Home Inn to a ¥9,000 Aman. Treating them all to the same sound-on autoplay would be using one tool for three completely different buying minds. So the real question wasn't whether to push video. It was who earns it.</p>
+                    <div class="modal-tier-grid">
+                        <!-- Economy -->
+                        <div class="modal-tier-card" data-tier="economy">
+                            <div class="modal-tier-media modal-tier-media--photo" style="background-image:url('images/ctrip-tier/economy.jpg')"><span class="mp-album" data-i18n="modal.ctrip.tierEcoAlbum">Album · 24</span></div>
+                            <div class="modal-tier-tap" data-i18n="modal.ctrip.tierEcoTap">Release → opens photo album</div>
+                            <div class="modal-tier-hotel">
+                                <span class="modal-tier-hotelname" data-i18n="modal.ctrip.tierEcoHotel">Hanting Hotel</span>
+                                <span class="modal-tier-tiertag" data-i18n="modal.ctrip.tierEcoTag">Economy</span>
+                            </div>
+                            <div class="modal-tier-loc" data-i18n="modal.ctrip.tierEcoLoc">★4.3 · Shanghai · Free cancellation</div>
+                            <div class="modal-tier-rooms">
+                                <div class="modal-tier-room"><span data-i18n="modal.ctrip.tierEcoRoom1">Queen Room</span><span class="price">¥189</span></div>
+                                <div class="modal-tier-room"><span data-i18n="modal.ctrip.tierEcoRoom2">Twin Room</span><span class="price">¥209</span></div>
+                            </div>
+                            <div class="modal-tier-strategy" data-i18n="modal.ctrip.tierEcoStrategy" data-i18n-html><strong>Image-first.</strong> Thumbnail wall, fast swipe, video tucked behind a tap.</div>
+                            <div class="modal-tier-bar-label"><span data-i18n="modal.ctrip.tierBarLabel">Video weight</span><span>~10%</span></div>
+                            <div class="modal-tier-bar"><div class="modal-tier-bar-fill" style="width:10%"></div></div>
+                            <div class="modal-tier-reason" data-i18n="modal.ctrip.tierEcoReason">Guests book in seconds on price — they want to confirm "clean enough," not be sold a mood. Force a video here and you burn bandwidth to interrupt a price comparison.</div>
+                        </div>
+                        <!-- Midscale -->
+                        <div class="modal-tier-card" data-tier="midscale">
+                            <div class="modal-tier-media modal-tier-media--mix" style="background-image:url('images/ctrip-tier/midscale.jpg')"><span class="mp-clip"></span></div>
+                            <div class="modal-tier-tap" data-i18n="modal.ctrip.tierMidTap">Release → plays video</div>
+                            <div class="modal-tier-hotel">
+                                <span class="modal-tier-hotelname" data-i18n="modal.ctrip.tierMidHotel">Ji Hotel</span>
+                                <span class="modal-tier-tiertag" data-i18n="modal.ctrip.tierMidTag">Upscale</span>
+                            </div>
+                            <div class="modal-tier-loc" data-i18n="modal.ctrip.tierMidLoc">★4.6 · Shanghai Lujiazui</div>
+                            <div class="modal-tier-rooms">
+                                <div class="modal-tier-room"><span data-i18n="modal.ctrip.tierMidRoom1">Business Queen</span><span class="price">¥458</span></div>
+                            </div>
+                            <div class="modal-tier-strategy" data-i18n="modal.ctrip.tierMidStrategy" data-i18n-html><strong>Mixed.</strong> Hero photo + one sharp 3-s clip as a tiebreaker.</div>
+                            <div class="modal-tier-bar-label"><span data-i18n="modal.ctrip.tierBarLabel">Video weight</span><span>~40%</span></div>
+                            <div class="modal-tier-bar"><div class="modal-tier-bar-fill" style="width:40%"></div></div>
+                            <div class="modal-tier-reason" data-i18n="modal.ctrip.tierMidReason">They're comparing 2–3 options and weighing value. A short clip earns its place here — but the photo still does the heavy lifting.</div>
+                        </div>
+                        <!-- Luxury -->
+                        <div class="modal-tier-card" data-tier="luxury">
+                            <div class="modal-tier-media modal-tier-media--video" style="background-image:url('images/ctrip-tier/luxury.jpg')"><span class="mp-play"></span><span class="mp-sound" data-i18n="modal.ctrip.tierLuxSound">Sound on</span></div>
+                            <div class="modal-tier-tap" data-i18n="modal.ctrip.tierLuxTap">Release → hotel highlights</div>
+                            <div class="modal-tier-hotel">
+                                <span class="modal-tier-hotelname" data-i18n="modal.ctrip.tierLuxHotel">Island Shangri-La</span>
+                                <span class="modal-tier-tiertag" data-i18n="modal.ctrip.tierLuxTag">5-Star</span>
+                            </div>
+                            <div class="modal-tier-loc" data-i18n="modal.ctrip.tierLuxLoc">★4.9 · Hong Kong · Suites from ¥3,800</div>
+                            <div class="modal-tier-strategy" data-i18n="modal.ctrip.tierLuxStrategy" data-i18n-html><strong>Video-led.</strong> Full-bleed sound-on cover, imagery plays support.</div>
+                            <div class="modal-tier-bar-label"><span data-i18n="modal.ctrip.tierBarLabel">Video weight</span><span>~85%</span></div>
+                            <div class="modal-tier-bar"><div class="modal-tier-bar-fill" style="width:85%"></div></div>
+                            <div class="modal-tier-reason" data-i18n="modal.ctrip.tierLuxReason">At this price you're not selling a bed, you're selling a feeling. Only motion and sound carry the light, space and atmosphere that justify the splurge.</div>
+                        </div>
+                    </div>
+                    <div class="modal-insight">
+                        <div class="modal-insight-icon">🎯</div>
+                        <div class="modal-insight-text" data-i18n="modal.ctrip.tierInsight">This is the part a pure data read would miss. The 4.8% video CTR is a platform average — almost certainly pulled up by the midscale and luxury ends. Splitting by tier stops me over-investing in video where it doesn't pay (economy) and under-investing where it's the whole ballgame (luxury). Same data, sharper spend.</div>
+                    </div>
+                    <p class="modal-source-note" data-i18n="modal.ctrip.tierSource">Hotel imagery via Booking.com — shown here as a strategy illustration.</p>
+                </div>
+
                 <!-- Before/After Showcase -->
                 <div class="modal-section">
-                    <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.ctrip.section5Title">Design Showcase</span></h3>
+                    <h3 class="modal-section-title"><span class="modal-section-number">6</span><span data-i18n="modal.ctrip.section5Title">Design Showcase</span></h3>
                     <p data-i18n="modal.ctrip.section5P1">Complete analysis and solution design for the hotel cover upgrade:</p>
                     <img src="images/render_p41.jpg" alt="Overview & Results" class="modal-image" loading="lazy">
                     <p class="modal-image-caption" data-i18n="modal.ctrip.caption1">Overview & Results — 5.32% indirect conversion rate improvement via A/B testing</p>
@@ -868,7 +982,8 @@
 
                 <!-- Solution Section -->
                 <div class="modal-section">
-                    <h3 class="modal-section-title"><span class="modal-section-number">6</span><span data-i18n="modal.ctrip.section6Title">Solutions Delivered</span></h3>
+                    <h3 class="modal-section-title"><span class="modal-section-number">7</span><span data-i18n="modal.ctrip.section6Title">Solutions Delivered</span></h3>
+                    <p data-i18n="modal.ctrip.section6P1">These are the four things I actually shipped — most of the heavy lifting lands on the midscale and luxury tiers above, where video earns its place.</p>
                     <div class="modal-feature-card">
                         <div class="modal-feature-title" data-i18n="modal.ctrip.feature1Title">Adaptive Cropping Logic</div>
                         <div class="modal-feature-desc" data-i18n="modal.ctrip.feature1Desc">Smart cropping based on screen size: 16:9 ratio for large screens (60% of users), 2:1 ratio for small screens (40%). Cropping direction prioritizes width, using center-of-gravity detection to preserve key content.</div>
@@ -913,6 +1028,48 @@
         // i18n
         const translations = {
             en: {
+                'modal.ctrip.tierTitle': 'Not every hotel deserves a video',
+                'modal.ctrip.tierIntro': 'The data said video wins. But Ctrip lists 1.5 million hotels — from a ¥99 Home Inn to a ¥9,000 Aman. Treating them all to the same sound-on autoplay would be using one tool for three completely different buying minds. So the real question wasn\'t whether to push video. It was who earns it.',
+                'modal.ctrip.tierBarLabel': 'Video weight',
+                'modal.ctrip.tierEcoLabel': 'Tier 1 · Economy',
+                'modal.ctrip.tierEcoBadge': '📷 Photos first',
+                'modal.ctrip.tierEcoName': 'Budget chain',
+                'modal.ctrip.tierEcoHotel': 'Hanting Hotel',
+                'modal.ctrip.tierEcoAlbum': 'Album · 24',
+                'modal.ctrip.tierEcoTap': 'Release → opens photo album',
+                'modal.ctrip.tierMidTap': 'Release → plays video',
+                'modal.ctrip.tierLuxTap': 'Release → hotel highlights',
+                'modal.ctrip.tierEcoTag': 'Economy',
+                'modal.ctrip.tierEcoLoc': '★4.3 · Shanghai · Free cancellation',
+                'modal.ctrip.tierEcoRoom1': 'Queen Room',
+                'modal.ctrip.tierEcoRoom2': 'Twin Room',
+                'modal.ctrip.tierMidBadge': '🖼️ Photos + short clip',
+                'modal.ctrip.tierMidHotel': 'Ji Hotel',
+                'modal.ctrip.tierMidTag': 'Upscale',
+                'modal.ctrip.tierMidLoc': '★4.6 · Shanghai Lujiazui',
+                'modal.ctrip.tierMidRoom1': 'Business Queen',
+                'modal.ctrip.tierLuxHotel': 'Island Shangri-La',
+                'modal.ctrip.tierLuxTag': '5-Star',
+                'modal.ctrip.tierLuxLoc': '★4.9 · Hong Kong · Suites from ¥3,800',
+                'modal.ctrip.tierEcoBrands': 'Home Inn · Hanting · 7 Days · Jinjiang Inn',
+                'modal.ctrip.tierEcoPrice': '¥100–300 / night',
+                'modal.ctrip.tierEcoStrategy': '<strong>Image-first.</strong> Thumbnail wall, fast swipe, video tucked behind a tap.',
+                'modal.ctrip.tierEcoReason': 'Guests book in seconds on price — they want to confirm "clean enough," not be sold a mood. Force a video here and you burn bandwidth to interrupt a price comparison.',
+                'modal.ctrip.tierMidLabel': 'Tier 2 · Midscale',
+                'modal.ctrip.tierMidName': 'Comfort / Upper-upscale',
+                'modal.ctrip.tierMidBrands': 'Ji Hotel · Atour · Hilton Garden Inn',
+                'modal.ctrip.tierMidPrice': '¥400–1,200 / night',
+                'modal.ctrip.tierMidStrategy': '<strong>Mixed.</strong> Hero photo + one sharp 3-s clip as a tiebreaker.',
+                'modal.ctrip.tierMidReason': 'They\'re comparing 2–3 options and weighing value. A short clip earns its place here — but the photo still does the heavy lifting.',
+                'modal.ctrip.tierLuxLabel': 'Tier 3 · Luxury',
+                'modal.ctrip.tierLuxSound': 'Sound on',
+                'modal.ctrip.tierSource': 'Hotel imagery via Booking.com — shown here as a strategy illustration.',
+                'modal.ctrip.tierLuxName': '5-star & above',
+                'modal.ctrip.tierLuxBrands': 'Ritz-Carlton · Waldorf · Aman · Peninsula',
+                'modal.ctrip.tierLuxPrice': '¥2,000+ / night',
+                'modal.ctrip.tierLuxStrategy': '<strong>Video-led.</strong> Full-bleed sound-on cover, imagery plays support.',
+                'modal.ctrip.tierLuxReason': 'At this price you\'re not selling a bed, you\'re selling a feeling. Only motion and sound carry the light, space and atmosphere that justify the splurge.',
+                'modal.ctrip.tierInsight': 'This is the part a pure data read would miss. The 4.8% video CTR is a platform average — almost certainly pulled up by the midscale and luxury ends. Splitting by tier stops me over-investing in video where it doesn\'t pay (economy) and under-investing where it\'s the whole ballgame (luxury). Same data, sharper spend.',
                 'nav.back': 'Back',
                 'nav.backToWork': 'Back to all work',
                 'nav.nextProject': 'Next project',
@@ -989,6 +1146,7 @@
                 'modal.ctrip.caption3': 'The four buckets — framing, sound, operation, progress bar',
                 'modal.ctrip.caption4': 'How users actually browse — video/image patterns and the crop logic',
                 'modal.ctrip.section6Title': 'Four things, shipped one by one',
+                'modal.ctrip.section6P1': 'These are the four things I actually shipped — most of the heavy lifting lands on the midscale and luxury tiers above, where video earns its place.',
                 'modal.ctrip.feature1Title': 'Cropping: follow the screen, keep the subject',
                 'modal.ctrip.feature1Desc': 'Same footage, 16:9 for large screens (60% of users) and 2:1 for small ones (40%). We crop width-first and use center-of-gravity detection to hold the subject in frame — don\'t crop the bed out, don\'t crop the sea out the window.',
                 'modal.ctrip.feature2Title': 'Sound: on by default, one tap to kill',
@@ -1001,6 +1159,48 @@
                 'modal.ctrip.reflectionText': 'What stayed with me isn\'t "data matters" — that\'s a nothing sentence. <strong>What buries you is the assumption everyone already agrees on.</strong> Muted-autoplay was industry default, and the data slapped it down: users here didn\'t hate sound at all. Now, any time someone leans on "industry default" to talk me out of something, I go pull the numbers first. One more honest line: the 5.32% wasn\'t one clever move. It was four small ones, stacked, each one measured. On a platform of 400M, what scares me isn\'t shipping something uncool — it\'s getting one detail wrong and having a few hundred million people cover for me the next morning.',
             },
             zh: {
+                'modal.ctrip.tierTitle': '不是每家酒店，都配得上一条视频',
+                'modal.ctrip.tierIntro': '数据确实说视频赢。可携程挂着 150 万家酒店——从 99 块的如家，到 9000 块的安缦。要是我给它们一视同仁地推有声视频，那就是拿一把锤子，去敲三种完全不同的决策脑子。所以这单真正的问题，不是"要不要上视频"，是"谁配得上视频"。',
+                'modal.ctrip.tierBarLabel': '视频占比',
+                'modal.ctrip.tierEcoLabel': '第一档 · 经济型',
+                'modal.ctrip.tierEcoBadge': '📷 图片为主',
+                'modal.ctrip.tierEcoName': '快捷连锁',
+                'modal.ctrip.tierEcoHotel': '汉庭酒店',
+                'modal.ctrip.tierEcoAlbum': '相册 · 24张',
+                'modal.ctrip.tierEcoTap': '松开 → 打开相册',
+                'modal.ctrip.tierMidTap': '松开 → 播放视频',
+                'modal.ctrip.tierLuxTap': '松开 → 酒店亮点',
+                'modal.ctrip.tierEcoTag': '经济型',
+                'modal.ctrip.tierEcoLoc': '★4.3 · 上海人民广场 · 免费取消',
+                'modal.ctrip.tierEcoRoom1': '大床房',
+                'modal.ctrip.tierEcoRoom2': '双床房',
+                'modal.ctrip.tierMidBadge': '🖼️ 图文 + 短视频',
+                'modal.ctrip.tierMidHotel': '全季酒店',
+                'modal.ctrip.tierMidTag': '高档',
+                'modal.ctrip.tierMidLoc': '★4.6 · 上海陆家嘴',
+                'modal.ctrip.tierMidRoom1': '商务大床房',
+                'modal.ctrip.tierLuxHotel': '港岛香格里拉',
+                'modal.ctrip.tierLuxTag': '五星级',
+                'modal.ctrip.tierLuxLoc': '★4.9 · 香港 · 套房 ¥3,800 起',
+                'modal.ctrip.tierEcoBrands': '如家 · 汉庭 · 7天 · 锦江之星',
+                'modal.ctrip.tierEcoPrice': '¥100–300 / 晚',
+                'modal.ctrip.tierEcoStrategy': '<strong>图片优先。</strong>缩略图墙、快速横滑、视频藏在点击之后。',
+                'modal.ctrip.tierEcoReason': '用户是按价格秒决策的，他想确认的是"干净、能住"，不是被贩卖一种情绪。在这儿硬塞视频，等于烧着带宽去打断人家比价。',
+                'modal.ctrip.tierMidLabel': '第二档 · 中高端',
+                'modal.ctrip.tierMidName': '舒适 / 高档',
+                'modal.ctrip.tierMidBrands': '全季 · 亚朵 · 希尔顿欢朋',
+                'modal.ctrip.tierMidPrice': '¥400–1,200 / 晚',
+                'modal.ctrip.tierMidStrategy': '<strong>图文混排。</strong>主图 + 一条 3 秒精选短片当助攻。',
+                'modal.ctrip.tierMidReason': '他们在两三家之间掂量值不值。一条短片子配得上这个位置——但扛主力的还是图。',
+                'modal.ctrip.tierLuxLabel': '第三档 · 奢华',
+                'modal.ctrip.tierLuxSound': '有声播放',
+                'modal.ctrip.tierSource': '酒店图片来自 Booking.com，仅作策略示意。',
+                'modal.ctrip.tierLuxName': '五星级及以上',
+                'modal.ctrip.tierLuxBrands': '丽思卡尔顿 · 华尔道夫 · 安缦 · 半岛',
+                'modal.ctrip.tierLuxPrice': '¥2,000+ / 晚',
+                'modal.ctrip.tierLuxStrategy': '<strong>视频主导。</strong>全屏有声封面，图片退居二线。',
+                'modal.ctrip.tierLuxReason': '到这个价位，卖的不是一张床，是一种向往。只有画面动起来、声音出来，才扛得动那种光影、空间和氛围——图，说不出"住进去什么感觉"。',
+                'modal.ctrip.tierInsight': '这一层，光看平均数是看不出来的。那个 4.8% 的视频点击率是平台均值——十有八九是中高端和奢华那头给拉上去的。按档次拆开，我才不会在视频不值钱的地方（快捷）猛砸，也不会在视频就是全部的地方（奢华）舍不得给。同一份数据，花得更准。',
                 'nav.back': '返回',
                 'nav.backToWork': '回到全部作品',
                 'nav.nextProject': '下一个项目',
@@ -1077,6 +1277,7 @@
                 'modal.ctrip.caption3': '毛病归了四类——画面、声音、操作、进度条',
                 'modal.ctrip.caption4': '用户到底怎么看——视频和图片的浏览、裁剪逻辑',
                 'modal.ctrip.section6Title': '四件事，一件件交付',
+                'modal.ctrip.section6P1': '下面这四件事是我真正落地的——大头的力气，都花在上面说的中高端和奢华两档，视频配得上那个位置。',
                 'modal.ctrip.feature1Title': '裁剪：跟着屏幕走，保主体',
                 'modal.ctrip.feature1Desc': '同一套素材，大屏（六成用户）给 16:9，小屏（四成）给 2:1。裁的时候优先保宽度，靠重心检测把画面主体留在框里——别把床裁没了，也别把窗外的海裁没了。',
                 'modal.ctrip.feature2Title': '声音：默认有声，一键能关',
