@@ -5,8 +5,11 @@
     <link>https://joeyzhao.cc/writing/</link>
     <description>Notes on AI products, complex systems, design judgment, and building in public.</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 30 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 14:00:00 GMT</lastBuildDate>
     <atom:link href="https://joeyzhao.cc/feed.xml" rel="self" type="application/rss+xml"/>
+    <item><title>赌场里没有钟也没有窗，设计师到底在算什么？</title><link>https://joeyzhao.cc/writing/casino-design-four-traps</link><guid>https://joeyzhao.cc/writing/casino-design-four-traps</guid><pubDate>Tue, 14 Jul 2026 14:00:00 GMT</pubDate><description>拆解时间真空、丑地毯、近失效应、筹码去货币化四套留人手法，以及哪几组唬人的精确数字被我删掉了。</description></item>
+    <item><title>宜家为什么让你逛到出不来？</title><link>https://joeyzhao.cc/writing/ikea-one-way-layout</link><guid>https://joeyzhao.cc/writing/ikea-one-way-layout</guid><pubDate>Tue, 14 Jul 2026 13:00:00 GMT</pubDate><description>单向动线、样板间情境、峰终定律都是真的，但「多逛 3 倍」「价值感知提升 40%」这种数字，我重新查了一遍。</description></item>
+    <item><title>苹果店的门去哪了？</title><link>https://joeyzhao.cc/writing/apple-store-invisible-door</link><guid>https://joeyzhao.cc/writing/apple-store-invisible-door</guid><pubDate>Tue, 14 Jul 2026 12:00:00 GMT</pubDate><description>苹果用整面玻璃墙取代了门，把入店阻力压到最低。拆它的入口、橱窗和空间梯度，看能偷多少到数字产品里。</description></item>
     <item><title>AI 时代，设计师不能只卖页面</title><link>https://joeyzhao.cc/writing/ai-designers-cannot-only-sell-screens</link><guid>https://joeyzhao.cc/writing/ai-designers-cannot-only-sell-screens</guid><pubDate>Tue, 30 Jun 2026 12:00:00 GMT</pubDate><description>页面正在变得便宜，判断力却越来越贵。</description></item>
     <item><title>麦当劳的座椅，究竟在优化什么？</title><link>https://joeyzhao.cc/writing/mcdonalds-seating-business-tradeoffs</link><guid>https://joeyzhao.cc/writing/mcdonalds-seating-business-tradeoffs</guid><pubDate>Tue, 30 Jun 2026 11:00:00 GMT</pubDate><description>快餐空间如何平衡舒适、效率与品牌体验。</description></item>
     <item><title>从一个 Brief 到 11 个平台：我如何设计「一鱼多吃」</title><link>https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms</link><guid>https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms</guid><pubDate>Tue, 30 Jun 2026 10:00:00 GMT</pubDate><description>AI 内容增长工作台的产品决策与 Build in Public 复盘。</description></item>

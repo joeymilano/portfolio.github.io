@@ -13,6 +13,9 @@ Canonical site: https://joeyzhao.cc/
 - Building Finfold, an AI content-growth workspace: https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms
 - Elevator mirrors and inclusive design: https://joeyzhao.cc/en/writing/elevator-mirrors-four-problems
 - Portfolios as evidence of design judgment: https://joeyzhao.cc/en/writing/portfolio-as-evidence
+- Casino design and spatial psychology: https://joeyzhao.cc/en/writing/casino-design-four-traps
+- IKEA one-way layout and the honest re-check of a viral claim: https://joeyzhao.cc/en/writing/ikea-one-way-layout
+- Apple Store's invisible door and retail space philosophy: https://joeyzhao.cc/en/writing/apple-store-invisible-door
 
 ## Selected work
 
