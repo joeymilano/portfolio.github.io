@@ -133,6 +133,17 @@ button { font: inherit; }
 .aside-links a, .aside-links button { padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); color: var(--muted); background: transparent; text-align: left; text-decoration: none; cursor: pointer; font-size: 12px; }
 .aside-links a:hover, .aside-links button:hover { color: var(--text); }
 .channel-id { overflow-wrap: anywhere; }
+
+/* share / follow icons */
+.aside-links a, .aside-links button { display:flex; align-items:center; gap:11px; }
+.aside-links a::before, .aside-links button::before { content:""; width:15px; height:15px; flex:0 0 auto; background-color:currentColor; opacity:.82; -webkit-mask-image:var(--ic); mask-image:var(--ic); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center; transition:opacity .2s; }
+.aside-links a:hover::before, .aside-links button:hover::before { opacity:1; }
+.aside-links [data-share-linkedin]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.27c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.38h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68 1.69 1.69 0 00-3.37 0c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.38H5.5v8.38h2.77z'/%3E%3C/svg%3E");}
+.aside-links [data-share-x]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E");}
+.aside-links [data-copy-link]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 14.5a3.5 3.5 0 010-5l3-3a3.5 3.5 0 015 5l-1.5 1.5a.7.7 0 01-1-1l1.5-1.5a2.1 2.1 0 00-3-3l-3 3a2.1 2.1 0 000 3 .7.7 0 01-1 1zm5-5a3.5 3.5 0 010 5l-3 3a3.5 3.5 0 01-5-5l1.5-1.5a.7.7 0 011 1L7 13.5a2.1 2.1 0 003 3l3-3a2.1 2.1 0 000-3 .7.7 0 011-1z'/%3E%3C/svg%3E");}
+.aside-links a[href*="JoeyKonad"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4 0-8 2-8 4.5V20h16v-1.5C20 16 16 14 12 14z'/%3E%3C/svg%3E");}
+.aside-links a[href*="xiaohongshu"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 2h12a2 2 0 012 2v17.5a.6.6 0 01-.94.5L12 17l-7.06 5A.6.6 0 014 21.5V4a2 2 0 012-2zm2.5 5a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3.5a.5.5 0 000 1h7a.5.5 0 000-1h-7z'/%3E%3C/svg%3E");}
+.aside-links .channel-id{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5.14v13.72a1 1 0 001.53.85l10.5-6.86a1 1 0 000-1.7L9.53 4.29A1 1 0 008 5.14z'/%3E%3C/svg%3E");}
 .references { margin-top: 54px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
 
 .continue { padding: 70px 0 100px; border-top: 1px solid var(--line); }
