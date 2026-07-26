@@ -7,12 +7,12 @@
 
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-import { createScene } from './scene.js';
-import { createCar } from './car.js';
-import { createCluster } from './cluster.js';
-import { createConsole } from './console.js';
-import { createAutonomous } from './autonomous.js';
-import { createAudio } from './audio.js';
+import { createScene } from './scene.js?v=20260726-3';
+import { createCar } from './car.js?v=20260726-3';
+import { createCluster } from './cluster.js?v=20260726-3';
+import { createConsole } from './console.js?v=20260726-3';
+import { createAutonomous } from './autonomous.js?v=20260726-3';
+import { createAudio } from './audio.js?v=20260726-3';
 
 const stage = document.getElementById('stage');
 const layers = {
@@ -218,6 +218,16 @@ setInterval(tickHudClock, 10_000);
    The intro film is always muted. The launch gesture is the only audio
    unlock: it brings the soundtrack in gently at 18% master gain. */
 const intro = document.getElementById('intro');
+const introFilm = document.getElementById('intro-film');
+if (introFilm) {
+  // The film is atmosphere, never an audio source. Slowing the real footage
+  // keeps the title and project context visually dominant.
+  introFilm.defaultMuted = true;
+  introFilm.muted = true;
+  introFilm.volume = 0;
+  introFilm.playbackRate = 0.42;
+  introFilm.play().catch(() => {});
+}
 function launchExperience() {
   audio.play(0.18);
   intro.classList.add('gone');

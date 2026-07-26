@@ -15,6 +15,7 @@
 
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const CYAN = 0x38f0ff, AMBER = 0xffb44d, VIOLET = 0x7b5bff, GREEN = 0x4dff9e;
 
@@ -169,6 +170,91 @@ export function createAutonomous(view, layer, car) {
   const group = new THREE.Group();
   group.visible = false;
   view.scene.add(group);
+
+  /* ---------- authored city kit ----------
+     Kenney's CC0 City Kit replaces the empty procedural void with a real
+     architectural streetscape. Models are loaded once, cloned, then graded
+     into the cool AURA night palette while retaining their authored geometry. */
+  const city = new THREE.Group();
+  city.name = 'AURA_CITY_CC0';
+  group.add(city);
+  const cityLoader = new GLTFLoader();
+  const cityModels = [
+    'building-a.glb',
+    'building-f.glb',
+    'building-j.glb',
+    'building-skyscraper-a.glb',
+    'building-skyscraper-b.glb',
+    'building-skyscraper-c.glb',
+    'building-skyscraper-e.glb'
+  ];
+  const cityCache = new Map();
+
+  function loadCityModel(file) {
+    if (!cityCache.has(file)) {
+      cityCache.set(file, cityLoader.loadAsync(`assets/models/city/${file}`).then((gltf) => gltf.scene));
+    }
+    return cityCache.get(file);
+  }
+
+  function gradeCityModel(model) {
+    model.traverse((object) => {
+      if (!object.isMesh) return;
+      object.castShadow = true;
+      object.receiveShadow = true;
+      const source = Array.isArray(object.material) ? object.material : [object.material];
+      const materials = source.map((material) => {
+        const graded = material.clone();
+        if (graded.color) {
+          graded.color.multiplyScalar(0.18);
+          graded.color.lerp(new THREE.Color(0x07131b), 0.48);
+        }
+        if ('roughness' in graded) graded.roughness = Math.max(0.66, graded.roughness);
+        if ('metalness' in graded) graded.metalness = Math.min(0.28, graded.metalness);
+        if ('emissive' in graded) {
+          graded.emissive = new THREE.Color(0x031018);
+          graded.emissiveIntensity = 0.22;
+        }
+        return graded;
+      });
+      object.material = Array.isArray(object.material) ? materials : materials[0];
+    });
+  }
+
+  const cityPlacements = [];
+  for (let i = 0; i < 12; i++) {
+    for (const side of [-1, 1]) {
+      cityPlacements.push({
+        side,
+        z: -4 - i * 12.2 - (side > 0 ? 4.5 : 0),
+        height: 9 + ((i * 7 + (side > 0 ? 5 : 0)) % 14),
+        setback: 17.5 + ((i + (side > 0 ? 1 : 0)) % 3) * 2.4,
+        file: cityModels[(i * 2 + (side > 0 ? 3 : 0)) % cityModels.length]
+      });
+    }
+  }
+
+  cityPlacements.forEach((placement) => {
+    loadCityModel(placement.file).then((source) => {
+      const building = source.clone(true);
+      gradeCityModel(building);
+      const sourceBox = new THREE.Box3().setFromObject(building);
+      const sourceSize = sourceBox.getSize(new THREE.Vector3());
+      const scale = placement.height / Math.max(0.01, sourceSize.y);
+      building.scale.setScalar(scale);
+      building.rotation.y = placement.side > 0 ? -Math.PI / 2 : Math.PI / 2;
+      building.updateMatrixWorld(true);
+      const fittedBox = new THREE.Box3().setFromObject(building);
+      building.position.set(
+        placement.side * placement.setback,
+        -fittedBox.min.y,
+        placement.z
+      );
+      city.add(building);
+    }).catch((error) => {
+      console.warn(`City model failed to load: ${placement.file}`, error);
+    });
+  });
 
   /* ---------- road ---------- */
   const road = new THREE.Mesh(

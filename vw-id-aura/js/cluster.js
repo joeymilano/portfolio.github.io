@@ -122,82 +122,13 @@ export function createCluster(layer) {
     state.modePulse = Math.max(0, state.modePulse - dt * 1.4);
   }
 
-  function drawBackdrop(w, h, mode) {
-    const background = ctx.createRadialGradient(w * 0.5, h * 0.46, 10, w * 0.5, h * 0.5, w * 0.74);
-    background.addColorStop(0, '#0a151c');
-    background.addColorStop(0.42, '#050b11');
-    background.addColorStop(1, '#010306');
-    ctx.fillStyle = background;
-    ctx.fillRect(0, 0, w, h);
-
-    const horizonGlow = ctx.createLinearGradient(0, h * 0.28, 0, h * 0.72);
-    horizonGlow.addColorStop(0, 'rgba(0,0,0,0)');
-    horizonGlow.addColorStop(0.48, mode.soft);
-    horizonGlow.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = horizonGlow;
-    ctx.fillRect(0, h * 0.2, w, h * 0.6);
-
-    ctx.strokeStyle = 'rgba(140,196,214,.055)';
-    ctx.lineWidth = 1;
-    const horizon = h * 0.43;
-    for (let i = 0; i < 13; i++) {
-      const y = horizon + Math.pow(i / 12, 1.7) * h * 0.48;
-      ctx.beginPath();
-      ctx.moveTo(w * 0.18, y);
-      ctx.lineTo(w * 0.82, y);
-      ctx.stroke();
-    }
-  }
-
-  function drawLandscape(w, h) {
-    const horizon = h * 0.43;
-    const drift = Math.sin(state.time * 0.12) * 18;
-    const left = [];
-    const right = [];
-    for (let i = 0; i <= 24; i++) {
-      const x = i * w / 24;
-      const ridge = horizon - 16 - Math.sin(i * 0.72 + 0.8) * 18 - Math.sin(i * 0.23) * 23;
-      if (x < w / 2) left.push([x + drift, ridge]);
-      else right.push([x + drift, ridge]);
-    }
-    line(left, 'rgba(111,169,184,.11)', 1);
-    line(right, 'rgba(111,169,184,.11)', 1);
-    line([[0, horizon + 6], [w, horizon + 6]], 'rgba(98,216,238,.08)', 1);
-  }
-
   function drawRoad(w, h, mode) {
     const vx = w * 0.5;
     const vy = h * 0.435;
     const bottom = h * 0.91;
 
-    const roadGradient = ctx.createLinearGradient(0, vy, 0, bottom);
-    roadGradient.addColorStop(0, 'rgba(19,31,37,.34)');
-    roadGradient.addColorStop(1, 'rgba(2,5,8,.92)');
-    ctx.fillStyle = roadGradient;
-    ctx.beginPath();
-    ctx.moveTo(vx - w * 0.018, vy);
-    ctx.lineTo(w * 0.24, bottom);
-    ctx.lineTo(w * 0.76, bottom);
-    ctx.lineTo(vx + w * 0.018, vy);
-    ctx.closePath();
-    ctx.fill();
-
-    const dashOffset = (state.time * 0.2) % 1;
-    [-1, 1].forEach((side) => {
-      for (let i = 0; i < 9; i++) {
-        const p0 = ((i / 9 + dashOffset) % 1);
-        const p1 = Math.min(1, p0 + 0.045 + p0 * 0.04);
-        const y0 = vy + Math.pow(p0, 1.55) * (bottom - vy);
-        const y1 = vy + Math.pow(p1, 1.55) * (bottom - vy);
-        const x0 = vx + side * Math.pow(p0, 1.48) * w * 0.12;
-        const x1 = vx + side * Math.pow(p1, 1.48) * w * 0.12;
-        line([[x0, y0], [x1, y1]], 'rgba(205,232,236,.33)', 1.2 + p0 * 1.8);
-      }
-    });
-
-    line([[vx - w * 0.018, vy], [w * 0.24, bottom]], 'rgba(98,216,238,.13)', 1);
-    line([[vx + w * 0.018, vy], [w * 0.76, bottom]], 'rgba(98,216,238,.13)', 1);
-
+    // The underlying world is licensed road photography. Canvas is reserved
+    // for navigation and ADAS information, rather than generating scenery.
     ctx.save();
     ctx.beginPath();
     ctx.moveTo(vx, bottom);
@@ -294,8 +225,6 @@ export function createCluster(layer) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
     const mode = MODES[state.mode];
-    drawBackdrop(w, h, mode);
-    drawLandscape(w, h);
     drawRoad(w, h, mode);
     drawTurnCue(w, h, mode);
     drawMetrics(w, h, mode);

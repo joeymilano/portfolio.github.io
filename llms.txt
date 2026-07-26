@@ -1,6 +1,6 @@
 # Joey Zhao
 
-> Personal portfolio and independent writing by Joey Zhao, a senior product designer in Shanghai focused on AI products, B2B SaaS, complex systems, and growth design.
+> Personal portfolio and independent writing by Joey Zhao, a senior AI product designer in Shanghai focused on trustworthy AI products, enterprise SaaS, complex systems, and growth design.
 
 Canonical site: https://joeyzhao.cc/
 
@@ -28,6 +28,7 @@ Canonical site: https://joeyzhao.cc/
 - Crypto Copilot, visual algorithmic trading: https://joeyzhao.cc/cryptocopilot
 - WeNeed, short-video gifting community: https://joeyzhao.cc/weneed
 - Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract
+- ID.AURA, immersive Volkswagen HMI concept: https://joeyzhao.cc/vw-id-aura/
 
 ## Identity
 

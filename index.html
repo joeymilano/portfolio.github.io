@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joey Zhao | Sr. Product Designer</title>
-    <meta name="description" content="Joey Zhao is a senior product designer in Shanghai focused on AI products, B2B SaaS, and growth design. Case studies include enterprise platforms, design systems, and fintech experiences.">
+    <title>AI Product Designer &amp; Enterprise UX | Joey Zhao</title>
+    <meta name="description" content="Joey Zhao is a senior AI product designer in Shanghai specializing in enterprise SaaS, trustworthy AI experiences, design systems, and 0-to-1 products. Explore measurable product design case studies.">
     <meta name="keywords" content="Product Designer, AI Product Design, B2B SaaS, Shanghai Designer, UX Portfolio, Design System, Fintech UX">
     <meta name="robots" content="index, follow">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Joey Zhao | Product Designer">
-    <meta property="og:description" content="AI product, B2B SaaS, and growth-focused case studies with measurable impact.">
+    <meta property="og:title" content="AI Product Designer &amp; Enterprise UX | Joey Zhao">
+    <meta property="og:description" content="Senior AI product designer turning complex enterprise workflows and uncertain AI outputs into products people trust.">
     <meta property="og:url" content="https://joeyzhao.cc/">
     <meta property="og:image" content="https://joeyzhao.cc/video/hero-poster.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Joey Zhao | Product Designer">
-    <meta name="twitter:description" content="AI product, B2B SaaS, and growth-focused case studies with measurable impact.">
+    <meta name="twitter:title" content="AI Product Designer &amp; Enterprise UX | Joey Zhao">
+    <meta name="twitter:description" content="Senior AI product designer turning complex enterprise workflows and uncertain AI outputs into products people trust.">
     <meta name="twitter:image" content="https://joeyzhao.cc/video/hero-poster.jpg">
     <link rel="canonical" href="https://joeyzhao.cc/">
     <link rel="alternate" type="application/rss+xml" title="Joey Zhao Writing" href="https://joeyzhao.cc/feed.xml">
@@ -27,30 +27,53 @@
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Joey Zhao",
-            "jobTitle": "Senior Product Designer",
-            "url": "https://joeyzhao.cc/",
-            "image": "https://joeyzhao.cc/video/hero-poster.jpg",
-            "email": "mailto:super666joey@gmail.com",
-            "sameAs": [
-                "https://www.linkedin.com/in/joey-zhao-b8576b91/",
-                "https://x.com/JoeyKonad",
-                "https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021",
-                "https://github.com/joeymilano"
-            ],
-            "knowsAbout": [
-                "AI Product Design",
-                "B2B SaaS",
-                "Design Systems",
-                "UX Strategy",
-                "Growth Design"
-            ],
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Shanghai",
-                "addressCountry": "CN"
-            }
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "@id": "https://joeyzhao.cc/#website",
+                    "url": "https://joeyzhao.cc/",
+                    "name": "Joey Zhao — AI Product Designer",
+                    "inLanguage": ["en", "zh-CN"],
+                    "publisher": {"@id": "https://joeyzhao.cc/#person"}
+                },
+                {
+                    "@type": "ProfilePage",
+                    "@id": "https://joeyzhao.cc/#profile",
+                    "url": "https://joeyzhao.cc/",
+                    "name": "Joey Zhao — AI Product Designer & Enterprise UX",
+                    "isPartOf": {"@id": "https://joeyzhao.cc/#website"},
+                    "mainEntity": {"@id": "https://joeyzhao.cc/#person"}
+                },
+                {
+                    "@type": "Person",
+                    "@id": "https://joeyzhao.cc/#person",
+                    "name": "Joey Zhao",
+                    "jobTitle": "Senior AI Product Designer",
+                    "description": "Senior AI product designer specializing in enterprise SaaS, trustworthy AI experiences, design systems, and 0-to-1 products.",
+                    "url": "https://joeyzhao.cc/",
+                    "image": "https://joeyzhao.cc/video/hero-poster.jpg",
+                    "email": "mailto:super666joey@gmail.com",
+                    "sameAs": [
+                        "https://www.linkedin.com/in/joey-zhao-b8576b91/",
+                        "https://x.com/JoeyKonad",
+                        "https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021",
+                        "https://github.com/joeymilano"
+                    ],
+                    "knowsAbout": [
+                        "AI Product Design",
+                        "Enterprise UX",
+                        "B2B SaaS",
+                        "Design Systems",
+                        "UX Strategy",
+                        "Growth Design"
+                    ],
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Shanghai",
+                        "addressCountry": "CN"
+                    }
+                }
+            ]
         }
     </script>
     <style>
@@ -1803,6 +1826,9 @@
                 'project.ctrip.tag': 'Travel · C2C',
                 'project.ctrip.title': 'Ctrip Hotel',
                 'project.ctrip.subtitle': 'Pick a hotel by video, not by stock photos.',
+                'project.idaura.tag': 'HMI Concept · WebGL · 2026',
+                'project.idaura.subtitle': 'A real-time Volkswagen HMI concept — showroom, cluster, console & autonomous perception in one WebGL cockpit.',
+                'project.idaura.metric': 'Volkswagen · 4 Live Modes',
                 'project.billvampire.tag': 'AI Side Project · 2025',
                 'project.billvampire.title': 'Bill Vampire',
                 'project.billvampire.subtitle': 'Catch the subscriptions quietly draining your account.',
@@ -2730,6 +2756,15 @@
             return sysLang.startsWith('zh') ? 'zh' : 'en';
         }
         let currentLang = detectLang();
+        const defaultEnglish = new Map(
+            Array.from(document.querySelectorAll('[data-i18n]')).map(el => {
+                const key = el.getAttribute('data-i18n');
+                const value = el.getAttribute('data-i18n-html') !== null
+                    ? el.innerHTML
+                    : el.textContent;
+                return [key, value];
+            })
+        );
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -2738,11 +2773,14 @@
             
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
+                const value = translations[lang]?.[key]
+                    ?? translations.en?.[key]
+                    ?? defaultEnglish.get(key);
+                if (value !== undefined) {
                     if (el.getAttribute('data-i18n-html') !== null) {
-                        el.innerHTML = translations[lang][key];
+                        el.innerHTML = value;
                     } else {
-                        el.textContent = translations[lang][key];
+                        el.textContent = value;
                     }
                 }
             });

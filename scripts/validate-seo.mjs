@@ -18,11 +18,21 @@ const casePages = [
 ];
 
 const articleSlugs = [
+  "casino-design-four-traps",
+  "ikea-one-way-layout",
+  "apple-store-invisible-door",
   "ai-designers-cannot-only-sell-screens",
   "mcdonalds-seating-business-tradeoffs",
   "finfold-one-brief-eleven-platforms",
   "elevator-mirrors-four-problems",
   "portfolio-as-evidence",
+];
+
+const intentionallyNonIndexablePages = [
+  "yiyuduochi.html",
+  "writing/repurpose-one-brief-eleven-platforms.html",
+  "en/writing/repurpose-one-brief-eleven-platforms.html",
+  "vw-id-aura/model-test.html",
 ];
 
 function publicUrlForFile(file) {
@@ -38,6 +48,12 @@ const publicPages = [
     lang: "en",
     schema: "CreativeWork",
   })),
+  {
+    file: "vw-id-aura/index.html",
+    url: `${origin}/vw-id-aura/`,
+    lang: "en",
+    schema: "CreativeWork",
+  },
   {
     file: "writing/index.html",
     url: `${origin}/writing/`,
@@ -132,7 +148,9 @@ function localReferenceExists(target, htmlFile) {
   if (/^(?:https?:|mailto:|tel:|data:|#|\/\/)/.test(target)) return true;
   const cleanTarget = decodeURIComponent(target.split("#")[0].split("?")[0]);
   if (!cleanTarget) return true;
-  const resolved = path.resolve(root, path.dirname(htmlFile), cleanTarget);
+  const resolved = cleanTarget.startsWith("/")
+    ? path.join(root, cleanTarget.slice(1))
+    : path.resolve(root, path.dirname(htmlFile), cleanTarget);
   return fs.existsSync(resolved) || (!path.extname(cleanTarget) && fs.existsSync(`${resolved}.html`));
 }
 
@@ -268,6 +286,16 @@ for (const page of publicPages) {
     failures.push(`sitemap.xml: missing ${page.url}`);
   }
   validateLocalReferences(html, page.file);
+}
+
+for (const file of intentionallyNonIndexablePages) {
+  const html = read(file);
+  requirePattern(
+    html,
+    /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex[^"']*["']/i,
+    "noindex directive",
+    file,
+  );
 }
 
 const robots = read("robots.txt");

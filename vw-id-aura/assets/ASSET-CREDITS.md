@@ -1,0 +1,33 @@
+# ID.AURA visual asset credits
+
+The experience uses human-authored photography, PBR materials and 3D models.
+No generative imagery is used in the Showroom, Cluster or Autonomous worlds.
+
+## Showroom exhibition wall
+
+- **An expansive indoor stage with dramatic lighting setup**
+- Photo by Dawn Lio on Pexels
+- Source: https://www.pexels.com/photo/stage-with-lightings-2177813/
+- License: Pexels License
+
+## Cluster road world
+
+- **Driving through city tunnel at night with GPS**
+- Photo by Allen Boguslavsky on Pexels
+- Source: https://www.pexels.com/photo/driving-through-city-tunnel-at-night-with-gps-32560104/
+- License: Pexels License
+
+## Showroom floor
+
+- **Painted Concrete 02**
+- Material by Rob Tuytel on Poly Haven
+- Source: https://polyhaven.com/a/painted_concrete_02
+- License: CC0
+
+## Autonomous city
+
+- **City Kit (Commercial), version 2.1**
+- Models by Kenney
+- Source: https://kenney.nl/assets/city-kit-commercial
+- License: CC0 (see `models/city/License.txt`)
+

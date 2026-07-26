@@ -68,7 +68,9 @@ export function createScene(container) {
     if (premiereGroup) premiereGroup.visible = showroomActive && isPremiere;
     if (showroomActive) {
       scene.background = isPremiere ? new THREE.Color(0x02050a) : tex;
-      scene.backgroundBlurriness = isPremiere ? 0 : 0.08;
+      // Keep every authored panorama pin-sharp. The previous 0.08 setting
+      // softened distant architecture enough to read like a low-res asset.
+      scene.backgroundBlurriness = 0;
       scene.fog = isPremiere ? new THREE.FogExp2(0x02050a, 0.024) : null;
     }
     sceneIdx = idx;
@@ -102,19 +104,35 @@ export function createScene(container) {
   rim.position.set(-8, 5, -7);
   scene.add(rim);
 
-  /* ---------- showroom world: satin floor + premiere architecture ---------- */
+  /* ---------- showroom world: authored PBR floor + premiere architecture ---------- */
   const showroomGroup = new THREE.Group();
   scene.add(showroomGroup);
+
+  const textureLoader = new THREE.TextureLoader();
+  const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
+  const floorMap = textureLoader.load('assets/materials/painted-concrete-02/diffuse.jpg');
+  const floorRoughness = textureLoader.load('assets/materials/painted-concrete-02/roughness.jpg');
+  const floorNormal = textureLoader.load('assets/materials/painted-concrete-02/normal-gl.jpg');
+  floorMap.colorSpace = THREE.SRGBColorSpace;
+  [floorMap, floorRoughness, floorNormal].forEach((texture) => {
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(14, 14);
+    texture.anisotropy = maxAnisotropy;
+  });
 
   const floor = new THREE.Mesh(
     new THREE.CircleGeometry(60, 72),
     new THREE.MeshPhysicalMaterial({
-      color: 0x070a0f,
-      roughness: 0.68,
-      metalness: 0.18,
-      clearcoat: 0.28,
-      clearcoatRoughness: 0.72,
-      envMapIntensity: 0.34
+      map: floorMap,
+      roughnessMap: floorRoughness,
+      normalMap: floorNormal,
+      normalScale: new THREE.Vector2(0.32, 0.32),
+      color: 0x20262b,
+      roughness: 0.9,
+      metalness: 0.04,
+      clearcoat: 0.06,
+      clearcoatRoughness: 0.94,
+      envMapIntensity: 0.12
     })
   );
   floor.rotation.x = -Math.PI / 2;
@@ -156,30 +174,19 @@ export function createScene(container) {
   backWall.position.set(0, 3.55, -8.2);
   premiereGroup.add(backWall);
 
-  // The premiere wall is driven by licensed real night-driving footage.
-  // Keeping it as a VideoTexture avoids the synthetic "procedural poster"
-  // look while making the reveal film flow directly into the auto-show set.
-  const ledVideo = document.createElement('video');
-  ledVideo.src = 'assets/video/aura-night-drive.mp4';
-  ledVideo.muted = true;
-  ledVideo.loop = true;
-  ledVideo.playsInline = true;
-  ledVideo.preload = 'auto';
-  ledVideo.autoplay = true;
-  ledVideo.play().catch(() => {});
-
-  const ledTex = new THREE.VideoTexture(ledVideo);
+  // Real exhibition photography replaces the moving tunnel wall. It reads as
+  // an automotive premiere, stays sharp while orbiting, and does not compete
+  // with the concept car through motion blur.
+  const ledTex = textureLoader.load('assets/art/showroom-auto-show.jpg');
   ledTex.colorSpace = THREE.SRGBColorSpace;
-  ledTex.minFilter = THREE.LinearFilter;
-  ledTex.magFilter = THREE.LinearFilter;
-  ledTex.generateMipmaps = false;
-  ledTex.repeat.set(1, 0.708);
-  ledTex.offset.set(0, 0.146);
+  ledTex.anisotropy = maxAnisotropy;
+  ledTex.repeat.set(1, 0.6);
+  ledTex.offset.set(0, 0.2);
   const ledWall = new THREE.Mesh(
     new THREE.PlaneGeometry(13.8, 5.5),
     new THREE.MeshBasicMaterial({
       map: ledTex,
-      color: 0x8aa5aa,
+      color: 0x60717a,
       toneMapped: false
     })
   );
@@ -272,7 +279,6 @@ export function createScene(container) {
     showroomActive = on;
     showroomGroup.visible = on;
     if (!on) {
-      ledVideo.pause();
       scene.background = new THREE.Color(0x010205);
       scene.backgroundBlurriness = 0;
       scene.fog = new THREE.FogExp2(0x010205, 0.018);
@@ -280,7 +286,6 @@ export function createScene(container) {
       bloom.strength = 0.13;
       return;
     }
-    ledVideo.play().catch(() => {});
     renderer.toneMappingExposure = 0.68;
     bloom.strength = 0.1;
     if (sceneIdx >= 0 && sceneTex[sceneIdx]) applySceneTexture(sceneTex[sceneIdx], sceneIdx);
