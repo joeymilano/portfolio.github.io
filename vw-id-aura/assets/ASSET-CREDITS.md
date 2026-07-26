@@ -31,11 +31,18 @@ No generative imagery is used in the Showroom, Cluster or Autonomous worlds.
 - Source: https://kenney.nl/assets/city-kit-commercial
 - License: CC0 (see `models/city/License.txt`)
 
+## Autonomous ambient traffic
+
+- **Car Kit, version 3.1**
+- Sedan, hatchback, SUV and van models by Kenney
+- Source: https://kenney.nl/assets/car-kit
+- License: CC0 (see `models/traffic/License.txt`)
+
 ## Autonomous pedestrian
 
-- **Michelle**
-- Rigged human character distributed by three-ws
-- Source: https://huggingface.co/three-ws/avatars/blob/main/michelle.glb
+- **CZ casual avatar / canonical 53-bone rig**
+- Rigged Avaturn character distributed by three-ws
+- Source: https://huggingface.co/three-ws/avatars/blob/main/cz.glb
 - License: MIT (see `models/pedestrian/LICENSE.txt`)
 
 ## Interface iconography

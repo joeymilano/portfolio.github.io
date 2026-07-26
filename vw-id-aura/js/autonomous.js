@@ -6,11 +6,10 @@
    and distance labels, a crossing pedestrian, radar FOV fan
    and a flowing planned-path ribbon. All live, all reactive.
 
-   Traffic + ego now reuse the real concept-car GLB (via
-   car.cloneCar): sedan / SUV / VAN silhouettes from the same
-   fitted PBR model, with independent paint, wheel spin,
-   suspension bob, lane-change blinkers and brake flare.
-   The procedural miniCar stays as a pre-load stand-in only.
+   The ego remains the authored ID.AURA concept GLB. Ambient traffic uses
+   Kenney's CC0 production-car family instead, with quieter materials and
+   conventional paired lamps so the hero is unmistakable at a glance.
+   The procedural miniCar stays as a short pre-load stand-in only.
    ============================================================ */
 
 import * as THREE from 'three';
@@ -18,6 +17,31 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const CYAN = 0x38f0ff, AMBER = 0xffb44d, VIOLET = 0x7b5bff, GREEN = 0x4dff9e;
+const CROSSWALK_Z = -14;
+const PED_START_X = -6.7;
+const PED_END_X = 6.7;
+const PED_WAIT_SECONDS = 2.8;
+const PED_CROSS_SECONDS = 9.8;
+const SIM_CYCLE_SECONDS = 18;
+const WHEEL_RADIUS = 0.36;
+const TRAFFIC_DIMENSIONS = {
+  compact: { w: 1.82, h: 1.42, d: 4.05 },
+  sedan: { w: 1.88, h: 1.44, d: 4.55 },
+  suv: { w: 1.98, h: 1.68, d: 4.62 },
+  van: { w: 2.02, h: 1.92, d: 4.82 }
+};
+const TRAFFIC_MODEL_FILES = {
+  compact: 'hatchback-sports.glb',
+  sedan: 'sedan.glb',
+  suv: 'suv.glb',
+  van: 'van.glb'
+};
+
+const clamp01 = (value) => Math.min(1, Math.max(0, value));
+const smoothstep = (value) => {
+  const x = clamp01(value);
+  return x * x * (3 - 2 * x);
+};
 
 /* ---------- helpers ---------- */
 function labelSprite(text, color = '#38f0ff') {
@@ -354,8 +378,11 @@ export function createAutonomous(view, layer, car) {
   }
   group.add(portalGroup);
 
-  /* ---------- vehicle factory: GLB clone, miniCar fallback ---------- */
-  function buildVehicle(spec) {
+  /* ---------- vehicle hierarchy ----------
+     Hero and traffic intentionally use different asset families. ID.AURA keeps
+     its concept-car surfacing; surrounding vehicles use conventional CC0
+     silhouettes, matte road-going materials and separate paired lamps. */
+  function buildHeroVehicle(spec) {
     const useGlb = !!(car && car.state && car.state.loadedModel && typeof car.cloneCar === 'function');
     let mesh, wheelPivots = [], brakeMats = [], signalMats = [];
     if (useGlb) {
@@ -367,15 +394,149 @@ export function createAutonomous(view, layer, car) {
     } else {
       mesh = miniCar(spec.paint);
     }
-    const dims = spec.shape === 'van' ? { w: 2.4, h: 1.55, d: 5.0 }
-              : spec.shape === 'suv' ? { w: 2.15, h: 1.35, d: 4.6 }
-              : { w: 2.0, h: 0.95, d: 4.4 };
+    const dims = { w: 2.0, h: 0.95, d: 4.4 };
     return { mesh, wheelPivots, brakeMats, signalMats, dims };
+  }
+
+  const trafficLoader = new GLTFLoader();
+  const trafficCache = new Map();
+
+  function loadTrafficSource(shape) {
+    const file = TRAFFIC_MODEL_FILES[shape] || TRAFFIC_MODEL_FILES.sedan;
+    if (!trafficCache.has(file)) {
+      trafficCache.set(
+        file,
+        trafficLoader
+          .loadAsync(`assets/models/traffic/${file}`)
+          .then((gltf) => gltf.scene)
+      );
+    }
+    return trafficCache.get(file);
+  }
+
+  function buildTrafficVehicle(spec, source) {
+    const dims = TRAFFIC_DIMENSIONS[spec.shape] || TRAFFIC_DIMENSIONS.sedan;
+    const model = source.clone(true);
+    const wheelPivots = [];
+    const paintTint = new THREE.Color(spec.paint);
+
+    model.traverse((object) => {
+      if (/^wheel/i.test(object.name)) wheelPivots.push(object);
+      if (!object.isMesh) return;
+      object.castShadow = true;
+      object.receiveShadow = true;
+      const isWheel = /wheel/i.test(object.name);
+      const sourceMaterials = Array.isArray(object.material)
+        ? object.material
+        : [object.material];
+      const materials = sourceMaterials.map((material) => {
+        const roadMaterial = material.clone();
+        if (roadMaterial.color) {
+          roadMaterial.color.multiplyScalar(isWheel ? 0.46 : 0.68);
+          if (!isWheel) roadMaterial.color.lerp(paintTint, 0.16);
+        }
+        if ('roughness' in roadMaterial) {
+          roadMaterial.roughness = isWheel
+            ? Math.max(0.76, roadMaterial.roughness)
+            : Math.max(0.58, roadMaterial.roughness);
+        }
+        if ('metalness' in roadMaterial) {
+          roadMaterial.metalness = isWheel
+            ? Math.min(0.25, roadMaterial.metalness)
+            : Math.min(0.32, roadMaterial.metalness);
+        }
+        if ('envMapIntensity' in roadMaterial) {
+          roadMaterial.envMapIntensity = isWheel ? 0.26 : 0.42;
+        }
+        return roadMaterial;
+      });
+      object.material = Array.isArray(object.material) ? materials : materials[0];
+    });
+
+    // Kenney vehicles face +Z. ID.AURA and the simulation face -Z.
+    model.rotation.y = Math.PI;
+    model.updateMatrixWorld(true);
+    const sourceBounds = new THREE.Box3().setFromObject(model);
+    const sourceSize = sourceBounds.getSize(new THREE.Vector3());
+    model.scale.setScalar(dims.d / Math.max(0.01, sourceSize.z));
+    model.updateMatrixWorld(true);
+    const fittedBounds = new THREE.Box3().setFromObject(model);
+    const fittedCenter = fittedBounds.getCenter(new THREE.Vector3());
+    model.position.set(-fittedCenter.x, -fittedBounds.min.y, -fittedCenter.z);
+
+    const mesh = new THREE.Group();
+    mesh.name = `ORDINARY_TRAFFIC_${spec.shape.toUpperCase()}`;
+    mesh.add(model);
+
+    // Conventional lamps deliberately avoid the hero's full-width light bar.
+    const brakeMaterial = new THREE.MeshStandardMaterial({
+      color: 0x5f080b,
+      emissive: 0xff1c24,
+      emissiveIntensity: 1.1,
+      roughness: 0.5
+    });
+    const headMaterial = new THREE.MeshStandardMaterial({
+      color: 0xc7d5d7,
+      emissive: 0xb9e7ef,
+      emissiveIntensity: 0.72,
+      roughness: 0.38
+    });
+    const signalMaterial = new THREE.MeshStandardMaterial({
+      color: 0x5a3108,
+      emissive: 0xff9a32,
+      emissiveIntensity: 0.2,
+      roughness: 0.52
+    });
+    const lampGeometry = new THREE.BoxGeometry(0.23, 0.1, 0.045);
+    for (const side of [-1, 1]) {
+      const brake = new THREE.Mesh(lampGeometry, brakeMaterial);
+      brake.position.set(side * dims.w * 0.34, dims.h * 0.48, dims.d * 0.495);
+      mesh.add(brake);
+      const head = new THREE.Mesh(lampGeometry, headMaterial);
+      head.position.set(side * dims.w * 0.34, dims.h * 0.46, -dims.d * 0.495);
+      mesh.add(head);
+      const signal = new THREE.Mesh(
+        new THREE.BoxGeometry(0.1, 0.075, 0.05),
+        signalMaterial
+      );
+      signal.position.set(side * dims.w * 0.45, dims.h * 0.45, dims.d * 0.495);
+      mesh.add(signal);
+    }
+
+    return {
+      mesh,
+      wheelPivots,
+      brakeMats: [brakeMaterial],
+      signalMats: [signalMaterial],
+      dims
+    };
+  }
+
+  function rollWheels(pivots, signedTravel) {
+    const delta = -signedTravel / WHEEL_RADIUS;
+    for (const pivot of pivots) {
+      if (pivot.userData.rollBaseX == null) {
+        pivot.userData.rollBaseX = pivot.rotation.x;
+        pivot.userData.rollBaseY = pivot.rotation.y;
+        pivot.userData.rollBaseZ = pivot.rotation.z;
+        pivot.userData.rollAngle = 0;
+      }
+      pivot.userData.rollAngle =
+        (pivot.userData.rollAngle + delta) % (Math.PI * 2);
+      // The authored wheel axle is local X. Writing one coherent roll angle
+      // avoids compounded axis drift that made the front wheels appear to
+      // steer and tumble independently.
+      pivot.rotation.set(
+        pivot.userData.rollBaseX + pivot.userData.rollAngle,
+        pivot.userData.rollBaseY,
+        pivot.userData.rollBaseZ
+      );
+    }
   }
 
   /* ---------- ego vehicle ---------- */
   const egoSpec = { paint: 0x0a1f4a, shape: 'sedan', name: 'EGO' };
-  let egoV = buildVehicle(egoSpec);
+  let egoV = buildHeroVehicle(egoSpec);
   const ego = new THREE.Group();
   ego.add(egoV.mesh);
   ego.position.set(0, 0, 6);
@@ -388,6 +549,8 @@ export function createAutonomous(view, layer, car) {
   pod.position.set(0, 1.5, -0.15);
   ego.add(pod);
   let egoWheel = egoV.wheelPivots;
+  let egoSpeedKph = 54;
+  let simulationTime = 0;
 
   /* ---------- radar FOV fan ---------- */
   const fov = new THREE.Mesh(
@@ -418,11 +581,11 @@ export function createAutonomous(view, layer, car) {
   const P_GROUND = 240;
   const agents = [];
   const trafficSpec = [
-    { lane: -4.5, z: -22, speed: -7.5, paint: 0x8a98a8, shape: 'sedan', name: 'CAR' },
-    { lane: -4.5, z: -58, speed: -7.5, paint: 0xe9e4d6, shape: 'van', name: 'VAN' },
-    { lane:  4.5, z: -34, speed:  9.0, paint: 0x1a2b3a, shape: 'suv',  name: 'CAR', oncoming: true },
-    { lane:  4.5, z: -78, speed:  9.0, paint: 0x2a2230, shape: 'van',  name: 'VAN', oncoming: true },
-    { lane:  0,   z: -30, speed: -5.5, paint: 0x6b1620, shape: 'sedan', name: 'CAR' }
+    { lane: -4.5, z: -2, speed: -7.5, paint: 0x74808c, shape: 'sedan', name: 'SEDAN' },
+    { lane: -4.5, z: -58, speed: -7.5, paint: 0xc5c0b4, shape: 'van', name: 'VAN' },
+    { lane:  4.5, z: -34, speed:  9.0, paint: 0x344552, shape: 'suv', name: 'SUV', oncoming: true },
+    { lane:  4.5, z: -78, speed:  9.0, paint: 0x443b43, shape: 'van', name: 'VAN', oncoming: true },
+    { lane:  0,   z: -30, speed: -5.5, paint: 0x684247, shape: 'compact', name: 'COMPACT' }
   ];
 
   // object cloud points are allocated after agents exist
@@ -451,7 +614,6 @@ export function createAutonomous(view, layer, car) {
   }));
   group.add(points);
 
-  let objCursor = P_GROUND;
   function scatterOnAgent(agent, count) {
     const { w, h, d } = agent.dims;
     for (let i = 0; i < count; i++) {
@@ -467,21 +629,25 @@ export function createAutonomous(view, layer, car) {
         lz = (Math.random() - 0.5) * d;
       }
       agent.localPts.push(new THREE.Vector3(lx, ly, lz));
-      pMeta.push({ obj: true, agent, idx: objCursor });
-      objCursor++;
     }
   }
 
   /* ---------- traffic agents ---------- */
   function spawnAgent(spec) {
-    const v = buildVehicle(spec);
+    const dims = TRAFFIC_DIMENSIONS[spec.shape] || TRAFFIC_DIMENSIONS.sedan;
+    const v = {
+      mesh: miniCar(spec.paint),
+      wheelPivots: [],
+      brakeMats: [],
+      signalMats: [],
+      dims
+    };
     const body = new THREE.Group();          // suspension / pitch carrier
     body.add(v.mesh);
     body.position.set(spec.lane, 0, spec.z);
     if (spec.oncoming) body.rotation.y = Math.PI;
     group.add(body);
 
-    const { dims } = v;
     const box = detectBox(dims.w + 0.5, dims.h + 0.9, dims.d + 0.6, AMBER);
     box.position.y = (dims.h + 0.9) / 2;
     body.add(box);
@@ -496,24 +662,27 @@ export function createAutonomous(view, layer, car) {
       flicker: Math.random() * Math.PI * 2,
       lane: spec.lane, targetLane: spec.lane, laneTimer: Math.random() * 5,
       bob: Math.random() * Math.PI * 2,
+      startLane: spec.lane,
+      startZ: spec.z,
+      nominalSpeed: spec.speed,
       curSpeed: spec.speed
     };
     agents.push(agent);
     scatterOnAgent(agent, spec.name === 'VAN' ? 90 : 70);
+    loadTrafficSource(spec.shape)
+      .then((source) => upgradeAgent(agent, buildTrafficVehicle(spec, source)))
+      .catch((error) => {
+        console.warn(`Ordinary traffic model failed to load: ${spec.shape}`, error);
+      });
     return agent;
   }
 
-  // re-fit an agent with the real GLB once it is available (late load)
-  function upgradeAgent(agent) {
-    const z = agent.body.position.z;
-    const yaw = agent.body.rotation.y;
-    group.remove(agent.body);
-    const v = buildVehicle(agent);
-    const body = new THREE.Group();
+  // Replace the short-lived fallback without disturbing traffic state.
+  function upgradeAgent(agent, v) {
+    const body = agent.body;
+    body.remove(agent.mesh);
+    body.remove(agent.box);
     body.add(v.mesh);
-    body.position.set(agent.lane, 0, z);
-    body.rotation.y = yaw;
-    group.add(body);
     const { dims } = v;
     const box = detectBox(dims.w + 0.5, dims.h + 0.9, dims.d + 0.6, AMBER);
     box.position.y = (dims.h + 0.9) / 2;
@@ -532,45 +701,30 @@ export function createAutonomous(view, layer, car) {
 
   /* ---------- pedestrian ----------
      A lightweight articulated figure is visible only while the licensed,
-     skinned Michelle asset loads (or if the browser cannot decode it). */
+     skinned casual avatar loads (or if the browser cannot decode it). */
   const ped = buildPedestrian();
   const pedFallback = ped.children.slice();
-  const pedBox = detectBox(0.9, 2.0, 0.9, CYAN);
-  pedBox.position.y = 1.0;
+  const pedBox = detectBox(0.74, 1.86, 0.62, CYAN);
+  pedBox.position.y = 0.93;
   ped.add(pedBox);
   const pedLabel = labelSprite('PED · 18m', '#38f0ff');
-  pedLabel.position.set(0, 2.9, 0);
+  pedLabel.position.set(0, 2.35, 0);
   ped.add(pedLabel);
-  ped.position.set(-8, 0, -14);
+  ped.position.set(PED_START_X, 0, CROSSWALK_Z);
   ped.rotation.y = Math.PI / 2;          // face the crossing direction (+x)
   group.add(ped);
   const pedAgent = {
-    mesh: ped, dims: { w: 0.6, h: 1.8, d: 0.5 }, localPts: [],
+    mesh: ped, dims: { w: 0.54, h: 1.72, d: 0.38 }, localPts: [],
     isPed: true
   };
   scatterOnAgent(pedAgent, 60);
 
   const pedestrianLoader = new GLTFLoader();
   pedestrianLoader.load(
-    'assets/models/pedestrian/michelle.glb',
+    'assets/models/pedestrian/casual-pedestrian.glb',
     (gltf) => {
       const human = gltf.scene;
-      human.name = 'PEDESTRIAN_MICHELLE_MIT';
-
-      // Normalize the authored model to a believable 1.78 m person, put both
-      // feet on the road and keep its rig centered inside the perception box.
-      const authoredBounds = new THREE.Box3().setFromObject(human, true);
-      const authoredSize = authoredBounds.getSize(new THREE.Vector3());
-      // Michelle's skinned bounds under-report the hair / garment deformation
-      // once the rig is posed. A calibrated 1.12 m bind-box target resolves to
-      // an approximately 1.70 m person in the animated scene.
-      const s = 1.12 / Math.max(authoredSize.y, 0.001);
-      human.scale.setScalar(s);
-      human.position.set(
-        -(authoredBounds.min.x + authoredBounds.max.x) * 0.5 * s,
-        -authoredBounds.min.y * s,
-        -(authoredBounds.min.z + authoredBounds.max.z) * 0.5 * s
-      );
+      human.name = 'PEDESTRIAN_CASUAL_AVATURN_MIT';
       human.traverse((object) => {
         if (!object.isMesh) return;
         object.castShadow = true;
@@ -582,32 +736,45 @@ export function createAutonomous(view, layer, car) {
         });
       });
 
-      // Keep the ADAS brackets/label, replace only the temporary figure.
-      pedFallback.forEach((object) => ped.remove(object));
-      ped.add(human);
+      // Establish the authored idle pose before measuring the skinned mesh.
+      // Measuring the bind pose first was the source of the previous giant:
+      // the animation changed the deformation bounds after scaling.
       if (gltf.animations.length) {
         const mixer = new THREE.AnimationMixer(human);
-        // Establish the authored natural stance, then drive only the humanoid
-        // limb bones ourselves. This avoids using the bundled Samba clip as
-        // road behaviour while preserving the original skinned human mesh.
-        const stance = gltf.animations.find((clip) => clip.name === 'SambaDance')
+        const stance = gltf.animations.find((clip) => /idle/i.test(clip.name))
           || gltf.animations[0];
         const stanceAction = mixer.clipAction(stance);
         stanceAction.play();
         stanceAction.paused = true;
-        stanceAction.time = 0;
+        stanceAction.time = Math.min(0.35, Math.max(0, stance.duration - 0.01));
         mixer.update(0);
         const boneNames = [
           'LeftUpLeg', 'RightUpLeg', 'LeftLeg', 'RightLeg',
-          'LeftArm', 'RightArm', 'Spine'
+          'LeftArm', 'RightArm', 'Spine', 'Hips'
         ];
         const bones = {};
         boneNames.forEach((name) => {
-          const bone = human.getObjectByName(`mixamorig:${name}`);
+          const bone = human.getObjectByName(name)
+            || human.getObjectByName(`mixamorig:${name}`);
           if (bone) bones[name] = { bone, base: bone.quaternion.clone() };
         });
         ped.userData.walkRig = bones;
       }
+
+      human.updateMatrixWorld(true);
+      const posedBounds = new THREE.Box3().setFromObject(human, true);
+      const posedSize = posedBounds.getSize(new THREE.Vector3());
+      human.scale.setScalar(1.72 / Math.max(posedSize.y, 0.001));
+      human.updateMatrixWorld(true);
+      const fittedBounds = new THREE.Box3().setFromObject(human, true);
+      const fittedCenter = fittedBounds.getCenter(new THREE.Vector3());
+      human.position.x -= fittedCenter.x;
+      human.position.y -= fittedBounds.min.y;
+      human.position.z -= fittedCenter.z;
+
+      // Keep the ADAS brackets/label, replace only the temporary figure.
+      pedFallback.forEach((object) => ped.remove(object));
+      ped.add(human);
       ped.userData.authoredHuman = true;
     },
     undefined,
@@ -646,10 +813,8 @@ export function createAutonomous(view, layer, car) {
   if (car && typeof car.onLoad === 'function') {
     car.onLoad((isGlb) => {
       if (!isGlb) return;                     // procedural fallback kept
-      for (const a of agents) upgradeAgent(a);
-      // ego
       ego.remove(egoV.mesh);
-      egoV = buildVehicle(egoSpec);
+      egoV = buildHeroVehicle(egoSpec);
       ego.add(egoV.mesh);
       egoWheel = egoV.wheelPivots;
     });
@@ -664,9 +829,9 @@ export function createAutonomous(view, layer, car) {
         <div class="auto-percept">PREDICTIVE WORLD MODEL <b>ONLINE</b></div>
       </div>
       <div class="auto-intent">
-        <span>INTENT 04</span>
-        <b>MERGE LEFT</b>
-        <small>CONFIDENCE 98.7%</small>
+        <span data-a="intent-code">HAZARD 02</span>
+        <b data-a="intent">YIELD TO PEDESTRIAN</b>
+        <small data-a="confidence">CONFIDENCE 99.4%</small>
       </div>
       <div class="auto-side">
         <span class="auto-side-label">PERCEPTION</span>
@@ -685,7 +850,7 @@ export function createAutonomous(view, layer, car) {
         <span class="auto-speed"><i>VELOCITY</i><b data-a="spd">62<u>km/h</u></b></span>
         <span><i>LEAD GAP</i><b data-a="gap">--</b></span>
         <span><i>TIME TO CONTACT</i><b class="ok" data-a="ttc">—<u>s</u></b></span>
-        <span><i>SYSTEM</i><b class="ok">NOMINAL</b></span>
+        <span><i>SYSTEM</i><b class="ok" data-a="system">YIELDING</b></span>
       </div>
     </div>`;
   const A = (k) => layer.querySelector(`[data-a="${k}"]`);
@@ -735,17 +900,79 @@ export function createAutonomous(view, layer, car) {
   }
 
   function update(t, dt) {
+    simulationTime = (simulationTime + dt) % SIM_CYCLE_SECONDS;
+    const crossingElapsed = simulationTime - PED_WAIT_SECONDS;
+    const isWalking = crossingElapsed >= 0 && crossingElapsed <= PED_CROSS_SECONDS;
+    const crossingProgress = clamp01(crossingElapsed / PED_CROSS_SECONDS);
+    const crossingOccupied =
+      simulationTime < PED_WAIT_SECONDS + PED_CROSS_SECONDS + 0.65;
+    const pedestrianX = isWalking
+      ? THREE.MathUtils.lerp(PED_START_X, PED_END_X, crossingProgress)
+      : (crossingElapsed < 0 ? PED_START_X : PED_END_X);
+
+    // The ego vehicle commits to a full stop before the pedestrian steps off
+    // the kerb, holds through the crossing, then accelerates only after clear.
+    const resumeAt = PED_WAIT_SECONDS + PED_CROSS_SECONDS + 0.65;
+    if (simulationTime < PED_WAIT_SECONDS) {
+      egoSpeedKph = 54 * (1 - smoothstep(simulationTime / PED_WAIT_SECONDS));
+    } else if (simulationTime < resumeAt) {
+      egoSpeedKph = 0;
+    } else {
+      egoSpeedKph = 54 * smoothstep((simulationTime - resumeAt) / 3.1);
+    }
+    const yielding = egoSpeedKph < 3 || crossingOccupied;
+
     // dashes flow
     for (const d of dashes) {
-      d.position.z += dt * 7;
+      d.position.z += dt * THREE.MathUtils.lerp(0.35, 7, egoSpeedKph / 54);
       if (d.position.z > 16) d.position.z -= 156;
     }
+
+    // Pedestrian translation and gait share the same stride clock, preventing
+    // the previous skating motion where the root slid independently.
+    ped.position.x = pedestrianX;
+    ped.position.y = 0;
+    const walkSpeed = (PED_END_X - PED_START_X) / PED_CROSS_SECONDS;
+    const stridePhase = crossingElapsed * (walkSpeed / 1.08) * Math.PI * 2;
+    const gait = isWalking ? Math.sin(stridePhase) : 0;
+    const rig = ped.userData.walkRig;
+    if (rig) {
+      const applySwing = (name, angle, axis = 'x') => {
+        const joint = rig[name];
+        if (!joint) return;
+        const axisVector = axis === 'z'
+          ? new THREE.Vector3(0, 0, 1)
+          : new THREE.Vector3(1, 0, 0);
+        const rotation = new THREE.Quaternion().setFromAxisAngle(axisVector, angle);
+        joint.bone.quaternion.copy(joint.base).multiply(rotation);
+      };
+      applySwing('LeftUpLeg', gait * 0.38);
+      applySwing('RightUpLeg', -gait * 0.38);
+      applySwing('LeftLeg', Math.max(0, -gait) * 0.3);
+      applySwing('RightLeg', Math.max(0, gait) * 0.3);
+      applySwing('LeftArm', -gait * 0.24);
+      applySwing('RightArm', gait * 0.24);
+      applySwing('Spine', isWalking ? Math.sin(stridePhase * 2) * 0.018 : 0, 'z');
+      ped.position.y = isWalking
+        ? Math.abs(Math.sin(stridePhase * 2)) * 0.012
+        : 0;
+    } else {
+      const swing = isWalking ? Math.sin(stridePhase) : 0;
+      const fallback = ped.userData;
+      if (fallback.legs) {
+        fallback.legs[0].rotation.x = swing * 0.46;
+        fallback.legs[1].rotation.x = -swing * 0.46;
+        fallback.arms[0].rotation.x = -swing * 0.34;
+        fallback.arms[1].rotation.x = swing * 0.34;
+      }
+    }
+
     // traffic
     let leadGap = Infinity;
     for (const a of agents) {
       /* smooth lane changes (same-direction only) — eased, not snapped */
       a.laneTimer -= dt;
-      if (a.laneTimer <= 0) {
+      if (!crossingOccupied && a.laneTimer <= 0) {
         a.laneTimer = 5 + Math.random() * 5;
         if (!a.oncoming) {
           a.targetLane = (a.lane < -2) ? (Math.random() < 0.4 ? 0 : -4.5) : -4.5;
@@ -754,15 +981,36 @@ export function createAutonomous(view, layer, car) {
       a.lane += (a.targetLane - a.lane) * Math.min(1, dt * 1.1);
       const changingLane = Math.abs(a.targetLane - a.lane) > 0.06;
 
-      /* longitudinal travel + wrap */
-      a.body.position.z += a.curSpeed * dt;
-      a.body.position.x = a.lane;
-      if (!a.oncoming && a.body.position.z < -140) a.body.position.z = 20;
-      if (a.oncoming && a.body.position.z > 30) a.body.position.z = -150;
+      /* Predictive crosswalk yield: traffic approaching from either direction
+         decelerates against distance to the conflict zone and holds 3 m back. */
+      const distanceToCrosswalk = a.oncoming
+        ? CROSSWALK_Z - a.body.position.z
+        : a.body.position.z - CROSSWALK_Z;
+      const approachingCrosswalk =
+        distanceToCrosswalk > 0 && distanceToCrosswalk < 32;
+      const mustYield = crossingOccupied && approachingCrosswalk;
+      const stoppingFactor = mustYield
+        ? smoothstep((distanceToCrosswalk - 3) / 20)
+        : 1;
+      const targetSpeed = a.nominalSpeed * stoppingFactor;
+      const slowing = Math.abs(targetSpeed) < Math.abs(a.curSpeed);
+      const response = slowing ? 3.5 : 0.75;
+      a.curSpeed += (targetSpeed - a.curSpeed) * Math.min(1, dt * response);
+      if (mustYield && distanceToCrosswalk <= 3.2) a.curSpeed = 0;
 
-      /* wheel spin tied to speed */
-      const spin = a.curSpeed * dt * 1.8;
-      for (const p of a.wheelPivots) p.rotation.x += spin;
+      /* longitudinal travel + coherent wheel roll */
+      const travel = a.curSpeed * dt;
+      a.body.position.z += travel;
+      a.body.position.x = a.lane;
+      if (!a.oncoming && a.body.position.z < -140) {
+        a.body.position.z = 20;
+        a.curSpeed = a.nominalSpeed;
+      }
+      if (a.oncoming && a.body.position.z > 30) {
+        a.body.position.z = -150;
+        a.curSpeed = a.nominalSpeed;
+      }
+      rollWheels(a.wheelPivots, travel);
 
       /* suspension bob + pitch under braking (nose dive) — applied to the
          fitted mesh only, so the detection box / label stay steady */
@@ -774,9 +1022,8 @@ export function createAutonomous(view, layer, car) {
         a.mesh.rotation.x = bobP;
       }
 
-      /* brake flare: gentle periodic slow-downs read as real traffic */
-      const brakePhase = Math.sin(t * 0.6 + a.flicker * 2.0);
-      const braking = brakePhase > 0.55;
+      /* brake lights now communicate an actual yield, not a random pulse */
+      const braking = mustYield && (slowing || Math.abs(a.curSpeed) < 0.15);
       const brakeBoost = braking ? 4.0 : 1.2;
       for (const m of a.brakeMats) m.emissiveIntensity = brakeBoost;
 
@@ -797,48 +1044,15 @@ export function createAutonomous(view, layer, car) {
       }
     }
 
-    /* ego: LiDAR pod spin + slow wheel roll + subtle hover bob */
+    /* ego: wheel rotation is bound to simulated speed and becomes completely
+       still at the stop line; no independent front-wheel tumble. */
     pod.rotation.y += dt * 3.4;
-    for (const p of egoWheel) p.rotation.x += dt * 2.4;
-    egoV.mesh.position.y = Math.sin(t * 1.6) * 0.01;
-
-    // pedestrian crossing; the authored skeleton supplies the walk cycle.
-    const px = -8 + ((t * 0.55) % 16);
-    ped.position.x = px;
-    ped.position.y = ped.userData.authoredHuman
-      ? Math.abs(Math.sin(t * 3.5)) * 0.018
-      : Math.abs(Math.sin(t * 5)) * 0.06;
-    const rig = ped.userData.walkRig;
-    if (rig) {
-      const gait = Math.sin(t * 3.5);
-      const twist = Math.sin(t * 7) * 0.025;
-      const applySwing = (name, angle, axis = 'x', settle = 0) => {
-        const joint = rig[name];
-        if (!joint) return;
-        const qSettle = new THREE.Quaternion().setFromAxisAngle(
-          new THREE.Vector3(0, 0, 1), settle
-        );
-        const qSwing = new THREE.Quaternion().setFromAxisAngle(
-          axis === 'z' ? new THREE.Vector3(0, 0, 1) : new THREE.Vector3(1, 0, 0),
-          angle
-        );
-        joint.bone.quaternion.copy(joint.base).multiply(qSettle).multiply(qSwing);
-      };
-      applySwing('LeftUpLeg', gait * 0.34);
-      applySwing('RightUpLeg', -gait * 0.34);
-      applySwing('LeftLeg', Math.max(0, -gait) * 0.24);
-      applySwing('RightLeg', Math.max(0, gait) * 0.24);
-      applySwing('LeftArm', -gait * 0.22, 'x', 1.02);
-      applySwing('RightArm', gait * 0.22, 'x', -1.02);
-      applySwing('Spine', twist, 'z');
-    }
-    const sw = Math.sin(t * 7);
-    const pl = ped.userData;
-    if (pl && pl.legs) {
-      pl.legs[0].rotation.x =  sw * 0.5;
-      pl.legs[1].rotation.x = -sw * 0.5;
-      pl.arms[0].rotation.x = -sw * 0.4;
-      pl.arms[1].rotation.x =  sw * 0.4;
+    const egoVisualMps = Math.min(5.2, egoSpeedKph / 3.6);
+    rollWheels(egoWheel, -egoVisualMps * dt);
+    egoV.mesh.position.y = egoSpeedKph > 1 ? Math.sin(t * 1.6) * 0.006 : 0;
+    const egoBraking = crossingOccupied && egoSpeedKph < 48;
+    for (const material of egoV.brakeMats) {
+      material.emissiveIntensity = egoBraking ? 4.2 : 1.2;
     }
     // planned path flow
     for (let i = 0; i < FLOW; i++) {
@@ -852,6 +1066,8 @@ export function createAutonomous(view, layer, car) {
     }
     flow.instanceMatrix.needsUpdate = true;
     ribbon.material.opacity = 0.34 + 0.08 * Math.sin(t * 1.4);
+    ribbon.material.color.setHex(yielding ? AMBER : GREEN);
+    flow.material.color.setHex(yielding ? AMBER : GREEN);
     // radar fan pulse
     fov.material.opacity = 0.009 + 0.004 * Math.sin(t * 2);
     portalGroup.rotation.z = Math.sin(t * 0.08) * 0.04;
@@ -862,7 +1078,7 @@ export function createAutonomous(view, layer, car) {
     // HUD @ 8Hz
     if (t - lastHud > 0.125) {
       lastHud = t;
-      const egoSpd = 58 + Math.round(Math.sin(t * 0.4) * 7);
+      const egoSpd = Math.max(0, Math.round(egoSpeedKph));
       A('spd').innerHTML = egoSpd + '<u>km/h</u>';
       A('gap').textContent = leadGap === Infinity ? '—' : Math.round(leadGap) + ' m';
       // rank same-direction traffic by gap → drives both 3D lead box + sidebar
@@ -874,8 +1090,16 @@ export function createAutonomous(view, layer, car) {
       if (ranked[0]) A('t1').innerHTML = `${ranked[0].a.name} · ${Math.round(ranked[0].gap)} M<u>· LEAD</u>`;
       if (ranked[1]) A('t2').textContent = `${ranked[1].a.name} · ${Math.round(ranked[1].gap)} M`;
       A('ped').textContent = `PEDESTRIAN · ${Math.round(Math.hypot(ped.position.x, 6 - ped.position.z))} M`;
-      // TTC: gap over an assumed closing speed, colour-coded
-      const ttcSec = leadGap === Infinity ? Infinity : leadGap / 13;
+      A('intent-code').textContent = yielding ? 'HAZARD 02' : 'CLEARANCE 01';
+      A('intent').textContent = yielding ? 'YIELD TO PEDESTRIAN' : 'RESUME PLANNED PATH';
+      A('confidence').textContent = yielding ? 'CONFIDENCE 99.4%' : 'PATH CLEAR · 98.9%';
+      A('system').textContent = yielding ? 'YIELDING' : 'NOMINAL';
+      A('system').classList.toggle('ok', !yielding);
+      // TTC uses the actual ego speed and becomes infinite at a full stop.
+      const egoMps = egoSpeedKph / 3.6;
+      const ttcSec = leadGap === Infinity || egoMps < 0.2
+        ? Infinity
+        : leadGap / egoMps;
       const caution = ttcSec < 3.2;
       A('ttc').innerHTML = (ttcSec === Infinity ? '∞' : ttcSec.toFixed(1)) + '<u>s</u>';
       A('ttc').classList.toggle('ok', !caution);
@@ -884,6 +1108,15 @@ export function createAutonomous(view, layer, car) {
   }
 
   function onEnter() {
+    simulationTime = 0;
+    egoSpeedKph = 54;
+    ped.position.set(PED_START_X, 0, CROSSWALK_Z);
+    agents.forEach((agent) => {
+      agent.lane = agent.startLane;
+      agent.targetLane = agent.startLane;
+      agent.body.position.set(agent.startLane, 0, agent.startZ);
+      agent.curSpeed = agent.nominalSpeed;
+    });
     group.visible = true;
     controls.enabled = false;
     camera.position.set(8.6, 5.8, 17.5);

@@ -7,12 +7,12 @@
 
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-import { createScene } from './scene.js?v=20260726-5';
-import { createCar } from './car.js?v=20260726-5';
-import { createCluster } from './cluster.js?v=20260726-5';
-import { createConsole } from './console.js?v=20260726-5';
-import { createAutonomous } from './autonomous.js?v=20260726-5';
-import { createAudio } from './audio.js?v=20260726-5';
+import { createScene } from './scene.js?v=20260726-7';
+import { createCar } from './car.js?v=20260726-7';
+import { createCluster } from './cluster.js?v=20260726-7';
+import { createConsole } from './console.js?v=20260726-7';
+import { createAutonomous } from './autonomous.js?v=20260726-7';
+import { createAudio } from './audio.js?v=20260726-7';
 
 const stage = document.getElementById('stage');
 const layers = {

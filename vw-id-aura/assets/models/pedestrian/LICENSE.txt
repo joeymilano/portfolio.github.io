@@ -1,7 +1,7 @@
-Michelle rigged avatar
+CZ casual avatar / canonical 53-bone rig
 
 Source:
-https://huggingface.co/three-ws/avatars/blob/main/michelle.glb
+https://huggingface.co/three-ws/avatars/blob/main/cz.glb
 
 The upstream repository declares this asset under the MIT License:
 https://huggingface.co/three-ws/avatars
