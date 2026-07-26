@@ -308,7 +308,9 @@ export function createCar() {
        so length stretch lives on scale.x, height on scale.y, width on scale.z. */
     const wrap = new THREE.Group();
     wrap.add(m);
-    wrap.rotation.y = -Math.PI / 2;             // fitted model faces +X → now -Z
+    // fitted model already yaws +π/2 (faces +X for the showroom side lens).
+    // +π/2 here → net π → the nose flips from +Z to -Z (forward in autonomous).
+    wrap.rotation.y = Math.PI / 2;
     if (opts.shape === 'suv') wrap.scale.set(1.0, 1.12, 1.02);
     else if (opts.shape === 'van') wrap.scale.set(1.12, 1.32, 1.04);
 

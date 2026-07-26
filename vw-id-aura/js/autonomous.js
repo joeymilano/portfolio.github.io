@@ -109,6 +109,49 @@ function detectBox(w, h, d, color) {
   return g;
 }
 
+/* articulated pedestrian: head / torso / hips / swinging arms & legs.
+   Reads as a person at ADAS distance instead of a faceless capsule. */
+function buildPedestrian() {
+  const g = new THREE.Group();
+  const jacket = new THREE.MeshStandardMaterial({ color: 0x3a4452, roughness: 0.75 });
+  const pants  = new THREE.MeshStandardMaterial({ color: 0x1c2128, roughness: 0.85 });
+  const skin   = new THREE.MeshStandardMaterial({ color: 0xc9a986, roughness: 0.6 });
+  const shoe   = new THREE.MeshStandardMaterial({ color: 0x0e1116, roughness: 0.5 });
+
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.15, 16, 14), skin);
+  head.position.y = 1.74; g.add(head);
+
+  const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.17, 0.48, 4, 12), jacket);
+  torso.position.y = 1.26; g.add(torso);
+
+  const hips = new THREE.Mesh(new THREE.CapsuleGeometry(0.18, 0.1, 4, 10), pants);
+  hips.position.y = 0.86; g.add(hips);
+
+  // arms — pivots at the shoulder so they can swing on the walk cycle
+  const armGeo = new THREE.CapsuleGeometry(0.055, 0.46, 4, 8);
+  const mkArm = (sx) => {
+    const piv = new THREE.Group(); piv.position.set(sx * 0.21, 1.5, 0);
+    const m = new THREE.Mesh(armGeo, jacket); m.position.y = -0.25; piv.add(m);
+    g.add(piv); return piv;
+  };
+  const armL = mkArm(1), armR = mkArm(-1);
+
+  // legs — pivots at the hip
+  const legGeo = new THREE.CapsuleGeometry(0.07, 0.52, 4, 8);
+  const shoeGeo = new THREE.BoxGeometry(0.1, 0.06, 0.22);
+  const mkLeg = (sx) => {
+    const piv = new THREE.Group(); piv.position.set(sx * 0.09, 0.82, 0);
+    const m = new THREE.Mesh(legGeo, pants); m.position.y = -0.28; piv.add(m);
+    const s = new THREE.Mesh(shoeGeo, shoe); s.position.set(0, -0.56, 0.05); piv.add(s);
+    g.add(piv); return piv;
+  };
+  const legL = mkLeg(1), legR = mkLeg(-1);
+
+  g.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  g.userData = { arms: [armL, armR], legs: [legL, legR] };
+  return g;
+}
+
 /* ============================================================ */
 export function createAutonomous(view, layer, car) {
   const { camera, controls } = view;
@@ -350,14 +393,8 @@ export function createAutonomous(view, layer, car) {
 
   for (const spec of trafficSpec) spawnAgent(spec);
 
-  /* ---------- pedestrian ---------- */
-  const ped = new THREE.Group();
-  const pedBody = new THREE.Mesh(
-    new THREE.CapsuleGeometry(0.22, 0.9, 4, 10),
-    new THREE.MeshStandardMaterial({ color: 0x2c3440, roughness: 0.8 })
-  );
-  pedBody.position.y = 0.9;
-  ped.add(pedBody);
+  /* ---------- pedestrian (articulated figure) ---------- */
+  const ped = buildPedestrian();
   const pedBox = detectBox(0.9, 2.0, 0.9, CYAN);
   pedBox.position.y = 1.0;
   ped.add(pedBox);
@@ -365,9 +402,10 @@ export function createAutonomous(view, layer, car) {
   pedLabel.position.set(0, 2.9, 0);
   ped.add(pedLabel);
   ped.position.set(-8, 0, -14);
+  ped.rotation.y = Math.PI / 2;          // face the crossing direction (+x)
   group.add(ped);
   const pedAgent = {
-    mesh: ped, dims: { w: 0.8, h: 1.6, d: 0.8 }, localPts: [],
+    mesh: ped, dims: { w: 0.6, h: 1.8, d: 0.5 }, localPts: [],
     isPed: true
   };
   scatterOnAgent(pedAgent, 60);
@@ -545,10 +583,18 @@ export function createAutonomous(view, layer, car) {
     for (const p of egoWheel) p.rotation.x += dt * 2.4;
     egoV.mesh.position.y = Math.sin(t * 1.6) * 0.01;
 
-    // pedestrian crossing
+    // pedestrian crossing + walk cycle (legs/arms swing)
     const px = -8 + ((t * 0.55) % 16);
     ped.position.x = px;
     ped.position.y = Math.abs(Math.sin(t * 5)) * 0.06; // walking bob
+    const sw = Math.sin(t * 7);
+    const pl = ped.userData;
+    if (pl && pl.legs) {
+      pl.legs[0].rotation.x =  sw * 0.5;
+      pl.legs[1].rotation.x = -sw * 0.5;
+      pl.arms[0].rotation.x = -sw * 0.4;
+      pl.arms[1].rotation.x =  sw * 0.4;
+    }
     // planned path flow
     for (let i = 0; i < FLOW; i++) {
       const u = ((t * 0.28) + i / FLOW) % 1;
