@@ -31,3 +31,16 @@ No generative imagery is used in the Showroom, Cluster or Autonomous worlds.
 - Source: https://kenney.nl/assets/city-kit-commercial
 - License: CC0 (see `models/city/License.txt`)
 
+## Autonomous pedestrian
+
+- **Michelle**
+- Rigged human character distributed by three-ws
+- Source: https://huggingface.co/three-ws/avatars/blob/main/michelle.glb
+- License: MIT (see `models/pedestrian/LICENSE.txt`)
+
+## Interface iconography
+
+- **Phosphor Icons**
+- Source: https://github.com/phosphor-icons/core
+- Pinned revision: `2b75f3ad12b420c9504ef05df8d2564a28f8500e`
+- License: MIT (see `icons/phosphor/LICENSE`)

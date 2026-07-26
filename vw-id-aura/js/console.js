@@ -16,7 +16,7 @@ export function createConsole(layer, audio) {
         <div class="console-journey">
           <span class="journey-state"><i></i> JOURNEY ACTIVE</span>
           <span>LTE</span>
-          <span>82%</span>
+          <span class="journey-battery"><i class="ph-icon ph-battery-high" aria-hidden="true"></i>82%</span>
         </div>
       </header>
 
@@ -24,7 +24,7 @@ export function createConsole(layer, audio) {
         <section class="aura-map">
           <div class="map-heading">
             <div>
-              <span class="aura-kicker">NAVIGATION · NIGHT ROUTE</span>
+              <span class="aura-kicker"><i class="ph-icon ph-navigation-arrow" aria-hidden="true"></i>NAVIGATION · NIGHT ROUTE</span>
               <h2>Teufelsberg</h2>
               <p>via Heerstraße · quiet roads preferred</p>
             </div>
@@ -99,7 +99,7 @@ export function createConsole(layer, audio) {
 
         <aside class="aura-rail">
           <section class="aura-card aura-media">
-            <div class="card-label">NOW PLAYING <span class="cc-live"></span></div>
+            <div class="card-label"><i class="ph-icon ph-music-notes" aria-hidden="true"></i>NOW PLAYING <span class="cc-live"></span></div>
             <div class="media-art-wrap">
               <div class="cc-art" data-art></div>
               <div class="media-vinyl"></div>
@@ -111,17 +111,17 @@ export function createConsole(layer, audio) {
             <div class="cc-times"><span data-cur>1:24</span><span data-dur>4:12</span></div>
             <div class="cc-controls">
               <button data-prev aria-label="Previous track">
-                <svg viewBox="0 0 24 24"><path d="M18 6l-9 6 9 6zM6 6v12"/></svg>
+                <i class="ph-icon ph-skip-back" aria-hidden="true"></i>
               </button>
-              <button data-play aria-label="Play">▶</button>
+              <button data-play aria-label="Play"><i class="ph-icon ph-play" aria-hidden="true"></i></button>
               <button data-next aria-label="Next track">
-                <svg viewBox="0 0 24 24"><path d="M6 6l9 6-9 6zM18 6v12"/></svg>
+                <i class="ph-icon ph-skip-forward" aria-hidden="true"></i>
               </button>
             </div>
           </section>
 
           <section class="aura-card aura-comfort">
-            <div class="card-label">CABIN CLIMATE</div>
+            <div class="card-label"><i class="ph-icon ph-thermometer" aria-hidden="true"></i>CABIN CLIMATE</div>
             <div class="comfort-main">
               <button data-t="-1">−</button>
               <div><b data-tv>21.5°</b><span>AUTO · SYNC</span></div>
@@ -134,7 +134,7 @@ export function createConsole(layer, audio) {
           </section>
 
           <section class="aura-card aura-vehicle">
-            <div class="card-label">VEHICLE PULSE</div>
+            <div class="card-label"><i class="ph-icon ph-car-profile" aria-hidden="true"></i>VEHICLE PULSE</div>
             <div class="vehicle-range">
               <div><b data-range>486</b><span>KM RANGE</span></div>
               <svg viewBox="0 0 86 42" aria-hidden="true">
@@ -150,10 +150,10 @@ export function createConsole(layer, audio) {
       </main>
 
       <footer class="console-dock">
-        <button class="tg on" data-tg><i>◌</i>HOME</button>
-        <button class="tg on" data-tg><i>⌁</i>NAV</button>
-        <button class="tg" data-tg><i>◒</i>AMBIENCE</button>
-        <button class="tg on" data-tg><i>◇</i>AURA</button>
+        <button class="tg on" data-tg><i class="ph-icon ph-house-simple" aria-hidden="true"></i>HOME</button>
+        <button class="tg on" data-tg><i class="ph-icon ph-navigation-arrow" aria-hidden="true"></i>NAV</button>
+        <button class="tg" data-tg><i class="ph-icon ph-sparkle" aria-hidden="true"></i>AMBIENCE</button>
+        <button class="tg on" data-tg><i class="ph-icon ph-steering-wheel" aria-hidden="true"></i>AURA</button>
       </footer>
     </div>`;
 
@@ -177,7 +177,7 @@ export function createConsole(layer, audio) {
   const progressEl = $('[data-prog]');
   const playButton = $('[data-play]');
   let progress = 0.32;
-  let playing = false;
+  let playing = audio.playing;
 
   function refreshTrack() {
     trackEl.textContent = audio.currentName().toUpperCase();
@@ -187,7 +187,8 @@ export function createConsole(layer, audio) {
 
   function setPlaying(on) {
     playing = on;
-    playButton.textContent = on ? 'Ⅱ' : '▶';
+    playButton.innerHTML = `<i class="ph-icon ${on ? 'ph-pause' : 'ph-play'}" aria-hidden="true"></i>`;
+    playButton.setAttribute('aria-label', on ? 'Pause' : 'Play');
     layer.querySelector('.aura-media').classList.toggle('playing', on);
   }
 
@@ -221,7 +222,11 @@ export function createConsole(layer, audio) {
   });
 
   refreshTrack();
-  audio.onUpdate(() => refreshTrack());
+  setPlaying(audio.playing);
+  audio.onUpdate((state) => {
+    refreshTrack();
+    setPlaying(state.on);
+  });
 
   const route = $('[data-route]');
   const routeDot = $('[data-dot]');

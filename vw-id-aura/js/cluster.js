@@ -34,9 +34,17 @@ export function createCluster(layer) {
     <div class="horizon-cluster">
       <canvas class="cluster-canvas"></canvas>
       <div class="cluster-heading">
-        <span class="cluster-pilot"><i></i> AURA PILOT</span>
+        <span class="cluster-pilot">
+          <i class="cluster-pilot-status"></i>
+          <i class="ph-icon ph-steering-wheel" aria-hidden="true"></i>
+          AURA PILOT
+        </span>
         <span class="cluster-heading-rule"></span>
         <span>ASSISTED DRIVE · ACTIVE</span>
+      </div>
+      <div class="cluster-assistance" aria-label="Driver assistance status">
+        <span><i class="ph-icon ph-gauge" aria-hidden="true"></i> ACC 120</span>
+        <span><i class="ph-icon ph-steering-wheel" aria-hidden="true"></i> LANE CENTERED</span>
       </div>
       <div class="cluster-modes" aria-label="Drive mode">
         ${Object.entries(MODES).map(([key, mode], i) =>
@@ -208,8 +216,6 @@ export function createCluster(layer) {
     const top = h * 0.104;
     text(new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }), w * 0.055, top, 11, 'rgba(190,211,216,.62)', 'left', 500);
     text('21.5°  ·  BERLIN', w * 0.945, top, 11, 'rgba(190,211,216,.62)', 'right', 500);
-    text('ACC  120', w * 0.275, top, 10, 'rgba(174,200,206,.5)', 'center', 500);
-    text('LANE CENTERED', w * 0.725, top, 10, mode.hue, 'center', 500);
   }
 
   function draw() {

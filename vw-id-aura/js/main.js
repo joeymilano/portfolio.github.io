@@ -7,12 +7,12 @@
 
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-import { createScene } from './scene.js?v=20260726-3';
-import { createCar } from './car.js?v=20260726-3';
-import { createCluster } from './cluster.js?v=20260726-3';
-import { createConsole } from './console.js?v=20260726-3';
-import { createAutonomous } from './autonomous.js?v=20260726-3';
-import { createAudio } from './audio.js?v=20260726-3';
+import { createScene } from './scene.js?v=20260726-5';
+import { createCar } from './car.js?v=20260726-5';
+import { createCluster } from './cluster.js?v=20260726-5';
+import { createConsole } from './console.js?v=20260726-5';
+import { createAutonomous } from './autonomous.js?v=20260726-5';
+import { createAudio } from './audio.js?v=20260726-5';
 
 const stage = document.getElementById('stage');
 const layers = {
@@ -62,6 +62,10 @@ function switchView(name) {
   // leaving a cinematic (cockpit) lens — restore orbit controls
   cinematicCam = false;
   controls.enabled = true;
+  if (name !== 'showroom') {
+    document.body.classList.remove('interior-view');
+    car.setInterior(false);
+  }
 
   document.querySelectorAll('.nav-btn').forEach((b) =>
     b.classList.toggle('active', b.dataset.view === name));
@@ -110,10 +114,15 @@ const CAMERAS = {
   side:    { pos: [0.4, 1.6, 10.6], tgt: [0, 0.8, 0], near: false },
   rear:    { pos: [-7.4, 3.2, -7.8], tgt: [0, 0.9, 0], near: false },
   top:     { pos: [0.01, 15.5, 0.01], tgt: [0, 0, 0], near: false },
-  int:     { pos: [-0.2, 1.32, 1.72], tgt: [0.5, 1.0, -0.1], near: true }
+  int:     { pos: [-0.28, 1.25, 0.46], tgt: [2.05, 1.0, 0.42], near: true },
+  driver:  { pos: [-0.28, 1.25, 0.46], tgt: [2.05, 1.0, 0.42], near: true },
+  center:  { pos: [0.04, 1.24, 0.12], tgt: [1.62, 0.86, 0.02], near: true },
+  rearCabin: { pos: [-1.24, 1.24, -0.32], tgt: [0.68, 1.02, -0.08], near: true }
 };
 
 function flyTo(p) {
+  gsap.killTweensOf(camera.position);
+  gsap.killTweensOf(controls.target);
   controls.enabled = true;
   cinematicCam = false;
   // near-camera ergonomics for interior POV
@@ -132,6 +141,40 @@ function flyTo(p) {
 }
 
 const lensBtns = document.querySelectorAll('.lens-btn');
+const interiorViewName = document.getElementById('interior-view-name');
+const interiorViewBtns = document.querySelectorAll('.interior-view-btn');
+const INTERIOR_NAMES = {
+  driver: 'DRIVER ENVIRONMENT',
+  center: 'CENTRAL COMMAND',
+  rearCabin: 'REAR LOUNGE'
+};
+
+function flyInterior(name = 'driver') {
+  const p = CAMERAS[name] || CAMERAS.driver;
+  gsap.killTweensOf(camera.position);
+  gsap.killTweensOf(controls.target);
+  gsap.killTweensOf(car.rig.rotation);
+  document.body.classList.add('interior-view');
+  interiorViewBtns.forEach((button) =>
+    button.classList.toggle('active', button.dataset.interior === name));
+  interiorViewName.textContent = INTERIOR_NAMES[name] || INTERIOR_NAMES.driver;
+  autoRotate = false;
+  car.setInterior(true);
+  gsap.to(car.rig.rotation, { y: 0, duration: 0.8, ease: 'power3.inOut' });
+  cinematicCam = true;
+  controls.enabled = false;
+  controls.minDistance = 0.05;
+  controls.maxDistance = 3.5;
+  controls.maxPolarAngle = Math.PI;
+  controls.target.set(p.tgt[0], p.tgt[1], p.tgt[2]);
+  gsap.to(camera.position, {
+    x: p.pos[0], y: p.pos[1], z: p.pos[2],
+    duration: 1.25, ease: 'power3.inOut',
+    onUpdate: () => camera.lookAt(controls.target),
+    onComplete: () => camera.lookAt(controls.target)
+  });
+}
+
 lensBtns.forEach((b) =>
   b.addEventListener('click', () => {
     const lens = b.dataset.lens;
@@ -139,28 +182,17 @@ lensBtns.forEach((b) =>
     autoRotate = lens !== 'int';
     const isCockpit = lens === 'int';
     car.setInterior(isCockpit);
+    document.body.classList.toggle('interior-view', isCockpit);
     if (isCockpit) {
-      // lock turntable heading, then take gsap into a "cinematic" near
-      // shot. cinematicCam pauses controls.update() in the loop so the
-      // damping-style orbit solver can't drag a tight (≤3.5m) eye-point
-      // back to a wide exterior frame.
-      gsap.to(car.rig.rotation, { y: 0, duration: 0.8, ease: 'power3.inOut' });
-      cinematicCam = true;
-      controls.enabled = false;
-      controls.minDistance = 0.05; controls.maxDistance = 3.5;
-      controls.maxPolarAngle = Math.PI;
-      const P = CAMERAS.int;
-      controls.target.set(P.tgt[0], P.tgt[1], P.tgt[2]);
-      gsap.to(camera.position, {
-        x: P.pos[0], y: P.pos[1], z: P.pos[2],
-        duration: 1.3, ease: 'power3.inOut',
-        onUpdate: () => camera.lookAt(controls.target),
-        onComplete: () => camera.lookAt(controls.target)
-      });
+      flyInterior('driver');
     } else {
       flyTo(CAMERAS[lens] || CAMERAS.front34);
     }
   })
+);
+
+interiorViewBtns.forEach((button) =>
+  button.addEventListener('click', () => flyInterior(button.dataset.interior))
 );
 
 /* ---------- showroom controls ---------- */
@@ -192,10 +224,22 @@ if (sceneRail && view.SCENES) {
 }
 
 const lightsBtn = document.getElementById('lights-btn');
+const controlToast = document.getElementById('control-toast');
+let controlToastTimer;
+function showControlToast(message) {
+  controlToast.textContent = message;
+  controlToast.classList.add('show');
+  clearTimeout(controlToastTimer);
+  controlToastTimer = setTimeout(() => controlToast.classList.remove('show'), 1400);
+}
 lightsBtn.addEventListener('click', () => {
   const on = !lightsBtn.classList.contains('on');
   lightsBtn.classList.toggle('on', on);
+  lightsBtn.setAttribute('aria-pressed', String(on));
+  lightsBtn.setAttribute('aria-label', on ? 'Turn headlights off' : 'Turn headlights on');
+  lightsBtn.title = `Showroom headlights · ${on ? 'On' : 'Off'} (L)`;
   car.setLights(on);
+  showControlToast(`SHOWROOM LIGHTS · ${on ? 'ON' : 'OFF'}`);
 });
 
 /* ---------- audio ---------- */
@@ -243,7 +287,7 @@ addEventListener('keydown', (e) => {
   if (e.target.matches('input, textarea')) return;
   const map = { 1: 'showroom', 2: 'cluster', 3: 'console', 4: 'autonomous' };
   if (map[e.key]) switchView(map[e.key]);
-  if (e.key.toLowerCase() === 'l') lightsBtn.click();
+  if (e.key.toLowerCase() === 'l' && current === 'showroom') lightsBtn.click();
 });
 
 /* ---------- idle auto-rotate ---------- */

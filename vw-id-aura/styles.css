@@ -190,6 +190,65 @@ button {
   box-shadow: 0 0 16px rgba(56, 240, 255, 0.25);
 }
 
+/* Phosphor Icons — MIT-licensed, locally pinned SVG masks. */
+.ph-icon {
+  --icon: none;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+.ph-headlights { --icon: url("assets/icons/phosphor/headlights.svg"); }
+.ph-speaker-high { --icon: url("assets/icons/phosphor/speaker-high.svg"); }
+.ph-navigation-arrow { --icon: url("assets/icons/phosphor/navigation-arrow.svg"); }
+.ph-music-notes { --icon: url("assets/icons/phosphor/music-notes.svg"); }
+.ph-thermometer { --icon: url("assets/icons/phosphor/thermometer.svg"); }
+.ph-car-profile { --icon: url("assets/icons/phosphor/car-profile.svg"); }
+.ph-skip-back { --icon: url("assets/icons/phosphor/skip-back.svg"); }
+.ph-play { --icon: url("assets/icons/phosphor/play.svg"); }
+.ph-pause { --icon: url("assets/icons/phosphor/pause.svg"); }
+.ph-skip-forward { --icon: url("assets/icons/phosphor/skip-forward.svg"); }
+.ph-house-simple { --icon: url("assets/icons/phosphor/house-simple.svg"); }
+.ph-sparkle { --icon: url("assets/icons/phosphor/sparkle.svg"); }
+.ph-steering-wheel { --icon: url("assets/icons/phosphor/steering-wheel.svg"); }
+.ph-gauge { --icon: url("assets/icons/phosphor/gauge.svg"); }
+.ph-battery-high { --icon: url("assets/icons/phosphor/battery-high.svg"); }
+
+.hud-icon .ph-icon {
+  width: 18px;
+  height: 18px;
+}
+
+body:not([data-view="showroom"]) #lights-btn {
+  display: none;
+}
+
+#control-toast {
+  position: absolute;
+  top: 74px;
+  right: 28px;
+  z-index: 8;
+  padding: 8px 11px;
+  border: 1px solid rgba(98, 216, 238, 0.2);
+  background: rgba(2, 7, 11, 0.82);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  opacity: 0;
+  transform: translateY(-5px);
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.25s;
+}
+
+#control-toast.show {
+  opacity: 1;
+  transform: none;
+}
+
 /* view name flash */
 #view-name {
   position: absolute;
@@ -272,6 +331,90 @@ body[data-view="showroom"] .showroom-ui button { pointer-events: auto; }
   box-shadow: 0 0 18px rgba(56, 240, 255, 0.15);
 }
 .lens-btn.active i { color: var(--cyan); }
+.lens-btn .ph-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--ink-faint);
+}
+.lens-btn.active .ph-icon { color: var(--cyan); }
+
+.interior-tour {
+  position: absolute;
+  left: 50%;
+  bottom: 120px;
+  width: min(610px, calc(100vw - 48px));
+  transform: translate(-50%, 14px);
+  display: grid;
+  grid-template-columns: minmax(160px, 0.8fr) 1.6fr;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 12px 10px 18px;
+  border: 1px solid rgba(98, 216, 238, 0.18);
+  border-radius: 13px;
+  background: linear-gradient(105deg, rgba(2, 8, 12, 0.94), rgba(7, 18, 23, 0.86));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42), inset 0 1px rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+body[data-view="showroom"].interior-view .interior-tour {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+.interior-tour-copy {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.interior-tour-copy span {
+  font: 500 8px/1 var(--font-mono);
+  letter-spacing: 0.3em;
+  color: rgba(98, 216, 238, 0.62);
+}
+.interior-tour-copy strong {
+  overflow: hidden;
+  color: #d9edf0;
+  font: 500 11px/1.2 var(--font-mono);
+  letter-spacing: 0.13em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.interior-tour-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.interior-view-btn {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid rgba(134, 184, 192, 0.11);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.022);
+  color: rgba(186, 211, 215, 0.52);
+  font: 500 8px/1 var(--font-mono);
+  letter-spacing: 0.13em;
+  transition: 0.24s ease;
+}
+.interior-view-btn span {
+  color: rgba(98, 216, 238, 0.42);
+  font-size: 7px;
+}
+.interior-view-btn:hover {
+  color: #e6f5f6;
+  border-color: rgba(98, 216, 238, 0.3);
+}
+.interior-view-btn.active {
+  color: #efffff;
+  border-color: rgba(98, 216, 238, 0.4);
+  background: rgba(98, 216, 238, 0.09);
+  box-shadow: inset 0 0 18px rgba(98, 216, 238, 0.05);
+}
 
 .scene-rail {
   position: absolute;
@@ -290,6 +433,16 @@ body[data-view="showroom"] .showroom-ui button { pointer-events: auto; }
 .scene-rail .rail-label {
   writing-mode: horizontal-tb;
   margin-right: 4px;
+}
+
+@media (max-width: 760px) {
+  .interior-tour {
+    bottom: 130px;
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+  .interior-tour-copy { display: none; }
+  .interior-view-btn { padding: 0 7px; letter-spacing: 0.08em; }
 }
 .scene-btn {
   padding: 7px 11px;
@@ -1490,12 +1643,47 @@ body[data-view="showroom"] .showroom-ui button { pointer-events: auto; }
   color: var(--green);
 }
 
-.cluster-pilot i {
+.cluster-pilot-status {
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background: var(--green);
   box-shadow: 0 0 10px rgba(117, 226, 189, 0.7);
+}
+
+.cluster-pilot .ph-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.cluster-assistance {
+  position: absolute;
+  top: 94px;
+  left: 50%;
+  z-index: 4;
+  display: flex;
+  gap: 58px;
+  transform: translateX(-50%);
+  color: rgba(174, 200, 206, 0.58);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+
+.cluster-assistance span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.cluster-assistance span:last-child {
+  color: var(--cyan);
+}
+
+.cluster-assistance .ph-icon {
+  width: 14px;
+  height: 14px;
 }
 
 .horizon-cluster .cluster-modes {
@@ -1625,6 +1813,18 @@ body[data-view="showroom"] .showroom-ui button { pointer-events: auto; }
   color: rgba(150, 177, 182, 0.54);
 }
 
+.journey-battery {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.journey-battery .ph-icon {
+  width: 15px;
+  height: 15px;
+  color: var(--green);
+}
+
 .journey-state {
   display: inline-flex;
   align-items: center;
@@ -1684,11 +1884,20 @@ body[data-view="showroom"] .showroom-ui button { pointer-events: auto; }
 
 .aura-kicker,
 .card-label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   font-family: var(--font-mono);
   font-size: 8.5px;
   letter-spacing: 0.26em;
   color: rgba(124, 158, 165, 0.52);
+}
+
+.aura-kicker .ph-icon,
+.card-label .ph-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--cyan);
 }
 
 .map-heading h2 {
@@ -1987,6 +2196,11 @@ body[data-view="showroom"] .showroom-ui button { pointer-events: auto; }
   stroke-width: 1.5;
 }
 
+.aura-media .cc-controls button .ph-icon {
+  width: 15px;
+  height: 15px;
+}
+
 .aura-media .cc-controls [data-play] {
   width: 42px;
   height: 42px;
@@ -2136,6 +2350,11 @@ body[data-view="showroom"] .showroom-ui button { pointer-events: auto; }
   background: transparent;
   box-shadow: none;
   font-size: 8.5px;
+}
+
+.aura-console .tg .ph-icon {
+  width: 14px;
+  height: 14px;
 }
 
 .aura-console .tg.on {

@@ -1,0 +1,7 @@
+Michelle rigged avatar
+
+Source:
+https://huggingface.co/three-ws/avatars/blob/main/michelle.glb
+
+The upstream repository declares this asset under the MIT License:
+https://huggingface.co/three-ws/avatars

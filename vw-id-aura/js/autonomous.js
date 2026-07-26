@@ -530,8 +530,11 @@ export function createAutonomous(view, layer, car) {
 
   for (const spec of trafficSpec) spawnAgent(spec);
 
-  /* ---------- pedestrian (articulated figure) ---------- */
+  /* ---------- pedestrian ----------
+     A lightweight articulated figure is visible only while the licensed,
+     skinned Michelle asset loads (or if the browser cannot decode it). */
   const ped = buildPedestrian();
+  const pedFallback = ped.children.slice();
   const pedBox = detectBox(0.9, 2.0, 0.9, CYAN);
   pedBox.position.y = 1.0;
   ped.add(pedBox);
@@ -546,6 +549,72 @@ export function createAutonomous(view, layer, car) {
     isPed: true
   };
   scatterOnAgent(pedAgent, 60);
+
+  const pedestrianLoader = new GLTFLoader();
+  pedestrianLoader.load(
+    'assets/models/pedestrian/michelle.glb',
+    (gltf) => {
+      const human = gltf.scene;
+      human.name = 'PEDESTRIAN_MICHELLE_MIT';
+
+      // Normalize the authored model to a believable 1.78 m person, put both
+      // feet on the road and keep its rig centered inside the perception box.
+      const authoredBounds = new THREE.Box3().setFromObject(human, true);
+      const authoredSize = authoredBounds.getSize(new THREE.Vector3());
+      // Michelle's skinned bounds under-report the hair / garment deformation
+      // once the rig is posed. A calibrated 1.12 m bind-box target resolves to
+      // an approximately 1.70 m person in the animated scene.
+      const s = 1.12 / Math.max(authoredSize.y, 0.001);
+      human.scale.setScalar(s);
+      human.position.set(
+        -(authoredBounds.min.x + authoredBounds.max.x) * 0.5 * s,
+        -authoredBounds.min.y * s,
+        -(authoredBounds.min.z + authoredBounds.max.z) * 0.5 * s
+      );
+      human.traverse((object) => {
+        if (!object.isMesh) return;
+        object.castShadow = true;
+        object.receiveShadow = true;
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.forEach((material) => {
+          if ('envMapIntensity' in material) material.envMapIntensity = 0.72;
+          material.needsUpdate = true;
+        });
+      });
+
+      // Keep the ADAS brackets/label, replace only the temporary figure.
+      pedFallback.forEach((object) => ped.remove(object));
+      ped.add(human);
+      if (gltf.animations.length) {
+        const mixer = new THREE.AnimationMixer(human);
+        // Establish the authored natural stance, then drive only the humanoid
+        // limb bones ourselves. This avoids using the bundled Samba clip as
+        // road behaviour while preserving the original skinned human mesh.
+        const stance = gltf.animations.find((clip) => clip.name === 'SambaDance')
+          || gltf.animations[0];
+        const stanceAction = mixer.clipAction(stance);
+        stanceAction.play();
+        stanceAction.paused = true;
+        stanceAction.time = 0;
+        mixer.update(0);
+        const boneNames = [
+          'LeftUpLeg', 'RightUpLeg', 'LeftLeg', 'RightLeg',
+          'LeftArm', 'RightArm', 'Spine'
+        ];
+        const bones = {};
+        boneNames.forEach((name) => {
+          const bone = human.getObjectByName(`mixamorig:${name}`);
+          if (bone) bones[name] = { bone, base: bone.quaternion.clone() };
+        });
+        ped.userData.walkRig = bones;
+      }
+      ped.userData.authoredHuman = true;
+    },
+    undefined,
+    (error) => {
+      console.warn('Licensed pedestrian asset could not be loaded; keeping fallback.', error);
+    }
+  );
 
   /* ---------- planned path ribbon ---------- */
   const pathCurve = new THREE.CatmullRomCurve3([
@@ -733,10 +802,36 @@ export function createAutonomous(view, layer, car) {
     for (const p of egoWheel) p.rotation.x += dt * 2.4;
     egoV.mesh.position.y = Math.sin(t * 1.6) * 0.01;
 
-    // pedestrian crossing + walk cycle (legs/arms swing)
+    // pedestrian crossing; the authored skeleton supplies the walk cycle.
     const px = -8 + ((t * 0.55) % 16);
     ped.position.x = px;
-    ped.position.y = Math.abs(Math.sin(t * 5)) * 0.06; // walking bob
+    ped.position.y = ped.userData.authoredHuman
+      ? Math.abs(Math.sin(t * 3.5)) * 0.018
+      : Math.abs(Math.sin(t * 5)) * 0.06;
+    const rig = ped.userData.walkRig;
+    if (rig) {
+      const gait = Math.sin(t * 3.5);
+      const twist = Math.sin(t * 7) * 0.025;
+      const applySwing = (name, angle, axis = 'x', settle = 0) => {
+        const joint = rig[name];
+        if (!joint) return;
+        const qSettle = new THREE.Quaternion().setFromAxisAngle(
+          new THREE.Vector3(0, 0, 1), settle
+        );
+        const qSwing = new THREE.Quaternion().setFromAxisAngle(
+          axis === 'z' ? new THREE.Vector3(0, 0, 1) : new THREE.Vector3(1, 0, 0),
+          angle
+        );
+        joint.bone.quaternion.copy(joint.base).multiply(qSettle).multiply(qSwing);
+      };
+      applySwing('LeftUpLeg', gait * 0.34);
+      applySwing('RightUpLeg', -gait * 0.34);
+      applySwing('LeftLeg', Math.max(0, -gait) * 0.24);
+      applySwing('RightLeg', Math.max(0, gait) * 0.24);
+      applySwing('LeftArm', -gait * 0.22, 'x', 1.02);
+      applySwing('RightArm', gait * 0.22, 'x', -1.02);
+      applySwing('Spine', twist, 'z');
+    }
     const sw = Math.sin(t * 7);
     const pl = ped.userData;
     if (pl && pl.legs) {

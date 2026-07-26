@@ -86,6 +86,17 @@ export function createCar() {
   rig.add(fallback);
   state.paintMats.push(paintMat);
 
+  // Real light projection makes the global headlight control legible:
+  // the authored emissive lamp texture now also throws a restrained beam
+  // across the showroom floor and premiere wall.
+  const headlightSpots = [-0.56, 0.56].map((z) => {
+    const light = new THREE.SpotLight(0xcfeaff, 18, 26, 0.18, 0.82, 1.35);
+    light.position.set(2.06, 0.72, z);
+    light.target.position.set(10, 0.18, z * 1.35);
+    rig.add(light, light.target);
+    return light;
+  });
+
   /* ---------- real GLB ---------- */
   const loader = new GLTFLoader();
   const draco = new DRACOLoader().setDecoderPath('assets/draco/');
@@ -240,6 +251,9 @@ export function createCar() {
     state.lightsOn = on;
     state.glowMats.forEach((m) => {
       m.emissiveIntensity = on ? (m.userData.baseEmissive ?? 2.6) : 0.04;
+    });
+    headlightSpots.forEach((light) => {
+      light.intensity = on ? 18 : 0;
     });
   }
   function setInterior(on) {
