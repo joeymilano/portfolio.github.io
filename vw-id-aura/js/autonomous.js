@@ -24,6 +24,11 @@ const PED_WAIT_SECONDS = 2.8;
 const PED_CROSS_SECONDS = 9.8;
 const SIM_CYCLE_SECONDS = 18;
 const WHEEL_RADIUS = 0.36;
+const TRAFFIC_MIN_GAP = 3.2;
+const TRAFFIC_TIME_HEADWAY = 1.35;
+const TRAFFIC_LANE_ENVELOPE = 1.55;
+const TRAFFIC_RESPAWN_GAP = 11;
+const WORLD_FLOW_SCALE = 0.78;
 const TRAFFIC_DIMENSIONS = {
   compact: { w: 1.82, h: 1.42, d: 4.05 },
   sedan: { w: 1.88, h: 1.44, d: 4.55 },
@@ -195,6 +200,51 @@ export function createAutonomous(view, layer, car) {
   group.visible = false;
   view.scene.add(group);
 
+  /* The hero stays camera-locked, so forward motion has to come from the
+     authored street world moving past it. Each roadside asset keeps its own
+     repeat period; deriving position from one accumulated travel value avoids
+     drift and makes the entire streetscape stop and resume with ego speed. */
+  const worldMovers = [];
+  let sceneryTravel = 0;
+
+  function registerWorldMover(object, period, maxZ = 18) {
+    worldMovers.push({
+      object,
+      baseZ: object.position.z,
+      period,
+      maxZ
+    });
+    return object;
+  }
+
+  function positionWorldMovers() {
+    for (const mover of worldMovers) {
+      const minZ = mover.maxZ - mover.period;
+      let z = mover.baseZ + sceneryTravel;
+      z = ((z - minZ) % mover.period + mover.period) % mover.period + minZ;
+      mover.object.position.z = z;
+    }
+  }
+
+  /* Real, licensed night-driving cinematography forms the distant moving
+     horizon. It is deliberately a film plate rather than generated scenery:
+     Three.js keeps the interactive cars/perception layer live in front of it. */
+  const horizonFilm = document.createElement('video');
+  horizonFilm.src = 'assets/video/aura-night-drive.mp4';
+  horizonFilm.muted = true;
+  horizonFilm.defaultMuted = true;
+  horizonFilm.volume = 0;
+  horizonFilm.loop = true;
+  horizonFilm.playsInline = true;
+  horizonFilm.preload = 'metadata';
+  horizonFilm.playbackRate = 0.72;
+
+  const horizonTexture = new THREE.VideoTexture(horizonFilm);
+  horizonTexture.colorSpace = THREE.SRGBColorSpace;
+  horizonTexture.minFilter = THREE.LinearFilter;
+  horizonTexture.magFilter = THREE.LinearFilter;
+  horizonTexture.generateMipmaps = false;
+
   /* ---------- authored city kit ----------
      Kenney's CC0 City Kit replaces the empty procedural void with a real
      architectural streetscape. Models are loaded once, cloned, then graded
@@ -230,8 +280,8 @@ export function createAutonomous(view, layer, car) {
       const materials = source.map((material) => {
         const graded = material.clone();
         if (graded.color) {
-          graded.color.multiplyScalar(0.18);
-          graded.color.lerp(new THREE.Color(0x07131b), 0.48);
+          graded.color.multiplyScalar(0.11);
+          graded.color.lerp(new THREE.Color(0x050b10), 0.58);
         }
         if ('roughness' in graded) graded.roughness = Math.max(0.66, graded.roughness);
         if ('metalness' in graded) graded.metalness = Math.min(0.28, graded.metalness);
@@ -274,6 +324,7 @@ export function createAutonomous(view, layer, car) {
         -fittedBox.min.y,
         placement.z
       );
+      registerWorldMover(building, 146.4, 18);
       city.add(building);
     }).catch((error) => {
       console.warn(`City model failed to load: ${placement.file}`, error);
@@ -300,14 +351,13 @@ export function createAutonomous(view, layer, car) {
   }
 
   // flowing centre dashes
-  const dashes = [];
   const dashMat = new THREE.MeshBasicMaterial({ color: 0xd7faff, transparent: true, opacity: 0.3 });
   for (let i = 0; i < 26; i++) {
     const d = new THREE.Mesh(new THREE.PlaneGeometry(0.14, 2.4), dashMat.clone());
     d.rotation.x = -Math.PI / 2;
     d.position.set(0, 0.045, 14 - i * 6);
     group.add(d);
-    dashes.push(d);
+    registerWorldMover(d, 156, 18);
   }
   const laneMat = new THREE.MeshBasicMaterial({ color: 0x24536a, transparent: true, opacity: 0.18 });
   for (const x of [-4.5, 4.5]) {
@@ -316,7 +366,7 @@ export function createAutonomous(view, layer, car) {
       d.rotation.x = -Math.PI / 2;
       d.position.set(x, 0.045, 14 - i * 6);
       group.add(d);
-      dashes.push(d);
+      registerWorldMover(d, 156, 18);
     }
   }
 
@@ -332,9 +382,11 @@ export function createAutonomous(view, layer, car) {
   for (const x of [-9.8, 9.8]) {
     for (let z = 14; z >= -118; z -= 13) {
       const b = new THREE.Mesh(beaconGeo, beaconMat);
-      b.position.set(x, 0.55, z); group.add(b);
+      b.position.set(x, 0.55, z);
+      group.add(registerWorldMover(b, 143, 18));
       const g = new THREE.Mesh(glowGeo, glowMat);
-      g.position.set(x, 0.55, z); group.add(g);
+      g.position.set(x, 0.55, z);
+      group.add(registerWorldMover(g, 143, 18));
     }
   }
 
@@ -352,15 +404,21 @@ export function createAutonomous(view, layer, car) {
       const x0 = side * 10.2;
       const x1 = side * (12.2 + Math.sin(z * 0.11) * 1.3);
       const geometry = new THREE.BufferGeometry().setFromPoints([
-        new THREE.Vector3(x0, 0.05, z),
-        new THREE.Vector3(x1, height, z - 1.8),
-        new THREE.Vector3(x1, height, z - 4.8)
+        new THREE.Vector3(x0, 0.05, 0),
+        new THREE.Vector3(x1, height, -1.8),
+        new THREE.Vector3(x1, height, -4.8)
       ]);
-      group.add(new THREE.Line(geometry, (Math.abs(z) % 26 < 1) ? corridorBlueMat : corridorMat));
+      const frame = new THREE.Line(
+        geometry,
+        (Math.abs(z) % 26 < 1) ? corridorBlueMat : corridorMat
+      );
+      frame.position.z = z;
+      group.add(registerWorldMover(frame, 143, 18));
     }
   }
 
   const portalGroup = new THREE.Group();
+  portalGroup.position.z = -93;
   for (let i = 0; i < 3; i++) {
     const portal = new THREE.Mesh(
       new THREE.RingGeometry(2.6 + i * 1.15, 2.63 + i * 1.15, 72),
@@ -373,10 +431,10 @@ export function createAutonomous(view, layer, car) {
         side: THREE.DoubleSide
       })
     );
-    portal.position.set(0, 4.2, -93 - i * 1.6);
+    portal.position.set(0, 4.2, -i * 1.6);
     portalGroup.add(portal);
   }
-  group.add(portalGroup);
+  group.add(registerWorldMover(portalGroup, 170, 24));
 
   /* ---------- vehicle hierarchy ----------
      Hero and traffic intentionally use different asset families. ID.AURA keeps
@@ -515,22 +573,28 @@ export function createAutonomous(view, layer, car) {
   function rollWheels(pivots, signedTravel) {
     const delta = -signedTravel / WHEEL_RADIUS;
     for (const pivot of pivots) {
-      if (pivot.userData.rollBaseX == null) {
-        pivot.userData.rollBaseX = pivot.rotation.x;
-        pivot.userData.rollBaseY = pivot.rotation.y;
-        pivot.userData.rollBaseZ = pivot.rotation.z;
+      if (!pivot.userData.rollBaseQuaternion) {
+        pivot.userData.rollBaseQuaternion = pivot.quaternion.clone();
         pivot.userData.rollAngle = 0;
       }
       pivot.userData.rollAngle =
         (pivot.userData.rollAngle + delta) % (Math.PI * 2);
-      // The authored wheel axle is local X. Writing one coherent roll angle
-      // avoids compounded axis drift that made the front wheels appear to
-      // steer and tumble independently.
-      pivot.rotation.set(
-        pivot.userData.rollBaseX + pivot.userData.rollAngle,
-        pivot.userData.rollBaseY,
-        pivot.userData.rollBaseZ
+      const roll = new THREE.Quaternion().setFromAxisAngle(
+        new THREE.Vector3(1, 0, 0),
+        pivot.userData.rollAngle
       );
+      pivot.quaternion.copy(pivot.userData.rollBaseQuaternion).multiply(roll);
+    }
+  }
+
+  function stabilizeHeroWheels(pivots) {
+    for (const pivot of pivots) {
+      if (!pivot.userData.heroRestQuaternion) {
+        pivot.userData.heroRestQuaternion = pivot.quaternion.clone();
+        pivot.userData.heroRestPosition = pivot.position.clone();
+      }
+      pivot.position.copy(pivot.userData.heroRestPosition);
+      pivot.quaternion.copy(pivot.userData.heroRestQuaternion);
     }
   }
 
@@ -699,6 +763,73 @@ export function createAutonomous(view, layer, car) {
 
   for (const spec of trafficSpec) spawnAgent(spec);
 
+  function sharesLaneEnvelope(agent, other) {
+    if (agent === other || agent.oncoming !== other.oncoming) return false;
+    const separations = [
+      Math.abs(agent.lane - other.lane),
+      Math.abs(agent.targetLane - other.lane),
+      Math.abs(agent.lane - other.targetLane),
+      Math.abs(agent.targetLane - other.targetLane)
+    ];
+    return Math.min(...separations) < TRAFFIC_LANE_ENVELOPE;
+  }
+
+  function surfaceGap(agent, other) {
+    const centreDistance = agent.oncoming
+      ? other.body.position.z - agent.body.position.z
+      : agent.body.position.z - other.body.position.z;
+    if (centreDistance <= 0) return Infinity;
+    return centreDistance - (agent.dims.d + other.dims.d) / 2;
+  }
+
+  function findLeader(agent) {
+    let leader = null;
+    let gap = Infinity;
+    for (const other of agents) {
+      if (!sharesLaneEnvelope(agent, other)) continue;
+      const candidateGap = surfaceGap(agent, other);
+      if (candidateGap < gap) {
+        gap = candidateGap;
+        leader = other;
+      }
+    }
+    return { leader, gap };
+  }
+
+  function laneHasMergeSpace(agent, candidateLane) {
+    return agents.every((other) => {
+      if (agent === other || agent.oncoming !== other.oncoming) return true;
+      if (Math.abs(other.lane - candidateLane) >= TRAFFIC_LANE_ENVELOPE) return true;
+      const clearance = Math.abs(other.body.position.z - agent.body.position.z)
+        - (agent.dims.d + other.dims.d) / 2;
+      return clearance > TRAFFIC_RESPAWN_GAP;
+    });
+  }
+
+  function safeRespawnZ(agent) {
+    if (agent.oncoming) {
+      let candidate = -150;
+      for (const other of agents) {
+        if (!sharesLaneEnvelope(agent, other)) continue;
+        const behind = other.body.position.z
+          - (agent.dims.d + other.dims.d) / 2
+          - TRAFFIC_RESPAWN_GAP;
+        candidate = Math.min(candidate, behind);
+      }
+      return candidate;
+    }
+
+    let candidate = 20;
+    for (const other of agents) {
+      if (!sharesLaneEnvelope(agent, other)) continue;
+      const behind = other.body.position.z
+        + (agent.dims.d + other.dims.d) / 2
+        + TRAFFIC_RESPAWN_GAP;
+      candidate = Math.max(candidate, behind);
+    }
+    return candidate;
+  }
+
   /* ---------- pedestrian ----------
      A lightweight articulated figure is visible only while the licensed,
      skinned casual avatar loads (or if the browser cannot decode it). */
@@ -850,6 +981,7 @@ export function createAutonomous(view, layer, car) {
         <span class="auto-speed"><i>VELOCITY</i><b data-a="spd">62<u>km/h</u></b></span>
         <span><i>LEAD GAP</i><b data-a="gap">--</b></span>
         <span><i>TIME TO CONTACT</i><b class="ok" data-a="ttc">—<u>s</u></b></span>
+        <span class="auto-world-flow"><i>WORLD FLOW</i><b data-a="world">11.7<u>m/s</u></b></span>
         <span><i>SYSTEM</i><b class="ok" data-a="system">YIELDING</b></span>
       </div>
     </div>`;
@@ -922,11 +1054,12 @@ export function createAutonomous(view, layer, car) {
     }
     const yielding = egoSpeedKph < 3 || crossingOccupied;
 
-    // dashes flow
-    for (const d of dashes) {
-      d.position.z += dt * THREE.MathUtils.lerp(0.35, 7, egoSpeedKph / 54);
-      if (d.position.z > 16) d.position.z -= 156;
-    }
+    // Camera-locked driving illusion: authored buildings, light corridors,
+    // beacons, portal architecture and lane markings all pass the hero at the
+    // same speed. At the pedestrian stop the whole street settles to zero.
+    const worldSpeedMps = (egoSpeedKph / 3.6) * WORLD_FLOW_SCALE;
+    sceneryTravel += worldSpeedMps * dt;
+    positionWorldMovers();
 
     // Pedestrian translation and gait share the same stride clock, preventing
     // the previous skating motion where the root slid independently.
@@ -969,17 +1102,39 @@ export function createAutonomous(view, layer, car) {
 
     // traffic
     let leadGap = Infinity;
+    let minimumTrafficGap = Infinity;
     for (const a of agents) {
-      /* smooth lane changes (same-direction only) — eased, not snapped */
+      /* A lane change is only committed when the target corridor has enough
+         room ahead and behind for the full vehicle envelope. */
       a.laneTimer -= dt;
       if (!crossingOccupied && a.laneTimer <= 0) {
         a.laneTimer = 5 + Math.random() * 5;
         if (!a.oncoming) {
-          a.targetLane = (a.lane < -2) ? (Math.random() < 0.4 ? 0 : -4.5) : -4.5;
+          const candidateLane = a.lane < -2 ? 0 : -4.5;
+          if (laneHasMergeSpace(a, candidateLane) && Math.random() < 0.34) {
+            a.targetLane = candidateLane;
+          } else {
+            a.targetLane = a.startLane;
+          }
         }
       }
       a.lane += (a.targetLane - a.lane) * Math.min(1, dt * 1.1);
       const changingLane = Math.abs(a.targetLane - a.lane) > 0.06;
+
+      /* Intelligent car following. Each vehicle observes the closest leader
+         in its current or target-lane envelope and maintains a speed-dependent
+         headway, including during merge transitions. */
+      const { leader, gap: rawTrafficGap } = findLeader(a);
+      const trafficGap = Math.max(0, rawTrafficGap);
+      if (leader) minimumTrafficGap = Math.min(minimumTrafficGap, trafficGap);
+      const desiredTrafficGap =
+        TRAFFIC_MIN_GAP + Math.abs(a.curSpeed) * TRAFFIC_TIME_HEADWAY;
+      const followingFactor = leader
+        ? smoothstep(
+            (trafficGap - TRAFFIC_MIN_GAP)
+            / Math.max(1, desiredTrafficGap - TRAFFIC_MIN_GAP)
+          )
+        : 1;
 
       /* Predictive crosswalk yield: traffic approaching from either direction
          decelerates against distance to the conflict zone and holds 3 m back. */
@@ -992,23 +1147,36 @@ export function createAutonomous(view, layer, car) {
       const stoppingFactor = mustYield
         ? smoothstep((distanceToCrosswalk - 3) / 20)
         : 1;
-      const targetSpeed = a.nominalSpeed * stoppingFactor;
+      const targetSpeed =
+        a.nominalSpeed * Math.min(stoppingFactor, followingFactor);
       const slowing = Math.abs(targetSpeed) < Math.abs(a.curSpeed);
       const response = slowing ? 3.5 : 0.75;
       a.curSpeed += (targetSpeed - a.curSpeed) * Math.min(1, dt * response);
       if (mustYield && distanceToCrosswalk <= 3.2) a.curSpeed = 0;
 
-      /* longitudinal travel + coherent wheel roll */
-      const travel = a.curSpeed * dt;
+      /* Clamp travel to the actual free space. Even a large frame delta can
+         never advance a vehicle through the rear surface of its leader. */
+      let travel = a.curSpeed * dt;
+      if (leader) {
+        const available = Math.max(0, trafficGap - TRAFFIC_MIN_GAP);
+        travel = a.oncoming
+          ? Math.min(travel, available)
+          : Math.max(travel, -available);
+        if (available <= 0.001) a.curSpeed = 0;
+      }
       a.body.position.z += travel;
       a.body.position.x = a.lane;
       if (!a.oncoming && a.body.position.z < -140) {
-        a.body.position.z = 20;
+        a.body.position.z = safeRespawnZ(a);
         a.curSpeed = a.nominalSpeed;
+        a.lane = a.startLane;
+        a.targetLane = a.startLane;
       }
       if (a.oncoming && a.body.position.z > 30) {
-        a.body.position.z = -150;
+        a.body.position.z = safeRespawnZ(a);
         a.curSpeed = a.nominalSpeed;
+        a.lane = a.startLane;
+        a.targetLane = a.startLane;
       }
       rollWheels(a.wheelPivots, travel);
 
@@ -1023,7 +1191,10 @@ export function createAutonomous(view, layer, car) {
       }
 
       /* brake lights now communicate an actual yield, not a random pulse */
-      const braking = mustYield && (slowing || Math.abs(a.curSpeed) < 0.15);
+      const followingTraffic = leader && followingFactor < 0.92;
+      const braking =
+        (mustYield || followingTraffic)
+        && (slowing || Math.abs(a.curSpeed) < 0.15);
       const brakeBoost = braking ? 4.0 : 1.2;
       for (const m of a.brakeMats) m.emissiveIntensity = brakeBoost;
 
@@ -1044,11 +1215,12 @@ export function createAutonomous(view, layer, car) {
       }
     }
 
-    /* ego: wheel rotation is bound to simulated speed and becomes completely
-       still at the stop line; no independent front-wheel tumble. */
+    /* The autonomous camera keeps the hero fixed in world space while the road
+       flows beneath it. Lock the authored wheel transforms to their measured
+       rest pose; rolling a stationary root was the source of the visible
+       front-wheel wobble and the crooked pose at 0 km/h. */
     pod.rotation.y += dt * 3.4;
-    const egoVisualMps = Math.min(5.2, egoSpeedKph / 3.6);
-    rollWheels(egoWheel, -egoVisualMps * dt);
+    stabilizeHeroWheels(egoWheel);
     egoV.mesh.position.y = egoSpeedKph > 1 ? Math.sin(t * 1.6) * 0.006 : 0;
     const egoBraking = crossingOccupied && egoSpeedKph < 48;
     for (const material of egoV.brakeMats) {
@@ -1103,13 +1275,23 @@ export function createAutonomous(view, layer, car) {
       const caution = ttcSec < 3.2;
       A('ttc').innerHTML = (ttcSec === Infinity ? '∞' : ttcSec.toFixed(1)) + '<u>s</u>';
       A('ttc').classList.toggle('ok', !caution);
+      A('world').innerHTML = worldSpeedMps.toFixed(1) + '<u>m/s</u>';
+      A('world').classList.toggle('ok', worldSpeedMps > 0.15);
       A('obj').textContent = (ranked.length || 0) + 1;
+      layer.dataset.minimumTrafficGap = Number.isFinite(minimumTrafficGap)
+        ? minimumTrafficGap.toFixed(2)
+        : 'clear';
+      layer.dataset.heroWheelState = 'locked';
+      layer.dataset.worldSpeed = worldSpeedMps.toFixed(2);
+      layer.dataset.worldTravel = sceneryTravel.toFixed(2);
     }
   }
 
   function onEnter() {
     simulationTime = 0;
     egoSpeedKph = 54;
+    sceneryTravel = 0;
+    positionWorldMovers();
     ped.position.set(PED_START_X, 0, CROSSWALK_Z);
     agents.forEach((agent) => {
       agent.lane = agent.startLane;
@@ -1118,6 +1300,10 @@ export function createAutonomous(view, layer, car) {
       agent.curSpeed = agent.nominalSpeed;
     });
     group.visible = true;
+    view.scene.background = horizonTexture;
+    view.scene.backgroundBlurriness = 0;
+    view.scene.backgroundIntensity = 0.62;
+    horizonFilm.play().catch(() => {});
     controls.enabled = false;
     camera.position.set(8.6, 5.8, 17.5);
     controls.target.set(0, 0.7, -21);
@@ -1127,6 +1313,7 @@ export function createAutonomous(view, layer, car) {
   }
   function onExit() {
     group.visible = false;
+    horizonFilm.pause();
     controls.enabled = true;
   }
 

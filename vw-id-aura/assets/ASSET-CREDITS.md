@@ -3,6 +3,24 @@
 The experience uses human-authored photography, PBR materials and 3D models.
 No generative imagery is used in the Showroom, Cluster or Autonomous worlds.
 
+## Intro and Autonomous concept film
+
+- **High-Speed Night Drive Through Urban Tunnel**
+- Video by とら にい on Pexels
+- Source: https://www.pexels.com/video/high-speed-night-drive-through-urban-tunnel-31196472/
+- License: Pexels License
+- Local edit: nine-second H.264 loop, color graded for ID.AURA, with source
+  audio and metadata removed
+
+## Soundtrack
+
+- **Legacy**
+- Music by Scott Buckley
+- Source: https://www.scottbuckley.com.au/library/legacy/
+- License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+- Required attribution: “Legacy” by Scott Buckley — released under CC BY 4.0
+  — https://www.scottbuckley.com.au
+
 ## Showroom exhibition wall
 
 - **An expansive indoor stage with dramatic lighting setup**

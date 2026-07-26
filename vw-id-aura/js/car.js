@@ -121,6 +121,23 @@ export function createCar() {
   }
 
   function fitModel(model) {
+    /* The donor GLB is authored with both front-wheel assemblies turned by
+       roughly 30 degrees. Neutralise that baked steering pose before fitting
+       or building roll pivots: each front assembly inherits the straight
+       wheel plane of the rear assembly on the same side while retaining its
+       own hub position. */
+    const frontLeft = model.getObjectByName('WheelFrontL');
+    const frontRight = model.getObjectByName('WheelFrontR');
+    const rearLeft = model.getObjectByName('WheelRearL');
+    const rearRight = model.getObjectByName('WheelRearR');
+    if (frontLeft && rearLeft && frontLeft.parent === rearLeft.parent) {
+      frontLeft.quaternion.copy(rearLeft.quaternion);
+    }
+    if (frontRight && rearRight && frontRight.parent === rearRight.parent) {
+      frontRight.quaternion.copy(rearRight.quaternion);
+    }
+    model.updateMatrixWorld(true);
+
     /* face +X so the side-lens camera sees the profile */
     model.rotation.y = Math.PI / 2;
 
@@ -201,25 +218,44 @@ export function createCar() {
       }
     });
 
-    /* wheel pivot rig — position the hub pivots FIRST, then attach
-       (attach preserves world transform, so children stay in place) */
-    const pivots = HUBS.map((h) => {
+    /* Wheel pivot rig. HUBS only classify the four wheel assemblies; each
+       pivot is placed at the measured centre of its actual meshes. The old
+       hard-coded pivot positions were slightly eccentric, so rolling a wheel
+       made it orbit and appear to steer or wobble. */
+    const inv = new THREE.Matrix4().copy(model.matrixWorld).invert();
+    const wheelClusters = HUBS.map(() => []);
+    wheelMeshes.forEach((wheel) => {
+      const localCenter = wheel.center.clone().applyMatrix4(inv);
+      let best = 0, bestD = Infinity;
+      HUBS.forEach((hub, index) => {
+        const distance = localCenter.distanceTo(hub);
+        if (distance < bestD) {
+          bestD = distance;
+          best = index;
+        }
+      });
+      wheelClusters[best].push({ ...wheel, localCenter });
+    });
+
+    const pivots = wheelClusters.map((cluster, index) => {
       const p = new THREE.Group();
-      p.userData.isWheelPivot = true;     // cloneCar finds these per-instance
-      p.position.copy(h);
+      p.userData.isWheelPivot = true;
+      p.userData.wheelIndex = index;
+      if (cluster.length) {
+        const centre = cluster.reduce(
+          (sum, wheel) => sum.add(wheel.localCenter),
+          new THREE.Vector3()
+        ).multiplyScalar(1 / cluster.length);
+        p.position.copy(centre);
+      } else {
+        p.position.copy(HUBS[index]);
+      }
       model.add(p);
       return p;
     });
     model.updateMatrixWorld(true);
-    wheelMeshes.forEach(({ mesh, center }) => {
-      let best = 0, bestD = Infinity;
-      const inv = new THREE.Matrix4().copy(model.matrixWorld).invert();
-      const local = center.clone().applyMatrix4(inv);
-      HUBS.forEach((h, i) => {
-        const d = local.distanceTo(h);
-        if (d < bestD) { bestD = d; best = i; }
-      });
-      pivots[best].attach(mesh);
+    wheelClusters.forEach((cluster, index) => {
+      cluster.forEach(({ mesh }) => pivots[index].attach(mesh));
     });
     pivots.forEach((p) => state.wheelPivots.push(p));
   }

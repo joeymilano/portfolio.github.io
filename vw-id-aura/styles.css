@@ -2549,6 +2549,21 @@ body[data-view="console"] #view-name {
   color: var(--cyan);
 }
 
+.autonomous .auto-foot .auto-world-flow b {
+  color: var(--cyan);
+  text-shadow: 0 0 18px rgba(98, 216, 238, 0.24);
+}
+
+.autonomous .auto-foot .auto-world-flow b::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  margin: 0 8px 4px 0;
+  background: linear-gradient(90deg, transparent, var(--cyan));
+  box-shadow: 7px 0 8px rgba(98, 216, 238, 0.45);
+}
+
 @media (max-width: 1100px) {
   .aura-console {
     padding-inline: 22px;

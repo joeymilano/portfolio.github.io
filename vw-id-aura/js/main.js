@@ -7,12 +7,12 @@
 
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-import { createScene } from './scene.js?v=20260726-7';
-import { createCar } from './car.js?v=20260726-7';
-import { createCluster } from './cluster.js?v=20260726-7';
-import { createConsole } from './console.js?v=20260726-7';
-import { createAutonomous } from './autonomous.js?v=20260726-7';
-import { createAudio } from './audio.js?v=20260726-7';
+import { createScene } from './scene.js?v=20260726-9';
+import { createCar } from './car.js?v=20260726-9';
+import { createCluster } from './cluster.js?v=20260726-9';
+import { createConsole } from './console.js?v=20260726-9';
+import { createAutonomous } from './autonomous.js?v=20260726-9';
+import { createAudio } from './audio.js?v=20260726-9';
 
 const stage = document.getElementById('stage');
 const layers = {
@@ -260,7 +260,7 @@ setInterval(tickHudClock, 10_000);
 
 /* ---------- intro film + BGM ----------
    The intro film is always muted. The launch gesture is the only audio
-   unlock: it brings the soundtrack in gently at 18% master gain. */
+   unlock: it brings the soundtrack in gently at 12% master gain. */
 const intro = document.getElementById('intro');
 const introFilm = document.getElementById('intro-film');
 if (introFilm) {
@@ -273,7 +273,7 @@ if (introFilm) {
   introFilm.play().catch(() => {});
 }
 function launchExperience() {
-  audio.play(0.18);
+  audio.play(0.12);
   intro.classList.add('gone');
   setTimeout(() => {
     intro.querySelector('.intro-film')?.pause();
@@ -308,6 +308,7 @@ controls.addEventListener('end', () => {
 /* ---------- debug hooks (QA / devtools: read live camera + target) ---------- */
 window.__cam = camera;
 window.__ctrl = controls;
+window.__audio = audio;
 
 /* ---------- main loop ---------- */
 const clock = new THREE.Clock();
