@@ -1029,6 +1029,30 @@
         .project-card[data-project="finfold"] .project-metric svg {
             stroke: #fbbf24;
         }
+
+        /* ID.AURA Project Card (Volkswagen HMI concept) */
+        .project-card[data-project="idaura"] {
+            border: 1px solid rgba(0, 176, 240, 0.12);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card[data-project="idaura"]:hover {
+            border-color: rgba(0, 176, 240, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 176, 240, 0.22);
+        }
+        .project-card[data-project="idaura"] .project-card-overlay {
+            background: linear-gradient(180deg, rgba(0,12,28,0.1) 0%, rgba(0,18,44,0.55) 50%, rgba(0,8,22,0.95) 100%);
+        }
+        .project-card[data-project="idaura"] .project-tag {
+            background: rgba(0, 176, 240, 0.2);
+            border: 1px solid rgba(0, 176, 240, 0.32);
+            backdrop-filter: blur(12px);
+        }
+        .project-card[data-project="idaura"] .project-metric {
+            color: #38e0ff;
+        }
+        .project-card[data-project="idaura"] .project-metric svg {
+            stroke: #38e0ff;
+        }
         .finfold-card-shot-brand {
             position: absolute; left: 47%; top: 42px; z-index: 2;
             padding: 6px 10px; border-radius: 8px;
@@ -1148,6 +1172,17 @@
             <h2 class="section-title" data-i18n="projects.title">Make the complex feel obvious.</h2>
         </div>
         <div class="projects-grid">
+            <a href="vw-id-aura" class="project-card" data-project="idaura">
+                <div class="project-card-bg" id="idaura-bg" style="background-image:url('vw-id-aura/assets/og-cover.jpg');"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <span class="project-tag" data-i18n="project.idaura.tag">HMI Concept · WebGL · 2026</span>
+                    <h3 class="project-title">ID.AURA</h3>
+                    <p class="project-subtitle" data-i18n="project.idaura.subtitle">A real-time Volkswagen HMI concept — showroom, cluster, console & autonomous perception in one WebGL cockpit.</p>
+                    <span class="project-metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18"/></svg> <span data-i18n="project.idaura.metric">Volkswagen · 4 Live Modes</span></span>
+                    <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                </div>
+            </a>
             <a href="signals" class="project-card" data-project="signals">
                 <div class="project-card-bg" id="signals-bg"></div>
                 <div class="project-card-overlay"></div>

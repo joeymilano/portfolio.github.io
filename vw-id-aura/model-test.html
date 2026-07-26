@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>body{margin:0}</style></head>
+<body>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x111722);
+const camera = new THREE.PerspectiveCamera(40, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(6, 3, 6);
+camera.lookAt(0, 0.8, 0);
+scene.add(new THREE.HemisphereLight(0xbfd4ee, 0x202028, 1.0));
+const key = new THREE.DirectionalLight(0xffffff, 1.6);
+key.position.set(5, 8, 4);
+scene.add(key);
+
+const report = [];
+const gltfLoader = new GLTFLoader();
+gltfLoader.setDRACOLoader(new DRACOLoader().setDecoderPath('assets/draco/'));
+gltfLoader.load('assets/models/concept.glb', (gltf) => {
+  const model = gltf.scene;
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const s = 4.62 / Math.max(size.x, size.z);
+  model.scale.setScalar(s);
+  box.setFromObject(model);
+  const c = box.getCenter(new THREE.Vector3());
+  model.position.sub(c);
+  model.position.y -= box.min.y - c.y;
+  let meshCount = 0;
+  model.traverse((o) => {
+    if (!o.isMesh) return;
+    meshCount++;
+    const mats = Array.isArray(o.material) ? o.material : [o.material];
+    mats.forEach((m) => {
+      report.push({
+        mesh: o.name, mat: m.name, type: m.type,
+        color: m.color ? '#' + m.color.getHexString() : null,
+        emissive: m.emissive ? '#' + m.emissive.getHexString() : null,
+        emissiveIntensity: m.emissiveIntensity ?? null,
+        metalness: m.metalness ?? null, roughness: m.roughness ?? null
+      });
+    });
+  });
+  scene.add(model);
+  renderer.render(scene, camera);
+  console.log('MESH_COUNT', meshCount);
+  console.log('MATERIAL_REPORT ' + JSON.stringify(report.slice(0, 40)));
+  window.__done = true;
+}, undefined, (err) => { console.log('LOAD_ERROR', String(err)); window.__done = true; });
+</script>
+</body>
+</html>

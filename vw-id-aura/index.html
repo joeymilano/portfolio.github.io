@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ID.AURA — Volkswagen HMI Concept · by Joey Zhao</title>
+  <meta name="description" content="ID.AURA — an immersive WebGL HMI concept for Volkswagen's electric future. Four modes — Showroom, Cluster, Console, Autonomous — in one continuous gesture. Designed and built by Joey Zhao.">
+  <meta name="theme-color" content="#04060b">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Volkswagen ID.AURA — HMI Concept">
+  <meta property="og:description" content="An immersive WebGL HMI concept for Volkswagen's electric future. Real-time 3D showroom, digital cluster, console and autonomous perception visualization.">
+  <meta property="og:url" content="https://joeyzhao.cc/vw-id-aura/">
+  <meta property="og:image" content="https://joeyzhao.cc/vw-id-aura/assets/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://joeyzhao.cc/vw-id-aura/">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"CreativeWork","name":"Volkswagen ID.AURA — HMI Concept","description":"An immersive WebGL human-machine interface concept for Volkswagen's electric future.","url":"https://joeyzhao.cc/vw-id-aura/","inLanguage":"en","creator":{"@type":"Person","name":"Joey Zhao","jobTitle":"Senior AI Product Designer","url":"https://joeyzhao.cc/"}}
+  </script>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three.module.js",
+      "three/addons/": "./vendor/addons/",
+      "gsap": "./vendor/gsap.module.js"
+    }
+  }
+  </script>
+</head>
+<body data-view="showroom">
+  <!-- WebGL stage (renderer canvas injected here) -->
+  <div id="stage"></div>
+
+  <!-- Boot veil -->
+  <div id="loader">
+    <div class="loader-core">
+      <div class="loader-logo">ID<span class="dot">.</span>AURA</div>
+      <div class="loader-sub">VOLKSWAGEN · HMI CONCEPT</div>
+      <div class="loader-track"><i id="loader-bar"></i></div>
+      <div class="loader-status" id="lstatus">LOADING VEHICLE DATA</div>
+    </div>
+    <div class="loader-grid"></div>
+  </div>
+
+  <!-- HUD shell -->
+  <div id="hud">
+    <header class="hud-top">
+      <div class="hud-brand">
+        <svg class="hud-mark" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="3"/>
+          <path d="M30 50 H70 M50 30 V70" stroke="currentColor" stroke-width="14" stroke-linecap="square"/>
+        </svg>
+        <div class="hud-word">ID<span>.</span>AURA</div>
+      </div>
+
+      <nav class="hud-nav">
+        <button class="nav-btn active" data-view="showroom">Showroom</button>
+        <button class="nav-btn" data-view="cluster">Cluster</button>
+        <button class="nav-btn" data-view="console">Console</button>
+        <button class="nav-btn" data-view="autonomous">Autonomous</button>
+      </nav>
+
+      <div class="hud-right">
+        <span class="hud-clock" id="clock">--:--</span>
+        <button class="hud-icon" id="lights-btn" aria-label="Toggle headlights" title="Headlights (L)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4a8 8 0 1 0 0 16c-2 0-3-3.6-3-8s1-8 3-8z"/><path d="M13 7h7M13 12h8M13 17h7" stroke-linecap="round"/></svg>
+        </button>
+        <button class="hud-icon" id="audio-btn" aria-label="Toggle sound" title="Sound">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="view-name">SHOWROOM</div>
+
+    <!-- Showroom controls -->
+    <div class="showroom-ui">
+      <div class="lens-rail">
+        <button class="lens-btn active" data-lens="front34"><i>¾</i>FRONT</button>
+        <button class="lens-btn" data-lens="side"><i>→</i>SIDE</button>
+        <button class="lens-btn" data-lens="rear"><i>←</i>REAR</button>
+        <button class="lens-btn" data-lens="top"><i>↓</i>TOP</button>
+        <button class="lens-btn" data-lens="int"><i>◉</i>COCKPIT</button>
+      </div>
+      <div class="paint-rail">
+        <span class="rail-label">PAINT</span>
+        <button class="paint-dot active" data-paint="#9fb3c8" style="--c:#9fb3c8" title="Moonstone Silver"></button>
+        <button class="paint-dot" data-paint="#0d2d6b" style="--c:#0d2d6b" title="Deep Ocean"></button>
+        <button class="paint-dot" data-paint="#0c1210" style="--c:#0c1210" title="Obsidian"></button>
+        <button class="paint-dot" data-paint="#c22333" style="--c:#c22333" title="Crimson"></button>
+        <button class="paint-dot" data-paint="#e8e6e0" style="--c:#e8e6e0" title="Glacier White"></button>
+      </div>
+    </div>
+
+    <footer class="hud-bottom">
+      <div class="hud-hint">DRAG TO ORBIT · SCROLL TO ZOOM · KEYS 1–4 SWITCH MODES</div>
+      <div class="hud-meta">VW ID.AURA · CONCEPT 2026 · WEBGL</div>
+    </footer>
+
+    <!-- Mode layers (DOM surfaces) -->
+    <div class="layer" id="layer-cluster"></div>
+    <div class="layer" id="layer-console"></div>
+    <div class="layer" id="layer-autonomous"></div>
+    <div class="layer" id="layer-showroom"></div>
+  </div>
+
+  <!-- Intro veil -->
+  <div id="intro">
+    <nav class="intro-top">
+      <a class="intro-back" href="/#projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back to work</span>
+      </a>
+    </nav>
+
+    <main class="intro-core">
+      <p class="intro-eyebrow">VOLKSWAGEN · HMI CONCEPT · 2026</p>
+      <h1 class="intro-title">ID<span>.</span>AURA</h1>
+      <p class="intro-sub">A real-time WebGL concept for Volkswagen's electric future — four modes, one continuous gesture. Drag the car, swap the paint, jump into the cockpit, watch the road perceive itself.</p>
+
+      <div class="intro-modes">
+        <span>Showroom</span><i>·</i><span>Cluster</span><i>·</i><span>Console</span><i>·</i><span>Autonomous</span>
+      </div>
+
+      <div class="intro-meta">
+        <div><i>ROLE</i><b>Senior AI Product Designer</b></div>
+        <div><i>SCOPE</i><b>Concept · Interaction · WebGL</b></div>
+        <div><i>STACK</i><b>Three.js · GSAP · Web Audio</b></div>
+        <div><i>YEAR</i><b>2026</b></div>
+      </div>
+
+      <button id="launch" class="launch-btn" type="button">
+        <span>LAUNCH EXPERIENCE</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+
+      <p class="intro-foot">Designed & built by Joey Zhao — headphones recommended.</p>
+    </main>
+    <div class="intro-glow"></div>
+  </div>
+
+  <!-- Failsafe: dismiss the intro veil on LAUNCH even if the ES module
+       chain (three/gsap from CDN) is slow or blocked — the button must
+       never be dead. This runs before and independent of main.js. -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var btn = document.getElementById('launch');
+      var veil = document.getElementById('intro');
+      if (btn && veil) {
+        btn.addEventListener('click', function () {
+          veil.classList.add('gone');
+          setTimeout(function () { veil.remove(); }, 1000);
+        });
+      }
+    });
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
