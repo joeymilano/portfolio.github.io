@@ -42,23 +42,43 @@ export function createScene(container) {
   controls.maxPolarAngle = Math.PI / 2 - 0.04;
   controls.target.set(0, 0.8, 0);
 
-  /* ---------- environment: HDRI, fallback to RoomEnvironment ---------- */
+  /* ---------- environment: tourist panoramas (background + PBR reflections) ----------
+     Each panorama drives BOTH scene.background (the visible vista) and
+     scene.environment (PMREM-processed, so paint/glass/floor reflect the
+     place the car is "parked in"). Switchable at runtime via setScene(). */
   const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-  // HDRI: local (stable, no CDN stalls) → automotive studio CDN → RoomEnvironment fallback
-  const HDR_CANDIDATES = [
-    'assets/hdri/studio.hdr',
-    'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/photo_studio_loft_hall_1k.hdr',
-    'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_09_1k.hdr'
-  ];
   const rgbeLoader = new RGBELoader();
-  (function tryHdri(i) {
-    if (i >= HDR_CANDIDATES.length) return;          // keep RoomEnvironment
-    rgbeLoader.load(HDR_CANDIDATES[i],
-      (tex) => { tex.mapping = THREE.EquirectangularReflectionMapping; scene.environment = tex; },
-      undefined,
-      () => tryHdri(i + 1));
-  })(0);
+  const SCENES = [
+    { name: 'Swiss Alps', file: 'assets/hdri/scenes/alps_field_2k.hdr' },
+    { name: 'Route 66',   file: 'assets/hdri/scenes/autumn_road_2k.hdr' },
+    { name: 'Euro Night', file: 'assets/hdri/scenes/blaubeuren_night_2k.hdr' },
+    { name: 'Meadow',     file: 'assets/hdri/scenes/kloppenheim_06_2k.hdr' },
+    { name: 'Dawn Lake',  file: 'assets/hdri/scenes/bell_park_dawn_2k.hdr' },
+    { name: 'Studio',     file: 'assets/hdri/studio.hdr' }
+  ];
+  const sceneTex = [];
+  let sceneIdx = -1;
+  const sceneCbs = [];
+  function applySceneTexture(tex, idx) {
+    tex.mapping = THREE.EquirectangularReflectionMapping;
+    const envMap = pmrem.fromEquirectangular(tex).texture;
+    scene.background = tex;
+    scene.environment = envMap;
+    scene.fog = null;                       // keep the panorama crisp to the horizon
+    sceneIdx = idx;
+    sceneCbs.forEach((cb) => cb(idx));
+  }
+  function setScene(idx) {
+    if (idx === sceneIdx || !SCENES[idx]) return;
+    if (sceneTex[idx]) { applySceneTexture(sceneTex[idx], idx); return; }
+    rgbeLoader.load(SCENES[idx].file, (tex) => {
+      sceneTex[idx] = tex;
+      applySceneTexture(tex, idx);
+    });
+  }
+  // initial environment = RoomEnvironment until the first panorama finishes loading
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  setScene(0);
 
   /* ---------- lighting ---------- */
   scene.add(new THREE.HemisphereLight(0x8fb4d8, 0x0a0c14, 0.5));
@@ -146,5 +166,8 @@ export function createScene(container) {
   }
 
   window.__scene = scene;   // debug hook
-  return { scene, camera, renderer, controls, composer, bloom, resize, render, update };
+  return {
+    scene, camera, renderer, controls, composer, bloom, resize, render, update,
+    SCENES, setScene, getScene: () => sceneIdx, onScene: (cb) => sceneCbs.push(cb)
+  };
 }

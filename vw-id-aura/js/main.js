@@ -172,6 +172,25 @@ document.querySelectorAll('.paint-dot').forEach((b) =>
   })
 );
 
+/* ---------- scene (background panorama) picker — showroom only ---------- */
+const sceneRail = document.getElementById('scene-rail');
+if (sceneRail && view.SCENES) {
+  view.SCENES.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.className = 'scene-btn' + (i === 0 ? ' active' : '');
+    b.textContent = s.name.toUpperCase();
+    b.addEventListener('click', () => view.setScene(i));
+    sceneRail.appendChild(b);
+  });
+  view.onScene((idx) => {
+    sceneRail.querySelectorAll('.scene-btn').forEach((btn, i) =>
+      btn.classList.toggle('active', i === idx));
+    // smooth exposure ramp so the new vista fades in instead of snapping
+    gsap.fromTo(view.renderer, { toneMappingExposure: 0.35 },
+      { toneMappingExposure: 1.0, duration: 0.9, ease: 'power2.out' });
+  });
+}
+
 const lightsBtn = document.getElementById('lights-btn');
 lightsBtn.addEventListener('click', () => {
   const on = !lightsBtn.classList.contains('on');
