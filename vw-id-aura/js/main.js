@@ -260,7 +260,7 @@ setInterval(tickHudClock, 10_000);
 
 /* ---------- intro film + BGM ----------
    The intro film is always muted. The launch gesture is the only audio
-   unlock: it brings the soundtrack in gently at 12% master gain. */
+   unlock: it brings the soundtrack in gently at 18% master gain. */
 const intro = document.getElementById('intro');
 const introFilm = document.getElementById('intro-film');
 if (introFilm) {
@@ -273,7 +273,7 @@ if (introFilm) {
   introFilm.play().catch(() => {});
 }
 function launchExperience() {
-  audio.play(0.12);
+  audio.play(0.18);
   intro.classList.add('gone');
   setTimeout(() => {
     intro.querySelector('.intro-film')?.pause();
@@ -308,7 +308,6 @@ controls.addEventListener('end', () => {
 /* ---------- debug hooks (QA / devtools: read live camera + target) ---------- */
 window.__cam = camera;
 window.__ctrl = controls;
-window.__audio = audio;
 
 /* ---------- main loop ---------- */
 const clock = new THREE.Clock();

@@ -68,7 +68,6 @@ export function createScene(container) {
     if (premiereGroup) premiereGroup.visible = showroomActive && isPremiere;
     if (showroomActive) {
       scene.background = isPremiere ? new THREE.Color(0x02050a) : tex;
-      scene.backgroundIntensity = 1;
       // Keep every authored panorama pin-sharp. The previous 0.08 setting
       // softened distant architecture enough to read like a low-res asset.
       scene.backgroundBlurriness = 0;
@@ -281,7 +280,6 @@ export function createScene(container) {
     showroomGroup.visible = on;
     if (!on) {
       scene.background = new THREE.Color(0x010205);
-      scene.backgroundIntensity = 1;
       scene.backgroundBlurriness = 0;
       scene.fog = new THREE.FogExp2(0x010205, 0.018);
       renderer.toneMappingExposure = 0.56;

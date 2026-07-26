@@ -1,26 +1,24 @@
 /* ============================================================
    ID.AURA — Audio
-   Real recorded BGM (Scott Buckley — "Legacy", CC BY 4.0)
-   played through a Web Audio graph so the console EQ widget
-   still has a live analyser to read.
+   Real recorded BGM (HOME — "Odyssey", CC BY-NC, chillwave/
+   synthwave) played through a Web Audio graph so the console
+   EQ widget still has a live analyser to read. Falls back to a
+   short generated tone only if the files are missing.
    Contract: { toggle(), play():Promise<bool>, pause(), prev(), next(),
                currentName(), currentArt(), currentArtist(),
                levels(n), onUpdate(cb({on})) }
    ============================================================ */
 
 const TRACKS = [
-  {
-    name: 'Legacy',
-    artist: 'Scott Buckley',
-    file: 'assets/audio/legacy-scott-buckley.mp3',
-    art: 'assets/video/aura-night-drive-poster.jpg'
-  }
+  { name: 'Resonance',    artist: 'HOME', file: 'assets/audio/resonance.mp3',    art: 'assets/audio/cover.jpg' },
+  { name: 'Odyssey',      artist: 'HOME', file: 'assets/audio/odyssey.mp3',      art: 'assets/audio/cover.jpg' },
+  { name: 'New Machines', artist: 'HOME', file: 'assets/audio/new-machines.mp3', art: 'assets/audio/cover.jpg' }
 ];
-const DEFAULT_VOLUME = 0.12;
+const DEFAULT_VOLUME = 0.18;
 
 export function createAudio() {
   const audio = new Audio();
-  audio.loop = TRACKS.length === 1;
+  audio.loop = false;
   audio.preload = 'auto';
 
   let ctx = null, master = null, analyser = null, freq = null, srcNode = null;
@@ -60,8 +58,8 @@ export function createAudio() {
       master.gain.cancelScheduledValues(ctx.currentTime);
       master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
       master.gain.linearRampToValueAtTime(
-        Math.min(Math.max(targetVolume, 0), 0.24),
-        ctx.currentTime + 2.4
+        Math.min(Math.max(targetVolume, 0), 0.32),
+        ctx.currentTime + 1.8
       );
       emit();
       return true;

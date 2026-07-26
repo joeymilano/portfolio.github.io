@@ -226,25 +226,6 @@ export function createAutonomous(view, layer, car) {
     }
   }
 
-  /* Real, licensed night-driving cinematography forms the distant moving
-     horizon. It is deliberately a film plate rather than generated scenery:
-     Three.js keeps the interactive cars/perception layer live in front of it. */
-  const horizonFilm = document.createElement('video');
-  horizonFilm.src = 'assets/video/aura-night-drive.mp4';
-  horizonFilm.muted = true;
-  horizonFilm.defaultMuted = true;
-  horizonFilm.volume = 0;
-  horizonFilm.loop = true;
-  horizonFilm.playsInline = true;
-  horizonFilm.preload = 'metadata';
-  horizonFilm.playbackRate = 0.72;
-
-  const horizonTexture = new THREE.VideoTexture(horizonFilm);
-  horizonTexture.colorSpace = THREE.SRGBColorSpace;
-  horizonTexture.minFilter = THREE.LinearFilter;
-  horizonTexture.magFilter = THREE.LinearFilter;
-  horizonTexture.generateMipmaps = false;
-
   /* ---------- authored city kit ----------
      Kenney's CC0 City Kit replaces the empty procedural void with a real
      architectural streetscape. Models are loaded once, cloned, then graded
@@ -280,8 +261,8 @@ export function createAutonomous(view, layer, car) {
       const materials = source.map((material) => {
         const graded = material.clone();
         if (graded.color) {
-          graded.color.multiplyScalar(0.11);
-          graded.color.lerp(new THREE.Color(0x050b10), 0.58);
+          graded.color.multiplyScalar(0.18);
+          graded.color.lerp(new THREE.Color(0x07131b), 0.48);
         }
         if ('roughness' in graded) graded.roughness = Math.max(0.66, graded.roughness);
         if ('metalness' in graded) graded.metalness = Math.min(0.28, graded.metalness);
@@ -1300,10 +1281,6 @@ export function createAutonomous(view, layer, car) {
       agent.curSpeed = agent.nominalSpeed;
     });
     group.visible = true;
-    view.scene.background = horizonTexture;
-    view.scene.backgroundBlurriness = 0;
-    view.scene.backgroundIntensity = 0.62;
-    horizonFilm.play().catch(() => {});
     controls.enabled = false;
     camera.position.set(8.6, 5.8, 17.5);
     controls.target.set(0, 0.7, -21);
@@ -1313,7 +1290,6 @@ export function createAutonomous(view, layer, car) {
   }
   function onExit() {
     group.visible = false;
-    horizonFilm.pause();
     controls.enabled = true;
   }
 
