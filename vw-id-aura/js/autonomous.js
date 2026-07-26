@@ -23,7 +23,7 @@ function labelSprite(text, color = '#38f0ff') {
   const cv = document.createElement('canvas');
   cv.width = 256; cv.height = 64;
   const ctx = cv.getContext('2d');
-  ctx.font = '600 26px "IBM Plex Mono", monospace';
+  ctx.font = '600 26px "Sometype Mono", monospace';
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.shadowColor = color; ctx.shadowBlur = 12;
   ctx.fillStyle = color;
@@ -41,7 +41,7 @@ function setLabel(sp, text, color) {
   const cv = sp.material.map.image;
   const ctx = cv.getContext('2d');
   ctx.clearRect(0, 0, 256, 64);
-  ctx.font = '600 26px "IBM Plex Mono", monospace';
+  ctx.font = '600 26px "Sometype Mono", monospace';
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.shadowColor = color; ctx.shadowBlur = 12;
   ctx.fillStyle = color;
@@ -95,17 +95,28 @@ function miniCar(bodyColor = 0x1a2432) {
 }
 
 function detectBox(w, h, d, color) {
-  const geo = new THREE.EdgesGeometry(new THREE.BoxGeometry(w, h, d));
-  const box = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({
-    color, transparent: true, opacity: 0.9
+  const positions = [];
+  const hx = w / 2, hy = h / 2, hz = d / 2;
+  const lx = w * 0.19, ly = h * 0.19, lz = d * 0.14;
+  for (const sx of [-1, 1]) {
+    for (const sy of [-1, 1]) {
+      for (const sz of [-1, 1]) {
+        const x = sx * hx, y = sy * hy, z = sz * hz;
+        positions.push(
+          x, y, z, x - sx * lx, y, z,
+          x, y, z, x, y - sy * ly, z,
+          x, y, z, x, y, z - sz * lz
+        );
+      }
+    }
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  const brackets = new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({
+    color, transparent: true, opacity: 0.72
   }));
-  // corner brackets feel — second slightly larger, fainter
-  const outer = new THREE.LineSegments(
-    new THREE.EdgesGeometry(new THREE.BoxGeometry(w * 1.12, h * 1.12, d * 1.12)),
-    new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.25 })
-  );
   const g = new THREE.Group();
-  g.add(box, outer);
+  g.add(brackets);
   return g;
 }
 
@@ -163,14 +174,14 @@ export function createAutonomous(view, layer, car) {
   const road = new THREE.Mesh(
     new THREE.PlaneGeometry(30, 220),
     new THREE.MeshStandardMaterial({
-      color: 0x141f2e, roughness: 0.82, metalness: 0.15, envMapIntensity: 0.5
+      color: 0x030609, roughness: 0.92, metalness: 0.08, envMapIntensity: 0.16
     })
   );
   road.rotation.x = -Math.PI / 2;
   road.position.set(0, 0.02, -60);
   group.add(road);
 
-  const edgeMat = new THREE.MeshBasicMaterial({ color: 0x2a4a6a, transparent: true, opacity: 0.8 });
+  const edgeMat = new THREE.MeshBasicMaterial({ color: 0x2e95a7, transparent: true, opacity: 0.24 });
   for (const x of [-9, 9]) {
     const e = new THREE.Mesh(new THREE.PlaneGeometry(0.22, 220), edgeMat);
     e.rotation.x = -Math.PI / 2;
@@ -180,7 +191,7 @@ export function createAutonomous(view, layer, car) {
 
   // flowing centre dashes
   const dashes = [];
-  const dashMat = new THREE.MeshBasicMaterial({ color: CYAN, transparent: true, opacity: 0.5 });
+  const dashMat = new THREE.MeshBasicMaterial({ color: 0xd7faff, transparent: true, opacity: 0.3 });
   for (let i = 0; i < 26; i++) {
     const d = new THREE.Mesh(new THREE.PlaneGeometry(0.14, 2.4), dashMat.clone());
     d.rotation.x = -Math.PI / 2;
@@ -188,7 +199,7 @@ export function createAutonomous(view, layer, car) {
     group.add(d);
     dashes.push(d);
   }
-  const laneMat = new THREE.MeshBasicMaterial({ color: 0x1d3a5c, transparent: true, opacity: 0.4 });
+  const laneMat = new THREE.MeshBasicMaterial({ color: 0x24536a, transparent: true, opacity: 0.18 });
   for (const x of [-4.5, 4.5]) {
     for (let i = 0; i < 26; i++) {
       const d = new THREE.Mesh(new THREE.PlaneGeometry(0.1, 1.8), laneMat);
@@ -201,13 +212,13 @@ export function createAutonomous(view, layer, car) {
 
   // road-side beacon posts — luminous corridor that gives the scene depth
   // and kills the empty-void read from the top-down camera
-  const beaconMat = new THREE.MeshBasicMaterial({ color: CYAN });
-  const beaconGeo = new THREE.SphereGeometry(0.11, 8, 8);
+  const beaconMat = new THREE.MeshBasicMaterial({ color: 0x5bd9e5, transparent: true, opacity: 0.55 });
+  const beaconGeo = new THREE.SphereGeometry(0.055, 8, 8);
   const glowMat = new THREE.MeshBasicMaterial({
-    color: CYAN, transparent: true, opacity: 0.28,
+    color: CYAN, transparent: true, opacity: 0.06,
     blending: THREE.AdditiveBlending, depthWrite: false
   });
-  const glowGeo = new THREE.SphereGeometry(0.34, 10, 10);
+  const glowGeo = new THREE.SphereGeometry(0.2, 10, 10);
   for (const x of [-9.8, 9.8]) {
     for (let z = 14; z >= -118; z -= 13) {
       const b = new THREE.Mesh(beaconGeo, beaconMat);
@@ -216,6 +227,46 @@ export function createAutonomous(view, layer, car) {
       g.position.set(x, 0.55, z); group.add(g);
     }
   }
+
+  // Light corridor: sparse architectural frames create depth without
+  // turning the perception model into a noisy point-cloud demo.
+  const corridorMat = new THREE.LineBasicMaterial({
+    color: 0x38b7ca, transparent: true, opacity: 0.1
+  });
+  const corridorBlueMat = new THREE.LineBasicMaterial({
+    color: 0x204c9b, transparent: true, opacity: 0.12
+  });
+  for (let z = 4; z >= -126; z -= 13) {
+    const height = 2.8 + (Math.sin(z * 0.17) + 1) * 1.25;
+    for (const side of [-1, 1]) {
+      const x0 = side * 10.2;
+      const x1 = side * (12.2 + Math.sin(z * 0.11) * 1.3);
+      const geometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(x0, 0.05, z),
+        new THREE.Vector3(x1, height, z - 1.8),
+        new THREE.Vector3(x1, height, z - 4.8)
+      ]);
+      group.add(new THREE.Line(geometry, (Math.abs(z) % 26 < 1) ? corridorBlueMat : corridorMat));
+    }
+  }
+
+  const portalGroup = new THREE.Group();
+  for (let i = 0; i < 3; i++) {
+    const portal = new THREE.Mesh(
+      new THREE.RingGeometry(2.6 + i * 1.15, 2.63 + i * 1.15, 72),
+      new THREE.MeshBasicMaterial({
+        color: i === 1 ? 0x2d60bd : CYAN,
+        transparent: true,
+        opacity: 0.06,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        side: THREE.DoubleSide
+      })
+    );
+    portal.position.set(0, 4.2, -93 - i * 1.6);
+    portalGroup.add(portal);
+  }
+  group.add(portalGroup);
 
   /* ---------- vehicle factory: GLB clone, miniCar fallback ---------- */
   function buildVehicle(spec) {
@@ -256,7 +307,7 @@ export function createAutonomous(view, layer, car) {
   const fov = new THREE.Mesh(
     new THREE.CircleGeometry(26, 40, Math.PI / 2 - 0.62, 1.24),
     new THREE.MeshBasicMaterial({
-      color: CYAN, transparent: true, opacity: 0.05,
+      color: CYAN, transparent: true, opacity: 0.012,
       blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide
     })
   );
@@ -269,7 +320,7 @@ export function createAutonomous(view, layer, car) {
   const sweep = new THREE.Mesh(
     new THREE.CircleGeometry(20, 48, -0.16, 0.32),
     new THREE.MeshBasicMaterial({
-      color: CYAN, transparent: true, opacity: 0.16,
+      color: CYAN, transparent: true, opacity: 0.035,
       blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide
     })
   );
@@ -278,7 +329,7 @@ export function createAutonomous(view, layer, car) {
   group.add(sweep);
 
   // point cloud: ground rings + object surface samples
-  const P_GROUND = 900;
+  const P_GROUND = 240;
   const agents = [];
   const trafficSpec = [
     { lane: -4.5, z: -22, speed: -7.5, paint: 0x8a98a8, shape: 'sedan', name: 'CAR' },
@@ -309,7 +360,7 @@ export function createAutonomous(view, layer, car) {
   pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
   pGeo.setAttribute('color', new THREE.BufferAttribute(pCol, 3));
   const points = new THREE.Points(pGeo, new THREE.PointsMaterial({
-    size: 0.22, vertexColors: true, transparent: true, opacity: 0.95,
+    size: 0.09, vertexColors: true, transparent: true, opacity: 0.58,
     blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
   }));
   group.add(points);
@@ -421,7 +472,7 @@ export function createAutonomous(view, layer, car) {
   const ribbon = new THREE.Mesh(
     new THREE.TubeGeometry(pathCurve, 60, 0.09, 6, false),
     new THREE.MeshBasicMaterial({
-      color: GREEN, transparent: true, opacity: 0.16,
+      color: GREEN, transparent: true, opacity: 0.24,
       blending: THREE.AdditiveBlending, depthWrite: false
     })
   );
@@ -452,21 +503,34 @@ export function createAutonomous(view, layer, car) {
   /* ---------- DOM HUD ---------- */
   layer.innerHTML = `
     <div class="autonomous">
+      <div class="auto-frame"><i></i><i></i><i></i><i></i></div>
       <div class="auto-top">
-        <div class="auto-level"><span class="auto-dot"></span>L3 · TRAFFIC PILOT</div>
-        <div class="auto-percept">OBJECTS <b data-a="obj">6</b> · FUSION <b data-a="fus">CAM×8 RADAR×5 LIDAR×1</b></div>
+        <div class="auto-level"><span class="auto-dot"></span>AURA PILOT · L3</div>
+        <div class="auto-percept">PREDICTIVE WORLD MODEL <b>ONLINE</b></div>
+      </div>
+      <div class="auto-intent">
+        <span>INTENT 04</span>
+        <b>MERGE LEFT</b>
+        <small>CONFIDENCE 98.7%</small>
       </div>
       <div class="auto-side">
-        <div class="auto-tag" style="--c:#ffb44d" data-a="t1">CAR · -- m</div>
-        <div class="auto-tag" style="--c:#ffb44d" data-a="t2">CAR · -- m</div>
-        <div class="auto-tag" style="--c:#38f0ff" data-a="ped">PEDESTRIAN · -- m</div>
-        <div class="auto-tag" style="--c:#4dff9e">PATH · LANE CHANGE PLANNED</div>
+        <span class="auto-side-label">PERCEPTION</span>
+        <div class="auto-tag" style="--c:#f0a06d" data-a="t1">CAR · -- m</div>
+        <div class="auto-tag" style="--c:#f0a06d" data-a="t2">CAR · -- m</div>
+        <div class="auto-tag" style="--c:#62d8ee" data-a="ped">PEDESTRIAN · -- m</div>
+        <div class="auto-tag" style="--c:#75e2bd">CLEAR PATH · LEFT</div>
+      </div>
+      <div class="auto-sensors">
+        <span><i>OBJECTS</i><b data-a="obj">6</b></span>
+        <span><i>CAMERA</i><b>08</b></span>
+        <span><i>RADAR</i><b>05</b></span>
+        <span><i>LIDAR</i><b>01</b></span>
       </div>
       <div class="auto-foot">
-        <span><i>EGO SPEED</i><b data-a="spd">62<u>km/h</u></b></span>
+        <span class="auto-speed"><i>VELOCITY</i><b data-a="spd">62<u>km/h</u></b></span>
         <span><i>LEAD GAP</i><b data-a="gap">--</b></span>
-        <span><i>TTC</i><b class="ok" data-a="ttc">—<u>s</u></b></span>
-        <span><i>HANDOVER</i><b class="ok">READY</b></span>
+        <span><i>TIME TO CONTACT</i><b class="ok" data-a="ttc">—<u>s</u></b></span>
+        <span><i>SYSTEM</i><b class="ok">NOMINAL</b></span>
       </div>
     </div>`;
   const A = (k) => layer.querySelector(`[data-a="${k}"]`);
@@ -606,9 +670,10 @@ export function createAutonomous(view, layer, car) {
       flow.setMatrixAt(i, dummy.matrix);
     }
     flow.instanceMatrix.needsUpdate = true;
-    ribbon.material.opacity = 0.25 + 0.12 * Math.sin(t * 2);
+    ribbon.material.opacity = 0.34 + 0.08 * Math.sin(t * 1.4);
     // radar fan pulse
-    fov.material.opacity = 0.04 + 0.02 * Math.sin(t * 3);
+    fov.material.opacity = 0.009 + 0.004 * Math.sin(t * 2);
+    portalGroup.rotation.z = Math.sin(t * 0.08) * 0.04;
     // lidar
     lidarUpdate(t);
     objectCloud(sweepState.ang);
@@ -639,12 +704,17 @@ export function createAutonomous(view, layer, car) {
 
   function onEnter() {
     group.visible = true;
-    camera.position.set(0, 10.5, 16);
-    controls.target.set(0, 0, -14);
-    camera.fov = 52;
+    controls.enabled = false;
+    camera.position.set(8.6, 5.8, 17.5);
+    controls.target.set(0, 0.7, -21);
+    camera.lookAt(controls.target);
+    camera.fov = 48;
     camera.updateProjectionMatrix();
   }
-  function onExit() { group.visible = false; }
+  function onExit() {
+    group.visible = false;
+    controls.enabled = true;
+  }
 
   return { group, update, onEnter, onExit };
 }

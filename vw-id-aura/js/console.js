@@ -1,227 +1,300 @@
 /* ============================================================
-   ID.AURA — Centre Console
-   Live infotainment surface: real audio playback (EQ-driven),
-   animated nav route with moving position dot and live ETA
-   countdown, fan-segment climate control and working vehicle
-   toggles. Every control responds.
+   ID.AURA — Spatial Console
+   An asymmetrical cockpit home surface: navigation owns the
+   visual field while media, climate and vehicle intelligence
+   stay glanceable on a calm peripheral rail.
    ============================================================ */
 
 export function createConsole(layer, audio) {
   layer.innerHTML = `
-    <div class="console">
+    <div class="aura-console">
       <header class="console-top">
-        <div>
+        <div class="console-time">
           <span class="console-clock">14:02</span>
-          <span class="console-date">FRI · 25 JUL</span>
+          <span class="console-date">FRIDAY · 25 JULY</span>
         </div>
-        <div class="console-status">
-          <span>LTE▂▄▆</span><span>🔋 82%</span>
+        <div class="console-journey">
+          <span class="journey-state"><i></i> JOURNEY ACTIVE</span>
+          <span>LTE</span>
+          <span>82%</span>
         </div>
       </header>
 
-      <div class="console-grid">
-        <section class="ccard cc-media">
-          <h3>NOW PLAYING <span class="cc-live"></span></h3>
-          <div class="cc-media-body">
-            <div class="cc-art" data-art></div>
-            <div class="cc-media-info">
-              <div class="cc-track" data-track>—</div>
-              <div class="cc-artist" data-artist>—</div>
-              <div class="cc-eq" data-eq>${'<span></span>'.repeat(10)}</div>
+      <main class="aura-console-grid">
+        <section class="aura-map">
+          <div class="map-heading">
+            <div>
+              <span class="aura-kicker">NAVIGATION · NIGHT ROUTE</span>
+              <h2>Teufelsberg</h2>
+              <p>via Heerstraße · quiet roads preferred</p>
+            </div>
+            <div class="map-turn">
+              <svg viewBox="0 0 52 52" aria-hidden="true">
+                <path d="M11 42V25c0-8 5-14 14-14h16M33 4l8 7-8 7"/>
+              </svg>
+              <span><b>320</b> m</span>
             </div>
           </div>
-          <div class="cc-progress"><i data-prog></i></div>
-          <div class="cc-times"><span data-cur>1:24</span><span data-dur>4:12</span></div>
-          <div class="cc-controls">
-            <button aria-label="prev">⏮</button>
-            <button data-play aria-label="play">▶</button>
-            <button data-next aria-label="next">⏭</button>
+
+          <div class="map-field">
+            <svg viewBox="0 0 720 420" aria-label="Route to Teufelsberg">
+              <defs>
+                <linearGradient id="routeGlow" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0" stop-color="#78e3c0"/>
+                  <stop offset=".58" stop-color="#61d8eb"/>
+                  <stop offset="1" stop-color="#ec9c76"/>
+                </linearGradient>
+                <radialGradient id="mapBloom">
+                  <stop offset="0" stop-color="#62d8ee" stop-opacity=".18"/>
+                  <stop offset="1" stop-color="#62d8ee" stop-opacity="0"/>
+                </radialGradient>
+                <pattern id="fineGrid" width="48" height="48" patternUnits="userSpaceOnUse">
+                  <path d="M48 0H0V48" fill="none" stroke="rgba(146,198,209,.055)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="720" height="420" fill="url(#fineGrid)"/>
+              <circle cx="363" cy="212" r="168" fill="url(#mapBloom)"/>
+              <g class="map-contours">
+                <path d="M-30 75C97 21 183 107 306 68s194-79 318-18 147 39 178 11"/>
+                <path d="M-44 112C78 70 175 146 282 101s216-79 339-13 149 33 193 12"/>
+                <path d="M-58 344C92 281 186 372 319 326s198-79 327-18 139 38 184 16"/>
+                <path d="M-64 382C93 324 205 408 330 364s205-76 333-15 131 27 169 8"/>
+                <path d="M83-20c51 95-24 139 9 218s114 93 76 222"/>
+                <path d="M606-28c-74 107 6 143-42 222s-106 106-70 252"/>
+              </g>
+              <g class="map-roads">
+                <path d="M-30 293C109 238 159 278 249 223S429 127 746 92"/>
+                <path d="M136 438c52-102 73-150 134-220S370 94 408-30"/>
+                <path d="M-20 155c144 31 232 3 341 51s211 89 430 58"/>
+              </g>
+              <g class="map-buildings">
+                <path d="M91 142h40v24H91zM151 119h31v48h-31zM542 271h56v29h-56zM616 238h37v55h-37z"/>
+                <path d="M215 310h52v31h-52zM286 329h37v22h-37zM456 78h48v27h-48z"/>
+              </g>
+              <path class="cc-road" d="M112 354C167 332 182 286 240 271s80-8 118-61 81-67 132-71 84-32 126-73"/>
+              <path class="cc-route" data-route d="M112 354C167 332 182 286 240 271s80-8 118-61 81-67 132-71 84-32 126-73"/>
+              <circle class="route-destination" cx="616" cy="66" r="20"/>
+              <circle class="route-destination-core" cx="616" cy="66" r="5"/>
+              <circle class="cc-dot" data-dot r="9"/>
+            </svg>
+            <div class="map-compass">N</div>
+            <div class="map-scale">200 M</div>
           </div>
+
+          <footer class="map-footer">
+            <div class="map-eta">
+              <span data-eta>18 min</span>
+              <small>ARRIVAL 14:20</small>
+            </div>
+            <div class="map-distance">
+              <span>12.4 km</span>
+              <small>9.8 KM ELECTRIC</small>
+            </div>
+            <div class="map-energy">
+              <span>−3%</span>
+              <small>EST. BATTERY</small>
+            </div>
+          </footer>
         </section>
 
-        <section class="ccard cc-nav">
-          <h3>NAVIGATION</h3>
-          <svg viewBox="0 0 240 150" aria-hidden="true">
-            <defs>
-              <pattern id="ccGrid" width="22" height="22" patternUnits="userSpaceOnUse">
-                <path d="M22 0 L0 0 0 22" fill="none" stroke="rgba(120,190,255,0.07)" stroke-width="1"/>
-              </pattern>
-            </defs>
-            <rect width="240" height="150" fill="url(#ccGrid)"/>
-            <g class="cc-streets" stroke="rgba(120,190,255,0.06)" stroke-width="7" fill="none">
-              <line x1="-2" y1="48" x2="242" y2="48"/>
-              <line x1="-2" y1="112" x2="242" y2="112"/>
-              <line x1="86" y1="-2" x2="86" y2="152"/>
-              <line x1="168" y1="-2" x2="168" y2="152"/>
-            </g>
-            <path class="cc-road" d="M20,130 C60,110 70,80 110,78 S160,60 175,34 L218,20"/>
-            <path class="cc-route" data-route d="M20,130 C60,110 70,80 110,78 S160,60 175,34 L218,20"/>
-            <circle class="cc-dest" cx="218" cy="20" r="5"/>
-            <circle class="cc-dot" data-dot r="6"/>
-          </svg>
-          <div class="cc-eta">
-            <b data-eta>18 min</b><span>· 12.4 km · arrive 14:20</span>
-          </div>
-        </section>
+        <aside class="aura-rail">
+          <section class="aura-card aura-media">
+            <div class="card-label">NOW PLAYING <span class="cc-live"></span></div>
+            <div class="media-art-wrap">
+              <div class="cc-art" data-art></div>
+              <div class="media-vinyl"></div>
+            </div>
+            <div class="cc-track" data-track>—</div>
+            <div class="cc-artist" data-artist>—</div>
+            <div class="cc-eq" data-eq>${'<span></span>'.repeat(12)}</div>
+            <div class="cc-progress"><i data-prog></i></div>
+            <div class="cc-times"><span data-cur>1:24</span><span data-dur>4:12</span></div>
+            <div class="cc-controls">
+              <button data-prev aria-label="Previous track">
+                <svg viewBox="0 0 24 24"><path d="M18 6l-9 6 9 6zM6 6v12"/></svg>
+              </button>
+              <button data-play aria-label="Play">▶</button>
+              <button data-next aria-label="Next track">
+                <svg viewBox="0 0 24 24"><path d="M6 6l9 6-9 6zM18 6v12"/></svg>
+              </button>
+            </div>
+          </section>
 
-        <section class="ccard cc-climate">
-          <h3>CLIMATE</h3>
-          <div class="cc-temp">
-            <button data-t="-1">−</button>
-            <b data-tv>21.5°</b>
-            <button data-t="1">+</button>
-          </div>
-          <div class="cc-fan" data-fan>
-            ${'<span></span>'.repeat(4)}
-          </div>
-          <div class="cc-climate-meta">
-            <span>AUTO</span><span data-fanv>FAN 2</span><span>SYNC</span>
-          </div>
-        </section>
+          <section class="aura-card aura-comfort">
+            <div class="card-label">CABIN CLIMATE</div>
+            <div class="comfort-main">
+              <button data-t="-1">−</button>
+              <div><b data-tv>21.5°</b><span>AUTO · SYNC</span></div>
+              <button data-t="1">+</button>
+            </div>
+            <div class="cc-fan" data-fan>${'<span></span>'.repeat(4)}</div>
+            <div class="comfort-meta">
+              <span data-fanv>FAN 2</span><span>AIR CLEAN 96%</span>
+            </div>
+          </section>
 
-        <section class="ccard cc-car">
-          <h3>VEHICLE</h3>
-          <ul>
-            <li><span>Range</span><b data-range>486 km</b></li>
-            <li><span>Charge</span><b>82% · 11 kW AC</b></li>
-            <li><span>Tyre</span><b class="ok">2.5 bar ×4</b></li>
-            <li><span>OTA</span><b class="ok">v3.2 current</b></li>
-          </ul>
-        </section>
-      </div>
+          <section class="aura-card aura-vehicle">
+            <div class="card-label">VEHICLE PULSE</div>
+            <div class="vehicle-range">
+              <div><b data-range>486</b><span>KM RANGE</span></div>
+              <svg viewBox="0 0 86 42" aria-hidden="true">
+                <path d="M4 35C15 35 15 19 27 19s13 12 23 12 10-24 19-24 7 16 13 16"/>
+              </svg>
+            </div>
+            <div class="vehicle-health">
+              <span><i></i> ALL SYSTEMS NOMINAL</span>
+              <b>82%</b>
+            </div>
+          </section>
+        </aside>
+      </main>
 
       <footer class="console-dock">
-        <button class="tg on" data-tg><i>◈</i>HVAC</button>
-        <button class="tg on" data-tg><i>◉</i>SEAT</button>
-        <button class="tg" data-tg><i>◍</i>AMBIENT</button>
-        <button class="tg on" data-tg><i>⛨</i>ASSIST</button>
+        <button class="tg on" data-tg><i>◌</i>HOME</button>
+        <button class="tg on" data-tg><i>⌁</i>NAV</button>
+        <button class="tg" data-tg><i>◒</i>AMBIENCE</button>
+        <button class="tg on" data-tg><i>◇</i>AURA</button>
       </footer>
     </div>`;
 
-  const $ = (s) => layer.querySelector(s);
-
-  /* ---------- clock ---------- */
+  const $ = (selector) => layer.querySelector(selector);
   const clockEl = $('.console-clock');
+
   function tickClock() {
-    const d = new Date();
+    const date = new Date();
     clockEl.textContent =
-      String(d.getHours()).padStart(2, '0') + ':' +
-      String(d.getMinutes()).padStart(2, '0');
+      String(date.getHours()).padStart(2, '0') + ':' +
+      String(date.getMinutes()).padStart(2, '0');
   }
   tickClock();
   setInterval(tickClock, 10_000);
 
-  /* ---------- media: real audio ---------- */
   const eqBars = [...layer.querySelectorAll('[data-eq] span')];
   const trackEl = $('[data-track]');
   const artistEl = $('[data-artist]');
   const artEl = $('[data-art]');
-  const curEl = $('[data-cur]');
-  const progEl = $('[data-prog]');
-  const playBtn = $('[data-play]');
+  const currentTimeEl = $('[data-cur]');
+  const progressEl = $('[data-prog]');
+  const playButton = $('[data-play]');
   let progress = 0.32;
   let playing = false;
 
   function refreshTrack() {
     trackEl.textContent = audio.currentName().toUpperCase();
-    artistEl.textContent = (audio.currentArtist ? audio.currentArtist() : 'HOME').toUpperCase() + ' · ODYSSEY';
+    artistEl.textContent = `${audio.currentArtist().toUpperCase()} · AURA SOUNDSPACE`;
     artEl.style.backgroundImage = `url("${audio.currentArt()}")`;
   }
-  function setPlaying(p) {
-    playing = p;
-    playBtn.textContent = p ? '⏸' : '▶';
-    layer.querySelector('.cc-media').classList.toggle('playing', p);
+
+  function setPlaying(on) {
+    playing = on;
+    playButton.textContent = on ? 'Ⅱ' : '▶';
+    layer.querySelector('.aura-media').classList.toggle('playing', on);
   }
-  playBtn.addEventListener('click', () => {
-    if (playing) { audio.pause(); setPlaying(false); }
-    else {
-      audio.play().then((ok) => { if (ok) setPlaying(true); });
+
+  playButton.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      setPlaying(false);
+    } else {
+      audio.play().then((ok) => {
+        if (ok) setPlaying(true);
+      });
     }
   });
+
+  $('[data-prev]').addEventListener('click', () => {
+    audio.prev();
+    refreshTrack();
+    progress = 0;
+    if (playing) audio.play().then((ok) => {
+      if (ok) setPlaying(true);
+    });
+  });
+
   $('[data-next]').addEventListener('click', () => {
     audio.next();
     refreshTrack();
     progress = 0;
-    if (playing) audio.play().then((ok) => { if (ok) setPlaying(true); });
+    if (playing) audio.play().then((ok) => {
+      if (ok) setPlaying(true);
+    });
   });
+
   refreshTrack();
-  // auto-refresh art + title when the engine advances tracks (ended)
   audio.onUpdate(() => refreshTrack());
 
-  /* ---------- nav route ---------- */
   const route = $('[data-route]');
-  const dot = $('[data-dot]');
+  const routeDot = $('[data-dot]');
   const etaEl = $('[data-eta]');
-  const routeLen = route.getTotalLength();
-  let navU = 0.12;
+  const routeLength = route.getTotalLength();
+  let routeProgress = 0.12;
 
-  /* ---------- climate ---------- */
-  const tv = $('[data-tv]');
-  let temp = 21.5;
-  layer.querySelectorAll('[data-t]').forEach((b) =>
-    b.addEventListener('click', () => {
-      temp = Math.min(28, Math.max(16, temp + Number(b.dataset.t) * 0.5));
-      tv.textContent = temp.toFixed(1) + '°';
+  const temperatureEl = $('[data-tv]');
+  let temperature = 21.5;
+  layer.querySelectorAll('[data-t]').forEach((button) =>
+    button.addEventListener('click', () => {
+      temperature = Math.min(28, Math.max(16, temperature + Number(button.dataset.t) * 0.5));
+      temperatureEl.textContent = temperature.toFixed(1) + '°';
     })
   );
-  const fanSegs = [...layer.querySelectorAll('[data-fan] span')];
+
+  const fanSegments = [...layer.querySelectorAll('[data-fan] span')];
   const fanLabel = $('[data-fanv]');
   let fan = 2;
   function renderFan() {
-    fanSegs.forEach((s, i) => s.classList.toggle('on', i < fan));
-    fanLabel.textContent = 'FAN ' + fan;
+    fanSegments.forEach((segment, index) => segment.classList.toggle('on', index < fan));
+    fanLabel.textContent = `FAN ${fan}`;
   }
-  fanSegs.forEach((s, i) =>
-    s.addEventListener('click', () => { fan = i + 1; renderFan(); }));
+  fanSegments.forEach((segment, index) =>
+    segment.addEventListener('click', () => {
+      fan = index + 1;
+      renderFan();
+    }));
   renderFan();
 
-  /* ---------- toggles ---------- */
-  layer.querySelectorAll('[data-tg]').forEach((b) =>
-    b.addEventListener('click', () => b.classList.toggle('on')));
+  layer.querySelectorAll('[data-tg]').forEach((button) =>
+    button.addEventListener('click', () => button.classList.toggle('on')));
 
-  /* ---------- range ---------- */
   let range = 486;
   const rangeEl = $('[data-range]');
+  let slowTimer = 0;
 
-  /* ---------- frame ---------- */
-  let slowT = 0;
-  function update(t, dt) {
-    // EQ from real analyser when playing, idle shimmer otherwise
+  function update(time, dt) {
     const levels = playing ? audio.levels(eqBars.length) : null;
-    eqBars.forEach((bar, i) => {
-      const v = levels ? levels[i]
-        : 0.14 + 0.1 * Math.sin(t * 2.2 + i * 1.3);
-      bar.style.transform = `scaleY(${Math.max(0.08, v)})`;
+    eqBars.forEach((bar, index) => {
+      const value = levels ? levels[index] : 0.12 + 0.09 * Math.sin(time * 1.8 + index * 0.9);
+      bar.style.transform = `scaleY(${Math.max(0.06, value)})`;
     });
 
-    // progress
     if (playing) progress = (progress + dt * 0.0035) % 1;
-    progEl.style.width = (progress * 100).toFixed(1) + '%';
-    const dur = 252; // 4:12
-    const cs = Math.round(progress * dur);
-    curEl.textContent = Math.floor(cs / 60) + ':' + String(cs % 60).padStart(2, '0');
+    progressEl.style.width = `${(progress * 100).toFixed(1)}%`;
+    const duration = 252;
+    const elapsed = Math.round(progress * duration);
+    currentTimeEl.textContent = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')}`;
 
-    // nav dot along route
-    navU = (navU + dt * 0.008) % 0.94;
-    const p = route.getPointAtLength(navU * routeLen);
-    dot.setAttribute('cx', p.x);
-    dot.setAttribute('cy', p.y);
+    routeProgress = (routeProgress + dt * 0.007) % 0.94;
+    const point = route.getPointAtLength(routeProgress * routeLength);
+    routeDot.setAttribute('cx', point.x);
+    routeDot.setAttribute('cy', point.y);
 
-    // slow ticks (ETA / range)
-    slowT += dt;
-    if (slowT > 1) {
-      slowT = 0;
-      const remain = Math.max(1, Math.round((1 - navU) * 20));
-      etaEl.textContent = remain + ' min';
-      if (Math.random() < 0.05) {
+    slowTimer += dt;
+    if (slowTimer > 1) {
+      slowTimer = 0;
+      etaEl.textContent = `${Math.max(1, Math.round((1 - routeProgress) * 20))} min`;
+      if (Math.random() < 0.04) {
         range = Math.max(120, range - 1);
-        rangeEl.textContent = range + ' km';
+        rangeEl.textContent = String(range);
       }
     }
   }
 
-  function onEnter() {}
-  function onExit() {}
+  function onEnter() {
+    layer.querySelector('.aura-console').classList.add('is-live');
+  }
+
+  function onExit() {
+    layer.querySelector('.aura-console').classList.remove('is-live');
+  }
 
   return { update, onEnter, onExit };
 }

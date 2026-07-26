@@ -1,251 +1,332 @@
 /* ============================================================
-   ID.AURA — Digital Cockpit (cluster)
-   Full canvas-rendered instrument cluster: twin arcs (speed /
-   power), drive modes (ECO / COMFORT / SPORT) that re-theme the
-   display, animated gear shifts with torque flare, G-meter,
-   battery + range, ADAS telltales and a media mini-widget.
-   Camera dollies to the driver's eye while this view is live.
+   ID.AURA — Horizon Cluster
+   A driver-first instrument surface built around the road model:
+   one continuous route ribbon, contextual ADAS, restrained energy
+   data and drive-mode atmospheres. No legacy twin-dial metaphor.
    ============================================================ */
 
 const MODES = {
-  eco:      { hue: '#4dff9e', label: 'ECO',      vmax: 200, ramp: 0.35 },
-  comfort:  { hue: '#38f0ff', label: 'COMFORT',  vmax: 240, ramp: 0.6 },
-  sport:    { hue: '#ff5a3c', label: 'SPORT',    vmax: 280, ramp: 1.0 }
+  eco: {
+    hue: '#75e2bd',
+    soft: 'rgba(117,226,189,.16)',
+    label: 'ECO',
+    max: 190,
+    response: 0.42
+  },
+  comfort: {
+    hue: '#62d8ee',
+    soft: 'rgba(98,216,238,.16)',
+    label: 'AURA',
+    max: 230,
+    response: 0.62
+  },
+  sport: {
+    hue: '#f1a06f',
+    soft: 'rgba(241,160,111,.16)',
+    label: 'GT',
+    max: 270,
+    response: 0.96
+  }
 };
 
 export function createCluster(layer) {
   layer.innerHTML = `
-    <canvas class="cluster-canvas"></canvas>
-    <div class="cluster-modes">
-      ${Object.entries(MODES).map(([k, m], i) =>
-        `<button data-mode="${k}" class="${i === 1 ? 'active' : ''}">${m.label}</button>`).join('')}
+    <div class="horizon-cluster">
+      <canvas class="cluster-canvas"></canvas>
+      <div class="cluster-heading">
+        <span class="cluster-pilot"><i></i> AURA PILOT</span>
+        <span class="cluster-heading-rule"></span>
+        <span>ASSISTED DRIVE · ACTIVE</span>
+      </div>
+      <div class="cluster-modes" aria-label="Drive mode">
+        ${Object.entries(MODES).map(([key, mode], i) =>
+          `<button data-mode="${key}" class="${i === 1 ? 'active' : ''}" style="--c:${mode.hue}">
+            <span>${mode.label}</span>
+          </button>`).join('')}
+      </div>
     </div>`;
 
-  const cv = layer.querySelector('canvas');
-  const ctx = cv.getContext('2d');
-  const modeBtns = [...layer.querySelectorAll('.cluster-modes button')];
-
-  const S = {
-    mode: 'comfort', speed: 88, speedTarget: 88, power: 0.32,
-    gear: 'D', soc: 82, range: 412, g: { x: 0, y: 0 },
-    phase: 'cruise',          // start mid-cruise so frame one already reads as driving
-    phaseT: 0, flare: 0, active: false, t: 0
+  const canvas = layer.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const modeButtons = [...layer.querySelectorAll('.cluster-modes button')];
+  const state = {
+    active: false,
+    mode: 'comfort',
+    speed: 86,
+    targetSpeed: 86,
+    power: 0.28,
+    soc: 82,
+    range: 412,
+    phase: 'cruise',
+    phaseTime: 0,
+    time: 0,
+    modePulse: 0
   };
 
-  modeBtns.forEach((b) => b.addEventListener('click', () => {
-    S.mode = b.dataset.mode;
-    modeBtns.forEach((x) => x.classList.toggle('active', x === b));
-    S.flare = 1;
+  modeButtons.forEach((button) => button.addEventListener('click', () => {
+    state.mode = button.dataset.mode;
+    state.modePulse = 1;
+    modeButtons.forEach((item) => item.classList.toggle('active', item === button));
   }));
 
-  /* ------- drive choreography: a living demo loop ------- */
-  function drive(dt) {
-    S.phaseT += dt;
-    const M = MODES[S.mode];
-    if (S.phase === 'idle' && S.phaseT > 1.2) { S.phase = 'launch'; S.phaseT = 0; S.flare = 1; }
-    else if (S.phase === 'launch') {
-      S.speedTarget = Math.min(M.vmax * 0.62, S.speedTarget + M.ramp * 260 * dt);
-      if (S.speedTarget >= M.vmax * 0.62 - 1) { S.phase = 'cruise'; S.phaseT = 0; }
-    } else if (S.phase === 'cruise' && S.phaseT > 8) { S.phase = 'regen'; S.phaseT = 0; }
-    else if (S.phase === 'regen') {
-      S.speedTarget = Math.max(0, S.speedTarget - 140 * dt);
-      if (S.speedTarget <= 0.5) { S.phase = 'idle'; S.phaseT = 0; S.soc = Math.max(9, S.soc - 1); S.range = Math.round(S.soc * 5.02); }
-    }
-    // smooth chase
-    S.speed += (S.speedTarget - S.speed) * Math.min(1, dt * 3.2);
-    S.power += ((S.phase === 'launch' ? 0.9 : S.phase === 'cruise' ? 0.32 : S.phase === 'regen' ? -0.55 : 0) - S.power) * Math.min(1, dt * 2.4);
-    // simulated lateral/longitudinal G
-    S.g.x += (Math.sin(S.t * 0.7) * 0.35 * (S.speed / M.vmax) - S.g.x) * dt * 3;
-    S.g.y += ((S.phase === 'launch' ? 0.5 : S.phase === 'regen' ? -0.6 : 0.05) - S.g.y) * dt * 3;
-    S.flare = Math.max(0, S.flare - dt * 1.6);
+  function roundedRect(x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.roundRect(x, y, width, height, radius);
   }
 
-  /* ------- rendering ------- */
-  function arc(cx, cy, r, a0, a1, frac, color, width, glow) {
+  function text(value, x, y, size, color, align = 'left', weight = 500, family = 'Sometype Mono') {
+    ctx.textAlign = align;
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = color;
+    ctx.font = `${weight} ${size}px "${family}", monospace`;
+    ctx.fillText(value, x, y);
+  }
+
+  function line(points, color, width = 1, glow = 0) {
     ctx.beginPath();
-    ctx.arc(cx, cy, r, a0, a0 + (a1 - a0) * Math.max(0.001, frac));
+    points.forEach(([x, y], index) => index ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
     ctx.strokeStyle = color;
     ctx.lineWidth = width;
     ctx.lineCap = 'round';
-    ctx.shadowColor = color; ctx.shadowBlur = glow;
+    ctx.lineJoin = 'round';
+    if (glow) {
+      ctx.shadowColor = color;
+      ctx.shadowBlur = glow;
+    }
     ctx.stroke();
     ctx.shadowBlur = 0;
   }
-  function arcTicks(cx, cy, r, a0, a1, n, vmax, color) {
-    ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    for (let i = 0; i <= n; i++) {
-      const a = a0 + (a1 - a0) * (i / n);
-      const major = i % 2 === 0;
-      const r1 = r - (major ? 16 : 9), r2 = r - 3;
-      ctx.strokeStyle = color; ctx.lineWidth = major ? 2.4 : 1.2;
-      ctx.globalAlpha = major ? 0.9 : 0.45;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
-      ctx.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2);
-      ctx.stroke();
-      if (major) {
-        ctx.globalAlpha = 0.65;
-        ctx.font = '600 15px "IBM Plex Mono", monospace';
-        ctx.fillText(String(Math.round(vmax * i / n)), cx + Math.cos(a) * (r - 38), cy + Math.sin(a) * (r - 38));
+
+  function updateDrive(dt) {
+    state.phaseTime += dt;
+    const mode = MODES[state.mode];
+    if (state.phase === 'cruise' && state.phaseTime > 7.5) {
+      state.phase = 'regen';
+      state.phaseTime = 0;
+    } else if (state.phase === 'regen') {
+      state.targetSpeed = Math.max(42, state.targetSpeed - 36 * dt);
+      if (state.targetSpeed <= 42.5) {
+        state.phase = 'launch';
+        state.phaseTime = 0;
       }
+    } else if (state.phase === 'launch') {
+      state.targetSpeed = Math.min(mode.max * 0.48, state.targetSpeed + mode.response * 92 * dt);
+      if (state.targetSpeed >= mode.max * 0.48 - 0.5) {
+        state.phase = 'cruise';
+        state.phaseTime = 0;
+      }
+    }
+    state.speed += (state.targetSpeed - state.speed) * Math.min(1, dt * 2.4);
+    const targetPower = state.phase === 'launch' ? 0.74 : state.phase === 'regen' ? -0.28 : 0.24;
+    state.power += (targetPower - state.power) * Math.min(1, dt * 2.1);
+    state.modePulse = Math.max(0, state.modePulse - dt * 1.4);
+  }
+
+  function drawBackdrop(w, h, mode) {
+    const background = ctx.createRadialGradient(w * 0.5, h * 0.46, 10, w * 0.5, h * 0.5, w * 0.74);
+    background.addColorStop(0, '#0a151c');
+    background.addColorStop(0.42, '#050b11');
+    background.addColorStop(1, '#010306');
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, w, h);
+
+    const horizonGlow = ctx.createLinearGradient(0, h * 0.28, 0, h * 0.72);
+    horizonGlow.addColorStop(0, 'rgba(0,0,0,0)');
+    horizonGlow.addColorStop(0.48, mode.soft);
+    horizonGlow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = horizonGlow;
+    ctx.fillRect(0, h * 0.2, w, h * 0.6);
+
+    ctx.strokeStyle = 'rgba(140,196,214,.055)';
+    ctx.lineWidth = 1;
+    const horizon = h * 0.43;
+    for (let i = 0; i < 13; i++) {
+      const y = horizon + Math.pow(i / 12, 1.7) * h * 0.48;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.18, y);
+      ctx.lineTo(w * 0.82, y);
+      ctx.stroke();
+    }
+  }
+
+  function drawLandscape(w, h) {
+    const horizon = h * 0.43;
+    const drift = Math.sin(state.time * 0.12) * 18;
+    const left = [];
+    const right = [];
+    for (let i = 0; i <= 24; i++) {
+      const x = i * w / 24;
+      const ridge = horizon - 16 - Math.sin(i * 0.72 + 0.8) * 18 - Math.sin(i * 0.23) * 23;
+      if (x < w / 2) left.push([x + drift, ridge]);
+      else right.push([x + drift, ridge]);
+    }
+    line(left, 'rgba(111,169,184,.11)', 1);
+    line(right, 'rgba(111,169,184,.11)', 1);
+    line([[0, horizon + 6], [w, horizon + 6]], 'rgba(98,216,238,.08)', 1);
+  }
+
+  function drawRoad(w, h, mode) {
+    const vx = w * 0.5;
+    const vy = h * 0.435;
+    const bottom = h * 0.91;
+
+    const roadGradient = ctx.createLinearGradient(0, vy, 0, bottom);
+    roadGradient.addColorStop(0, 'rgba(19,31,37,.34)');
+    roadGradient.addColorStop(1, 'rgba(2,5,8,.92)');
+    ctx.fillStyle = roadGradient;
+    ctx.beginPath();
+    ctx.moveTo(vx - w * 0.018, vy);
+    ctx.lineTo(w * 0.24, bottom);
+    ctx.lineTo(w * 0.76, bottom);
+    ctx.lineTo(vx + w * 0.018, vy);
+    ctx.closePath();
+    ctx.fill();
+
+    const dashOffset = (state.time * 0.2) % 1;
+    [-1, 1].forEach((side) => {
+      for (let i = 0; i < 9; i++) {
+        const p0 = ((i / 9 + dashOffset) % 1);
+        const p1 = Math.min(1, p0 + 0.045 + p0 * 0.04);
+        const y0 = vy + Math.pow(p0, 1.55) * (bottom - vy);
+        const y1 = vy + Math.pow(p1, 1.55) * (bottom - vy);
+        const x0 = vx + side * Math.pow(p0, 1.48) * w * 0.12;
+        const x1 = vx + side * Math.pow(p1, 1.48) * w * 0.12;
+        line([[x0, y0], [x1, y1]], 'rgba(205,232,236,.33)', 1.2 + p0 * 1.8);
+      }
+    });
+
+    line([[vx - w * 0.018, vy], [w * 0.24, bottom]], 'rgba(98,216,238,.13)', 1);
+    line([[vx + w * 0.018, vy], [w * 0.76, bottom]], 'rgba(98,216,238,.13)', 1);
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(vx, bottom);
+    ctx.bezierCurveTo(vx + w * 0.035, h * 0.76, vx - w * 0.045, h * 0.57, vx + 3, vy);
+    ctx.strokeStyle = mode.hue;
+    ctx.lineWidth = 4.5;
+    ctx.shadowColor = mode.hue;
+    ctx.shadowBlur = 18;
+    ctx.globalAlpha = 0.88;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(239,254,255,.9)';
+    ctx.stroke();
+    ctx.restore();
+
+    const vehicleY = h * 0.765;
+    line([[vx - 13, vehicleY + 10], [vx - 13, vehicleY - 9], [vx - 5, vehicleY - 15]], mode.hue, 1.4, 8);
+    line([[vx + 13, vehicleY + 10], [vx + 13, vehicleY - 9], [vx + 5, vehicleY - 15]], mode.hue, 1.4, 8);
+    line([[vx - 9, vehicleY + 10], [vx + 9, vehicleY + 10]], mode.hue, 1.4, 8);
+  }
+
+  function drawTurnCue(w, h, mode) {
+    const x = w * 0.5;
+    const y = h * 0.16;
+    roundedRect(x - 190, y - 34, 380, 68, 18);
+    ctx.fillStyle = 'rgba(2,7,11,.68)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(132,205,217,.14)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    line([[x - 154, y + 12], [x - 154, y - 8], [x - 140, y - 22], [x - 112, y - 22]], mode.hue, 2.8, 10);
+    line([[x - 122, y - 30], [x - 112, y - 22], [x - 122, y - 14]], mode.hue, 2.8, 10);
+    text('1.2 KM', x - 88, y - 9, 19, '#eff8fa', 'left', 600);
+    text('BEAR RIGHT · OAKWOOD AVENUE', x - 88, y + 14, 10, 'rgba(159,187,196,.64)', 'left', 500);
+  }
+
+  function drawMetrics(w, h, mode) {
+    const leftX = w * 0.135;
+    const metricY = h * 0.63;
+    text(String(Math.round(state.speed)).padStart(2, '0'), leftX, metricY, Math.min(112, h * 0.15), '#f4f8f9', 'center', 300, 'Manrope');
+    text('KM/H', leftX, metricY + h * 0.09, 11, 'rgba(164,191,199,.55)', 'center', 600);
+    text('CURRENT VELOCITY', leftX, metricY - h * 0.095, 9, 'rgba(164,191,199,.42)', 'center', 500);
+
+    const rightX = w * 0.86;
+    const powerValue = Math.round(Math.abs(state.power) * 100);
+    text(state.power < 0 ? 'RECUP' : 'DRIVE', rightX, metricY - h * 0.095, 9, 'rgba(164,191,199,.42)', 'center', 500);
+    text(String(powerValue).padStart(2, '0'), rightX, metricY, Math.min(70, h * 0.105), state.power < 0 ? '#75e2bd' : mode.hue, 'center', 300, 'Manrope');
+    text('% ENERGY', rightX, metricY + h * 0.067, 10, 'rgba(164,191,199,.55)', 'center', 600);
+
+    const gaugeY = metricY + h * 0.116;
+    const gaugeW = Math.min(150, w * 0.105);
+    roundedRect(rightX - gaugeW / 2, gaugeY, gaugeW, 3, 2);
+    ctx.fillStyle = 'rgba(160,193,201,.12)';
+    ctx.fill();
+    roundedRect(rightX - gaugeW / 2, gaugeY, gaugeW * state.soc / 100, 3, 2);
+    ctx.fillStyle = mode.hue;
+    ctx.fill();
+    text(`${state.soc}%  ·  ${state.range} KM`, rightX, gaugeY + 20, 10, 'rgba(207,226,231,.7)', 'center', 500);
+
+    text('D', w * 0.5, h * 0.825, 26, mode.hue, 'center', 500, 'Manrope');
+    text(`${mode.label} MODE`, w * 0.5, h * 0.862, 9, 'rgba(166,193,201,.52)', 'center', 600);
+
+    if (state.modePulse > 0) {
+      ctx.globalAlpha = state.modePulse;
+      ctx.strokeStyle = mode.hue;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(w * 0.5, h * 0.825, 30 + (1 - state.modePulse) * 30, 0, Math.PI * 2);
+      ctx.stroke();
       ctx.globalAlpha = 1;
     }
+  }
+
+  function drawStatus(w, h, mode) {
+    const top = h * 0.104;
+    text(new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }), w * 0.055, top, 11, 'rgba(190,211,216,.62)', 'left', 500);
+    text('21.5°  ·  BERLIN', w * 0.945, top, 11, 'rgba(190,211,216,.62)', 'right', 500);
+    text('ACC  120', w * 0.275, top, 10, 'rgba(174,200,206,.5)', 'center', 500);
+    text('LANE CENTERED', w * 0.725, top, 10, mode.hue, 'center', 500);
   }
 
   function draw() {
     const dpr = Math.min(devicePixelRatio, 2);
-    const w = layer.clientWidth, h = layer.clientHeight;
-    if (cv.width !== w * dpr) { cv.width = w * dpr; cv.height = h * dpr; }
+    const w = layer.clientWidth;
+    const h = layer.clientHeight;
+    const targetW = Math.round(w * dpr);
+    const targetH = Math.round(h * dpr);
+    if (canvas.width !== targetW || canvas.height !== targetH) {
+      canvas.width = targetW;
+      canvas.height = targetH;
+    }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
-    // immersive dark backdrop — stops the 3D showroom car bleeding through
-    const bg = ctx.createRadialGradient(w * 0.5, h * 0.42, 0, w * 0.5, h * 0.5, Math.max(w, h) * 0.75);
-    bg.addColorStop(0, '#0b1626');
-    bg.addColorStop(1, '#04070d');
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, w, h);
-
-    const M = MODES[S.mode];
-    const cy = h * 0.66, cxL = w * 0.3, cxR = w * 0.7;
-    const R = Math.min(w, h) * 0.34;
-    const A0 = Math.PI * 0.82, A1 = Math.PI * 2.18;
-
-    // dial beds
-    arc(cxL, cy, R, A0, A1, 1, 'rgba(120,150,190,0.14)', 10, 0);
-    arc(cxR, cy, R, A0, A1, 1, 'rgba(120,150,190,0.14)', 10, 0);
-    arcTicks(cxL, cy, R, A0, A1, 14, M.vmax, 'rgba(150,180,215,0.8)');
-    arcTicks(cxR, cy, R, A0, A1, 10, 100, 'rgba(150,180,215,0.55)');
-
-    // live arcs
-    const spdFrac = S.speed / M.vmax;
-    arc(cxL, cy, R, A0, A1, spdFrac, M.hue, 10, 18 + S.flare * 30);
-    const pFrac = S.power >= 0 ? S.power : 0;
-    const rFrac = S.power < 0 ? -S.power : 0;
-    arc(cxR, cy, R, A0, A0 + (A1 - A0) * 0.5, pFrac, M.hue, 10, 16);
-    arc(cxR, cy, R, A1, A0 + (A1 - A0) * 0.5, rFrac, '#4dff9e', 10, 16);
-
-    // needle
-    const na = A0 + (A1 - A0) * spdFrac;
-    ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; ctx.shadowColor = M.hue; ctx.shadowBlur = 12;
-    ctx.beginPath();
-    ctx.moveTo(cxL + Math.cos(na) * (R * 0.2), cy + Math.sin(na) * (R * 0.2));
-    ctx.lineTo(cxL + Math.cos(na) * (R - 20), cy + Math.sin(na) * (R - 20));
-    ctx.stroke(); ctx.shadowBlur = 0;
-
-    // speed numerals
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#fff';
-    ctx.font = `300 ${Math.round(R * 0.52)}px "IBM Plex Mono", monospace`;
-    ctx.fillText(String(Math.round(S.speed)), cxL, cy - R * 0.12);
-    ctx.fillStyle = 'rgba(150,180,215,0.7)';
-    ctx.font = '600 15px "IBM Plex Mono", monospace';
-    ctx.fillText('KM/H', cxL, cy + R * 0.16);
-
-    // power labels
-    ctx.fillStyle = 'rgba(150,180,215,0.7)';
-    ctx.fillText('POWER %', cxR, cy + R * 0.16);
-    ctx.fillStyle = S.power < 0 ? '#4dff9e' : M.hue;
-    ctx.font = `300 ${Math.round(R * 0.3)}px "IBM Plex Mono", monospace`;
-    ctx.fillText(String(Math.round(Math.abs(S.power) * 100)), cxR, cy - R * 0.1);
-
-    /* centre stack */
-    const cx = w / 2;
-    // mode flare ring
-    if (S.flare > 0.01) {
-      ctx.globalAlpha = S.flare;
-      arc(cx, cy - R * 0.35, 54 + (1 - S.flare) * 60, 0, Math.PI * 2, 1, M.hue, 3, 24);
-      ctx.globalAlpha = 1;
-    }
-    // gear
-    ctx.fillStyle = M.hue;
-    ctx.font = `600 ${Math.round(R * 0.34)}px "IBM Plex Mono", monospace`;
-    ctx.shadowColor = M.hue; ctx.shadowBlur = 18;
-    ctx.fillText(S.gear, cx, cy - R * 0.4);
-    ctx.shadowBlur = 0;
-    // mode label
-    ctx.fillStyle = 'rgba(200,220,245,0.85)';
-    ctx.font = '600 14px "IBM Plex Mono", monospace';
-    ctx.fillText(M.label + ' MODE', cx, cy - R * 0.2);
-
-    // battery + range
-    const bw = 120, bx = cx - bw / 2, by = cy + R * 0.06;
-    ctx.strokeStyle = 'rgba(150,180,215,0.5)'; ctx.lineWidth = 1.5;
-    ctx.strokeRect(bx, by, bw, 12);
-    ctx.fillStyle = S.soc > 20 ? '#4dff9e' : '#ff5a3c';
-    ctx.fillRect(bx + 2, by + 2, (bw - 4) * (S.soc / 100), 8);
-    ctx.fillStyle = 'rgba(200,220,245,0.85)';
-    ctx.font = '600 13px "IBM Plex Mono", monospace';
-    ctx.fillText(`${S.soc}%  ·  ${S.range} KM`, cx, by + 30);
-
-    // G-meter
-    const gx = cx, gy = cy + R * 0.42, gr = 34;
-    ctx.strokeStyle = 'rgba(150,180,215,0.3)';
-    ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.arc(gx, gy, gr * 0.5, 0, Math.PI * 2); ctx.stroke();
-    const px = gx + THREE_clamp(S.g.x, -1, 1) * gr, py = gy - THREE_clamp(S.g.y, -1, 1) * gr;
-    ctx.fillStyle = M.hue; ctx.shadowColor = M.hue; ctx.shadowBlur = 10;
-    ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = 'rgba(150,180,215,0.55)';
-    ctx.font = '600 10px "IBM Plex Mono", monospace';
-    ctx.fillText('G', gx, gy + gr + 12);
-
-    // next-turn widget — keeps the cluster informative, not just dials
-    ctx.save();
-    ctx.translate(w / 2, h * 0.135);
-    const pillW = 290;
-    ctx.fillStyle = 'rgba(10,20,34,0.78)';
-    ctx.strokeStyle = 'rgba(56,240,255,0.3)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.roundRect(-pillW / 2, -24, pillW, 48, 14); ctx.fill(); ctx.stroke();
-    ctx.strokeStyle = M.hue; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    ctx.shadowColor = M.hue; ctx.shadowBlur = 12;
-    const ax = -pillW / 2 + 24;
-    ctx.beginPath();
-    ctx.moveTo(ax, 8); ctx.lineTo(ax, -6);
-    ctx.quadraticCurveTo(ax, -18, ax + 12, -18); ctx.lineTo(ax + 38, -18);
-    ctx.moveTo(ax + 28, -27); ctx.lineTo(ax + 40, -18); ctx.lineTo(ax + 28, -9);
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#fff'; ctx.font = '600 18px "IBM Plex Mono", monospace';
-    ctx.fillText('1.2 KM', ax + 54, -5);
-    ctx.fillStyle = 'rgba(170,200,230,0.62)'; ctx.font = '600 10px "IBM Plex Mono", monospace';
-    ctx.fillText('OAKWOOD AVE · BEAR RIGHT', ax + 54, 12);
-    ctx.restore();
-
-    // telltales
-    const tt = ['◉ AUTOHOLD', '⛨ LANE', '◈ ACC', '⌁ READY'];
-    ctx.font = '600 12px "IBM Plex Mono", monospace';
-    tt.forEach((s, i) => {
-      ctx.fillStyle = i === 3 ? '#4dff9e' : 'rgba(150,180,215,0.6)';
-      ctx.fillText(s, w * (0.18 + i * 0.215), h * 0.1);
-    });
-
-    // top status line
-    ctx.fillStyle = 'rgba(200,220,245,0.75)';
-    ctx.font = '600 13px "IBM Plex Mono", monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText(new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }), w * 0.045, h * 0.1);
-    ctx.textAlign = 'right';
-    ctx.fillText('21.5°C · ⛅', w * 0.955, h * 0.1);
+    const mode = MODES[state.mode];
+    drawBackdrop(w, h, mode);
+    drawLandscape(w, h);
+    drawRoad(w, h, mode);
+    drawTurnCue(w, h, mode);
+    drawMetrics(w, h, mode);
+    drawStatus(w, h, mode);
   }
 
-  function THREE_clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-
-  function activate() { S.active = true; }
-  function deactivate() { S.active = false; S.speed = S.speedTarget = 0; S.phase = 'idle'; S.phaseT = 0; }
-  function setView(on) { on ? activate() : deactivate(); }
-
-  function update(t, dt) {
-    S.t = t;
-    if (!S.active) return;
-    drive(dt);
+  function update(time, dt) {
+    if (!state.active) return;
+    state.time = time;
+    updateDrive(dt);
     draw();
   }
 
+  function onEnter() {
+    state.active = true;
+    state.speed = state.targetSpeed = 86;
+    state.phase = 'cruise';
+  }
+
+  function onExit() {
+    state.active = false;
+  }
+
   return {
-    activate, deactivate, setView, update,
-    onEnter: activate, onExit: deactivate,
-    get speed() { return S.speed; }, get mode() { return S.mode; }
+    update,
+    onEnter,
+    onExit,
+    activate: onEnter,
+    deactivate: onExit,
+    setView: (on) => on ? onEnter() : onExit(),
+    get speed() { return state.speed; },
+    get mode() { return state.mode; }
   };
 }

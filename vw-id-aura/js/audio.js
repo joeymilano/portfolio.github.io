@@ -4,7 +4,7 @@
    synthwave) played through a Web Audio graph so the console
    EQ widget still has a live analyser to read. Falls back to a
    short generated tone only if the files are missing.
-   Contract: { toggle(), play():Promise<bool>, pause(), next(),
+   Contract: { toggle(), play():Promise<bool>, pause(), prev(), next(),
                currentName(), currentArt(), currentArtist(),
                levels(n), onUpdate(cb({on})) }
    ============================================================ */
@@ -14,6 +14,7 @@ const TRACKS = [
   { name: 'Odyssey',      artist: 'HOME', file: 'assets/audio/odyssey.mp3',      art: 'assets/audio/cover.jpg' },
   { name: 'New Machines', artist: 'HOME', file: 'assets/audio/new-machines.mp3', art: 'assets/audio/cover.jpg' }
 ];
+const DEFAULT_VOLUME = 0.18;
 
 export function createAudio() {
   const audio = new Audio();
@@ -48,14 +49,18 @@ export function createAudio() {
 
   function emit() { cbs.forEach((cb) => cb({ on: playing })); }
 
-  function play() {
+  function play(targetVolume = DEFAULT_VOLUME) {
     if (!ensureCtx()) return Promise.resolve(false);
     return ctx.resume().then(() => {
       if (!audio.src) load();
       playing = true;
       audio.play().catch(() => {});
       master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0.8, ctx.currentTime + 1.0);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.linearRampToValueAtTime(
+        Math.min(Math.max(targetVolume, 0), 0.32),
+        ctx.currentTime + 1.8
+      );
       emit();
       return true;
     }).catch(() => false);
@@ -81,6 +86,14 @@ export function createAudio() {
     emit();
   }
 
+  function prev() {
+    trackIdx = (trackIdx - 1 + TRACKS.length) % TRACKS.length;
+    const wasPlaying = playing;
+    load();
+    if (wasPlaying) audio.play().catch(() => {});
+    emit();
+  }
+
   function levels(n) {
     if (!playing || !analyser) return null;
     analyser.getByteFrequencyData(freq);
@@ -96,7 +109,7 @@ export function createAudio() {
 
   load();
   return {
-    toggle, play, pause, next, levels,
+    toggle, play, pause, prev, next, levels,
     currentName:   () => TRACKS[trackIdx].name,
     currentArt:    () => TRACKS[trackIdx].art,
     currentArtist: () => TRACKS[trackIdx].artist,

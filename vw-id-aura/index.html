@@ -16,7 +16,7 @@
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Michroma&family=Sometype+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <script type="application/ld+json">
@@ -114,39 +114,72 @@
     <div class="layer" id="layer-showroom"></div>
   </div>
 
-  <!-- Intro veil -->
+  <!-- Intro film — real night-driving footage, deliberately silent until launch -->
   <div id="intro">
+    <video
+      class="intro-film"
+      id="intro-film"
+      muted
+      autoplay
+      loop
+      playsinline
+      preload="auto"
+      poster="assets/video/aura-night-drive-poster.jpg"
+      aria-hidden="true"
+    >
+      <source src="assets/video/aura-night-drive.mp4" type="video/mp4">
+    </video>
+    <div class="intro-film-grade" aria-hidden="true"></div>
+    <div class="intro-film-vignette" aria-hidden="true"></div>
+
     <nav class="intro-top">
       <a class="intro-back" href="/#projects">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         <span>Back to work</span>
       </a>
+      <div class="intro-transmission">
+        <i></i>
+        <span>LIVE CONCEPT FILM</span>
+        <b>01 / 04</b>
+      </div>
     </nav>
 
     <main class="intro-core">
-      <p class="intro-eyebrow">VOLKSWAGEN · HMI CONCEPT · 2026</p>
-      <h1 class="intro-title">ID<span>.</span>AURA</h1>
-      <p class="intro-sub">A real-time WebGL concept for Volkswagen's electric future — four modes, one continuous gesture. Drag the car, swap the paint, jump into the cockpit, watch the road perceive itself.</p>
+      <section class="intro-copy">
+        <p class="intro-eyebrow"><span>VOLKSWAGEN</span> · HMI CONCEPT · 2026</p>
+        <h1 class="intro-title" aria-label="ID.AURA">
+          <span class="intro-id">ID<span>.</span></span>
+          <span class="intro-aura">AURA</span>
+        </h1>
+        <p class="intro-statement">THE ROAD<br><em>THINKS AHEAD.</em></p>
+        <p class="intro-sub">A cinematic, real-time interface for the electric vehicle that sees, anticipates and responds as one continuous intelligence.</p>
 
-      <div class="intro-modes">
-        <span>Showroom</span><i>·</i><span>Cluster</span><i>·</i><span>Console</span><i>·</i><span>Autonomous</span>
-      </div>
+        <div class="intro-meta">
+          <div><i>EXPERIENCE</i><b>Showroom · Drive · Spatial OS · L4</b></div>
+          <div><i>SYSTEM</i><b>Three.js · GSAP · Web Audio</b></div>
+          <div><i>DIRECTION</i><b>Joey Zhao · 2026</b></div>
+        </div>
+      </section>
 
-      <div class="intro-meta">
-        <div><i>ROLE</i><b>Senior AI Product Designer</b></div>
-        <div><i>SCOPE</i><b>Concept · Interaction · WebGL</b></div>
-        <div><i>STACK</i><b>Three.js · GSAP · Web Audio</b></div>
-        <div><i>YEAR</i><b>2026</b></div>
-      </div>
-
-      <button id="launch" class="launch-btn" type="button">
-        <span>LAUNCH EXPERIENCE</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </button>
-
-      <p class="intro-foot">Designed & built by Joey Zhao — headphones recommended.</p>
+      <aside class="intro-ignition">
+        <div class="launch-orbit">
+          <span class="orbit-index">AURA / 01</span>
+          <button id="launch" class="launch-btn" type="button" aria-label="Launch ID.AURA experience">
+            <span class="launch-kicker">INITIALIZE</span>
+            <strong>ENTER<br>EXPERIENCE</strong>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <p class="intro-audio-state"><i></i><span>SOUND ARMED</span> · PLAYS QUIETLY AFTER LAUNCH</p>
+      </aside>
     </main>
-    <div class="intro-glow"></div>
+
+    <footer class="intro-footer">
+      <div class="intro-modes">
+        <span class="active">01 SHOWROOM</span><i></i><span>02 CLUSTER</span><i></i><span>03 CONSOLE</span><i></i><span>04 AUTONOMOUS</span>
+      </div>
+      <p class="intro-foot">REAL-TIME HMI / CINEMATIC WEBGL / DESIGNED &amp; BUILT BY JOEY ZHAO</p>
+    </footer>
   </div>
 
   <!-- Failsafe: dismiss the intro veil on LAUNCH even if the ES module

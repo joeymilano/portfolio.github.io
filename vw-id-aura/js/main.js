@@ -70,13 +70,13 @@ function switchView(name) {
   for (const v of VIEWS) layers[v].classList.remove('on');
   document.body.dataset.view = name;
   if (name !== 'showroom') layers[name].classList.add('on');
+  view.setShowroomActive(name === 'showroom');
+  car.group.visible = name === 'showroom';
 
   // camera
   if (name === 'autonomous') {
     autonomous.onEnter();
-    gsap.from(camera.position, {
-      y: camera.position.y + 26, duration: 1.6, ease: 'power3.out'
-    });
+    cinematicCam = true;
   } else {
     autonomous.onExit();
     if (prev === 'autonomous') flyTo(CAMERAS[name === 'showroom' ? 'front34' : 'front34']);
@@ -186,8 +186,8 @@ if (sceneRail && view.SCENES) {
     sceneRail.querySelectorAll('.scene-btn').forEach((btn, i) =>
       btn.classList.toggle('active', i === idx));
     // smooth exposure ramp so the new vista fades in instead of snapping
-    gsap.fromTo(view.renderer, { toneMappingExposure: 0.35 },
-      { toneMappingExposure: 1.0, duration: 0.9, ease: 'power2.out' });
+    gsap.fromTo(view.renderer, { toneMappingExposure: 0.3 },
+      { toneMappingExposure: 0.68, duration: 0.9, ease: 'power2.out' });
   });
 }
 
@@ -214,27 +214,19 @@ function tickHudClock() {
 tickHudClock();
 setInterval(tickHudClock, 10_000);
 
-/* ---------- intro veil + BGM ----------
-   BGM fires during the intro veil — on the user's FIRST gesture anywhere
-   on the page — instead of being gated behind the LAUNCH button. Browsers
-   block raw autoplay, so a one-shot unlock is armed on the first pointer /
-   key / touch; LAUNCH itself only dismisses the veil. */
+/* ---------- intro film + BGM ----------
+   The intro film is always muted. The launch gesture is the only audio
+   unlock: it brings the soundtrack in gently at 18% master gain. */
 const intro = document.getElementById('intro');
 function launchExperience() {
+  audio.play(0.18);
   intro.classList.add('gone');
-  setTimeout(() => intro.remove(), 1000);
+  setTimeout(() => {
+    intro.querySelector('.intro-film')?.pause();
+    intro.remove();
+  }, 1100);
 }
 document.getElementById('launch').addEventListener('click', launchExperience);
-
-function unlockAudio() {
-  audio.play();
-  document.removeEventListener('pointerdown', unlockAudio);
-  document.removeEventListener('keydown', unlockAudio);
-  document.removeEventListener('touchstart', unlockAudio);
-}
-document.addEventListener('pointerdown', unlockAudio);
-document.addEventListener('keydown', unlockAudio);
-document.addEventListener('touchstart', unlockAudio);
 
 /* ---------- keyboard shortcuts ---------- */
 addEventListener('keydown', (e) => {
