@@ -2,10 +2,11 @@
    ID.AURA — Horizon Cluster · P1 rebuild
    A three-Z instrument surface for an electric vehicle:
 
-     · BASE   cel-shaded flowing road — toon-banded sky /
-             mountains / road, perspective lane dashes that
-             stream toward the viewer (the "we are moving"
-             cue), a soft headlight cone.
+     · BASE   photographic night-drive scene — AI-generated
+             写实 art asset (real road / city skyline / wet
+             reflections) carries depth + realism; the old
+             procedural cel-shaded road (Math.sin ridges) is
+             gone. Lane dashes float on top as an AR-HUD cue.
      · MID    zentral EV power gauge — Taycan-style: 12 o'clock
              is the zero point, right half = drive power (mode
              accent), left half = recuperation (green). Needle,
@@ -193,108 +194,62 @@ export function createCluster(layer) {
   }
 
   /* ============================================================
-     BASE LAYER — cel-shaded road scene
+     BASE LAYER — photographic night-drive scene
+     AI-generated写实 art asset replaces the old procedural Canvas
+     sky / mountains / road (the cheap "Math.sin ridge" look).
+     The photo carries realism + depth; dynamic data layers float
+     on top as a restrained AR-HUD. Mode hue tints only the horizon
+     glow (Lotus discipline — accent ≤5%, background never flooded).
      ============================================================ */
-  function drawSky(w, h, mode, a) {
+  const sceneImg = new Image();
+  sceneImg.src = 'assets/art/cluster-night-road.jpg';
+  let sceneReady = false;
+  sceneImg.onload = () => { sceneReady = true; };
+  // photo horizon sits near h*0.34 — dynamic layers below must align
+  const HORIZON = 0.34;
+
+  function drawScenePhoto(w, h, mode, a) {
     if (a <= 0.01) return;
-    const vy = h * 0.42;
     ctx.save();
     ctx.globalAlpha = a;
-    const bands = [
-      { y0: 0, y1: vy * 0.45, c: '#070b0e' },
-      { y0: vy * 0.45, y1: vy * 0.8, c: '#0a1116' },
-      { y0: vy * 0.8, y1: vy, c: '#0d161c' }
-    ];
-    bands.forEach((b) => { ctx.fillStyle = b.c; ctx.fillRect(0, b.y0, w, b.y1 - b.y0); });
-    // horizon mode tint
-    const g = ctx.createRadialGradient(w * 0.5, vy, 4, w * 0.5, vy, w * 0.52);
-    g.addColorStop(0, mode.hue + '22');
-    g.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, vy + 30);
-    ctx.restore();
-  }
-
-  function drawMountains(w, h, mode, a) {
-    if (a <= 0.01) return;
-    const vy = h * 0.42;
-    const layers = [
-      { yBase: vy - 32, amp: 48, color: '#080f13', freq: 0.0035, phase: 1.7 },
-      { yBase: vy - 12, amp: 30, color: '#0b141a', freq: 0.0055, phase: 0.4 },
-      { yBase: vy + 3,  amp: 18, color: '#0f1a22', freq: 0.0085, phase: 2.9 }
-    ];
-    ctx.save();
+    if (sceneReady) {
+      // cover-fit the photo to the cluster frame
+      const ir = sceneImg.naturalWidth / sceneImg.naturalHeight;
+      const cr = w / h;
+      let dw, dh, dx, dy;
+      if (ir > cr) { dh = h; dw = h * ir; dx = (w - dw) / 2; dy = 0; }
+      else { dw = w; dh = w / ir; dx = 0; dy = (h - dh) / 2; }
+      ctx.drawImage(sceneImg, dx, dy, dw, dh);
+    } else {
+      ctx.fillStyle = '#04070a';
+      ctx.fillRect(0, 0, w, h);
+    }
+    // cinematic vignette so the HUD reads against the photo edges
+    const vg = ctx.createRadialGradient(w * 0.5, h * 0.52, h * 0.28, w * 0.5, h * 0.52, h * 0.9);
+    vg.addColorStop(0, 'rgba(0,0,0,0)');
+    vg.addColorStop(1, 'rgba(4,7,11,0.78)');
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, w, h);
+    // bottom fade into the cluster bezel (mode dock lives here)
+    const bf = ctx.createLinearGradient(0, h * 0.68, 0, h);
+    bf.addColorStop(0, 'rgba(4,7,11,0)');
+    bf.addColorStop(1, 'rgba(4,7,11,0.94)');
+    ctx.fillStyle = bf;
+    ctx.fillRect(0, h * 0.68, w, h * 0.32);
+    // top fade for the heading strip
+    const tf = ctx.createLinearGradient(0, 0, 0, h * 0.18);
+    tf.addColorStop(0, 'rgba(4,7,11,0.66)');
+    tf.addColorStop(1, 'rgba(4,7,11,0)');
+    ctx.fillStyle = tf;
+    ctx.fillRect(0, 0, w, h * 0.18);
+    // restrained horizon tint — the only place mode hue touches the bg
+    const hy = h * HORIZON;
+    const ht = ctx.createRadialGradient(w * 0.5, hy, 4, w * 0.5, hy, w * 0.52);
+    ht.addColorStop(0, mode.hue + '2e');
+    ht.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.globalAlpha = a;
-    layers.forEach((L) => {
-      ctx.fillStyle = L.color;
-      ctx.beginPath();
-      ctx.moveTo(0, h);
-      ctx.lineTo(0, L.yBase);
-      for (let x = 0; x <= w; x += 6) {
-        const n = Math.abs(Math.sin(x * L.freq + L.phase)) * L.amp
-                + Math.abs(Math.sin(x * L.freq * 2.7 + L.phase * 1.3)) * L.amp * 0.35;
-        ctx.lineTo(x, L.yBase - n);
-      }
-      ctx.lineTo(w, h);
-      ctx.closePath();
-      ctx.fill();
-    });
-    ctx.restore();
-  }
-
-  function drawRoadSurface(w, h, mode, a) {
-    if (a <= 0.01) return;
-    const vx = w * 0.5;
-    const vy = h * 0.42;
-    const bottom = h * 0.965;
-    const nearHalf = w * 0.46;
-    ctx.save();
-    ctx.globalAlpha = a;
-    // cel-shaded road: stacked trapezoids with hard color edges
-    const bands = [
-      { d0: 0.0, d1: 0.34, c: '#0c151a' },
-      { d0: 0.34, d1: 0.68, c: '#101a21' },
-      { d0: 0.68, d1: 1.0, c: '#16242c' }
-    ];
-    bands.forEach((b) => {
-      const y0 = projectY(b.d0, vy, bottom);
-      const y1 = projectY(b.d1, vy, bottom);
-      const hw0 = nearHalf * b.d0;
-      const hw1 = nearHalf * b.d1;
-      ctx.fillStyle = b.c;
-      ctx.beginPath();
-      ctx.moveTo(vx - hw0, y0); ctx.lineTo(vx + hw0, y0);
-      ctx.lineTo(vx + hw1, y1); ctx.lineTo(vx - hw1, y1);
-      ctx.closePath(); ctx.fill();
-    });
-    // mode tint wash on the near tarmac
-    ctx.globalAlpha = a * 0.10;
-    ctx.fillStyle = mode.hue;
-    ctx.beginPath();
-    ctx.moveTo(vx, vy);
-    ctx.lineTo(vx + nearHalf, bottom);
-    ctx.lineTo(vx - nearHalf, bottom);
-    ctx.closePath(); ctx.fill();
-    ctx.restore();
-  }
-
-  function drawHeadlightCone(w, h, mode, a) {
-    if (a <= 0.01) return;
-    const vx = w * 0.5;
-    const vy = h * 0.42;
-    const bottom = h * 0.965;
-    ctx.save();
-    ctx.globalAlpha = a * 0.55;
-    const g = ctx.createRadialGradient(vx, bottom, 12, vx, vy - 20, h * 0.62);
-    g.addColorStop(0, 'rgba(224,238,242,0.20)');
-    g.addColorStop(0.45, 'rgba(170,205,215,0.06)');
-    g.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.moveTo(vx, vy);
-    ctx.lineTo(vx + w * 0.46, bottom);
-    ctx.lineTo(vx - w * 0.46, bottom);
-    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = ht;
+    ctx.fillRect(0, 0, w, h * 0.62);
     ctx.restore();
   }
 
@@ -302,9 +257,9 @@ export function createCluster(layer) {
   function drawLaneFlow(w, h, mode, a, adasA) {
     if (a <= 0.01) return;
     const vx = w * 0.5;
-    const vy = h * 0.42;
+    const vy = h * HORIZON;
     const bottom = h * 0.965;
-    const nearHalf = w * 0.46;
+    const nearHalf = w * 0.30;
     const N = 18;
 
     // center dashes (neutral white)
@@ -494,7 +449,7 @@ export function createCluster(layer) {
   function drawADAS(w, h, mode, a) {
     if (a < 0.02) return;
     const vx = w * 0.5;
-    const vy = h * 0.42;
+    const vy = h * HORIZON;
     const bottom = h * 0.965;
     ctx.save();
     ctx.globalAlpha = a;
@@ -709,11 +664,8 @@ export function createCluster(layer) {
 
     const mode = MODES[state.mode];
 
-    // BASE
-    drawSky(w, h, mode, layout.roadAlpha);
-    drawMountains(w, h, mode, layout.roadAlpha);
-    drawRoadSurface(w, h, mode, layout.roadAlpha);
-    drawHeadlightCone(w, h, mode, layout.roadAlpha);
+    // BASE — photographic night-drive scene (AI asset, replaces procedural)
+    drawScenePhoto(w, h, mode, layout.roadAlpha);
     drawLaneFlow(w, h, mode, layout.roadAlpha, layout.adasAlpha);
 
     // MID

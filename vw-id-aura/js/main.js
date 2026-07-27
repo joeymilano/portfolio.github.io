@@ -9,7 +9,7 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { createScene } from './scene.js?v=20260727-2';
 import { createCar } from './car.js?v=20260727-3';
-import { createCluster } from './cluster.js?v=20260727-3';
+import { createCluster } from './cluster.js?v=20260727-4';
 import { createConsole } from './console.js?v=20260727-2';
 import { createAutonomous } from './autonomous.js?v=20260727-1';
 import { createAudio } from './audio.js?v=20260727-1';
@@ -84,6 +84,7 @@ function switchView(name) {
   // 原先隐藏只写在 else 内层,Console→Autonomous 走 if(autonomous) 分支绕过,
   // 导致 twin 残留在原点 (0,0,0) 与 ego 真车堆叠成"两辆车"。此处一句管所有路径。
   if (consoleTwin) consoleTwin.group.visible = (name === 'console');
+  if (consoleStage) consoleStage.visible = (name === 'console');
 
   // camera
   if (name === 'autonomous') {
@@ -401,13 +402,45 @@ const twinPaints = ['#9fb3c8', '#0d2d6b', '#c22333', '#e8e6e0', '#0c1210', '#0e3
 let twinPaintIdx = 0;
 let twinLightsOn = true;
 
+// Console 专属舞台：深炭地板 + 模式光圈，让写实数字孪生"站住"
+// （致敬 Lotus 3D Garage 的暗场产品摄影质感）
+let consoleStage = null;
+function buildConsoleStage() {
+  if (consoleStage) return;
+  consoleStage = new THREE.Group();
+  const floor = new THREE.Mesh(
+    new THREE.CircleGeometry(9, 72),
+    new THREE.MeshPhysicalMaterial({
+      color: 0x06080c, roughness: 0.55, metalness: 0.25,
+      clearcoat: 0.35, clearcoatRoughness: 0.6, envMapIntensity: 0.4
+    })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -0.02;
+  floor.receiveShadow = true;
+  consoleStage.add(floor);
+  const ringMat = new THREE.MeshBasicMaterial({
+    color: 0x54d3e3, transparent: true, opacity: 0.55, toneMapped: false
+  });
+  const ring = new THREE.Mesh(new THREE.RingGeometry(3.9, 3.96, 96), ringMat);
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.y = 0.005;
+  consoleStage.add(ring);
+  consoleStage.userData.ringMat = ringMat;
+  consoleStage.visible = false;
+  view.scene.add(consoleStage);
+}
+
 function buildConsoleTwin() {
-  if (consoleTwin || !car.createToonClone) return;
-  consoleTwin = car.createToonClone({});
+  if (consoleTwin || !car.cloneCar) return;
+  // 写实 PBR twin (Lotus Hyper OS digital-twin aesthetic) — 弃用 cel-shaded toon,
+  // 写实车漆 + HDRI 反射才匹配 Lotus 写实高级基调。
+  consoleTwin = car.cloneCar({});
   if (!consoleTwin) return;
   consoleTwin.group.visible = false;
   consoleTwin.group.position.set(0, 0, 0);
   view.scene.add(consoleTwin.group);
+  buildConsoleStage();
 }
 
 const raycaster = new THREE.Raycaster();
@@ -456,8 +489,8 @@ stage.addEventListener('pointerup', (e) => {
   // default body tap → cycle cel-shaded paint
   twinPaintIdx = (twinPaintIdx + 1) % twinPaints.length;
   const hex = parseInt(twinPaints[twinPaintIdx].slice(1), 16);
-  consoleTwin.toonBodyMats.forEach((m) => m.color.set(hex));
-  consoleTwin.toonAccentMats.forEach((m) => m.color.set(hex).multiplyScalar(0.32));
+  consoleTwin.bodyMats.forEach((m) => m.color.set(hex));
+  consoleTwin.accentMats.forEach((m) => m.color.set(hex).multiplyScalar(0.22));
   showControlToast(`PAINT · ${twinPaints[twinPaintIdx].toUpperCase()}`);
 });
 
