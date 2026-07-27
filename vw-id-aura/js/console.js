@@ -149,6 +149,11 @@ export function createConsole(layer, audio) {
         </aside>
       </main>
 
+      <div class="console-stage-hint" aria-hidden="true">
+        <i class="ph-icon ph-hand-tap"></i>
+        <span>TAP BODY · REPAINT &nbsp;&nbsp;·&nbsp;&nbsp; TAP LAMPS · TOGGLE</span>
+      </div>
+
       <footer class="console-dock">
         <button class="tg on" data-tg><i class="ph-icon ph-house-simple" aria-hidden="true"></i>HOME</button>
         <button class="tg on" data-tg><i class="ph-icon ph-navigation-arrow" aria-hidden="true"></i>NAV</button>

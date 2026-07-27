@@ -371,9 +371,87 @@ export function createCar() {
     return { group: wrap, wheelPivots, glowMats, bodyMats, accentMats };
   }
 
+  /* ---------- cel-shaded toon twin (Console 3D garage) ----------
+     Shares geometry with the fitted GLB but rebuilds materials as
+     MeshToonMaterial colour bands — the Rivian-style stylised 3D the
+     plan calls for, visually distinct from the Showroom's photoreal
+     PBR car. The clone keeps independent paint + lamp state. */
+  const toonGradient = (() => {
+    const data = new Uint8Array([68, 168, 255]);
+    const tex = new THREE.DataTexture(data, data.length, 1, THREE.RedFormat);
+    tex.minFilter = THREE.NearestFilter;
+    tex.magFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false;
+    tex.needsUpdate = true;
+    return tex;
+  })();
+
+  function createToonClone(opts = {}) {
+    const base = cloneCar(opts);
+    if (!base) return null;
+    const bodyHex = opts.paint ?? state.paint;
+    const accentHex = new THREE.Color(bodyHex).multiplyScalar(0.32).getHex();
+    const toonMats = [], toonBodyMats = [], toonAccentMats = [];
+    base.group.traverse((o) => {
+      if (!o.isMesh) return;
+      const orig = Array.isArray(o.material) ? o.material[0] : o.material;
+      const name = (orig.name || '').toLowerCase();
+
+      // emissive lamps stay photoreal so toggling them still reads as a glow;
+      // license plate stays hidden (de-brand).
+      if (name.includes('head') || name.includes('brake') || name.includes('signal') ||
+          name === 'light' || name === 'license') return;
+
+      let color, role;
+      if (name.startsWith('paint 1')) { color = bodyHex; role = 'body'; }
+      else if (name.startsWith('paint 2')) { color = accentHex; role = 'accent'; }
+      else if (name === 'glass') { color = 0x14202e; role = 'glass'; }
+      else if (name.includes('tire')) { color = 0x0a0c10; role = 'tyre'; }
+      else if (name === 'rim1' || name === 'rim2' || name === 'disc') { color = 0xc4cdda; role = 'rim'; }
+      else if (name === 'mirror') { color = 0xd6dde6; role = 'mirror'; }
+      else if (name === 'mechanical') { color = 0x10141a; role = 'mechanical'; }
+      else if (name.includes('interior') || name.includes('carmine') || name.includes('seat') || name.includes('chrome')) {
+        color = 0x1a1e24; role = 'interior';
+      } else {
+        // catch-all: every remaining mesh becomes toon-banded too, otherwise
+        // the car reads as half-photoreal and the cel-shading falls apart.
+        color = (orig.color && orig.color.getHex() !== 0xffffff)
+          ? orig.color.clone()
+          : new THREE.Color(0x23272e);
+        role = 'other';
+      }
+
+      const isGlass = role === 'glass';
+      const toon = new THREE.MeshToonMaterial({
+        color,
+        gradientMap: toonGradient,
+        transparent: isGlass,
+        opacity: isGlass ? 0.55 : 1
+      });
+      toon.envMapIntensity = 0;
+      toon.userData.role = role;
+      o.material = toon;
+      toonMats.push(toon);
+      if (role === 'body') toonBodyMats.push(toon);
+      else if (role === 'accent') toonAccentMats.push(toon);
+    });
+
+    /* authored door / hatch / charge-flap meshes (if any), so the Console
+       garage can swing them open on tap. */
+    const doors = [];
+    base.group.traverse((o) => {
+      const n = (o.name || '').toLowerCase();
+      if (n.includes('door') || n.includes('hatch') || n.includes('trunk') || n.includes('charge')) {
+        doors.push(o);
+      }
+    });
+
+    return { ...base, toonMats, toonBodyMats, toonAccentMats, doors };
+  }
+
   return {
     group, rig, state, update, setPaint, setLights, setTurntable, setInterior,
-    cloneCar,
+    cloneCar, createToonClone,
     onLoad: (cb) => (state.ready ? cb(state.loaded === 'glb') : loadCbs.push(cb)),
     onProgress: (cb) => progCbs.push(cb)
   };

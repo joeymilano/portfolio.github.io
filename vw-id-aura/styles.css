@@ -1,25 +1,50 @@
 /* ============================================================
    ID.AURA — Volkswagen HMI Concept
-   Design system: deep-space dark, signal cyan, glass surfaces,
-   Manrope display + Sometype Mono data typography.
+   Design system: Quiet Luxury — deep charcoal with warm-grey
+   stratification, restrained signal cyan, true glass with edge
+   highlights. Manrope (thin/light numerics) carries the surface;
+   Sometype Mono is reserved for data readouts. Calm, not loud.
    ============================================================ */
 
 :root {
-  --bg: #010306;
-  --bg-2: #050a0f;
-  --ink: #edf4f4;
-  --ink-dim: #91a8ad;
-  --ink-faint: #536a71;
-  --cyan: #62d8ee;
-  --cyan-dim: rgba(98, 216, 238, 0.3);
-  --amber: #f0a06d;
-  --red: #e96d7b;
-  --green: #75e2bd;
-  --gold: #d8b06a;
-  --glass: rgba(10, 18, 32, 0.55);
-  --glass-brd: rgba(120, 190, 255, 0.14);
+  /* —— Quiet Luxury · 深炭暖灰分层（对标 Lotus #0A0A0E→#1A1A20）—— */
+  --bg: #08090c;
+  --bg-2: #0d0f14;
+  --bg-3: #15181e;
+  /* —— 墨色 —— */
+  --ink: #edf1f1;
+  --ink-dim: #8fa0a6;
+  --ink-faint: #53656c;
+  --ink-bright: #f5f7f7;          /* 安静白 · 数字主色 */
+  /* —— 品牌青：保留大众 ID DNA，降饱和提质感 —— */
+  --cyan: #54d3e3;
+  --cyan-dim: rgba(84, 211, 227, 0.22);
+  --cyan-soft: rgba(84, 211, 227, 0.07);
+  /* —— 语义色（统一降一档饱和，避免廉价感）—— */
+  --amber: #e6a877;
+  --red: #e07d8a;
+  --green: #6fd9b4;
+  --gold: #d2b078;
+  /* —— 玻璃：暖灰层次 + 边缘高光 —— */
+  --glass: rgba(15, 18, 24, 0.6);
+  --glass-2: rgba(20, 24, 31, 0.5);
+  --glass-brd: rgba(150, 190, 210, 0.09);
+  --glass-hi: rgba(255, 255, 255, 0.045);
+  /* —— 字体 —— */
   --font-display: "Manrope", system-ui, sans-serif;
   --font-mono: "Sometype Mono", ui-monospace, monospace;
+  --font-geo: "Chakra Petch", "Manrope", system-ui, sans-serif; /* 几何切角·数字/功率 */
+  /* —— 模式强调色（P1 Cluster 四模式档·切换时整体换色，总面积≤5%）—— */
+  --aura:  #54d3e3;   /* Pure / Drive — 保留大众 ID 青蓝 DNA */
+  --eco:   #6fd9b4;   /* Energy — 冷绿 */
+  --sport: #ff5a3c;   /* GT — 橙红（Porsche/Lotus Sport 共识） */
+  --recup: #75e2bd;   /* 能量回收 — 正向绿 */
+  /* —— 动效系统（P3）—— */
+  --ease-flip: cubic-bezier(0.16, 1, 0.3, 1);  /* 快出慢回 · 模式翻转（致敬 Lotus 可翻转屏）*/
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);    /* 微交互下沉 */
+  --view-accent: #54d3e3;                        /* 全局模式强调色 · 跨模态辉光联动 */
+  /* 翻转入场强度（驾驶档克制 / 驻车放开，由 body[data-view] 覆盖）*/
+  --flip-rx: 4deg; --flip-ty: 26px; --flip-sc: 0.985; --flip-dur: 0.62s;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,7 +52,10 @@
 html, body {
   height: 100%;
   overflow: hidden;
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 100% 72% at 50% -8%, #0b0d12 0%, transparent 62%),
+    radial-gradient(ellipse 80% 60% at 50% 110%, #0a0c11 0%, transparent 56%),
+    var(--bg);
   color: var(--ink);
   font-family: var(--font-display);
   -webkit-font-smoothing: antialiased;
@@ -131,6 +159,10 @@ button {
   justify-content: space-between;
   padding: 18px 28px;
   background: linear-gradient(180deg, rgba(4, 6, 11, 0.85), transparent);
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: opacity 0.6s var(--ease-flip, cubic-bezier(0.16, 1, 0.3, 1)),
+              transform 0.6s var(--ease-flip, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .hud-brand { display: flex; align-items: center; gap: 12px; }
@@ -231,9 +263,9 @@ body:not([data-view="showroom"]) #lights-btn {
   top: 74px;
   right: 28px;
   z-index: 8;
-  padding: 8px 11px;
-  border: 1px solid rgba(98, 216, 238, 0.2);
-  background: rgba(2, 7, 11, 0.82);
+  padding: 8px 14px;
+  border: 1px solid rgba(98, 216, 238, 0.22);
+  background: linear-gradient(90deg, rgba(2, 7, 11, 0.92), rgba(8, 16, 20, 0.92));
   color: var(--cyan);
   font-family: var(--font-mono);
   font-size: 8px;
@@ -241,12 +273,49 @@ body:not([data-view="showroom"]) #lights-btn {
   opacity: 0;
   transform: translateY(-5px);
   pointer-events: none;
-  transition: opacity 0.2s, transform 0.25s;
+  transition: opacity 0.25s var(--ease-soft), transform 0.3s var(--ease-soft);
+  overflow: hidden;
 }
 
 #control-toast.show {
   opacity: 1;
   transform: none;
+}
+
+/* P3 安全前置光刃：每次显现，一道光横扫框体（替代普通 toast）*/
+#control-toast::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: -60%;
+  width: 50%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(84, 211, 227, 0.5),
+    rgba(245, 247, 247, 0.7),
+    rgba(84, 211, 227, 0.5),
+    transparent);
+  transform: skewX(-18deg);
+  pointer-events: none;
+}
+#control-toast.show::after { animation: bladeSweep 0.7s var(--ease-flip); }
+@keyframes bladeSweep {
+  0% { left: -60%; }
+  100% { left: 110%; }
+}
+/* severity：警告 / 接管用暖色光刃 */
+#control-toast[data-severity="warn"] {
+  color: var(--amber);
+  border-color: rgba(230, 168, 119, 0.32);
+}
+#control-toast[data-severity="warn"]::after {
+  background: linear-gradient(90deg, transparent, rgba(230, 168, 119, 0.55), rgba(245, 220, 200, 0.8), rgba(230, 168, 119, 0.55), transparent);
+}
+#control-toast[data-severity="alert"] {
+  color: var(--red);
+  border-color: rgba(224, 125, 138, 0.36);
+}
+#control-toast[data-severity="alert"]::after {
+  background: linear-gradient(90deg, transparent, rgba(224, 125, 138, 0.6), rgba(255, 220, 222, 0.85), rgba(224, 125, 138, 0.6), transparent);
 }
 
 /* view name flash */
@@ -276,6 +345,11 @@ body:not([data-view="showroom"]) #lights-btn {
   align-items: flex-end;
   padding: 20px 28px;
   background: linear-gradient(0deg, rgba(4, 6, 11, 0.8), transparent);
+  opacity: 0;
+  transform: translateY(16px);
+  /* 0.2s 错峰,呼应原仪式节奏(顶栏先出、底栏跟上) */
+  transition: opacity 0.6s var(--ease-flip, cubic-bezier(0.16, 1, 0.3, 1)) 0.2s,
+              transform 0.6s var(--ease-flip, cubic-bezier(0.16, 1, 0.3, 1)) 0.2s;
 }
 .hud-hint, .hud-meta {
   font-family: var(--font-mono);
@@ -285,6 +359,11 @@ body:not([data-view="showroom"]) #lights-btn {
 }
 body[data-view="showroom"] .hud-hint { color: var(--ink-dim); }
 
+/* 仪式完成(body.boot-done)后,HUD 顶/底栏淡入就位 —— 与 .showroom-ui 同机制,
+   compositor 驱动、免 rAF ticker、tab 失焦也稳。boot-done 一次性,切视图不重等延迟。*/
+body.boot-done .hud-top { opacity: 1; transform: translateY(0); }
+body.boot-done .hud-bottom { opacity: 1; transform: translateY(0); }
+
 /* ============================================================
    SHOWROOM CONTROLS
    ============================================================ */
@@ -292,11 +371,16 @@ body[data-view="showroom"] .hud-hint { color: var(--ink-dim); }
   position: absolute;
   inset: 0;
   opacity: 0;
+  transform: translateY(16px);
   pointer-events: none;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.7s var(--ease-flip, cubic-bezier(0.16, 1, 0.3, 1)),
+              transform 0.7s var(--ease-flip, cubic-bezier(0.16, 1, 0.3, 1));
 }
-body[data-view="showroom"] .showroom-ui { opacity: 1; }
-body[data-view="showroom"] .showroom-ui button { pointer-events: auto; }
+/* 仪式完成(body.boot-done)+ 驻车视图才点亮控制条 —— main.js setTimeout 加 class,
+   CSS transition 接管淡入(compositor 驱动,不依赖 rAF ticker,tab 失焦也不会卡在透明)。
+   切到驾驶视图自动隐藏,切回 Showroom 不重等仪式延迟。 */
+body[data-view="showroom"].boot-done .showroom-ui { opacity: 1; transform: translateY(0); }
+body[data-view="showroom"].boot-done .showroom-ui button { pointer-events: auto; }
 
 .lens-rail {
   position: absolute;
@@ -502,18 +586,31 @@ body[data-view="showroom"].interior-view .interior-tour {
 /* ============================================================
    MODE LAYERS
    ============================================================ */
+#hud { perspective: 2200px; perspective-origin: center 42%; }
+
 .layer {
   position: absolute;
   inset: 0;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.45s ease, visibility 0.45s;
+  transform: translateY(var(--flip-ty)) rotateX(var(--flip-rx)) scale(var(--flip-sc));
+  transform-origin: center 38%;
+  transition: opacity var(--flip-dur) var(--ease-flip),
+              transform var(--flip-dur) var(--ease-flip),
+              visibility var(--flip-dur);
+  will-change: transform, opacity;
 }
-.layer.on { opacity: 1; visibility: visible; pointer-events: auto; }
-/* console gets its own opaque backdrop so the 3D showroom car never
-   bleeds through between the glass infotainment cards */
-#layer-console { background: radial-gradient(ellipse at 50% 30%, #0a1424 0%, #04070d 75%); }
+.layer.on {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: none;
+}
+/* 驾驶中动效克制（安全优先 · 更快更不抢眼）— P3 7.1 */
+body[data-view="cluster"]    { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.992; --flip-dur: 0.38s; }
+body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.992; --flip-dur: 0.38s; }
+/* P2: Console is now a transparent window onto the cel-shaded 3D twin.
+   Only a vignette remains so the eye focuses on the vehicle centrepiece. */
+#layer-console { background: transparent; }
 
 /* ============================================================
    CLUSTER
@@ -1578,6 +1675,10 @@ body[data-view="showroom"].interior-view .interior-tour {
   inset: 0;
   overflow: hidden;
   background: #010306;
+  /* 跨模态辉光：模式切换时屏幕边缘氛围光联动换色（致敬 Lotus 屏+氛围灯）。
+     --mode-hue 由 cluster.js 按当前档位设置，transition 让换色平滑。*/
+  box-shadow: inset 0 0 160px -30px var(--mode-hue, #54d3e3);
+  transition: box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .horizon-cluster::before,
@@ -1609,10 +1710,11 @@ body[data-view="showroom"].interior-view .interior-tour {
   position: relative;
   z-index: 3;
   pointer-events: none;
+  /* P1: 隧道照片已废弃 — 道路场景由 Canvas cel-shaded 全权绘制。
+     仅保留侧边/上下渐隐，让画面边缘融入 #010306 底层。*/
   background:
-    linear-gradient(90deg, rgba(1, 3, 6, 0.82), rgba(1, 3, 6, 0.16) 35%, rgba(1, 3, 6, 0.16) 65%, rgba(1, 3, 6, 0.82)),
-    linear-gradient(180deg, rgba(1, 3, 6, 0.46), rgba(1, 3, 6, 0.08) 38%, rgba(1, 3, 6, 0.56)),
-    url("assets/art/cluster-night-tunnel.jpg") center 58% / cover no-repeat;
+    linear-gradient(90deg, rgba(1, 3, 6, 0.96) 0%, transparent 22%, transparent 78%, rgba(1, 3, 6, 0.96) 100%),
+    linear-gradient(180deg, rgba(1, 3, 6, 0.55), transparent 30%, transparent 68%, rgba(1, 3, 6, 0.88));
 }
 
 .cluster-heading {
@@ -1675,10 +1777,15 @@ body[data-view="showroom"].interior-view .interior-tour {
   align-items: center;
   gap: 8px;
   white-space: nowrap;
+  color: rgba(174, 200, 206, 0.58);
 }
 
-.cluster-assistance span:last-child {
-  color: var(--cyan);
+.cluster-assistance .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(117, 226, 189, 0.7);
 }
 
 .cluster-assistance .ph-icon {
@@ -1740,22 +1847,23 @@ body[data-view="showroom"].interior-view .interior-tour {
 /* ---------- Spatial Console ---------- */
 
 #layer-console {
+  /* P2: centre stays clear so the cel-shaded 3D twin reads through; edges
+     fall off into a cinematic vignette that focuses the eye on the car. */
   background:
-    radial-gradient(ellipse at 30% 42%, rgba(27, 76, 84, 0.16), transparent 46%),
-    linear-gradient(145deg, #03070a 0%, #010306 62%);
+    radial-gradient(ellipse at 50% 56%, transparent 0%, transparent 30%, rgba(3, 7, 12, 0.42) 64%, rgba(1, 3, 6, 0.92) 100%);
 }
 
 #layer-console::before {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.24;
+  opacity: 0.1;
   pointer-events: none;
   background-image:
     linear-gradient(rgba(124, 178, 188, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(124, 178, 188, 0.035) 1px, transparent 1px);
   background-size: 80px 80px;
-  mask-image: radial-gradient(circle at 42% 48%, #000, transparent 74%);
+  mask-image: radial-gradient(circle at 50% 56%, transparent 12%, #000 38%, transparent 78%);
 }
 
 .aura-console {
@@ -1767,6 +1875,7 @@ body[data-view="showroom"].interior-view .interior-tour {
   width: min(1420px, 100%);
   margin: 0 auto;
   padding: 91px 40px 74px;
+  pointer-events: none;   /* P2: let taps fall through to the 3D twin */
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1775,6 +1884,33 @@ body[data-view="showroom"].interior-view .interior-tour {
 .aura-console.is-live {
   opacity: 1;
   transform: none;
+}
+
+/* P2: centre stage hint — tells the driver the 3D twin is tap-interactive */
+.console-stage-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 96px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  color: rgba(150, 178, 184, 0.58);
+  border: 1px solid rgba(124, 178, 188, 0.16);
+  border-radius: 999px;
+  background: rgba(6, 12, 18, 0.42);
+  backdrop-filter: blur(10px);
+  animation: stageHintPulse 3.4s ease-in-out infinite;
+}
+.console-stage-hint .ph-icon { width: 14px; height: 14px; color: var(--cyan); }
+@keyframes stageHintPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.95; }
 }
 
 .aura-console .console-top {
@@ -1844,9 +1980,15 @@ body[data-view="showroom"].interior-view .interior-tour {
   min-height: 0;
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.8fr) minmax(310px, 0.72fr);
-  gap: 14px;
+  /* P2: left map rail · centre cleared for the 3D twin · right control rail */
+  grid-template-columns: minmax(300px, 360px) minmax(0, 1fr) minmax(290px, 330px);
+  grid-template-areas: "map stage rail";
+  gap: 18px;
 }
+.aura-map { grid-area: map; pointer-events: auto; }
+.aura-rail { grid-area: rail; pointer-events: auto; }
+.aura-console .console-top,
+.aura-console .console-dock { pointer-events: auto; }
 
 .aura-map,
 .aura-card {
@@ -2629,4 +2771,298 @@ body[data-view="console"] #view-name {
     min-width: 92px;
     padding-inline: 10px;
   }
+}
+
+/* ============================================================
+   QUIET LUXURY OVERLAY — 降噪提级层
+   借鉴 Lotus Hyper OS 的克制原则：光只在该亮的地方亮，
+   数字以 thin 字重呼吸，mono 仅服务于数据读数，玻璃拥有
+   真实的边缘层次。叠于既有样式之上，可整体回退。
+   ============================================================ */
+
+/* —— 字体降噪：mono label/HUD → 几何无衬线；字距收敛 —— */
+.nav-btn,
+.lens-btn,
+.scene-btn,
+.tg,
+.console-date,
+.console-journey,
+.journey-state,
+.journey-battery,
+.card-label,
+.aura-kicker,
+.cluster-heading,
+.cluster-assistance,
+.cluster-modes button,
+.auto-level,
+.auto-percept,
+.auto-intent,
+.auto-side-label,
+.auto-tag,
+.auto-sensors i,
+.auto-foot i,
+.hud-hint,
+.hud-meta,
+.hud-clock,
+.comfort-meta,
+.vehicle-range span,
+.vehicle-health,
+.map-turn span,
+.map-compass,
+.map-scale,
+.map-footer small,
+.adas-status .chip,
+.adas-log,
+.scan-label {
+  font-family: var(--font-display);
+  letter-spacing: 0.18em;
+}
+.cluster-assistance,
+.cluster-heading { letter-spacing: 0.14em; }
+
+/* —— 数字 thin/light：安静的视觉份量（对标 Lotus #FAFAFA）—— */
+.aura-console .console-clock,
+.map-footer span,
+.vehicle-range b,
+.comfort-main b,
+.map-turn b,
+.auto-sensors b,
+.auto-foot b {
+  font-weight: 200;
+  color: var(--ink-bright);
+  letter-spacing: -0.02em;
+}
+
+/* —— 发光克制：去掉泛光，留极轻内描边 —— */
+.nav-btn.active {
+  background: var(--cyan-soft);
+  box-shadow: inset 0 0 0 1px rgba(84, 211, 227, 0.32);
+}
+.hud-icon.on {
+  box-shadow: inset 0 0 0 1px var(--cyan-dim);
+}
+.lens-btn.active,
+.scene-btn.active {
+  box-shadow: inset 0 0 0 1px var(--cyan-dim);
+}
+.aura-console .tg.on {
+  background: var(--cyan-soft);
+  box-shadow: none;
+}
+.aura-media .cc-controls [data-play] {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+/* —— 玻璃真实层次：顶部细高光 + 深阴影 —— */
+.hud-nav,
+.lens-btn,
+.paint-rail,
+.scene-rail,
+.aura-console .console-dock {
+  box-shadow: inset 0 1px 0 var(--glass-hi), 0 18px 50px rgba(0, 0, 0, 0.24);
+}
+.aura-map,
+.aura-card {
+  box-shadow: inset 0 1px 0 var(--glass-hi), 0 30px 80px rgba(0, 0, 0, 0.24);
+}
+.autonomous .auto-foot {
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+
+/* —— 留白增密：放大关键读数 —— */
+.aura-console .console-clock { font-size: 30px; }
+.vehicle-range b { font-size: 30px; }
+.comfort-main b { font-size: 36px; }
+.map-footer span { font-size: 22px; }
+
+/* —— 闪烁更慢更轻 —— */
+@keyframes blink { 50% { opacity: 0.5; } }
+
+/* ============================================================
+   P1 CLUSTER — 模式档几何字体 + 四档适配 + EV 仪表专属
+   Chakra Petch 几何基因覆盖 QUIET LUXURY 的 display 默认，
+   让 Pure/Drive/Energy/GT 四档与 Canvas 数字同源。
+   ============================================================ */
+.horizon-cluster .cluster-modes button {
+  font-family: var(--font-geo);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  min-width: 96px;
+  transition: color 0.25s, text-shadow 0.25s;
+}
+.horizon-cluster .cluster-modes button.active {
+  font-weight: 600;
+}
+
+/* ============================================================
+   P3 动效系统 — 跨模态辉光（屏+氛围灯）+ 微交互下沉
+   视图/模式切换时屏幕边缘联动换色（模拟 Lotus 屏+氛围灯）。
+   mix-blend-mode:screen 只增亮不挡内容，无 z-index 依赖。
+   ============================================================ */
+#aura-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  box-shadow:
+    inset 0 0 100px 8px color-mix(in srgb, var(--view-accent) 48%, transparent),
+    inset 0 0 260px 60px color-mix(in srgb, var(--view-accent) 20%, transparent),
+    inset 0 0 500px 140px color-mix(in srgb, var(--view-accent) 8%, transparent);
+  transition: box-shadow 0.8s var(--ease-flip), opacity 0.6s var(--ease-flip);
+}
+/* Showroom 是纯净展厅——禁用环境辉光罩，保留你原调的摄影级全景背景与车漆反射质感。
+   辉光只在 cluster/console/autonomous 驾驶视图联动。 */
+body[data-view="showroom"] #aura-glow { opacity: 0; }
+
+/* 微交互：按下轻微下沉 + 辉光内收（P3 7.1，不覆盖已有 hover 缩放）*/
+.nav-btn:active,
+.cluster-modes button:active,
+.lens-btn:active,
+.scene-btn:active,
+.interior-view-btn:active,
+.launch-btn:active {
+  transform: translateY(1px);
+  filter: brightness(0.92);
+  transition-duration: 0.08s;
+}
+.paint-dot:active { transform: scale(0.94); transition-duration: 0.08s; }
+
+/* ============================================================
+   P3 Boot Ritual — 上电仪式
+   黑屏 → 一道光横扫唤醒（划破黑暗）→ veil 变薄 3D 车浮现
+   → ID.AURA + SYSTEM READY → 消散。transform 交给 gsap 管理。
+   ============================================================ */
+#boot-ritual {
+  position: fixed; inset: 0; z-index: 95;
+  display: none;
+  pointer-events: none;
+}
+.ritual-veil {
+  position: absolute; inset: 0;
+  background: #050608;
+  opacity: 1;
+}
+.ritual-blade {
+  position: absolute; top: 0; bottom: 0; left: 0;
+  width: 34vw;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(84, 211, 227, 0) 22%,
+    rgba(84, 211, 227, 0.45) 46%,
+    rgba(245, 247, 247, 0.95) 50%,
+    rgba(84, 211, 227, 0.45) 54%,
+    transparent 78%);
+  filter: blur(1.5px);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.ritual-word {
+  position: absolute; top: 50%; left: 50%;
+  font-family: "Michroma", sans-serif;
+  font-size: clamp(40px, 7vw, 92px);
+  letter-spacing: 0.04em;
+  color: var(--ink-bright);
+  text-shadow: 0 0 30px rgba(84, 211, 227, 0.45);
+  mix-blend-mode: screen;
+  white-space: nowrap;
+}
+.ritual-word span { color: var(--cyan); }
+.ritual-ready {
+  position: absolute; top: calc(50% + 64px); left: 50%;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.55em;
+  text-indent: 0.55em;
+  color: var(--cyan);
+  mix-blend-mode: screen;
+}
+
+/* ============================================================
+   P3 AURA 意图层 — EQS Zero Layer 本地化
+   驻车主动推送场景卡；驾驶中退场（安全优先）。
+   ============================================================ */
+#aura-intent {
+  position: fixed;
+  left: 32px;
+  bottom: 84px;
+  z-index: 12;
+  width: 326px;
+  max-width: calc(100vw - 64px);
+  opacity: 0;
+  transform: translateX(-18px);
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-flip), transform 0.6s var(--ease-flip);
+}
+#aura-intent.on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.intent-rail {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  color: var(--cyan);
+  margin: 0 0 8px 2px;
+  text-transform: uppercase;
+}
+.intent-pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  animation: blink 1.8s ease-in-out infinite;
+}
+.intent-card {
+  padding: 16px 18px;
+  background: var(--glass);
+  border: 1px solid var(--glass-brd);
+  border-left: 2px solid var(--cyan);
+  backdrop-filter: blur(22px);
+  box-shadow: inset 0 1px 0 var(--glass-hi), 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.intent-time {
+  font-family: var(--font-geo);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ink-dim);
+  margin-bottom: 7px;
+}
+.intent-body {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ink-bright);
+  margin-bottom: 14px;
+}
+.intent-actions { display: flex; gap: 8px; }
+.intent-actions button {
+  flex: 1;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  color: var(--ink);
+  border: 1px solid var(--glass-brd);
+  background: rgba(84, 211, 227, 0.08);
+  transition: all 0.25s var(--ease-soft);
+}
+.intent-actions button:hover { background: rgba(84, 211, 227, 0.18); border-color: var(--cyan-dim); }
+.intent-actions button.muted { color: var(--ink-dim); background: transparent; }
+/* Energy 档用回收绿锚点、GT 档用橙红 — 按钮内联 --c 已驱动；
+   这里只确保非激活档在对应模式语境下足够安静。*/
+.horizon-cluster[data-mode="energy"] .cluster-modes button.active { color: var(--eco); }
+.horizon-cluster[data-mode="gt"] .cluster-modes button.active { color: var(--sport); }
+
+/* cluster-assistance 状态点随模式微染（GT 时转橙，呼应性能语境）*/
+.horizon-cluster[data-mode="gt"] .cluster-assistance .dot {
+  background: var(--sport);
+  box-shadow: 0 0 8px rgba(255, 90, 60, 0.7);
+}
+.horizon-cluster[data-mode="energy"] .cluster-assistance .dot {
+  background: var(--eco);
+  box-shadow: 0 0 8px rgba(111, 217, 180, 0.7);
 }

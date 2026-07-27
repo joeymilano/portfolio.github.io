@@ -16,9 +16,9 @@
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Michroma&family=Sometype+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600&family=Manrope:wght@300;400;500;600&family=Michroma&family=Sometype+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/video/aura-night-drive-poster.jpg">
-  <link rel="stylesheet" href="styles.css?v=20260726-9">
+  <link rel="stylesheet" href="styles.css?v=20260727-8">
 
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"CreativeWork","name":"Volkswagen ID.AURA — HMI Concept","description":"An immersive WebGL human-machine interface concept for Volkswagen's electric future.","url":"https://joeyzhao.cc/vw-id-aura/","inLanguage":"en","creator":{"@type":"Person","name":"Joey Zhao","jobTitle":"Senior AI Product Designer","url":"https://joeyzhao.cc/"}}
@@ -37,6 +37,10 @@
 <body data-view="showroom">
   <!-- WebGL stage (renderer canvas injected here) -->
   <div id="stage"></div>
+  <!-- P3 跨模态辉光层：屏+氛围灯联动换色（mix-blend screen，不挡内容）-->
+  <div id="aura-glow" aria-hidden="true"></div>
+  <!-- P3 AURA 意图层已下线(Showroom 静态展车语境下推送真实用电/出行意图属语境错位,2026-07-27)。
+       DOM 移除;main.js 内 showIntent/hideIntent 带 null guard 自动 no-op,样式保留,可回滚。-->
 
   <!-- Boot veil -->
   <div id="loader">
@@ -203,6 +207,14 @@
     </footer>
   </div>
 
+  <!-- P3 Boot Ritual — 上电仪式：黑屏 → 光横扫唤醒 → 3D 车浮现 → 就绪 -->
+  <div id="boot-ritual" aria-hidden="true">
+    <div class="ritual-veil"></div>
+    <div class="ritual-blade"></div>
+    <div class="ritual-word">ID<span>.</span>AURA</div>
+    <div class="ritual-ready">SYSTEM READY</div>
+  </div>
+
   <!-- Failsafe: dismiss the intro veil on LAUNCH even if the ES module
        chain (three/gsap from CDN) is slow or blocked — the button must
        never be dead. This runs before and independent of main.js. -->
@@ -218,6 +230,6 @@
       }
     });
   </script>
-  <script type="module" src="js/main.js?v=20260726-9"></script>
+  <script type="module" src="js/main.js?v=20260727-13"></script>
 </body>
 </html>
