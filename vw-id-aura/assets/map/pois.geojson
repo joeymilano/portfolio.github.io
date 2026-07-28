@@ -1,0 +1,2899 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "800",
+        "capacity:disabled": "yes",
+        "fee": "yes",
+        "name": "City-Galerie",
+        "opening_hours": "Mo-Sa 08:00-20:30",
+        "parking": "multi-storey",
+        "wheelchair": "yes",
+        "osm_id": 157016256
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7886480,
+          52.4221153
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "no",
+        "amenity": "parking",
+        "capacity:disabled": "2",
+        "disabled": "yes",
+        "parking": "surface",
+        "osm_id": 273219844
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8136727,
+          52.4365896
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "parking",
+        "parking": "street_side",
+        "osm_id": 315729400
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7508793,
+          52.4362273
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Schillerstraße",
+        "parking": "multi-storey",
+        "osm_id": 329984146
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7859133,
+          52.4219973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "layer": "-1",
+        "name": "Südkopf-Center",
+        "parking": "underground",
+        "wheelchair": "limited",
+        "osm_id": 341180274
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7839068,
+          52.4189907
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "layer": "-1",
+        "motorcycle": "no",
+        "name": "Kunstmuseum/Rathaus",
+        "opening_hours": "Mo-Fr 06:30-00:30; Sa 07:00-00:30; Su,PH 09:00-00:30",
+        "parking": "underground",
+        "wheelchair": "yes",
+        "osm_id": 343722478
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7854170,
+          52.4189219
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "parking",
+        "bus": "designated",
+        "parking": "surface",
+        "wheelchair": "yes",
+        "osm_id": 442844567
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8037850,
+          52.4313585
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Drei Steine",
+        "natural": "rock",
+        "tourism": "attraction",
+        "osm_id": 684326056
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7963630,
+          52.4121646
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "addr:housenumber": "8",
+        "addr:street": "Hubertusstraße",
+        "amenity": "fuel",
+        "brand": "Classic",
+        "brand:wikidata": "Q33127117",
+        "name": "CLASSIC",
+        "opening_hours": "Mo-Sa 06:00-23:00; Su 08:00-23:00",
+        "operator": "Akyürek Petrol UG",
+        "phone": "+4953613784666",
+        "website": "https://www.classic-oil.de/tankstellen/classic-tankstelle-wolfsburg-hubertusstrasse/",
+        "osm_id": 703801282
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7960012,
+          52.4509595
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "street_side",
+        "osm_id": 763027643
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7946502,
+          52.4350980
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "fuel",
+        "operator": "Volkswagen AG",
+        "wheelchair": "limited",
+        "osm_id": 763028303
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7874162,
+          52.4401682
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "fuel",
+        "operator": "Volkswagen AG",
+        "osm_id": 763039632
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7702430,
+          52.4362181
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "addr:postcode": "38440",
+        "amenity": "fuel",
+        "compressed_air": "yes",
+        "name": "Tankstelle FE",
+        "operator": "Volkswagen",
+        "osm_id": 908304405
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7457802,
+          52.4422762
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "parking",
+        "capacity:disabled": "yes",
+        "capacity:women": "yes",
+        "fee": "yes",
+        "layer": "-1",
+        "name": "Rothenfelder Straße",
+        "opening_hours": "Mo-Fr 06:30-21:00; Sa 07:00-21:00",
+        "parking": "underground",
+        "osm_id": 1308878158
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7902239,
+          52.4244213
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "15",
+        "capacity:disabled": "2",
+        "capacity:parent": "no",
+        "capacity:women": "no",
+        "parking": "surface",
+        "osm_id": 1327354371
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7517148,
+          52.4104754
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "street_side",
+        "osm_id": 1361540827
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7935748,
+          52.4350054
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "parking",
+        "osm_id": 1361540835
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7850331,
+          52.4396589
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "parking",
+        "fee": "no",
+        "operator": "Volkswagen AG",
+        "parking": "surface",
+        "osm_id": 1361540857
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7833417,
+          52.4409990
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "charging_station",
+        "charging_station:capacity": "3",
+        "charging_station:plug": "Schuko, noch einer",
+        "fixme": "Mennekes oder Drehstrom? Position estimated",
+        "operator": "Volkswagen",
+        "operator:wikidata": "Q246",
+        "payment:rfid_card": "yes",
+        "voltage": "400;230",
+        "osm_id": 1412059239
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7673672,
+          52.4310716
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Maritime PanoramaTour",
+        "service_times": "Mo-Su 11:00,12:30,14:00,15:30,17:00 open \"wetterabhängig\"; Dec 24 off; Dec 31 off",
+        "tourism": "attraction",
+        "wheelchair": "no",
+        "osm_id": 1424943993
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7934870,
+          52.4310242
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "WerkTour",
+        "note": "Die WerkTour findet an Produktionstagen (Montag bis Freitag) ab 9.15 Uhr statt",
+        "opening_hours": "Mo-Fr 09:15-17:00 \"an Produktionstagen\"",
+        "tourism": "attraction",
+        "wheelchair": "no",
+        "osm_id": 1424944000
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7931323,
+          52.4309951
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "addr:city": "Wolfsburg",
+        "addr:country": "DE",
+        "addr:housenumber": "8",
+        "addr:postcode": "38448",
+        "addr:street": "Schloßstraße",
+        "addr:suburb": "Alt Wolfsburg",
+        "entrance": "yes",
+        "fee": "no",
+        "name": "Stadtmuseum Schloss Wolfsburg",
+        "opening_hours": "We-Fr 12:00-18:00; Sa 12:00-18:00; Su 12:00-18:00; PH 12:00-18:00",
+        "tourism": "museum",
+        "wheelchair": "yes",
+        "osm_id": 1585537355
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7984654,
+          52.4394001
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "underground",
+        "osm_id": 1674396686
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8391424,
+          52.4513011
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "parking",
+        "name": "E",
+        "parking": "surface",
+        "ref": "E",
+        "osm_id": 1701500921
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7654609,
+          52.4260134
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "parking",
+        "name": "A",
+        "parking": "surface",
+        "ref": "A",
+        "osm_id": 1701500923
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7682272,
+          52.4260949
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "parking",
+        "name": "D",
+        "parking": "surface",
+        "ref": "D",
+        "osm_id": 1701500925
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7654250,
+          52.4261289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "parking",
+        "capacity:disabled": "1",
+        "fee": "no",
+        "name": "B",
+        "parking": "surface",
+        "ref": "B",
+        "osm_id": 1701500932
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7672028,
+          52.4262264
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "parking",
+        "fee": "no",
+        "name": "C",
+        "parking": "surface",
+        "ref": "C",
+        "osm_id": 1701500936
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7671642,
+          52.4263383
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "parking",
+        "capacity": "8",
+        "capacity:disabled": "no",
+        "capacity:parent": "no",
+        "capacity:women": "no",
+        "fee": "no",
+        "parking": "surface",
+        "osm_id": 1745222928
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8214882,
+          52.4283135
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "historic": "memorial",
+        "memorial": "sculpture",
+        "name": "Zwangsarbeiter-Denkmal",
+        "source": "survey",
+        "tourism": "attraction",
+        "wheelchair": "yes",
+        "osm_id": 1746830944
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7897402,
+          52.4264013
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "amperage": "16",
+        "capacity": "1",
+        "charging_station:capacity": "1",
+        "charging_station:capacity:motorbike": "1",
+        "name": "Atelier Café",
+        "operator": "atelier cafe GmbH",
+        "socket:schuko": "2",
+        "socket:type2_cable": "1",
+        "voltage": "400;230",
+        "osm_id": 1843474324
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7957748,
+          52.4265132
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "parking",
+        "parking": "surface",
+        "osm_id": 1933363070
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7799163,
+          52.4275675
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "permit",
+        "amenity": "charging_station",
+        "capacity": "20",
+        "fee": "yes",
+        "manufacturer": "EBG Compleo",
+        "name": "Newman's Parkplatz",
+        "operator": "Autostadt",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "4",
+        "socket:type2_cable": "16",
+        "osm_id": 2014972548
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7964368,
+          52.4340848
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "parking",
+        "capacity": "9",
+        "capacity:disabled": "1",
+        "fee": "yes",
+        "parking": "surface",
+        "osm_id": 2049615224
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7917031,
+          52.4277578
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "parking",
+        "capacity": "22",
+        "parking": "surface",
+        "osm_id": 2161040341
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7813663,
+          52.4309707
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "parking",
+        "parking": "surface",
+        "osm_id": 2178445798
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7827889,
+          52.4260504
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "addr:housename": "e-Mobility Station",
+        "addr:housenumber": "10",
+        "addr:postcode": "38440",
+        "addr:street": "Braunschweiger Straße",
+        "amenity": "charging_station",
+        "authentication": "no",
+        "bicycle": "no",
+        "brand": "Ionity",
+        "capacity": "2",
+        "covered": "yes",
+        "fee": "yes",
+        "manufacturer": "Porsche Engineering",
+        "motorcar": "yes",
+        "name": "e-Mobility Station",
+        "not:brand:wikidata": "Q42717773",
+        "operator": "Wolfsburg AG",
+        "socket:type2_combo": "2",
+        "socket:type2_combo:output": "350 kW",
+        "truck": "no",
+        "osm_id": 2201469115
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7833141,
+          52.4166711
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "12",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Autostadt Kurzzeitparkplatz ServiceHaus",
+        "operator": "Autostadt",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "10",
+        "socket:type2:output": "11 kW",
+        "socket:type2_cable": "1",
+        "socket:type2_cable:output": "22 kW",
+        "socket:type2_combo": "1",
+        "socket:type2_combo:output": "50 kW",
+        "osm_id": 2271691220
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7960779,
+          52.4317035
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "addr:housename": "e-Mobility Station",
+        "addr:postcode": "38440",
+        "addr:street": "Braunschweiger Straße",
+        "amenity": "charging_station",
+        "authentication": "no",
+        "bicycle": "no",
+        "brand": "Wolfsburg AG",
+        "capacity": "5",
+        "capacity:bicycle": "0",
+        "covered": "yes",
+        "hgv": "no",
+        "mofa": "yes",
+        "moped": "yes",
+        "motor_vehicle": "yes",
+        "motorcar": "yes",
+        "name": "e-Mobility Station",
+        "operator": "Wolfsburg AG",
+        "socket:type2:current": "16A",
+        "socket:type2:voltage": "400",
+        "socket:type2_cable": "5",
+        "osm_id": 2275893604
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7829228,
+          52.4166685
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "operator": "Autostadt",
+        "osm_id": 2479749345
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7979285,
+          52.4331036
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "addr:city": "Wolfsburg",
+        "addr:country": "DE",
+        "addr:housenumber": "2",
+        "addr:postcode": "38440",
+        "addr:street": "Heinrich-Nordhoff-Straße",
+        "amenity": "parking",
+        "capacity": "96",
+        "fee": "yes",
+        "layer": "-1",
+        "lit": "yes",
+        "maxheight": "2",
+        "name": "Hauptbahnhof/Phaeno",
+        "operator": "Aufbau-Gesellschaft Wolfsburg mbH",
+        "parking": "underground",
+        "wheelchair": "yes",
+        "osm_id": 3103412064
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7878931,
+          52.4284152
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "addr:city": "Wolfsburg",
+        "addr:country": "DE",
+        "addr:housenumber": "46",
+        "addr:postcode": "38440",
+        "addr:street": "Klieverhagen",
+        "amenity": "parking",
+        "parking": "street_side",
+        "wheelchair": "yes",
+        "wheelchair:description": "3 Behindertenparkplätze direkt vor dem Congress Park",
+        "osm_id": 3382521593
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7793480,
+          52.4176503
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "brand": "LSW Energie Charging Station",
+        "capacity": "6",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Hauptbahnhof",
+        "opening_hours": "24/7",
+        "operator": "Stadt Wolfsburg",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "phone": "+49 5361 8906153",
+        "socket:type2": "4",
+        "socket:type2_cable": "1",
+        "socket:type2_combo": "2",
+        "source": "survey",
+        "osm_id": 5829844842
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7858762,
+          52.4289563
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "FIXME": "weitere Angaben ergänzen",
+        "amenity": "charging_station",
+        "capacity": "1",
+        "motorcar": "yes",
+        "note": "Heidelberg Wallbox Home Eco - Ladestation Elektro- & Hybrid Autos 11 kW maximale Ladeleistung",
+        "operator": "AKKA DNO GmbH",
+        "socket:type2_cable": "1",
+        "socket:type2_cable:output": "11 kW",
+        "osm_id": 6557305863
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7831364,
+          52.4451533
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "parking": "street_side",
+        "osm_id": 7236501578
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7838785,
+          52.4219862
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "1",
+        "covered": "no",
+        "fee": "yes",
+        "manufacturer": "Delta",
+        "motorcar": "yes",
+        "name": "Rathaus Ladestation",
+        "operator": "LSW Energie GmbH & Co. KG",
+        "socket:chademo": "1",
+        "socket:type2": "1",
+        "socket:type2_combo": "1",
+        "osm_id": 7826523835
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7873620,
+          52.4198743
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "authentication:nfc": "yes",
+        "authentication:phone_call": "yes",
+        "bicycle": "no",
+        "capacity": "4",
+        "fee": "yes",
+        "manufacturer": "Compleo",
+        "name": "Besucherparkplatz West IT-City",
+        "opening_hours": "24/7",
+        "operator": "Elli",
+        "operator:wikidata": "Q126811032",
+        "payment:intercharge": "yes",
+        "payment:qr_code": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "4",
+        "socket:type2:output": "11 kW",
+        "voltage": "400",
+        "osm_id": 7863615160
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7789764,
+          52.4506908
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "motorcar": "yes",
+        "name": "Rathaus Ladestation",
+        "operator": "LSW Energie GmbH & Co. KG",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 8085730091
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7873496,
+          52.4198547
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "authentication:nfc": "yes",
+        "capacity": "140",
+        "name": "Ladestation Parkhaus FE1",
+        "note": "Stand 20.12.2020",
+        "operator": "Elli.eco",
+        "socket:type2": "140",
+        "socket:type2:output": "11 kW",
+        "osm_id": 8247179608
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7459768,
+          52.4356102
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "authentication:nfc": "yes",
+        "capacity": "4",
+        "name": "Ladestation FE-Hauptwache",
+        "note": "Stand 20.12.2020",
+        "operator": "Elli.eco",
+        "socket:type2": "140",
+        "socket:type2:output": "11 kW",
+        "osm_id": 8247949295
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7456548,
+          52.4371343
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "authentication:membership_card": "yes",
+        "authentication:nfc": "yes",
+        "bicycle": "no",
+        "capacity": "2",
+        "charging_station:output": "50 kW",
+        "covered": "no",
+        "fee": "yes",
+        "manufacturer": "Alpitronic",
+        "motorcar": "yes",
+        "opening_hours": "24/7",
+        "operator": "EWE Go GmbH",
+        "operator:wikidata": "Q103162514",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "phone": "0800 9293600",
+        "ref": "McD1335",
+        "socket:type2_combo": "2",
+        "website": "https://www.ewe-go.de/privatkunden/elektromobilitaet-unterwegs/",
+        "osm_id": 8570821591
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8111160,
+          52.4274271
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "brand": "Ionity",
+        "brand:wikidata": "Q42717773",
+        "brand:wikipedia": "en:IONITY",
+        "capacity": "6",
+        "covered": "no",
+        "fee": "yes",
+        "manufacturer": "Tritium",
+        "name": "IONITY",
+        "socket:type2_combo": "6",
+        "socket:type2_combo:output": "350 kW",
+        "source": "survey",
+        "osm_id": 9331976686
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8090861,
+          52.4376482
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "4",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Barnstorfer Weg",
+        "operator": "LSW",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "4",
+        "socket:type2:output": "22 kW",
+        "osm_id": 9356001686
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7840011,
+          52.4038287
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "permit",
+        "amenity": "charging_station",
+        "capacity": "1",
+        "covered": "no",
+        "name": "Sanitätshaus Bode",
+        "socket:type2_cable": "1",
+        "osm_id": 9563102644
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7914304,
+          52.4255082
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "manufacturer": "Delta",
+        "name": "Kettelerstraße",
+        "socket:chademo": "1",
+        "socket:type2": "1",
+        "socket:type2_combo": "1",
+        "osm_id": 9563102645
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7922324,
+          52.4234033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "operator": "LSW Energie GmbH & Co. KG",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "osm_id": 9563102646
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8035754,
+          52.4236923
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "brand": "Ionity",
+        "brand:wikidata": "Q42717773",
+        "brand:wikipedia": "en:IONITY",
+        "capacity": "2",
+        "capacity:bicycle": "0",
+        "covered": "no",
+        "fee": "yes",
+        "name": "e-Mobility Station",
+        "operator": "Ionity",
+        "operator:wikidata": "Q42717773",
+        "socket:type2_combo": "2",
+        "socket:type2_combo:output": "350 kW",
+        "osm_id": 9563102647
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7832324,
+          52.4164219
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "permit",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "1",
+        "covered": "no",
+        "fee": "yes",
+        "manufacturer": "ABB",
+        "name": "Vfl-Fußball Akademie",
+        "socket:type2": "1",
+        "socket:type2:output": "22 kW",
+        "socket:type2_combo": "1",
+        "socket:type2_combo:output": "50 kW",
+        "osm_id": 9563197250
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7932045,
+          52.4162890
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "permit",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "1",
+        "covered": "no",
+        "manufacturer": "ABB",
+        "name": "Vfl-Fußball Akademie",
+        "socket:type2": "1",
+        "socket:type2:output": "22 kW",
+        "socket:type2_combo": "1",
+        "socket:type2_combo:output": "50 kW",
+        "osm_id": 9563197251
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7917653,
+          52.4163257
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "unknown",
+        "amenity": "charging_station",
+        "capacity": "4",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Burgwall",
+        "operator": "LSW",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "4",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9631437325
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7824934,
+          52.4070057
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "4",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Krähenhoop",
+        "operator": "LSW",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "4",
+        "socket:type2:output": "11 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9663787781
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8144244,
+          52.4418530
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "4",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Drömlingstraße",
+        "operator": "LSW",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "4",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9663844248
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8146686,
+          52.4431802
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "addr:postcode": "38448",
+        "addr:street": "Ilmenaustraße",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Ilmenaustraße",
+        "operator": "LSW",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9664013303
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8111129,
+          52.4450887
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Andersenweg",
+        "operator": "LSW",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9664024328
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8084826,
+          52.4502783
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "no",
+        "amenity": "parking",
+        "capacity": "2",
+        "capacity:disabled": "2",
+        "parking": "surface",
+        "osm_id": 9673511186
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7992320,
+          52.4387878
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "4",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Eichelkamp",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "4",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9683546453
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7600337,
+          52.4103358
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "yes",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "motorcar": "yes",
+        "motorcycle": "yes",
+        "name": "Courtyard Hotel",
+        "scooter": "yes",
+        "socket:schuko": "2",
+        "socket:type2": "2",
+        "osm_id": 9689753481
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8112642,
+          52.4349142
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "no",
+        "motorcar": "yes",
+        "name": "Edeka Center Nordstadt",
+        "operator": "EDEKA",
+        "operator:wikidata": "Q701755",
+        "socket:type2": "2",
+        "osm_id": 9689778005
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8072468,
+          52.4441057
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Vogtlandweg",
+        "operator": "LSW",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9689791470
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7529247,
+          52.4091023
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Düsseldorfer Straße",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9689799963
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7442636,
+          52.4137734
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "4",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Brandenburger Platz",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "4",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 9689830074
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7609906,
+          52.4197677
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "2",
+        "fee": "yes",
+        "manufacturer": "Mennekes",
+        "name": "Auto Plus",
+        "payment:rfid": "yes",
+        "socket:type2": "2",
+        "osm_id": 9689983315
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8014717,
+          52.4291815
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "permit",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "4",
+        "covered": "no",
+        "manufacturer": "EBG Compleo",
+        "operator": "Volkswagen",
+        "socket:type2": "2",
+        "socket:type2_cable": "1",
+        "socket:type2_combo": "1",
+        "osm_id": 9690022040
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7980024,
+          52.4319727
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "permit",
+        "amenity": "charging_station",
+        "capacity": "4",
+        "fee": "yes",
+        "manufacturer": "EBG Compleo",
+        "operator": "Autostadt",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "4",
+        "osm_id": 9690116266
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7962355,
+          52.4341045
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "20",
+        "covered": "yes",
+        "fee": "yes",
+        "layer": "0",
+        "manufacturer": "EBG Compleo",
+        "name": "VW Tor Nord Parkhaus",
+        "operator": "Elli",
+        "operator:wikidata": "Q126811032",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "osm_id": 9690156523
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7825013,
+          52.4419827
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "100",
+        "covered": "yes",
+        "fee": "yes",
+        "layer": "0",
+        "manufacturer": "EBG Compleo",
+        "name": "VW Tor Ost Parkhaus",
+        "operator": "Elli",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "100",
+        "wheelchair": "yes",
+        "osm_id": 9690177762
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7967532,
+          52.4371360
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "brand": "Aral pulse",
+        "capacity": "2",
+        "fee": "yes",
+        "manufacturer": "Alpitronic",
+        "operator": "Aral",
+        "operator:wikidata": "Q565734",
+        "socket:chademo": "1",
+        "socket:type2_combo": "2",
+        "osm_id": 9727360009
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7751774,
+          52.4278298
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "8",
+        "fee": "yes",
+        "manufacturer": "Compleo",
+        "name": "Haus F",
+        "operator": "Elli",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "8",
+        "socket:type2:output": "11 kW",
+        "osm_id": 9727434065
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7862719,
+          52.4456292
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "8",
+        "fee": "yes",
+        "manufacturer": "Compleo",
+        "name": "Haus R",
+        "operator": "Elli",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "8",
+        "socket:type2:output": "11 kW",
+        "osm_id": 9727434066
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7867978,
+          52.4454345
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "brand": "Ionity",
+        "brand:wikidata": "Q42717773",
+        "capacity": "4",
+        "fee": "yes",
+        "name": "Bürozentrum Nord",
+        "operator": "Ionity",
+        "payment:rfid": "yes",
+        "socket:type2_combo": "4",
+        "socket:type2_combo:output": "350 kW",
+        "osm_id": 9727437538
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7851710,
+          52.4452184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "18",
+        "fee": "yes",
+        "manufacturer": "Compleo",
+        "name": "Haus K",
+        "operator": "Elli",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "18",
+        "socket:type2:output": "11 kW",
+        "osm_id": 9727480343
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7843224,
+          52.4462153
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "16",
+        "fee": "yes",
+        "manufacturer": "Compleo",
+        "name": "Haus B",
+        "operator": "Elli",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "16",
+        "socket:type2:output": "11 kW",
+        "osm_id": 9727724698
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7831140,
+          52.4479562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "1",
+        "socket:type2_cable": "1",
+        "osm_id": 9727724699
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7826402,
+          52.4480557
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "1",
+        "socket:type2_cable": "1",
+        "osm_id": 9727724700
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7822326,
+          52.4480452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "20",
+        "fee": "yes",
+        "manufacturer": "Compleo",
+        "name": "Haus C",
+        "operator": "Elli",
+        "payment:intercharge": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "20",
+        "socket:type2:output": "11 kW",
+        "osm_id": 9727749696
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7855668,
+          52.4471813
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "6",
+        "fee": "yes",
+        "manufacturer": "Compleo",
+        "name": "Besucherparkplatz Ost IT-City",
+        "operator": "Elli",
+        "operator:wikidata": "Q126811032",
+        "payment:intercharge": "yes",
+        "payment:qr_code": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "6",
+        "socket:type2:output": "11 kW",
+        "osm_id": 9727757780
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7817435,
+          52.4491663
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "10",
+        "name": "Volkswagen Charging Station",
+        "operator": "Volkswagen",
+        "operator:wikidata": "Q246",
+        "osm_id": 9853952490
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7962072,
+          52.4319538
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "20",
+        "fee": "yes",
+        "level": "1",
+        "manufacturer": "Compleo",
+        "name": "IT-City Parkhaus Ebene1",
+        "operator": "Elli",
+        "operator:wikidata": "Q126811032",
+        "payment:intercharge": "yes",
+        "payment:qr_code": "yes",
+        "payment:rfid": "yes",
+        "socket:type2_cable": "20",
+        "socket:type2_cable:output": "11 kW",
+        "osm_id": 9922221101
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7796419,
+          52.4501746
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "24",
+        "fee": "yes",
+        "level": "3",
+        "name": "IT-City Parkhaus Ebene3",
+        "operator": "Elli",
+        "operator:wikidata": "Q126811032",
+        "payment:intercharge": "yes",
+        "payment:qr_code": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "24",
+        "osm_id": 9922221102
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7795958,
+          52.4501973
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "22",
+        "fee": "yes",
+        "level": "5",
+        "name": "IT-City Parkhaus Ebene5",
+        "operator": "Elli",
+        "operator:wikidata": "Q126811032",
+        "payment:intercharge": "yes",
+        "payment:qr_code": "yes",
+        "payment:rfid": "yes",
+        "socket:type2": "22",
+        "osm_id": 9922221103
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7795467,
+          52.4502207
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "2",
+        "fee": "yes",
+        "manufacturer": "Delta",
+        "operator": "LSW",
+        "socket:chademo": "1",
+        "socket:type2": "1",
+        "socket:type2_combo": "1",
+        "osm_id": 9922303016
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7833856,
+          52.4265645
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "fee": "no",
+        "source": "survey",
+        "osm_id": 10548955864
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8006982,
+          52.4253336
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "fee": "yes",
+        "source": "survey",
+        "osm_id": 10555039106
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7911876,
+          52.4292081
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "16",
+        "description": "Parking spaces no. 66-82 in underground car park Hauptbahnhof/phaeno/Hotel INNSIDE",
+        "fee": "yes",
+        "layer": "-1",
+        "manufacturer": "innogy SE",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "16",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 10557287885
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7880059,
+          52.4284947
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "permit",
+        "amenity": "charging_station",
+        "capacity": "2",
+        "fee": "yes",
+        "manufacturer": "innogy SE",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 10557303299
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7833328,
+          52.4240325
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "52",
+        "covered": "yes",
+        "description": "in underground car parking Kunstmuseum/Rathaus.\nCapacity in total is 55, but 3 charging stations are for Städtischer Ordnungsdienst only.\n6 charging stations are for disabled persons only.",
+        "fee": "yes",
+        "layer": "-1",
+        "manufacturer": "innogy",
+        "name": "Tiefgarage Rathaus / Kunstmuseum",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "55",
+        "socket:type2:output": "22 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 10557379406
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7854404,
+          52.4189140
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "charging_station",
+        "bicycle": "yes",
+        "capacity": "2",
+        "fee": "no",
+        "motorcar": "yes",
+        "opening_hours": "Mo-Sa 07:30-20:30",
+        "operator": "EDEKA",
+        "socket:schuko": "2",
+        "socket:type2": "2",
+        "osm_id": 10557480177
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7545577,
+          52.4233593
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "permit",
+        "amenity": "charging_station",
+        "capacity": "1",
+        "covered": "yes",
+        "manufacturer": "ABB",
+        "socket:type2": "1",
+        "socket:type2:output": "22 kW",
+        "socket:type2_combo": "1",
+        "socket:type2_combo:output": "50 kW",
+        "osm_id": 10557563866
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7687839,
+          52.4258786
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "no",
+        "parking": "multi-storey",
+        "osm_id": 10674689808
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7511333,
+          52.4141138
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "charging_station",
+        "fee": "no",
+        "source": "survey",
+        "osm_id": 10682509106
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7798198,
+          52.4164053
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Turmfahrt in der Autostadt",
+        "opening_hours": "Mo-Fr 09:15-17:00 \"an Produktionstagen\"",
+        "source": "survey",
+        "tourism": "attraction",
+        "wheelchair": "no",
+        "osm_id": 10734981159
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7950175,
+          52.4338448
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "2",
+        "fee": "yes",
+        "manufacturer": "innogy SE",
+        "motorcar": "yes",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:credit_cards": "yes",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "ref": "BE-9077-9",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 11179477483
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8184009,
+          52.4147243
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "2",
+        "fee": "yes",
+        "manufacturer": "innogy SE",
+        "motorcar": "yes",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:credit_cards": "yes",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 11179477484
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8194821,
+          52.4142076
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "24",
+        "fee": "yes",
+        "manufacturer": "EBG Compleo",
+        "socket:type2": "yes",
+        "socket:type2:output": "11 kW",
+        "osm_id": 11534854121
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7611325,
+          52.4307320
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "4",
+        "charge": "0.64 € / kWh",
+        "covered": "yes",
+        "fee": "yes",
+        "operator": "Shell Recharge Solutions",
+        "operator:wikidata": "Q105883058",
+        "ref": "GL759",
+        "socket:type2_combo": "4",
+        "socket:type2_combo:output": "360 kW",
+        "website": "https://find.shell.com/de/fuel/10026566-wolfsburg-braunschw-str-8/de_DE",
+        "osm_id": 11766178640
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7822868,
+          52.4121362
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "1",
+        "socket:type2": "1",
+        "socket:type2_combo": "1",
+        "osm_id": 11956345664
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7631946,
+          52.4314485
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "2",
+        "fee": "yes",
+        "motorcar": "yes",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "osm_id": 12053361535
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7903413,
+          52.4515513
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "2",
+        "fee": "yes",
+        "motorcar": "yes",
+        "opening_hours": "24/7",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:app": "yes",
+        "payment:cash": "no",
+        "payment:enbw_mobility+": "yes",
+        "payment:maingau_autostrom": "yes",
+        "payment:plugsurfing": "yes",
+        "payment:rfid": "yes",
+        "payment:shell_recharge": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "osm_id": 12053385775
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7902733,
+          52.4515490
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "addr:postcode": "38448",
+        "addr:street": "Ilmenaustraße",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "2",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Ilmenaustraße",
+        "operator": "LSW",
+        "payment:intercharge": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:rfid": "yes",
+        "payment:visa": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "source": "https://www.lsw.de/autostrom/ladestationen/",
+        "osm_id": 12059300946
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8111044,
+          52.4451638
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "142",
+        "fee": "yes",
+        "manufacturer": "Compleo Charging Solutions AG",
+        "note": "LSV-P-West",
+        "socket:type2": "142",
+        "osm_id": 12102619080
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7605376,
+          52.4318072
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "4",
+        "fee": "yes",
+        "manufacturer": "alpitronic",
+        "socket:type2_combo": "4",
+        "socket:type2_combo:output": "300 kW",
+        "osm_id": 12105737920
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7609701,
+          52.4317682
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "brand": "Rewe",
+        "capacity": "2",
+        "fee": "yes",
+        "operator": "REWE",
+        "operator:wikidata": "Q16968817",
+        "source": "survey",
+        "osm_id": 12120254742
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7659585,
+          52.4215637
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "brand": "Shell",
+        "capacity": "2",
+        "fee": "yes",
+        "manufacturer": "Volkswagen Group Components",
+        "operator": "Shell",
+        "operator:wikidata": "Q110716465",
+        "payment:cash": "no",
+        "payment:contactless": "yes",
+        "ref": "ELLI_0002-1; ELLI_0002-2",
+        "socket:type2": "2",
+        "osm_id": 12199266848
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8051334,
+          52.4176940
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "private",
+        "amenity": "charging_station",
+        "capacity": "4",
+        "socket:type2_cable": "4",
+        "osm_id": 12424817504
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7892670,
+          52.4443768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "2",
+        "fee": "yes",
+        "manufacturer": "Alpitronic",
+        "operator": "Allego",
+        "operator:wikidata": "Q75560554",
+        "payment:cash": "no",
+        "ref": "DEALLEGO0026201;DEALLEGO0026202",
+        "socket:type2_combo": "2",
+        "socket:type2_combo:output": "150 kW",
+        "source": "https://www.allego.eu/charging-station/braunschweiger-str-204-wolfsburg/",
+        "osm_id": 12512069718
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7520381,
+          52.4013149
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "1",
+        "socket:type2_cable": "1",
+        "osm_id": 12837552856
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7637415,
+          52.4314281
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "1",
+        "socket:type2_cable": "1",
+        "osm_id": 12837552858
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7622179,
+          52.4316931
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "brand": "Shell",
+        "capacity": "4",
+        "fee": "yes",
+        "manufacturer": "ABB",
+        "operator": "Shell Recharge Solutions",
+        "operator:wikidata": "Q105883058",
+        "payment:american_express": "yes",
+        "payment:app": "yes",
+        "payment:apple_pay": "yes",
+        "payment:cards": "yes",
+        "payment:cash": "no",
+        "payment:contactless": "yes",
+        "payment:google_pay": "yes",
+        "payment:maestro": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "ref": "GL478;49-01-0849-01;49-01-0849-02",
+        "socket:type2_combo": "4",
+        "socket:type2_combo:output": "360 kW",
+        "website": "https://find.shell.com/de/fuel/10024681-wolfsburg-heinr-nordhoff-s/de_DE",
+        "osm_id": 12871257256
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7683584,
+          52.4264122
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "yes",
+        "capacity": "8",
+        "fee": "no",
+        "motorcar": "no",
+        "socket:type": "Schuko",
+        "osm_id": 13076146572
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8071445,
+          52.4440700
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "4",
+        "check_date": "2025-12-07",
+        "manufacturer": "ABB",
+        "operator": "Shell",
+        "operator:wikidata": "Q110716465",
+        "socket:type2_combo": "4",
+        "socket:type2_combo:output": "360 kW",
+        "osm_id": 13101254004
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7516768,
+          52.4004335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "brand": "Comfortcharge",
+        "capacity": "3",
+        "operator": "Comfortcharge",
+        "operator:wikidata": "Q122750420",
+        "website": "https://www.comfortcharge.de/",
+        "osm_id": 13114028944
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7546970,
+          52.4189098
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "customers",
+        "amenity": "parking",
+        "fee": "no",
+        "layer": "-1",
+        "parking": "underground",
+        "osm_id": 13282775263
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8094043,
+          52.4264686
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "capacity": "2",
+        "manufacturer": "Alpitronic",
+        "operator": "Elli",
+        "operator:wikidata": "Q126811032",
+        "socket:type2_combo": "2",
+        "socket:type2_combo:output": "400 kW",
+        "osm_id": 13359392236
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7816034,
+          52.4425108
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "fee": "yes",
+        "motorcar": "yes",
+        "motorcycle": "yes",
+        "osm_id": 13464033351
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8006220,
+          52.4291729
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "amenity": "charging_station",
+        "fee": "yes",
+        "motorcar": "yes",
+        "motorcycle": "yes",
+        "osm_id": 13464033352
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8005459,
+          52.4291747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "brand": "EnBW",
+        "capacity": "4",
+        "check_date": "2026-02-18",
+        "fee": "yes",
+        "manufacturer": "alpitronic",
+        "operator": "EnBW Energie Baden-Württemberg AG",
+        "operator:wikidata": "Q644304",
+        "payment:intercharge": "yes",
+        "ref:EU:EVSE": "DE*EBW*E910214*1, DE*EBW*E910214*2, DE*EBW*E911663*1, DE*EBW*E911663*2",
+        "socket:type2_combo": "4",
+        "socket:type2_combo:output": "200 kW",
+        "osm_id": 13577793328
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7417035,
+          52.4017156
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "capacity": "4",
+        "covered": "no",
+        "fee": "yes",
+        "name": "Eckernweg",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "socket:type2:output": "22 kW",
+        "osm_id": 13685119064
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7631971,
+          52.4108540
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "2",
+        "fee": "yes",
+        "motorcar": "yes",
+        "opening_hours": "24/7",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:cash": "no",
+        "payment:chargepoint_app": "yes",
+        "payment:enbw_mobility+": "yes",
+        "payment:maingau_autostrom": "yes",
+        "payment:plugsurfing": "yes",
+        "payment:shell_recharge": "yes",
+        "socket:type2": "2",
+        "socket:type2:output": "11 kW",
+        "osm_id": 14020021959
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8077377,
+          52.4495217
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "access": "yes",
+        "amenity": "charging_station",
+        "bicycle": "no",
+        "capacity": "4",
+        "fee": "yes",
+        "motorcar": "yes",
+        "opening_hours": "24/7",
+        "operator": "LSW Energie",
+        "operator:wikidata": "Q124462931",
+        "payment:cash": "no",
+        "socket:type2": "4",
+        "socket:type2:output": "11 kW",
+        "osm_id": 14020053729
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8092665,
+          52.4442213
+        ]
+      }
+    }
+  ]
+}

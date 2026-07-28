@@ -6,6 +6,23 @@
    Sometype Mono is reserved for data readouts. Calm, not loud.
    ============================================================ */
 
+/* —— Self-hosted type (no fonts.googleapis.com / fonts.gstatic.com at runtime) —— */
+@font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-300.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sometype Mono"; src: url("assets/fonts/sometype-mono-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sometype Mono"; src: url("assets/fonts/sometype-mono-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sometype Mono"; src: url("assets/fonts/sometype-mono-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("assets/fonts/chakra-petch-300.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("assets/fonts/chakra-petch-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("assets/fonts/chakra-petch-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("assets/fonts/chakra-petch-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Technor"; src: url("assets/fonts/technor-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Technor"; src: url("assets/fonts/technor-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Technor"; src: url("assets/fonts/technor-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Technor"; src: url("assets/fonts/technor-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
 :root {
   /* —— Quiet Luxury · 深炭暖灰分层（对标 Lotus #0A0A0E→#1A1A20）—— */
   --bg: #08090c;
@@ -34,6 +51,7 @@
   --font-display: "Manrope", system-ui, sans-serif;
   --font-mono: "Sometype Mono", ui-monospace, monospace;
   --font-geo: "Chakra Petch", "Manrope", system-ui, sans-serif; /* 几何切角·数字/功率 */
+  --font-tech: "Technor", "Chakra Petch", var(--font-display); /* 宽体 display·数字/品牌大标题，取代 Michroma */
   /* —— 模式强调色（P1 Cluster 四模式档·切换时整体换色，总面积≤5%）—— */
   --aura:  #54d3e3;   /* Pure / Drive — 保留大众 ID 青蓝 DNA */
   --eco:   #6fd9b4;   /* Energy — 冷绿 */
@@ -45,6 +63,56 @@
   --view-accent: #54d3e3;                        /* 全局模式强调色 · 跨模态辉光联动 */
   /* 翻转入场强度（驾驶档克制 / 驻车放开，由 body[data-view] 覆盖）*/
   --flip-rx: 4deg; --flip-ty: 26px; --flip-sc: 0.985; --flip-dur: 0.62s;
+}
+
+/* ============================================================
+   Film-grade overlay — shared cinematic scrim (Cluster + Console)
+   Usage: <div class="film-grade" aria-hidden="true"></div> as the
+   last child of a view's stage. Grain (::before) + scanline/edge
+   chroma/vignette (::after, per-layer background-blend-mode — real
+   per-pixel chromatic aberration lives in the WebGL FilmGradePass,
+   this is the cheap DOM-layer approximation). Respects
+   prefers-reduced-motion by freezing the grain animation.
+   ============================================================ */
+.film-grade {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+.film-grade::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  mix-blend-mode: overlay;
+  opacity: 0.34;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+  animation: filmGrainShift 0.5s steps(4) infinite;
+}
+.film-grade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 28% 50%, rgba(255, 70, 70, 0.05), transparent 60%),
+    radial-gradient(ellipse 70% 70% at 72% 50%, rgba(70, 220, 255, 0.05), transparent 60%),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0px, transparent 1px, transparent 3px),
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.46) 100%);
+  background-blend-mode: screen, screen, overlay, normal;
+}
+@keyframes filmGrainShift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-2%, 1%); }
+  50%  { transform: translate(1%, -2%); }
+  75%  { transform: translate(-1%, 2%); }
+  100% { transform: translate(2%, -1%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-grade::before { animation: none; }
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -248,6 +316,50 @@ button {
 .ph-steering-wheel { --icon: url("assets/icons/phosphor/steering-wheel.svg"); }
 .ph-gauge { --icon: url("assets/icons/phosphor/gauge.svg"); }
 .ph-battery-high { --icon: url("assets/icons/phosphor/battery-high.svg"); }
+.ph-arrow-bend-up-left { --icon: url("assets/icons/phosphor/arrow-bend-up-left.svg"); }
+.ph-arrow-bend-up-right { --icon: url("assets/icons/phosphor/arrow-bend-up-right.svg"); }
+.ph-arrow-u-left-up { --icon: url("assets/icons/phosphor/arrow-u-left-up.svg"); }
+.ph-battery-charging { --icon: url("assets/icons/phosphor/battery-charging.svg"); }
+.ph-battery-warning { --icon: url("assets/icons/phosphor/battery-warning.svg"); }
+.ph-broadcast { --icon: url("assets/icons/phosphor/broadcast.svg"); }
+.ph-calendar-blank { --icon: url("assets/icons/phosphor/calendar-blank.svg"); }
+.ph-caret-down { --icon: url("assets/icons/phosphor/caret-down.svg"); }
+.ph-caret-left { --icon: url("assets/icons/phosphor/caret-left.svg"); }
+.ph-caret-right { --icon: url("assets/icons/phosphor/caret-right.svg"); }
+.ph-caret-up { --icon: url("assets/icons/phosphor/caret-up.svg"); }
+.ph-check { --icon: url("assets/icons/phosphor/check.svg"); }
+.ph-coffee { --icon: url("assets/icons/phosphor/coffee.svg"); }
+.ph-crosshair { --icon: url("assets/icons/phosphor/crosshair.svg"); }
+.ph-cube-transparent { --icon: url("assets/icons/phosphor/cube-transparent.svg"); }
+.ph-dots-three { --icon: url("assets/icons/phosphor/dots-three.svg"); }
+.ph-drop { --icon: url("assets/icons/phosphor/drop.svg"); }
+.ph-equalizer { --icon: url("assets/icons/phosphor/equalizer.svg"); }
+.ph-fan { --icon: url("assets/icons/phosphor/fan.svg"); }
+.ph-gps-fix { --icon: url("assets/icons/phosphor/gps-fix.svg"); }
+.ph-lightning { --icon: url("assets/icons/phosphor/lightning.svg"); }
+.ph-lightning-slash { --icon: url("assets/icons/phosphor/lightning-slash.svg"); }
+.ph-map-pin { --icon: url("assets/icons/phosphor/map-pin.svg"); }
+.ph-map-trifold { --icon: url("assets/icons/phosphor/map-trifold.svg"); }
+.ph-moon { --icon: url("assets/icons/phosphor/moon.svg"); }
+.ph-phone { --icon: url("assets/icons/phosphor/phone.svg"); }
+.ph-plug-charging { --icon: url("assets/icons/phosphor/plug-charging.svg"); }
+.ph-road-horizon { --icon: url("assets/icons/phosphor/road-horizon.svg"); }
+.ph-seat { --icon: url("assets/icons/phosphor/seat.svg"); }
+.ph-shield-check { --icon: url("assets/icons/phosphor/shield-check.svg"); }
+.ph-shield-warning { --icon: url("assets/icons/phosphor/shield-warning.svg"); }
+.ph-snowflake { --icon: url("assets/icons/phosphor/snowflake.svg"); }
+.ph-speedometer { --icon: url("assets/icons/phosphor/speedometer.svg"); }
+.ph-sun { --icon: url("assets/icons/phosphor/sun.svg"); }
+.ph-sun-dim { --icon: url("assets/icons/phosphor/sun-dim.svg"); }
+.ph-tire { --icon: url("assets/icons/phosphor/tire.svg"); }
+.ph-traffic-cone { --icon: url("assets/icons/phosphor/traffic-cone.svg"); }
+.ph-traffic-sign { --icon: url("assets/icons/phosphor/traffic-sign.svg"); }
+.ph-warning { --icon: url("assets/icons/phosphor/warning.svg"); }
+.ph-warning-circle { --icon: url("assets/icons/phosphor/warning-circle.svg"); }
+.ph-wave-sine { --icon: url("assets/icons/phosphor/wave-sine.svg"); }
+.ph-waveform { --icon: url("assets/icons/phosphor/waveform.svg"); }
+.ph-wind { --icon: url("assets/icons/phosphor/wind.svg"); }
+.ph-x { --icon: url("assets/icons/phosphor/x.svg"); }
 
 .hud-icon .ph-icon {
   width: 18px;
@@ -1153,7 +1265,7 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 
 .intro-statement {
   margin: clamp(24px, 3.4vh, 44px) 0 0 0.5vw;
-  font-family: "Michroma", var(--font-display);
+  font-family: var(--font-tech);
   font-size: clamp(17px, 1.55vw, 26px);
   line-height: 1.42;
   letter-spacing: 0.14em;
@@ -1282,7 +1394,7 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
   color: var(--gold);
 }
 .launch-btn strong {
-  font-family: "Michroma", var(--font-display);
+  font-family: var(--font-tech);
   font-size: clamp(9px, 0.75vw, 12px);
   font-weight: 400;
   line-height: 1.55;
@@ -1609,7 +1721,7 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 }
 
 .hud-word {
-  font-family: "Michroma", sans-serif;
+  font-family: var(--font-tech);
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.14em;
@@ -2091,85 +2203,35 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
   min-height: 0;
 }
 
-.map-field > svg {
+.map-canvas {
   width: 100%;
   height: 100%;
   min-height: 270px;
-  overflow: visible;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #0a0d12;
+}
+.map-canvas .maplibregl-canvas-container,
+.map-canvas canvas { width: 100%; height: 100%; }
+
+.map-ego {
+  width: 13px;
+  height: 13px;
+  background: #eefdfd;
+  clip-path: polygon(50% 0%, 100% 100%, 50% 78%, 0% 100%);
+  filter: drop-shadow(0 0 6px var(--cyan)) drop-shadow(0 0 12px rgba(84, 211, 227, 0.55));
 }
 
-.map-contours {
-  fill: none;
-  stroke: rgba(112, 165, 174, 0.09);
-  stroke-width: 1;
-}
-
-.map-roads {
-  fill: none;
-  stroke: rgba(133, 176, 184, 0.08);
-  stroke-width: 10;
-}
-
-.map-buildings {
-  fill: rgba(125, 172, 180, 0.055);
-  stroke: rgba(125, 172, 180, 0.08);
-}
-
-.aura-map .cc-road {
-  stroke: rgba(154, 198, 205, 0.16);
-  stroke-width: 10;
-}
-
-.aura-map .cc-route {
-  stroke: url(#routeGlow);
-  stroke-width: 4;
-  stroke-dasharray: 9 12;
-  filter: drop-shadow(0 0 7px rgba(98, 216, 238, 0.58));
-}
-
-.route-destination {
-  fill: rgba(233, 109, 123, 0.08);
-  stroke: rgba(233, 109, 123, 0.3);
-  animation: destinationPulse 2.5s ease-in-out infinite;
-}
-
-.route-destination-core {
-  fill: var(--red);
-  filter: drop-shadow(0 0 6px var(--red));
-}
-
-@keyframes destinationPulse {
-  50% { transform: scale(1.25); transform-origin: 616px 66px; opacity: 0.35; }
-}
-
-.aura-map .cc-dot {
-  fill: #eefdfd;
-  stroke-width: 5;
-}
-
-.map-compass,
-.map-scale {
+.map-credit {
   position: absolute;
+  left: 8px;
+  bottom: 6px;
+  z-index: 2;
   font-family: var(--font-mono);
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  color: rgba(127, 160, 166, 0.42);
-}
-
-.map-compass {
-  right: 8px;
-  top: 20px;
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(126, 173, 181, 0.1);
-  border-radius: 50%;
-}
-
-.map-scale {
-  right: 8px;
-  bottom: 8px;
+  font-size: 7px;
+  letter-spacing: 0.05em;
+  color: rgba(180, 205, 210, 0.4);
+  pointer-events: none;
 }
 
 .map-footer {
@@ -2208,15 +2270,22 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 
 .aura-rail {
   min-height: 0;
-  display: grid;
-  grid-template-rows: minmax(260px, 1.4fr) minmax(140px, 0.72fr) minmax(105px, 0.55fr);
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
 .aura-card {
   padding: 17px 18px;
   clip-path: polygon(0 10px, 10px 0, 100% 0, 100% 100%, 0 100%);
+  flex: 1.3 1 0;
+  min-height: 0;
+  transition: opacity 0.3s ease;
 }
+.aura-card[hidden] { display: none; }
+.aura-card[data-size="l"] { flex-grow: 1.3; }
+.aura-card[data-size="m"] { flex-grow: 0.68; }
+.aura-card[data-size="s"] { flex-grow: 0.62; }
 
 .aura-media {
   display: grid;
@@ -2471,6 +2540,89 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 .vehicle-health b {
   font-weight: 500;
   color: var(--ink-dim);
+}
+
+.vehicle-tyres {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-brd);
+}
+.tyre-corner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-mono);
+}
+.tyre-corner span {
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  color: var(--ink-faint);
+}
+.tyre-corner b {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.tyre-corner small {
+  font-size: 9px;
+  color: rgba(127, 160, 166, 0.55);
+}
+.tyre-corner small.hot {
+  color: var(--amber, #e8a24d);
+}
+
+/* ---------- C1: scenario scrubber ---------- */
+.console-scenario-dock {
+  position: relative;
+  z-index: 2;
+  margin-top: 12px;
+  align-self: flex-start;
+}
+.console-scenario-dock .ui-chip {
+  font-family: var(--font-mono);
+}
+
+/* ---------- C4: ambience card + mini WebGL visualization ---------- */
+.aura-ambience {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.amb-stage {
+  position: relative;
+  flex: 1;
+  min-height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, rgba(84, 211, 227, 0.06), transparent 70%);
+}
+.amb-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.amb-swatches {
+  display: flex;
+  gap: 6px;
+}
+.amb-swatches .ui-chip {
+  padding: 5px;
+  border-radius: 50%;
+}
+.amb-swatches .ui-chip-swatch {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+.amb-swatches .ui-chip.active {
+  background: transparent;
+  border-color: currentColor;
 }
 
 .aura-console .console-dock {
@@ -2808,8 +2960,6 @@ body[data-view="console"] #view-name {
 .vehicle-range span,
 .vehicle-health,
 .map-turn span,
-.map-compass,
-.map-scale,
 .map-footer small,
 .adas-status .chip,
 .adas-log,
@@ -2959,7 +3109,7 @@ body[data-view="showroom"] #aura-glow { opacity: 0; }
 }
 .ritual-word {
   position: absolute; top: 50%; left: 50%;
-  font-family: "Michroma", sans-serif;
+  font-family: var(--font-tech);
   font-size: clamp(40px, 7vw, 92px);
   letter-spacing: 0.04em;
   color: var(--ink-bright);

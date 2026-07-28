@@ -21,6 +21,7 @@
    ============================================================ */
 
 import { gsap } from 'gsap';
+import { createGauge } from './gauge.js';
 
 const TAU = Math.PI * 2;
 
@@ -56,6 +57,7 @@ export function createCluster(layer) {
   layer.innerHTML = `
     <div class="horizon-cluster" data-mode="drive">
       <canvas class="cluster-canvas"></canvas>
+      <div class="cluster-gauge-mount"></div>
       <div class="cluster-heading">
         <span class="cluster-pilot">
           <i class="cluster-pilot-status"></i>
@@ -81,6 +83,8 @@ export function createCluster(layer) {
   const canvas = layer.querySelector('canvas');
   const ctx = canvas.getContext('2d');
   const modeButtons = [...layer.querySelectorAll('.cluster-modes button')];
+  const gauge = createGauge(layer.querySelector('.cluster-gauge-mount'), { mode: MODES.drive, recoilColor: RECOIL });
+  const gaugeSize = { w: 0, h: 0 };
 
   const state = {
     active: false,
@@ -96,7 +100,13 @@ export function createCluster(layer) {
     gLong: 0, gLat: 0,
     peakPower: 0.7,
     modePulse: 0,
-    time: 0
+    time: 0,
+    // B4 — missing instrument detail: telltales, speed sign, trip computer
+    turnLeftOn: false, turnRightOn: false,
+    highBeamOn: false,
+    speedLimit: 120, overLimitPulse: 0,
+    odo: 18420, tripDist: 0, tripTime: 0,
+    consumption: 16.4, consumptionHistory: [], consumptionSampleTimer: 0
   };
 
   const layout = { ...LAYOUT_TARGET.drive };
@@ -116,6 +126,7 @@ export function createCluster(layer) {
     document.body.style.setProperty('--view-accent', MODES[key].hue);  // P3 跨模态辉光：切档全屏边缘联动换色
     modeButtons.forEach((b) => b.classList.toggle('active', b.dataset.mode === key));
     gsap.to(layout, { ...LAYOUT_TARGET[key], duration: 0.7, ease: 'power3.inOut', overwrite: true });
+    gauge.setMode(MODES[key]);
   }
   modeButtons.forEach((button) =>
     button.addEventListener('click', () => setMode(button.dataset.mode)));
@@ -189,6 +200,34 @@ export function createCluster(layer) {
     const targetGLong = state.power * (state.phase === 'regen' ? -0.35 : 0.62);
     state.gLong += (targetGLong - state.gLong) * Math.min(1, dt * 2.2);
     state.gLat = Math.sin(state.time * 0.8) * (state.speed / 230) * 0.55;
+
+    // turn signals — deterministic demo cycle, ties into the blind-spot beats
+    const turnCycle = state.time % 16;
+    const blink = Math.floor(state.time * 2) % 2 === 0;
+    state.turnLeftOn = turnCycle < 2.4 && blink;
+    state.turnRightOn = turnCycle > 9 && turnCycle < 11.4 && blink;
+
+    // high-beam pass flash
+    const beamCycle = state.time % 22;
+    state.highBeamOn = beamCycle > 14 && beamCycle < 16.5;
+
+    // speed-limit sign recognition + over-limit pulse (GT mode's higher max makes this a real beat)
+    state.overLimitPulse = state.speed > state.speedLimit + 3
+      ? Math.min(1, state.overLimitPulse + dt * 3)
+      : Math.max(0, state.overLimitPulse - dt * 2);
+
+    // trip computer — odo/trip distance accrue with real simulated speed
+    state.odo += (state.speed / 3600) * dt;
+    state.tripDist += (state.speed / 3600) * dt;
+    state.tripTime += dt;
+    const instConsumption = 15.2 + state.power * 9.5;
+    state.consumption += (instConsumption - state.consumption) * Math.min(1, dt * 0.6);
+    state.consumptionSampleTimer += dt;
+    if (state.consumptionSampleTimer > 0.5) {
+      state.consumptionSampleTimer = 0;
+      state.consumptionHistory.push(state.consumption);
+      if (state.consumptionHistory.length > 40) state.consumptionHistory.shift();
+    }
 
     state.modePulse = Math.max(0, state.modePulse - dt * 1.3);
   }
@@ -309,123 +348,10 @@ export function createCluster(layer) {
 
   /* ============================================================
      MID LAYER — central EV power gauge (Taycan-style)
-     12 o'clock = zero. Right half (CW) = drive, left half (CCW) = recup.
+     Rewritten as a real SVG instrument — see js/cluster/gauge.js.
+     gauge.update()/resize() are called from draw() below; this file
+     only still owns the energy-flow particle ring around it.
      ============================================================ */
-  function drawPowerGauge(w, h, mode, a, scale) {
-    if (a < 0.02) return;
-    const cx = w * 0.5;
-    const cy = h * 0.585;
-    const R = Math.min(w * 0.21, h * 0.30) * scale;
-    const ZERO = -Math.PI / 2;
-    const SPAN = Math.PI * 0.75;          // each half = 135°
-    const DRIVE_END = ZERO + SPAN;        // 4:30
-    const RECOIL_END = ZERO - SPAN;       // 7:30 (-5π/4)
-
-    const driveFill = Math.max(0, state.power);
-    const recoilFill = Math.max(0, -state.power);
-    const isRecup = state.power < 0;
-    const active = isRecup ? RECOIL : mode.hue;
-
-    ctx.save();
-    ctx.globalAlpha = a;
-    ctx.lineCap = 'round';
-
-    // background dial (270° over the top, bottom opening for the digit)
-    ctx.strokeStyle = 'rgba(150,184,196,0.07)';
-    ctx.lineWidth = R * 0.045;
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, RECOIL_END, DRIVE_END, false);
-    ctx.stroke();
-
-    // active drive arc
-    if (driveFill > 0.005) {
-      ctx.strokeStyle = mode.hue;
-      ctx.lineWidth = R * 0.062;
-      ctx.shadowColor = mode.hue; ctx.shadowBlur = R * 0.22;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, ZERO, ZERO + SPAN * driveFill, false);
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-    }
-    // active recuperation arc
-    if (recoilFill > 0.005) {
-      ctx.strokeStyle = RECOIL;
-      ctx.lineWidth = R * 0.062;
-      ctx.shadowColor = RECOIL; ctx.shadowBlur = R * 0.22;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, ZERO, ZERO - SPAN * recoilFill, true);
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-    }
-
-    // tick ring
-    for (let i = -10; i <= 10; i++) {
-      const frac = i / 10;
-      const ang = ZERO + SPAN * frac;
-      const major = (i % 5 === 0);
-      const r1 = R + R * 0.02;
-      const r2 = R + (major ? R * 0.10 : R * 0.05);
-      ctx.strokeStyle = `rgba(170,200,210,${major ? 0.30 : 0.14})`;
-      ctx.lineWidth = major ? 1.3 : 0.8;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(ang) * r1, cy + Math.sin(ang) * r1);
-      ctx.lineTo(cx + Math.cos(ang) * r2, cy + Math.sin(ang) * r2);
-      ctx.stroke();
-    }
-
-    // needle
-    const pAng = ZERO + SPAN * Math.max(-1, Math.min(1, state.power));
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(pAng);
-    ctx.strokeStyle = active;
-    ctx.lineWidth = 2.2;
-    ctx.shadowColor = active; ctx.shadowBlur = 14;
-    ctx.beginPath();
-    ctx.moveTo(R * 0.16, 0);
-    ctx.lineTo(R * 0.92, 0);
-    ctx.stroke();
-    ctx.restore();
-    ctx.shadowBlur = 0;
-
-    // center hub
-    ctx.fillStyle = '#0e151a';
-    ctx.beginPath(); ctx.arc(cx, cy, R * 0.05, 0, TAU); ctx.fill();
-    ctx.strokeStyle = active; ctx.lineWidth = 1.6; ctx.stroke();
-
-    // DRIVE / RECUP zone labels
-    const lr = R * 1.30;
-    const lblD = ZERO + SPAN * 0.55;
-    const lblR = ZERO - SPAN * 0.55;
-    text('DRIVE', cx + Math.cos(lblD) * lr, cy + Math.sin(lblD) * lr, 9,
-      isRecup ? 'rgba(150,180,190,0.4)' : mode.hue, 'center', 600, 'Chakra Petch');
-    text('RECUP', cx + Math.cos(lblR) * lr, cy + Math.sin(lblR) * lr, 9,
-      isRecup ? RECOIL : 'rgba(150,180,190,0.4)', 'center', 600, 'Chakra Petch');
-
-    // central speed readout (Chakra Petch Thin, tabular feel)
-    const sp = String(Math.round(state.speed)).padStart(2, '0');
-    const speedSize = R * 1.05 * layout.speedScale;
-    ctx.shadowColor = 'rgba(0,0,0,0.6)'; ctx.shadowBlur = 18;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#f5f7f7';
-    ctx.font = `300 ${speedSize}px "Chakra Petch", "Manrope", sans-serif`;
-    ctx.fillText(sp, cx, cy - R * 0.02);
-    ctx.shadowBlur = 0;
-    text('KM/H', cx, cy + R * 0.30, R * 0.10, 'rgba(170,198,206,0.6)', 'center', 500);
-
-    // power kW readout (Energy mode enlarges it)
-    const powerKW = Math.round(Math.abs(state.power) * 240);
-    const eF = layout.energyFocus;
-    text(`${isRecup ? '−' : '+'}${powerKW} kW`, cx, cy + R * 0.50,
-      R * 0.20 * (1 + eF * 0.55), active, 'center', 500, 'Chakra Petch');
-
-    // outer hairline ring
-    ctx.globalAlpha = a * 0.5;
-    ctx.strokeStyle = 'rgba(120,160,170,0.10)';
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.arc(cx, cy, R * 1.12, RECOIL_END, DRIVE_END, false); ctx.stroke();
-    ctx.restore();
-  }
 
   /* ============================================================
      TOP LAYER — ADAS perception overlay
@@ -474,8 +400,9 @@ export function createCluster(layer) {
       ctx.shadowBlur = 0;
     }
 
-    // distance + TTC tag
-    const tagX = vx + carHW * 1.75;
+    // distance + TTC tag (pushed further out so it clears the centred
+    // power-kW readout, whose text width can reach ~0.58w at cy+R*0.50)
+    const tagX = vx + carHW * 2.6;
     ctx.strokeStyle = 'rgba(120,160,170,0.18)';
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -527,12 +454,15 @@ export function createCluster(layer) {
     text(`${peakKW}`, rx, ry + 6, 40, mode.hue, 'center', 300, 'Chakra Petch');
     text('kW · GT MODE', rx, ry + 32, 9, 'rgba(170,200,210,0.55)', 'center', 600);
 
-    drawGForce(w * 0.5, h * 0.86, mode);
+    // squeezed between the centred power-kW readout (~0.73h) and the
+    // mode-dock buttons below (~0.89h) — a compact radius + this y keeps
+    // clearance from both.
+    drawGForce(w * 0.5, h * 0.844, mode);
     ctx.restore();
   }
 
   function drawGForce(cx, cy, mode) {
-    const R = 34;
+    const R = 28;
     ctx.save();
     ctx.strokeStyle = 'rgba(120,160,170,0.18)';
     ctx.lineWidth = 1;
@@ -613,28 +543,154 @@ export function createCluster(layer) {
     }
   }
 
-  function drawPureSpeed(w, h, mode, a) {
-    ctx.save();
-    ctx.globalAlpha = a;
-    const cx = w * 0.5, cy = h * 0.52;
-    const sp = String(Math.round(state.speed)).padStart(2, '0');
-    const size = Math.min(h * 0.26, 200) * layout.speedScale;
-    ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 24;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#f6f8f8';
-    ctx.font = `300 ${size}px "Chakra Petch", "Manrope", sans-serif`;
-    ctx.fillText(sp, cx, cy);
-    ctx.shadowBlur = 0;
-    text('KM/H', cx, cy + size * 0.34, 12, mode.hue, 'center', 600, 'Chakra Petch');
-    ctx.restore();
-  }
-
   function drawStatus(w, h) {
     const top = h * 0.072;
     const now = new Date();
     const t = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
     text(t, w * 0.05, top, 12, 'rgba(196,215,220,0.7)', 'left', 400, 'Chakra Petch');
     text('21.5°  ·  BERLIN', w * 0.95, top, 11, 'rgba(196,215,220,0.55)', 'right', 500);
+    // SOC + range + consumption trend — tucked under the temp/city line, top-right corner only
+    text(`${Math.round(state.soc)}% · ${Math.round(state.range)} KM`, w * 0.95, top + 16, 9.5,
+      'rgba(196,215,220,0.42)', 'right', 500, 'Chakra Petch');
+    drawSparkline(w * 0.95 - 62, top + 24, 62, 12, state.consumptionHistory, 12, 22);
+  }
+
+  function drawSparkline(x, y, w, h, samples, lo, hi) {
+    if (samples.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(132,205,217,0.5)';
+    ctx.lineWidth = 1.1;
+    ctx.beginPath();
+    samples.forEach((v, i) => {
+      const px = x + (i / (samples.length - 1)) * w;
+      const t = Math.max(0, Math.min(1, (v - lo) / (hi - lo)));
+      const py = y + h - t * h;
+      i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+    });
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  /* ============================================================
+     B4 — speed-limit recognition badge (top-left corner, below
+     the heading strip; pulses amber/red when over the posted limit)
+     ============================================================ */
+  function drawSpeedLimitBadge(w, h) {
+    const cx = w * 0.075, cy = h * 0.155;
+    const R = Math.min(w, h) * 0.026;
+    const over = state.overLimitPulse;
+    const ring = over > 0.05 ? `rgba(232,162,77,${0.55 + over * 0.45})` : 'rgba(224,90,90,0.82)';
+    ctx.save();
+    ctx.fillStyle = '#f4f2ee';
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fill();
+    ctx.lineWidth = R * 0.22;
+    ctx.strokeStyle = ring;
+    if (over > 0.05) { ctx.shadowColor = ring; ctx.shadowBlur = 10 * over; }
+    ctx.beginPath(); ctx.arc(cx, cy, R * 0.86, 0, TAU); ctx.stroke();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#141210';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = `700 ${R * 0.74}px "Chakra Petch", sans-serif`;
+    ctx.fillText(String(state.speedLimit), cx, cy + R * 0.04);
+    text('SPEED LIMIT', cx, cy + R * 1.7, 8, over > 0.3 ? ring : 'rgba(170,200,210,0.46)', 'center', 600, 'Chakra Petch');
+    ctx.restore();
+  }
+
+  /* ============================================================
+     B4 — telltale glyphs (simple canvas vector icons, ~8px)
+     ============================================================ */
+  function drawArrowIcon(x, y, s, dir) {
+    ctx.beginPath();
+    ctx.moveTo(x - dir * s * 0.7, y - s * 0.8);
+    ctx.lineTo(x + dir * s * 0.7, y);
+    ctx.lineTo(x - dir * s * 0.7, y + s * 0.8);
+    ctx.closePath();
+    ctx.fill();
+  }
+  function drawAdasIcon(x, y, s) {
+    ctx.beginPath(); ctx.arc(x, y, s, 0, TAU); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x - s * 0.6, y + s * 0.35); ctx.lineTo(x + s * 0.6, y + s * 0.35);
+    ctx.moveTo(x, y - s); ctx.lineTo(x, y - s * 0.35);
+    ctx.stroke();
+  }
+  function drawSeatbeltIcon(x, y, s) {
+    ctx.beginPath(); ctx.arc(x, y, s, 0, TAU); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x - s * 0.55, y - s * 0.6); ctx.lineTo(x + s * 0.55, y + s * 0.6);
+    ctx.stroke();
+  }
+  function drawBoltIcon(x, y, s) {
+    ctx.beginPath();
+    ctx.moveTo(x + s * 0.15, y - s); ctx.lineTo(x - s * 0.45, y + s * 0.1);
+    ctx.lineTo(x, y + s * 0.1); ctx.lineTo(x - s * 0.15, y + s);
+    ctx.lineTo(x + s * 0.45, y - s * 0.1); ctx.lineTo(x, y - s * 0.1);
+    ctx.closePath(); ctx.fill();
+  }
+  function drawTpmsIcon(x, y, s) {
+    ctx.beginPath(); ctx.arc(x, y, s, 0, TAU); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y - s * 0.5); ctx.lineTo(x, y + s * 0.18);
+    ctx.stroke();
+    ctx.beginPath(); ctx.arc(x, y + s * 0.55, s * 0.09, 0, TAU); ctx.fill();
+  }
+  function drawBeamIcon(x, y, s) {
+    ctx.beginPath();
+    ctx.moveTo(x - s * 0.5, y - s * 0.5); ctx.lineTo(x + s * 0.5, y - s * 0.5);
+    ctx.moveTo(x - s * 0.65, y); ctx.lineTo(x + s * 0.65, y);
+    ctx.moveTo(x - s * 0.5, y + s * 0.5); ctx.lineTo(x + s * 0.5, y + s * 0.5);
+    ctx.stroke();
+  }
+
+  function drawTelltale(x, y, s, active, color, drawGlyph) {
+    ctx.save();
+    ctx.globalAlpha = active ? 1 : 0.26;
+    ctx.strokeStyle = active ? color : 'rgba(150,180,190,0.5)';
+    ctx.fillStyle = ctx.strokeStyle;
+    ctx.lineWidth = 1.4;
+    if (active) { ctx.shadowColor = color; ctx.shadowBlur = 8; }
+    drawGlyph(x, y, s);
+    ctx.shadowBlur = 0;
+    ctx.restore();
+  }
+
+  /* ============================================================
+     B4 — bottom instrument strip: trip computer (edges) + telltale
+     row (center). Sits in the gap between the ADAS blind-spot
+     markers and the mode dock. Telltale row fades in GT mode so it
+     doesn't compete with the bespoke performance HUD.
+     ============================================================ */
+  function drawBottomStrip(w, h, mode) {
+    const y = h * 0.80;
+    ctx.save();
+
+    // left — trip computer
+    text(`ODO ${Math.round(state.odo).toLocaleString()} KM`, w * 0.075, y - 8, 10,
+      'rgba(196,215,220,0.5)', 'left', 500, 'Chakra Petch');
+    text(`TRIP ${state.tripDist.toFixed(1)} KM · ${Math.floor(state.tripTime / 60)}:${String(Math.floor(state.tripTime % 60)).padStart(2, '0')}`,
+      w * 0.075, y + 8, 9, 'rgba(150,180,190,0.4)', 'left', 500);
+
+    // right — consumption / peak power trend
+    text(`AVG ${state.consumption.toFixed(1)} kWh/100km`, w * 0.925, y - 8, 10,
+      'rgba(196,215,220,0.5)', 'right', 500, 'Chakra Petch');
+    text(`PEAK ${Math.round(state.peakPower * 240)} kW`, w * 0.925, y + 8, 9,
+      'rgba(150,180,190,0.4)', 'right', 500);
+
+    // center — telltale row (turn L/R, ADAS, seatbelt, regen bolt, TPMS, high-beam)
+    ctx.globalAlpha = 1 - layout.perfAlpha;
+    const cx = w * 0.5, gap = 34, s = 8;
+    const icons = [
+      { active: state.turnLeftOn, color: RECOIL, draw: (x, yy, sz) => drawArrowIcon(x, yy, sz, -1) },
+      { active: state.accLocked, color: mode.hue, draw: drawAdasIcon },
+      { active: false, color: '#e07d8a', draw: drawSeatbeltIcon },
+      { active: state.phase === 'regen', color: RECOIL, draw: drawBoltIcon },
+      { active: false, color: '#e6a877', draw: drawTpmsIcon },
+      { active: state.highBeamOn, color: '#bcd8ff', draw: drawBeamIcon },
+      { active: state.turnRightOn, color: RECOIL, draw: (x, yy, sz) => drawArrowIcon(x, yy, sz, 1) }
+    ];
+    const startX = cx - ((icons.length - 1) / 2) * gap;
+    icons.forEach((ic, i) => drawTelltale(startX + i * gap, y, s, ic.active, ic.color, ic.draw));
+    ctx.restore();
   }
 
   function drawModePulse(w, h, mode) {
@@ -668,10 +724,13 @@ export function createCluster(layer) {
     drawScenePhoto(w, h, mode, layout.roadAlpha);
     drawLaneFlow(w, h, mode, layout.roadAlpha, layout.adasAlpha);
 
-    // MID
-    drawPowerGauge(w, h, mode, layout.gaugeAlpha * (1 - layout.pureFocus), layout.gaugeScale);
+    // MID — SVG instrument (gauge.js): arcs, needle, digit-roll speed
+    if (w !== gaugeSize.w || h !== gaugeSize.h) {
+      gauge.resize(w, h);
+      gaugeSize.w = w; gaugeSize.h = h;
+    }
+    gauge.update(state, layout, mode, state.dt);
     drawEnergyFlow(w, h, mode, layout.energyFocus);
-    if (layout.pureFocus > 0.02) drawPureSpeed(w, h, mode, layout.pureFocus);
 
     // TOP
     drawADAS(w, h, mode, layout.adasAlpha * (1 - layout.pureFocus * 0.55));
@@ -680,12 +739,15 @@ export function createCluster(layer) {
     // chrome
     drawTurnCue(w, h, mode);
     drawStatus(w, h);
+    drawSpeedLimitBadge(w, h);
+    drawBottomStrip(w, h, mode);
     drawModePulse(w, h, mode);
   }
 
   function update(time, dt) {
     if (!state.active) return;
     state.time = time;
+    state.dt = dt;
     updateDrive(dt);
     draw();
   }
@@ -704,7 +766,8 @@ export function createCluster(layer) {
     setView: (on) => on ? onEnter() : onExit(),
     setMode,
     get speed() { return state.speed; },
-    get mode() { return state.mode; }
+    get mode() { return state.mode; },
+    get layout() { return layout; }
   };
   // expose for QA / CDP screenshot harness
   window.__cluster = api;

@@ -7,12 +7,13 @@
 
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-import { createScene } from './scene.js?v=20260727-2';
+import { createScene } from './scene.js?v=20260728-2';
 import { createCar } from './car.js?v=20260727-3';
-import { createCluster } from './cluster.js?v=20260727-4';
-import { createConsole } from './console.js?v=20260727-2';
+import { createCluster } from './cluster/index.js?v=20260728-6';
+import { createConsole } from './console.js?v=20260728-3';
 import { createAutonomous } from './autonomous.js?v=20260727-1';
 import { createAudio } from './audio.js?v=20260727-1';
+import { createQuality } from './quality.js?v=20260728-1';
 
 const stage = document.getElementById('stage');
 const layers = {
@@ -26,7 +27,13 @@ const loader = document.getElementById('loader');
 const loaderBar = document.getElementById('loader-bar');
 
 /* ---------- core ---------- */
-const view = createScene(stage);
+const quality = createQuality();
+const view = createScene(stage, quality);
+view.renderer.setPixelRatio(Math.min(window.devicePixelRatio, quality.dprCap));
+quality.onChange(() => {
+  view.renderer.setPixelRatio(Math.min(window.devicePixelRatio, quality.dprCap));
+  view.resize();
+});
 const { camera, controls } = view;
 const car = createCar();
 view.scene.add(car.group);
@@ -431,6 +438,88 @@ function buildConsoleStage() {
   view.scene.add(consoleStage);
 }
 
+/* P3: digital-twin FX — thermal/battery footprint glow + torque-flow arrows
+   under the twin, plus an X-RAY toggle that fades the body, explodes the
+   wheels outward and boosts the footprint glow (Lotus 3D-garage "reveal"). */
+const thermalShader = {
+  uniforms: { time: { value: 0 }, reveal: { value: 0 } },
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    varying vec2 vUv;
+    uniform float time;
+    uniform float reveal;
+    void main() {
+      vec2 c = vUv - 0.5;
+      float d = length(c * vec2(1.0, 2.15));
+      float edge = smoothstep(0.52, 0.08, d);
+      float wave = sin(c.y * 7.0 - time * 1.4) * 0.5 + 0.5;
+      vec3 cool = vec3(0.13, 0.56, 0.63);
+      vec3 warm = vec3(0.66, 0.44, 0.24);
+      vec3 col = mix(cool, warm, smoothstep(-0.32, 0.4, c.y));
+      float glow = edge * (0.22 + wave * 0.16) * (0.35 + reveal * 1.1);
+      gl_FragColor = vec4(col, glow);
+    }
+  `
+};
+let consoleFX = null;
+function buildConsoleFX() {
+  if (consoleFX) return;
+  const heatmap = new THREE.Mesh(
+    new THREE.PlaneGeometry(6.4, 3.1, 1, 1),
+    new THREE.ShaderMaterial({
+      uniforms: THREE.UniformsUtils.clone(thermalShader.uniforms),
+      vertexShader: thermalShader.vertexShader,
+      fragmentShader: thermalShader.fragmentShader,
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
+    })
+  );
+  heatmap.rotation.x = -Math.PI / 2;
+  heatmap.position.y = 0.012;
+
+  const arrowMat = new THREE.MeshBasicMaterial({
+    color: 0x54d3e3, transparent: true, opacity: 0.85, toneMapped: false,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  });
+  const arrowGeo = new THREE.ConeGeometry(0.055, 0.16, 10);
+  const ARROW_COUNT = 9;
+  const arrows = Array.from({ length: ARROW_COUNT }, (_, i) => {
+    const m = new THREE.Mesh(arrowGeo, arrowMat.clone());
+    m.position.set(0, 0.05, -2.1 + (i / (ARROW_COUNT - 1)) * 4.2);
+    return m;
+  });
+  const arrowGroup = new THREE.Group();
+  arrows.forEach((a) => arrowGroup.add(a));
+
+  consoleFX = { heatmap, arrowGroup, arrows, reveal: 0 };
+  consoleStage.add(heatmap, arrowGroup);
+}
+
+let xrayOn = false;
+let xrayBasePivotX = null;
+function setXray(on) {
+  xrayOn = on;
+  if (consoleFX) gsap.to(consoleFX, { reveal: on ? 1 : 0, duration: 0.7, ease: 'power2.out' });
+  if (!consoleTwin) return;
+  const targetOpacity = on ? 0.22 : 1;
+  [...consoleTwin.bodyMats, ...consoleTwin.accentMats].forEach((mat) => {
+    mat.transparent = true;
+    gsap.to(mat, { opacity: targetOpacity, duration: 0.6, ease: 'power2.out' });
+  });
+  if (!xrayBasePivotX) xrayBasePivotX = consoleTwin.wheelPivots.map((p) => p.position.x);
+  consoleTwin.wheelPivots.forEach((pivot, i) => {
+    const base = xrayBasePivotX[i];
+    const target = on ? base + Math.sign(base || 1) * 0.34 : base;
+    gsap.to(pivot.position, { x: target, duration: 0.6, ease: 'power2.out' });
+  });
+}
+layers.console.addEventListener('aura:xray', (e) => setXray(!!e.detail?.on));
+
 function buildConsoleTwin() {
   if (consoleTwin || !car.cloneCar) return;
   // 写实 PBR twin (Lotus Hyper OS digital-twin aesthetic) — 弃用 cel-shaded toon,
@@ -441,6 +530,7 @@ function buildConsoleTwin() {
   consoleTwin.group.position.set(0, 0, 0);
   view.scene.add(consoleTwin.group);
   buildConsoleStage();
+  buildConsoleFX();
 }
 
 const raycaster = new THREE.Raycaster();
@@ -497,6 +587,7 @@ stage.addEventListener('pointerup', (e) => {
 /* ---------- debug hooks (QA / devtools: read live camera + target) ---------- */
 window.__cam = camera;
 window.__ctrl = controls;
+window.__quality = quality;
 
 /* ---------- main loop ---------- */
 const clock = new THREE.Clock();
@@ -504,6 +595,7 @@ function loop() {
   requestAnimationFrame(loop);
   const dt = Math.min(clock.getDelta(), 0.05);
   const t = clock.elapsedTime;
+  quality.sample(dt);
 
   const inShowroom = current === 'showroom';
   car.update(t, inShowroom && autoRotate);
@@ -515,6 +607,26 @@ function loop() {
     camera.lookAt(0, 0.85, 0);
     if (consoleTwin && consoleTwin.group.visible) {
       consoleTwin.group.rotation.y += dt * 0.22;
+    }
+    if (consoleFX) {
+      consoleFX.heatmap.material.uniforms.time.value = t;
+      // gentle drive/regen cycle: mostly discharge (cyan, flowing to the
+      // wheels), with a brief regen window (green, reversed) every ~14s
+      const cyclePhase = t % 14;
+      const regen = cyclePhase > 10.5;
+      const dir = regen ? -1 : 1;
+      const color = regen ? 0x6fd9b4 : 0x54d3e3;
+      const speed = 1.4;
+      consoleFX.arrows.forEach((arrow, i) => {
+        let z = arrow.position.z + dt * speed * dir;
+        if (z > 2.1) z -= 4.2;
+        if (z < -2.1) z += 4.2;
+        arrow.position.z = z;
+        arrow.rotation.x = dir > 0 ? Math.PI / 2 : -Math.PI / 2;
+        const fade = 1 - Math.abs(z) / 2.1;
+        arrow.material.opacity = 0.15 + fade * 0.55;
+        arrow.material.color.set(color);
+      });
     }
   }
   if (current === 'autonomous') autonomous.update(t, dt);

@@ -5,6 +5,11 @@
    stay glanceable on a calm peripheral rail.
    ============================================================ */
 
+import { gsap } from 'gsap';
+import { createConsoleMap } from './console-map.js?v=20260728-3';
+import { createLayoutEngine } from './console/layout.js';
+import { createAmbience, SWATCHES as AMB_SWATCHES } from './console/ambience.js';
+
 export function createConsole(layer, audio) {
   layer.innerHTML = `
     <div class="aura-console">
@@ -20,78 +25,42 @@ export function createConsole(layer, audio) {
         </div>
       </header>
 
+      <div class="console-scenario-dock ui-tabdock" role="tablist" aria-label="Scenario">
+        ${['PARKED', 'CHARGING', 'COMMUTE', 'HIGHWAY-PILOT', 'ARRIVING', 'NIGHT'].map((name, i) =>
+          `<button class="ui-chip${i === 2 ? ' active' : ''}" data-scenario="${name}">${name}</button>`).join('')}
+      </div>
+
       <main class="aura-console-grid">
         <section class="aura-map">
           <div class="map-heading">
             <div>
-              <span class="aura-kicker"><i class="ph-icon ph-navigation-arrow" aria-hidden="true"></i>NAVIGATION · NIGHT ROUTE</span>
-              <h2>Teufelsberg</h2>
-              <p>via Heerstraße · quiet roads preferred</p>
+              <span class="aura-kicker"><i class="ph-icon ph-navigation-arrow" aria-hidden="true"></i>NAVIGATION · WOLFSBURG</span>
+              <h2>Autostadt</h2>
+              <p data-via>via Heinrich-Nordhoff-Straße · real route</p>
             </div>
             <div class="map-turn">
               <svg viewBox="0 0 52 52" aria-hidden="true">
                 <path d="M11 42V25c0-8 5-14 14-14h16M33 4l8 7-8 7"/>
               </svg>
-              <span><b>320</b> m</span>
+              <span><b data-turn-dist>320</b> m</span>
             </div>
           </div>
 
           <div class="map-field">
-            <svg viewBox="0 0 720 420" aria-label="Route to Teufelsberg">
-              <defs>
-                <linearGradient id="routeGlow" x1="0" y1="1" x2="1" y2="0">
-                  <stop offset="0" stop-color="#78e3c0"/>
-                  <stop offset=".58" stop-color="#61d8eb"/>
-                  <stop offset="1" stop-color="#ec9c76"/>
-                </linearGradient>
-                <radialGradient id="mapBloom">
-                  <stop offset="0" stop-color="#62d8ee" stop-opacity=".18"/>
-                  <stop offset="1" stop-color="#62d8ee" stop-opacity="0"/>
-                </radialGradient>
-                <pattern id="fineGrid" width="48" height="48" patternUnits="userSpaceOnUse">
-                  <path d="M48 0H0V48" fill="none" stroke="rgba(146,198,209,.055)" stroke-width="1"/>
-                </pattern>
-              </defs>
-              <rect width="720" height="420" fill="url(#fineGrid)"/>
-              <circle cx="363" cy="212" r="168" fill="url(#mapBloom)"/>
-              <g class="map-contours">
-                <path d="M-30 75C97 21 183 107 306 68s194-79 318-18 147 39 178 11"/>
-                <path d="M-44 112C78 70 175 146 282 101s216-79 339-13 149 33 193 12"/>
-                <path d="M-58 344C92 281 186 372 319 326s198-79 327-18 139 38 184 16"/>
-                <path d="M-64 382C93 324 205 408 330 364s205-76 333-15 131 27 169 8"/>
-                <path d="M83-20c51 95-24 139 9 218s114 93 76 222"/>
-                <path d="M606-28c-74 107 6 143-42 222s-106 106-70 252"/>
-              </g>
-              <g class="map-roads">
-                <path d="M-30 293C109 238 159 278 249 223S429 127 746 92"/>
-                <path d="M136 438c52-102 73-150 134-220S370 94 408-30"/>
-                <path d="M-20 155c144 31 232 3 341 51s211 89 430 58"/>
-              </g>
-              <g class="map-buildings">
-                <path d="M91 142h40v24H91zM151 119h31v48h-31zM542 271h56v29h-56zM616 238h37v55h-37z"/>
-                <path d="M215 310h52v31h-52zM286 329h37v22h-37zM456 78h48v27h-48z"/>
-              </g>
-              <path class="cc-road" d="M112 354C167 332 182 286 240 271s80-8 118-61 81-67 132-71 84-32 126-73"/>
-              <path class="cc-route" data-route d="M112 354C167 332 182 286 240 271s80-8 118-61 81-67 132-71 84-32 126-73"/>
-              <circle class="route-destination" cx="616" cy="66" r="20"/>
-              <circle class="route-destination-core" cx="616" cy="66" r="5"/>
-              <circle class="cc-dot" data-dot r="9"/>
-            </svg>
-            <div class="map-compass">N</div>
-            <div class="map-scale">200 M</div>
+            <div class="map-canvas" data-maplibre role="img" aria-label="Real vector map of the route through Wolfsburg to Autostadt"></div>
           </div>
 
           <footer class="map-footer">
             <div class="map-eta">
-              <span data-eta>18 min</span>
-              <small>ARRIVAL 14:20</small>
+              <span data-eta>9 min</span>
+              <small>ARRIVAL <span data-arrival>—</span></small>
             </div>
             <div class="map-distance">
-              <span>12.4 km</span>
-              <small>9.8 KM ELECTRIC</small>
+              <span data-dist>4.3 km</span>
+              <small>WOLFSBURG · OSM DATA</small>
             </div>
             <div class="map-energy">
-              <span>−3%</span>
+              <span data-energy>−1%</span>
               <small>EST. BATTERY</small>
             </div>
           </footer>
@@ -145,6 +114,23 @@ export function createConsole(layer, audio) {
               <span><i></i> ALL SYSTEMS NOMINAL</span>
               <b>82%</b>
             </div>
+            <div class="vehicle-tyres" data-tyres>
+              <div class="tyre-corner"><span>FL</span><b data-load>4.1</b><small data-temp>36&deg;</small></div>
+              <div class="tyre-corner"><span>FR</span><b data-load>4.1</b><small data-temp>36&deg;</small></div>
+              <div class="tyre-corner"><span>RL</span><b data-load>3.8</b><small data-temp>34&deg;</small></div>
+              <div class="tyre-corner"><span>RR</span><b data-load>3.8</b><small data-temp>34&deg;</small></div>
+            </div>
+          </section>
+
+          <section class="aura-card aura-ambience" hidden>
+            <div class="card-label"><i class="ph-icon ph-sparkle" aria-hidden="true"></i>AMBIENCE</div>
+            <div class="amb-stage" aria-hidden="true"></div>
+            <div class="amb-swatches">
+              ${AMB_SWATCHES.map((hex, i) =>
+                `<button class="ui-chip${i === 0 ? ' active' : ''}" data-amb-color="${hex}" style="--sw:${hex}">
+                  <i class="ui-chip-swatch" style="color:${hex}"></i>
+                </button>`).join('')}
+            </div>
           </section>
         </aside>
       </main>
@@ -159,6 +145,7 @@ export function createConsole(layer, audio) {
         <button class="tg on" data-tg><i class="ph-icon ph-navigation-arrow" aria-hidden="true"></i>NAV</button>
         <button class="tg" data-tg><i class="ph-icon ph-sparkle" aria-hidden="true"></i>AMBIENCE</button>
         <button class="tg on" data-tg><i class="ph-icon ph-steering-wheel" aria-hidden="true"></i>AURA</button>
+        <button class="tg" data-xray><i class="ph-icon ph-cube-transparent" aria-hidden="true"></i>X-RAY</button>
       </footer>
     </div>`;
 
@@ -233,11 +220,21 @@ export function createConsole(layer, audio) {
     setPlaying(state.on);
   });
 
-  const route = $('[data-route]');
-  const routeDot = $('[data-dot]');
+  const route = $('[data-maplibre]');
   const etaEl = $('[data-eta]');
-  const routeLength = route.getTotalLength();
-  let routeProgress = 0.12;
+  const distEl = $('[data-dist]');
+  const arrivalEl = $('[data-arrival]');
+  const turnDistEl = $('[data-turn-dist]');
+
+  const consoleMap = createConsoleMap(route, {
+    onEta({ remainingKm, etaMin, nextTurnMeters }) {
+      etaEl.textContent = `${etaMin} min`;
+      distEl.textContent = `${remainingKm.toFixed(1)} km`;
+      turnDistEl.textContent = nextTurnMeters;
+      const arrival = new Date(Date.now() + etaMin * 60000);
+      arrivalEl.textContent = String(arrival.getHours()).padStart(2, '0') + ':' + String(arrival.getMinutes()).padStart(2, '0');
+    }
+  });
 
   const temperatureEl = $('[data-tv]');
   let temperature = 21.5;
@@ -262,12 +259,96 @@ export function createConsole(layer, audio) {
     }));
   renderFan();
 
+  /* ---------- C1: dynamic rail layout engine ---------- */
+  const rail = $('.aura-rail');
+  const ambienceCard = $('.aura-ambience');
+  const ambience = createAmbience(ambienceCard, audio);
+
+  const layoutCards = [
+    {
+      id: 'media', el: $('.aura-media'),
+      priority(ctx) {
+        let s = 50;
+        if (ctx.charging) s -= 30;
+        if (ctx.driveMode === 'cruise') s += 10;
+        if (ctx.navState === 'arriving') s -= 15;
+        if (ctx.occupancy > 1) s += 5;
+        return s;
+      }
+    },
+    {
+      id: 'comfort', el: $('.aura-comfort'),
+      priority(ctx) {
+        let s = 40;
+        if (ctx.speed < 5) s += 20;
+        if (ctx.weather === 'cold' || ctx.weather === 'hot') s += 10;
+        if (ctx.navState === 'arriving') s -= 10;
+        return s;
+      }
+    },
+    {
+      id: 'vehicle', el: $('.aura-vehicle'),
+      priority(ctx) {
+        let s = 35;
+        if (ctx.charging) s += 25;
+        if (ctx.navState === 'highway') s += 20;
+        if (ctx.navState === 'arriving') s += 15;
+        if (ctx.soc < 25) s += 5;
+        return s;
+      }
+    },
+    {
+      id: 'ambience', el: ambienceCard,
+      priority(ctx) {
+        let s = 20;
+        if (ctx.timeOfDay === 'night') s += 35;
+        if (ctx.speed < 5) s += 30;
+        if (ctx.navState === 'highway') s -= 20;
+        if (ctx.ambienceBoost) s += 50;
+        return s;
+      }
+    }
+  ];
+
+  const layout = createLayoutEngine({ rail, cards: layoutCards, gsap });
+  layout.setScenario('COMMUTE');
+
+  layer.querySelectorAll('[data-scenario]').forEach((button) =>
+    button.addEventListener('click', () => {
+      layer.querySelectorAll('[data-scenario]').forEach((b) => b.classList.toggle('active', b === button));
+      layout.setScenario(button.dataset.scenario);
+      ambience.resize();
+    }));
+
+  layer.querySelectorAll('[data-amb-color]').forEach((button) =>
+    button.addEventListener('click', () => {
+      layer.querySelectorAll('[data-amb-color]').forEach((b) => b.classList.toggle('active', b === button));
+      ambience.setColor(button.dataset.ambColor);
+    }));
+
   layer.querySelectorAll('[data-tg]').forEach((button) =>
-    button.addEventListener('click', () => button.classList.toggle('on')));
+    button.addEventListener('click', () => {
+      const on = button.classList.toggle('on');
+      if (button.querySelector('.ph-sparkle')) {
+        layout.applyContext({ ambienceBoost: on });
+        if (on) ambience.resize();
+      }
+    }));
+
+  const xrayBtn = $('[data-xray]');
+  let xrayOn = false;
+  xrayBtn?.addEventListener('click', () => {
+    xrayOn = !xrayOn;
+    xrayBtn.classList.toggle('on', xrayOn);
+    layer.dispatchEvent(new CustomEvent('aura:xray', { detail: { on: xrayOn } }));
+  });
 
   let range = 486;
   const rangeEl = $('[data-range]');
   let slowTimer = 0;
+
+  const tyreCorners = Array.from(layer.querySelectorAll('.tyre-corner'));
+  const tyrePhase = [0.2, 1.4, 2.6, 3.8];
 
   function update(time, dt) {
     const levels = playing ? audio.levels(eqBars.length) : null;
@@ -282,15 +363,26 @@ export function createConsole(layer, audio) {
     const elapsed = Math.round(progress * duration);
     currentTimeEl.textContent = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')}`;
 
-    routeProgress = (routeProgress + dt * 0.007) % 0.94;
-    const point = route.getPointAtLength(routeProgress * routeLength);
-    routeDot.setAttribute('cx', point.x);
-    routeDot.setAttribute('cy', point.y);
+    consoleMap.tick(dt);
+
+    if (!ambienceCard.hidden) ambience.update(time, dt);
+
+    tyreCorners.forEach((corner, index) => {
+      const isFront = index < 2;
+      const load = (isFront ? 4.1 : 3.8) + Math.sin(time * 0.6 + tyrePhase[index]) * 0.12;
+      const temp = (isFront ? 36 : 34) + Math.sin(time * 0.4 + tyrePhase[index] * 1.3) * 2.2;
+      const loadEl = corner.querySelector('[data-load]');
+      const tempEl = corner.querySelector('[data-temp]');
+      if (loadEl) loadEl.textContent = load.toFixed(1);
+      if (tempEl) {
+        tempEl.textContent = `${Math.round(temp)}\u00b0`;
+        tempEl.classList.toggle('hot', temp > 37);
+      }
+    });
 
     slowTimer += dt;
     if (slowTimer > 1) {
       slowTimer = 0;
-      etaEl.textContent = `${Math.max(1, Math.round((1 - routeProgress) * 20))} min`;
       if (Math.random() < 0.04) {
         range = Math.max(120, range - 1);
         rangeEl.textContent = String(range);
@@ -300,10 +392,13 @@ export function createConsole(layer, audio) {
 
   function onEnter() {
     layer.querySelector('.aura-console').classList.add('is-live');
+    consoleMap.setActive(true);
+    ambience.resize();
   }
 
   function onExit() {
     layer.querySelector('.aura-console').classList.remove('is-live');
+    consoleMap.setActive(false);
   }
 
   return { update, onEnter, onExit };

@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Straße 60",
+    "maneuver": "depart",
+    "modifier": "right",
+    "distance": 52.4,
+    "location": [
+      10.760105,
+      52.438637
+    ]
+  },
+  {
+    "name": "Pappelallee",
+    "maneuver": "turn",
+    "modifier": "sharp left",
+    "distance": 345.6,
+    "location": [
+      10.760219,
+      52.438171
+    ]
+  },
+  {
+    "name": "Nordstraße",
+    "maneuver": "continue",
+    "modifier": "sharp right",
+    "distance": 88.8,
+    "location": [
+      10.764683,
+      52.438037
+    ]
+  },
+  {
+    "name": "Weststraße",
+    "maneuver": "turn",
+    "modifier": "slight right",
+    "distance": 643.1,
+    "location": [
+      10.763636,
+      52.43777
+    ]
+  },
+  {
+    "name": "Weststraße",
+    "maneuver": "roundabout turn",
+    "modifier": "straight",
+    "distance": 684,
+    "location": [
+      10.761198,
+      52.434789
+    ]
+  },
+  {
+    "name": "Tor Sandkamp",
+    "maneuver": "turn",
+    "modifier": "right",
+    "distance": 46.6,
+    "location": [
+      10.762805,
+      52.428826
+    ]
+  },
+  {
+    "name": "Oststraße",
+    "maneuver": "end of road",
+    "modifier": "left",
+    "distance": 575.5,
+    "location": [
+      10.76273,
+      52.428434
+    ]
+  },
+  {
+    "name": "Heinrich-Nordhoff-Straße",
+    "maneuver": "turn",
+    "modifier": "left",
+    "distance": 1195.2,
+    "location": [
+      10.768689,
+      52.426724
+    ]
+  },
+  {
+    "name": "Heinrich-Nordhoff-Straße",
+    "maneuver": "continue",
+    "modifier": "slight right",
+    "distance": 326,
+    "location": [
+      10.785729,
+      52.427908
+    ]
+  },
+  {
+    "name": "An der Vorburg",
+    "maneuver": "turn",
+    "modifier": "left",
+    "distance": 308.4,
+    "location": [
+      10.790417,
+      52.427885
+    ]
+  },
+  {
+    "name": "An der Vorburg",
+    "maneuver": "arrive",
+    "modifier": null,
+    "distance": 0,
+    "location": [
+      10.793605,
+      52.429468
+    ]
+  }
+]

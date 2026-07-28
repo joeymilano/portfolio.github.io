@@ -11,12 +11,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { createPostFX } from './postfx.js?v=20260728-2';
 
-export function createScene(container) {
+export function createScene(container, quality) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
@@ -251,17 +248,15 @@ export function createScene(container) {
   showroomGroup.add(dust);
 
   /* ---------- post-processing ---------- */
-  const composer = new EffectComposer(renderer);
-  composer.addPass(new RenderPass(scene, camera));
-  const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.1, 0.34, 0.92);
-  composer.addPass(bloom);
-  composer.addPass(new OutputPass());
+  const postfx = createPostFX(renderer, scene, camera, quality);
+  const composer = postfx.composer;
+  const bloom = postfx.bloom;
 
   function resize() {
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
-    composer.setSize(innerWidth, innerHeight);
+    postfx.resize(innerWidth, innerHeight);
   }
   addEventListener('resize', resize);
 
@@ -273,6 +268,7 @@ export function createScene(container) {
     dust.rotation.y = t * 0.008;
     halo.rotation.z = t * 0.018;
     haloMat.opacity = 0.22 + Math.sin(t * 0.7) * 0.045;
+    postfx.update(t, camera.position.distanceTo(controls.target));
   }
 
   function setShowroomActive(on) {
@@ -295,7 +291,7 @@ export function createScene(container) {
 
   window.__scene = scene;   // debug hook
   return {
-    scene, camera, renderer, controls, composer, bloom, resize, render, update,
+    scene, camera, renderer, controls, composer, bloom, postfx, resize, render, update,
     SCENES, setScene, getScene: () => sceneIdx, onScene: (cb) => sceneCbs.push(cb),
     setShowroomActive
   };

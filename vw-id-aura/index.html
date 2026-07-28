@@ -14,11 +14,15 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://joeyzhao.cc/vw-id-aura/">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600&family=Manrope:wght@300;400;500;600&family=Michroma&family=Sometype+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-600.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/sometype-mono-400.woff2" crossorigin>
   <link rel="preload" as="image" href="assets/video/aura-night-drive-poster.jpg">
-  <link rel="stylesheet" href="styles.css?v=20260727-8">
+  <link rel="stylesheet" href="vendor/maplibre-gl.css">
+  <link rel="stylesheet" href="css/tokens.css?v=20260728-1">
+  <link rel="stylesheet" href="css/system.css?v=20260728-1">
+  <link rel="stylesheet" href="styles.css?v=20260728-11">
+  <link rel="stylesheet" href="css/cluster-gauge.css?v=20260728-1">
 
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"CreativeWork","name":"Volkswagen ID.AURA — HMI Concept","description":"An immersive WebGL human-machine interface concept for Volkswagen's electric future.","url":"https://joeyzhao.cc/vw-id-aura/","inLanguage":"en","creator":{"@type":"Person","name":"Joey Zhao","jobTitle":"Senior AI Product Designer","url":"https://joeyzhao.cc/"}}
@@ -29,10 +33,16 @@
     "imports": {
       "three": "./vendor/three.module.js",
       "three/addons/": "./vendor/addons/",
-      "gsap": "./vendor/gsap.module.js"
+      "gsap": "./vendor/gsap.module.js",
+      "pmtiles": "./vendor/pmtiles.js",
+      "fflate": "./vendor/fflate.js"
     }
   }
   </script>
+  <!-- MapLibre GL JS ships as a UMD bundle (no ESM exports), so it's loaded as a
+       classic deferred script that sets window.maplibregl; console.js reads it
+       off the global instead of importing it. -->
+  <script src="vendor/maplibre-gl.js" defer></script>
 </head>
 <body data-view="showroom">
   <!-- WebGL stage (renderer canvas injected here) -->
@@ -230,6 +240,6 @@
       }
     });
   </script>
-  <script type="module" src="js/main.js?v=20260727-14"></script>
+  <script type="module" src="js/main.js?v=20260728-1"></script>
 </body>
 </html>

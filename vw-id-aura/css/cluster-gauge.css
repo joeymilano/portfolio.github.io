@@ -1,0 +1,121 @@
+/* ============================================================
+   ID.AURA — Cluster · SVG power gauge (Phase B3)
+   Styles for js/cluster/gauge.js. Sizing/position is driven by
+   the JS resize()/update() calls via inline transform + the
+   --gauge-base custom property (px, set once per resize) so the
+   digit-roll / kW HTML overlay stays perfectly in step with the
+   SVG ring without a layout-thrashing per-frame reflow.
+   ============================================================ */
+
+.cluster-gauge-mount {
+  --gauge-base: 260px;
+  position: absolute;
+  top: 58.5%;
+  left: 50%;
+  z-index: 4;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.gauge-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transition: opacity 0.5s var(--ease-soft, ease);
+}
+
+.gauge-track,
+.gauge-hairline { transition: opacity 0.4s ease; }
+
+.gauge-drive,
+.gauge-recoil {
+  transition: opacity 0.35s ease;
+}
+
+.gauge-shine {
+  transition: opacity 0.35s ease;
+}
+
+.gauge-needle line {
+  stroke: var(--cyan, #54d3e3);
+  transition: stroke 0.35s ease;
+}
+
+.gauge-hub {
+  stroke: var(--cyan, #54d3e3);
+  transition: stroke 0.35s ease;
+}
+
+.gauge-lbl-drive,
+.gauge-lbl-recup {
+  font-family: "Chakra Petch", "Manrope", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: fill 0.35s ease;
+}
+
+/* ---------- HTML chrome overlay: digit-roll speed + kW ---------- */
+.gauge-chrome {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.gauge-speed {
+  display: flex;
+  height: calc(var(--gauge-base) * 0.39);
+  margin-bottom: calc(var(--gauge-base) * -0.01);
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.55));
+  transform-origin: center;
+}
+
+.digit-roll {
+  width: calc(var(--gauge-base) * 0.215);
+  height: 100%;
+  overflow: hidden;
+}
+
+.digit-strip {
+  display: flex;
+  flex-direction: column;
+  height: 1000%;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.digit-strip i {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 300 calc(var(--gauge-base) * 0.34) "Chakra Petch", "Manrope", sans-serif;
+  font-style: normal;
+  color: #f5f7f7;
+}
+
+.digit-roll.dim .digit-strip i {
+  color: rgba(245, 247, 247, 0.28);
+}
+
+.gauge-unit {
+  margin-top: calc(var(--gauge-base) * 0.02);
+  font-family: "Chakra Petch", "Manrope", sans-serif;
+  font-size: calc(var(--gauge-base) * 0.033);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(170, 198, 206, 0.6);
+}
+
+.gauge-kw {
+  margin-top: calc(var(--gauge-base) * 0.05);
+  font-family: "Chakra Petch", "Manrope", sans-serif;
+  font-size: calc(var(--gauge-base) * 0.066);
+  font-weight: 500;
+  transition: color 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+}
