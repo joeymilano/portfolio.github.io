@@ -21,7 +21,7 @@
    ============================================================ */
 
 import { gsap } from 'gsap';
-import { createGauge } from './gauge.js?v=20260729-1';
+import { createGauge } from './gauge.js?v=20260729-2';
 
 const TAU = Math.PI * 2;
 
@@ -44,6 +44,8 @@ const MODES = {
   }
 };
 const RECOIL = '#75e2bd';   // recuperation green — mode-invariant
+const compactViewport = (w, h) => w <= 780 || h <= 560;
+const compactPortrait = (w, h) => w <= 780 && h > w;
 
 /* per-mode layout targets; GSAP tweens `layout` between these */
 const LAYOUT_TARGET = {
@@ -528,7 +530,8 @@ export function createCluster(layer) {
      ============================================================ */
   function drawEnergyFlow(w, h, mode, focus) {
     if (focus < 0.02) return;
-    const cx = w * 0.5, cy = h * 0.34;
+    const cx = w * 0.5;
+    const cy = compactPortrait(w, h) ? h * 0.39 : compactViewport(w, h) ? h * 0.46 : h * 0.34;
     const R = Math.min(w * 0.21, h * 0.30) * 1.18;
     const isRecup = state.power < 0;
     const half = isRecup ? -1 : 1;
@@ -553,42 +556,58 @@ export function createCluster(layer) {
   function drawTurnCue(w, h, mode) {
     const pf = layout.pureFocus;
     const regA = 1 - pf;
+    const compact = compactViewport(w, h);
+    const portrait = compactPortrait(w, h);
+    const x = portrait ? w * 0.5 : compact ? w * 0.21 : w * 0.5;
+    const y = portrait ? h * 0.17 : compact ? h * 0.32 : h * 0.165;
+    const cueScale = portrait
+      ? Math.min(1, (w - 24) / 380)
+      : compact
+        ? 0.72
+        : 1;
     if (regA > 0.02) {
-      const x = w * 0.5, y = h * 0.165;
-      const ww = 380, hh = 64;
       ctx.save();
       ctx.globalAlpha = regA;
-      roundedRect(x - ww / 2, y - hh / 2, ww, hh, 16);
+      ctx.translate(x, y);
+      ctx.scale(cueScale, cueScale);
+      roundedRect(-190, -32, 380, 64, 16);
       ctx.fillStyle = 'rgba(2,7,11,0.66)'; ctx.fill();
       ctx.strokeStyle = 'rgba(132,205,217,0.14)'; ctx.lineWidth = 1; ctx.stroke();
-      line([[x - 148, y + 10], [x - 148, y - 8], [x - 132, y - 22], [x - 104, y - 22]], mode.hue, 2.4, 6);
-      line([[x - 114, y - 30], [x - 104, y - 22], [x - 114, y - 14]], mode.hue, 2.4, 6);
-      text('1.2 KM', x - 80, y - 8, 18, '#eff8fa', 'left', 400, 'Chakra Petch');
-      text('BEAR RIGHT · OAKWOOD AVE', x - 80, y + 13, 9.5, 'rgba(159,187,196,0.64)', 'left', 500);
+      line([[-148, 10], [-148, -8], [-132, -22], [-104, -22]], mode.hue, 2.4, 6);
+      line([[-114, -30], [-104, -22], [-114, -14]], mode.hue, 2.4, 6);
+      text('1.2 KM', -80, -8, 18, '#eff8fa', 'left', 400, 'Chakra Petch');
+      text('BEAR RIGHT · OAKWOOD AVE', -80, 13, 9.5, 'rgba(159,187,196,0.64)', 'left', 500);
       ctx.restore();
     }
     if (pf > 0.02) {
       ctx.save();
       ctx.globalAlpha = pf;
-      const x = w * 0.5, y = h * 0.155;
+      ctx.translate(x, y);
+      ctx.scale(cueScale, cueScale);
       ctx.strokeStyle = mode.hue;
       ctx.lineWidth = 2.6;
       ctx.shadowColor = mode.hue; ctx.shadowBlur = 14;
       ctx.beginPath();
-      ctx.moveTo(x - 26, y - 14); ctx.lineTo(x, y - 30); ctx.lineTo(x + 26, y - 14);
+      ctx.moveTo(-26, -14); ctx.lineTo(0, -30); ctx.lineTo(26, -14);
       ctx.stroke();
       ctx.shadowBlur = 0;
-      text('1.2 KM', x, y + 6, 22, '#f5f7f7', 'center', 300, 'Chakra Petch');
-      text('OAKWOOD AVENUE', x, y + 28, 9.5, 'rgba(170,200,210,0.6)', 'center', 500);
+      text('1.2 KM', 0, 6, 22, '#f5f7f7', 'center', 300, 'Chakra Petch');
+      text('OAKWOOD AVENUE', 0, 28, 9.5, 'rgba(170,200,210,0.6)', 'center', 500);
       ctx.restore();
     }
   }
 
   function drawStatus(w, h) {
-    const top = h * 0.072;
+    const compact = compactViewport(w, h);
+    const top = compact ? (compactPortrait(w, h) ? 72 : 58) : h * 0.072;
     const now = new Date();
     const t = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-    text(t, w * 0.05, top, 12, 'rgba(196,215,220,0.7)', 'left', 400, 'Chakra Petch');
+    text(t, compact ? 16 : w * 0.05, top, 12, 'rgba(196,215,220,0.7)', 'left', 400, 'Chakra Petch');
+    if (compact) {
+      text(`${Math.round(state.soc)}% · ${Math.round(state.range)} KM`, w - 16, top, 9.5,
+        'rgba(196,215,220,0.5)', 'right', 500, 'Chakra Petch');
+      return;
+    }
     text('21.5°  ·  BERLIN', w * 0.95, top, 11, 'rgba(196,215,220,0.55)', 'right', 500);
     // SOC + range + consumption trend — tucked under the temp/city line, top-right corner only
     text(`${Math.round(state.soc)}% · ${Math.round(state.range)} KM`, w * 0.95, top + 16, 9.5,
@@ -617,8 +636,10 @@ export function createCluster(layer) {
      the heading strip; pulses amber/red when over the posted limit)
      ============================================================ */
   function drawSpeedLimitBadge(w, h) {
-    const cx = w * 0.075, cy = h * 0.155;
-    const R = Math.min(w, h) * 0.026;
+    const compact = compactViewport(w, h);
+    const cx = compact ? 31 : w * 0.075;
+    const cy = compactPortrait(w, h) ? h * 0.17 : compact ? h * 0.25 : h * 0.155;
+    const R = Math.min(w, h) * (compact ? 0.033 : 0.026);
     const over = state.overLimitPulse;
     const ring = over > 0.05 ? `rgba(232,162,77,${0.55 + over * 0.45})` : 'rgba(224,90,90,0.82)';
     ctx.save();
@@ -702,6 +723,7 @@ export function createCluster(layer) {
      doesn't compete with the bespoke performance HUD.
      ============================================================ */
   function drawBottomStrip(w, h, mode) {
+    if (compactViewport(w, h)) return;
     const y = h * 0.80;
     ctx.save();
 
@@ -762,7 +784,7 @@ export function createCluster(layer) {
     const mode = MODES[state.mode];
 
     // BASE — 实时 3D 感知世界（js/cluster/world.js）已接管驾驶环境：
-    // 道路/车道/城市/雷达锥/前车由 WebGL 渲染在 HUD 之下，Canvas 只保留仪器层。
+    // 道路/车道/城市/雷达锥由 WebGL 渲染在 HUD 之下，Canvas 只保留仪器层。
     // (旧 AI 照片 drawScenePhoto / Canvas 车道 drawLaneFlow / Canvas ADAS drawADAS 已下线)
 
     // MID — SVG instrument (gauge.js): arcs, needle, digit-roll speed

@@ -247,7 +247,13 @@ export function createGauge(mount, { mode, recoilColor }) {
   let sweepAngle = 0;
 
   function resize(w, h) {
-    const outerR = Math.min(w * 0.145, h * 0.19);
+    const compact = w <= 780 || h <= 560;
+    const portrait = w <= 780 && h > w;
+    const outerR = portrait
+      ? Math.min(w * 0.18, h * 0.14)
+      : compact
+        ? Math.min(w * 0.13, h * 0.18)
+        : Math.min(w * 0.145, h * 0.19);
     const size = (outerR / R) * VB;
     mount.style.width = `${size}px`;
     mount.style.height = `${size}px`;
@@ -256,7 +262,13 @@ export function createGauge(mount, { mode, recoilColor }) {
   }
 
   function update(state, layout, mode, dt) {
-    const cyFrac = 0.34 - (0.34 - 0.33) * layout.pureFocus;
+    const w = mount.parentElement?.clientWidth || innerWidth;
+    const h = mount.parentElement?.clientHeight || innerHeight;
+    const portrait = w <= 780 && h > w;
+    const compact = w <= 780 || h <= 560;
+    const baseCy = portrait ? 0.39 : compact ? 0.46 : 0.34;
+    const pureCy = portrait ? 0.385 : compact ? 0.455 : 0.33;
+    const cyFrac = baseCy - (baseCy - pureCy) * layout.pureFocus;
     mount.style.top = `${cyFrac * 100}%`;
     mount.style.transform = `translate(-50%,-50%) scale(${layout.gaugeScale})`;
 

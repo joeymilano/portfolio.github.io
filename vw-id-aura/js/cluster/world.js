@@ -195,47 +195,6 @@ export function createClusterWorld(view, car) {
     arcs.push(arcMat);
   });
 
-  /* ============================================================
-     前车（感知语义：发光轮廓车影 + 3D 感知框 + 尾灯）
-     ============================================================ */
-  const leadGroup = new THREE.Group();
-  group.add(leadGroup);
-  let leadBodyMat, leadFrameMat, leadTailMat;
-  {
-    // 简化车影：半透发光体（box 拉伸成车比例）
-    leadBodyMat = new THREE.MeshBasicMaterial({
-      color: TEAL, transparent: true, opacity: 0.10,
-      blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false
-    });
-    const body = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.35, 4.4), leadBodyMat);
-    body.position.y = 0.75;
-    leadGroup.add(body);
-    // 发光轮廓线框
-    const frame = new THREE.LineSegments(
-      new THREE.EdgesGeometry(new THREE.BoxGeometry(1.9, 1.35, 4.4)),
-      (leadFrameMat = new THREE.LineBasicMaterial({
-        color: TEAL_SOFT, transparent: true, opacity: 0.8,
-        blending: THREE.AdditiveBlending, toneMapped: false
-      }))
-    );
-    frame.position.y = 0.75;
-    leadGroup.add(frame);
-    // 尾灯
-    leadTailMat = new THREE.MeshBasicMaterial({ color: RED, toneMapped: false });
-    for (const x of [-0.7, 0.7]) {
-      const tail = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.1, 0.05), leadTailMat);
-      tail.position.set(x, 0.72, 2.22);
-      leadGroup.add(tail);
-    }
-    // 车顶感知标记（悬浮菱形，随扫描脉冲）
-    const marker = new THREE.Mesh(
-      new THREE.OctahedronGeometry(0.18),
-      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85, toneMapped: false })
-    );
-    marker.position.y = 2.05;
-    leadGroup.add(marker);
-  }
-
   /* ---------- 大灯 SpotLight（本车照亮道路，真实光影） ---------- */
   let headSpots = [];
   function buildHeadlights(target) {
@@ -303,7 +262,7 @@ export function createClusterWorld(view, car) {
   }
 
   /* ============================================================
-     每帧更新 —— 跑步机 + 雷达脉冲 + 车轮 + 跟车
+     每帧更新 —— 跑步机 + 雷达脉冲 + 车轮
      state: { speed(km/h), power(-1..1), frontCarM, mode }
      ============================================================ */
   const dummy = new THREE.Object3D();
@@ -353,14 +312,6 @@ export function createClusterWorld(view, car) {
     coneMat.opacity = 0.035 + pulse * 0.05 + Math.min(v / 60, 1) * 0.03;
     arcs.forEach((m, i) => { m.opacity = 0.22 + Math.sin(t * 2.2 - i * 0.6) * 0.14; });
 
-    // 跟车：前车距离（state.frontCarM,米）映射到 -Z；回收时尾灯增亮
-    const frontM = state && typeof state.frontCarM === 'number' ? state.frontCarM : 50;
-    const leadZ = -Math.max(frontM, 12);
-    leadGroup.position.z = THREE.MathUtils.lerp(leadGroup.position.z, leadZ, 0.05);
-    const regen = state && state.power < -0.05;
-    leadTailMat.color.set(regen ? 0xff7a6a : RED);
-    leadFrameMat.opacity = 0.5 + pulse * 0.35;
-    leadBodyMat.opacity = 0.07 + pulse * 0.05;
   }
 
   return { group, build, setActive, update, CAM };

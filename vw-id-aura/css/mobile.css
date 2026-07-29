@@ -1,0 +1,837 @@
+/* ============================================================
+   ID.AURA — Mobile composition
+   A phone is treated as a focused control surface, not a scaled
+   desktop canvas: view navigation stays reachable, showroom
+   controls become swipeable rails, drive data is prioritized,
+   and Console becomes a native vertical card flow.
+   ============================================================ */
+
+@media (max-width: 780px), (max-height: 560px) and (hover: none) {
+  :root {
+    --mobile-edge: max(12px, env(safe-area-inset-left));
+    --mobile-nav-bottom: max(10px, env(safe-area-inset-bottom));
+    --mobile-nav-h: 50px;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overscroll-behavior: none;
+  }
+
+  body {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #stage,
+  #stage canvas,
+  #hud,
+  .layer,
+  #intro {
+    height: 100%;
+    height: 100dvh;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ---------- mobile shell ---------- */
+  .hud-top {
+    position: fixed;
+    z-index: 30;
+    height: 64px;
+    padding:
+      max(10px, env(safe-area-inset-top))
+      var(--mobile-edge)
+      0;
+    background: linear-gradient(180deg, rgba(1, 3, 6, 0.92), rgba(1, 3, 6, 0.38) 72%, transparent);
+    /* A transformed ancestor traps position:fixed descendants. The desktop
+       entrance offset would otherwise pin the mobile view dock to this
+       64px header instead of the viewport bottom. */
+    transform: none;
+    pointer-events: none;
+  }
+
+  body.boot-done .hud-top {
+    transform: none;
+  }
+
+  .hud-brand {
+    position: absolute;
+    top: max(13px, env(safe-area-inset-top));
+    left: var(--mobile-edge);
+    pointer-events: none;
+  }
+
+  .hud-mark {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hud-word,
+  .hud-clock {
+    display: none;
+  }
+
+  .hud-right {
+    position: absolute;
+    top: max(9px, env(safe-area-inset-top));
+    right: var(--mobile-edge);
+    gap: 7px;
+    pointer-events: auto;
+  }
+
+  .hud-icon {
+    width: 42px;
+    height: 42px;
+    background: rgba(2, 7, 11, 0.84);
+  }
+
+  .hud-nav {
+    position: fixed;
+    z-index: 40;
+    left: var(--mobile-edge);
+    right: var(--mobile-edge);
+    bottom: var(--mobile-nav-bottom);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: auto;
+    height: var(--mobile-nav-h);
+    gap: 2px;
+    padding: 4px;
+    border-color: rgba(150, 205, 220, 0.16);
+    border-radius: 16px;
+    background: rgba(2, 7, 11, 0.9);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.055),
+      0 18px 52px rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    overflow: hidden;
+    pointer-events: auto;
+  }
+
+  .nav-btn {
+    min-width: 0;
+    min-height: 42px;
+    padding: 0 3px;
+    border-radius: 12px;
+    font-size: clamp(7.4px, 2.25vw, 9px);
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+  }
+
+  .hud-bottom {
+    display: none;
+  }
+
+  #control-toast {
+    top: max(66px, calc(env(safe-area-inset-top) + 54px));
+    left: 50%;
+    right: auto;
+    width: max-content;
+    max-width: calc(100vw - 32px);
+    transform: translate(-50%, -5px);
+    text-align: center;
+  }
+
+  #control-toast.show {
+    transform: translate(-50%, 0);
+  }
+
+  #aura-glow {
+    opacity: 0.48;
+    box-shadow:
+      inset 0 0 55px 4px color-mix(in srgb, var(--view-accent) 36%, transparent),
+      inset 0 0 160px 24px color-mix(in srgb, var(--view-accent) 12%, transparent);
+  }
+
+  .film-grade::before {
+    opacity: 0.16;
+  }
+
+  /* ---------- cinematic intro ---------- */
+  #intro {
+    min-height: 100dvh;
+  }
+
+  .intro-top {
+    padding:
+      max(18px, env(safe-area-inset-top))
+      20px
+      0;
+  }
+
+  .intro-back {
+    min-height: 38px;
+  }
+
+  .intro-core {
+    display: grid;
+    grid-template-rows: minmax(76px, 1fr) auto auto;
+    grid-template-columns: 1fr;
+    align-items: end;
+    gap: 18px;
+    height: 100dvh;
+    padding:
+      max(74px, calc(env(safe-area-inset-top) + 58px))
+      20px
+      max(22px, env(safe-area-inset-bottom));
+  }
+
+  .intro-copy {
+    max-width: 100%;
+    align-self: end;
+  }
+
+  .intro-eyebrow {
+    margin: 0 0 16px;
+    font-size: 7.5px;
+    letter-spacing: 0.34em;
+  }
+
+  .intro-title {
+    font-size: clamp(72px, 24vw, 96px);
+    line-height: 0.82;
+  }
+
+  .intro-statement {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .intro-sub {
+    max-width: 100%;
+    margin-top: 14px;
+    font-size: 10.5px;
+    line-height: 1.65;
+  }
+
+  .intro-meta,
+  .intro-footer,
+  .intro-audio-state {
+    display: none;
+  }
+
+  .intro-ignition {
+    align-self: end;
+    justify-self: end;
+    flex-direction: row;
+    gap: 0;
+    padding: 0;
+  }
+
+  .launch-orbit {
+    width: clamp(138px, 39vw, 156px);
+  }
+
+  .launch-btn {
+    width: 64%;
+  }
+
+  .launch-btn strong {
+    font-size: 8px;
+  }
+
+  .intro-film {
+    object-position: 60% 50%;
+  }
+
+  /* ---------- Showroom: three swipeable control rails ---------- */
+  .lens-rail {
+    top: max(76px, calc(env(safe-area-inset-top) + 62px));
+    left: var(--mobile-edge);
+    right: var(--mobile-edge);
+    bottom: auto;
+    transform: none;
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-inline: contain;
+  }
+
+  .lens-rail::-webkit-scrollbar,
+  .scene-rail::-webkit-scrollbar,
+  .console-scenario-dock::-webkit-scrollbar,
+  .aura-console::-webkit-scrollbar {
+    display: none;
+  }
+
+  .lens-btn {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 9px 14px;
+    border-radius: 12px;
+    scroll-snap-align: start;
+  }
+
+  .paint-rail {
+    top: max(132px, calc(env(safe-area-inset-top) + 118px));
+    right: var(--mobile-edge);
+    transform: none;
+    flex-direction: row;
+    gap: 9px;
+    padding: 8px 10px;
+    border-radius: 999px;
+  }
+
+  .paint-rail .rail-label {
+    margin-right: 2px;
+    writing-mode: horizontal-tb;
+  }
+
+  .paint-dot {
+    width: 28px;
+    height: 28px;
+  }
+
+  .scene-rail {
+    left: var(--mobile-edge);
+    right: var(--mobile-edge);
+    bottom: calc(var(--mobile-nav-bottom) + var(--mobile-nav-h) + 10px);
+    transform: none;
+    width: auto;
+    padding: 5px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .scene-rail .rail-label {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0 8px;
+    writing-mode: horizontal-tb;
+    background: rgba(3, 8, 12, 0.96);
+  }
+
+  .scene-btn {
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 7px 12px;
+    scroll-snap-align: start;
+  }
+
+  .interior-tour {
+    left: var(--mobile-edge);
+    right: var(--mobile-edge);
+    bottom: calc(var(--mobile-nav-bottom) + var(--mobile-nav-h) + 72px);
+    width: auto;
+    transform: translateY(12px);
+    padding: 8px;
+  }
+
+  body[data-view="showroom"].interior-view .interior-tour {
+    transform: none;
+  }
+
+  .interior-view-btn {
+    min-height: 44px;
+  }
+
+  /* ---------- Cluster: one primary instrument + two summaries ---------- */
+  .cluster-heading,
+  .cluster-assistance {
+    display: none;
+  }
+
+  .horizon-cluster {
+    box-shadow: inset 0 0 95px -30px var(--mode-hue, #54d3e3);
+  }
+
+  .horizon-cluster::before {
+    background:
+      linear-gradient(180deg, rgba(1, 3, 6, 0.58), transparent 18%, transparent 78%, rgba(1, 3, 6, 0.56)),
+      linear-gradient(90deg, rgba(1, 3, 6, 0.34), transparent 18%, transparent 82%, rgba(1, 3, 6, 0.34));
+  }
+
+  .cluster-pod {
+    top: auto;
+    bottom: calc(var(--mobile-nav-bottom) + var(--mobile-nav-h) + 82px);
+    width: calc(50% - 18px);
+    min-height: 82px;
+    padding: 11px 12px;
+    transform: none;
+    clip-path: polygon(0 9px, 9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%);
+  }
+
+  .pod-perf {
+    left: var(--mobile-edge);
+  }
+
+  .pod-energy {
+    right: var(--mobile-edge);
+  }
+
+  .pod-label {
+    margin-bottom: 8px;
+    font-size: 7px;
+    letter-spacing: 0.16em;
+  }
+
+  .pod-kw-wrap b {
+    font-size: 26px;
+  }
+
+  .pod-kw-wrap span,
+  .pod-range span {
+    font-size: 7px;
+  }
+
+  .pod-energy .pod-soc-wrap,
+  .pod-energy .pod-spark,
+  .cluster-pod .pod-bar,
+  .cluster-pod .pod-row,
+  .cluster-pod .pod-g {
+    display: none;
+  }
+
+  .pod-range {
+    margin: 4px 0 0;
+    text-align: left;
+  }
+
+  .pod-range b {
+    font-size: 26px;
+  }
+
+  .horizon-cluster .cluster-modes {
+    left: var(--mobile-edge);
+    right: var(--mobile-edge);
+    bottom: calc(var(--mobile-nav-bottom) + var(--mobile-nav-h) + 8px);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: auto;
+    transform: none;
+  }
+
+  .horizon-cluster .cluster-modes::before {
+    top: -8px;
+    width: 100%;
+  }
+
+  .horizon-cluster .cluster-modes button {
+    min-width: 0;
+    min-height: 38px;
+    padding: 8px 3px;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+
+  /* ---------- Console: scrollable card flow ---------- */
+  #layer-console {
+    background:
+      linear-gradient(180deg, rgba(2, 7, 11, 0.74), rgba(2, 7, 11, 0.92)),
+      radial-gradient(circle at 50% 30%, rgba(84, 211, 227, 0.08), transparent 48%);
+  }
+
+  .aura-console {
+    display: block;
+    width: 100%;
+    height: 100dvh;
+    padding:
+      max(72px, calc(env(safe-area-inset-top) + 60px))
+      var(--mobile-edge)
+      calc(var(--mobile-nav-bottom) + 132px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    pointer-events: auto;
+    scrollbar-width: none;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .aura-console .console-top {
+    display: flex;
+    min-height: 42px;
+    margin: 0 2px 12px;
+    padding: 0;
+    align-items: flex-start;
+  }
+
+  .console-time {
+    display: grid;
+    gap: 2px;
+  }
+
+  .aura-console .console-clock {
+    font-size: 28px;
+  }
+
+  .aura-console .console-date {
+    font-size: 7.5px;
+    letter-spacing: 0.14em;
+  }
+
+  .console-journey {
+    justify-content: flex-end;
+    gap: 10px;
+    font-size: 7.5px;
+    letter-spacing: 0.09em;
+  }
+
+  .console-journey > span:nth-child(2) {
+    display: none;
+  }
+
+  .console-scenario-dock {
+    position: relative;
+    top: auto;
+    width: 100%;
+    margin: 0 0 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: 14px;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .console-scenario-dock .ui-chip {
+    flex: 0 0 auto;
+    min-height: 38px;
+    padding-inline: 13px;
+    scroll-snap-align: start;
+  }
+
+  .aura-console-grid {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    gap: 12px;
+  }
+
+  .aura-map {
+    flex: 0 0 auto;
+    min-height: 480px;
+    padding: 20px 18px 16px;
+  }
+
+  .map-heading h2 {
+    margin-top: 7px;
+    font-size: 30px;
+  }
+
+  .map-heading p {
+    max-width: 220px;
+    font-size: 9px;
+    line-height: 1.45;
+  }
+
+  .map-turn {
+    gap: 7px;
+  }
+
+  .map-turn svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .map-turn b {
+    font-size: 23px;
+  }
+
+  .map-canvas {
+    min-height: 286px;
+  }
+
+  .map-footer {
+    gap: 5px;
+  }
+
+  .map-footer > div {
+    padding-left: 8px;
+  }
+
+  .map-footer span {
+    font-size: 17px;
+  }
+
+  .map-footer small {
+    font-size: 6.5px;
+    letter-spacing: 0.08em;
+  }
+
+  .aura-rail {
+    display: grid;
+    grid-template-rows: none;
+    min-height: auto;
+    margin: 0;
+    gap: 12px;
+  }
+
+  .aura-card,
+  .aura-card[data-size="s"],
+  .aura-card[data-size="m"],
+  .aura-card[data-size="l"] {
+    min-height: 190px;
+    padding: 17px 18px;
+    flex: none;
+  }
+
+  .aura-media {
+    min-height: 290px;
+    grid-template-columns: 96px 1fr;
+  }
+
+  .media-art-wrap {
+    width: 96px;
+    height: 96px;
+  }
+
+  .aura-comfort {
+    min-height: 205px;
+  }
+
+  .aura-vehicle {
+    min-height: 220px;
+  }
+
+  .console-stage-hint {
+    display: none;
+  }
+
+  .aura-console .console-dock {
+    position: fixed;
+    z-index: 35;
+    left: var(--mobile-edge);
+    right: var(--mobile-edge);
+    bottom: calc(var(--mobile-nav-bottom) + var(--mobile-nav-h) + 8px);
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: auto;
+    margin: 0;
+    padding: 4px;
+    transform: none;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .aura-console .tg {
+    min-width: 0;
+    min-height: 48px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 5px 2px;
+    border-radius: 11px;
+    font-size: 6.8px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .aura-console .tg .ph-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ---------- Autonomous: safety narrative before telemetry ---------- */
+  .auto-frame {
+    inset:
+      max(76px, calc(env(safe-area-inset-top) + 62px))
+      var(--mobile-edge)
+      calc(var(--mobile-nav-bottom) + 140px);
+  }
+
+  .autonomous .auto-top {
+    top: max(82px, calc(env(safe-area-inset-top) + 68px));
+    left: calc(var(--mobile-edge) + 8px);
+    gap: 5px;
+  }
+
+  .autonomous .auto-level {
+    font-size: 10px;
+  }
+
+  .autonomous .auto-percept {
+    font-size: 7px;
+  }
+
+  .auto-intent {
+    top: max(142px, calc(env(safe-area-inset-top) + 128px));
+    left: var(--mobile-edge);
+    right: var(--mobile-edge);
+    display: grid;
+    gap: 3px;
+    padding: 10px 12px;
+    transform: none;
+    border-left: 2px solid var(--amber);
+    background: linear-gradient(90deg, rgba(17, 11, 8, 0.88), rgba(5, 8, 11, 0.48));
+  }
+
+  .auto-intent span {
+    font-size: 7px;
+  }
+
+  .auto-intent b {
+    font-size: 11px;
+  }
+
+  .auto-intent small {
+    font-size: 7px;
+  }
+
+  .autonomous .auto-side,
+  .auto-sensors {
+    display: none;
+  }
+
+  .autonomous .auto-foot {
+    left: var(--mobile-edge);
+    right: var(--mobile-edge);
+    bottom: calc(var(--mobile-nav-bottom) + var(--mobile-nav-h) + 10px);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: auto;
+    gap: 0;
+    padding: 0;
+    transform: none;
+    clip-path: none;
+    border: 1px solid rgba(132, 180, 188, 0.12);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .autonomous .auto-foot span {
+    min-width: 0;
+    padding: 10px 7px;
+    text-align: center;
+  }
+
+  .autonomous .auto-foot span:nth-child(n + 4) {
+    display: none;
+  }
+
+  .autonomous .auto-foot i {
+    font-size: 6px;
+    line-height: 1.25;
+    letter-spacing: 0.1em;
+  }
+
+  .autonomous .auto-foot b {
+    font-size: 13px;
+  }
+
+  .autonomous .auto-foot b u {
+    display: block;
+    margin: 2px 0 0;
+    font-size: 7px;
+    vertical-align: 0;
+  }
+}
+
+/* Short phones keep every action, but compress non-essential copy. */
+@media (max-width: 780px) and (max-height: 700px) {
+  .intro-core {
+    gap: 12px;
+    padding-top: max(66px, calc(env(safe-area-inset-top) + 52px));
+  }
+
+  .intro-eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .intro-title {
+    font-size: clamp(64px, 21vw, 82px);
+  }
+
+  .intro-statement {
+    margin-top: 14px;
+    font-size: 12px;
+  }
+
+  .intro-sub {
+    margin-top: 9px;
+    font-size: 9.5px;
+  }
+
+  .launch-orbit {
+    width: 128px;
+  }
+
+  .cluster-pod {
+    bottom: calc(var(--mobile-nav-bottom) + var(--mobile-nav-h) + 68px);
+    min-height: 72px;
+  }
+}
+
+/* Coarse-pointer landscape gets a compact cockpit composition. */
+@media (max-height: 560px) and (orientation: landscape) and (hover: none) {
+  .intro-core {
+    grid-template: 1fr / minmax(0, 1fr) 144px;
+    align-items: end;
+    gap: 24px;
+    padding:
+      max(62px, calc(env(safe-area-inset-top) + 50px))
+      max(22px, env(safe-area-inset-right))
+      max(18px, env(safe-area-inset-bottom))
+      max(22px, env(safe-area-inset-left));
+  }
+
+  .intro-title {
+    font-size: clamp(68px, 13vw, 104px);
+  }
+
+  .intro-statement {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+
+  .intro-sub {
+    display: none;
+  }
+
+  .launch-orbit {
+    width: 136px;
+  }
+
+  .lens-rail {
+    top: 68px;
+    right: auto;
+    bottom: 72px;
+    width: 124px;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .paint-rail {
+    top: 68px;
+    right: var(--mobile-edge);
+    flex-direction: column;
+  }
+
+  .paint-rail .rail-label {
+    writing-mode: vertical-rl;
+  }
+
+  .scene-rail {
+    left: 146px;
+    right: 76px;
+  }
+
+  .cluster-pod {
+    display: none;
+  }
+
+  .aura-console {
+    padding-top: 64px;
+  }
+
+  .aura-map {
+    min-height: 370px;
+  }
+}

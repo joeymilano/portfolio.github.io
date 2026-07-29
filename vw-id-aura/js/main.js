@@ -9,8 +9,8 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { createScene } from './scene.js?v=20260728-2';
 import { createCar } from './car.js?v=20260727-3';
-import { createCluster } from './cluster/index.js?v=20260729-2';
-import { createClusterWorld } from './cluster/world.js?v=20260729-1';
+import { createCluster } from './cluster/index.js?v=20260729-3';
+import { createClusterWorld } from './cluster/world.js?v=20260729-2';
 import { createConsole } from './console.js?v=20260729-3';
 import { createAutonomous } from './autonomous.js?v=20260727-1';
 import { createAudio } from './audio.js?v=20260727-1';
@@ -71,6 +71,34 @@ const VIEWS = ['showroom', 'cluster', 'console', 'autonomous'];
 const VIEW_ACCENT = { showroom: '#54d3e3', cluster: '#54d3e3', console: '#54d3e3', autonomous: '#e6a877' };
 let current = 'showroom';
 
+function isCompactViewport() {
+  return innerWidth <= 780 || (innerHeight <= 560 && matchMedia('(hover: none)').matches);
+}
+
+function isPortraitPhone() {
+  return innerWidth <= 780 && innerHeight > innerWidth;
+}
+
+function applyResponsiveCamera(name = current) {
+  const portrait = isPortraitPhone();
+  camera.zoom = portrait
+    ? (name === 'showroom' ? 0.72 : name === 'cluster' ? 0.84 : name === 'autonomous' ? 0.74 : 1)
+    : 1;
+  camera.updateProjectionMatrix();
+}
+
+function syncCompactSceneVisibility() {
+  const showConsoleTwin = current === 'console' && !isCompactViewport();
+  if (consoleTwin) consoleTwin.group.visible = showConsoleTwin;
+  if (consoleStage) consoleStage.visible = showConsoleTwin;
+}
+
+applyResponsiveCamera(current);
+addEventListener('resize', () => {
+  applyResponsiveCamera(current);
+  syncCompactSceneVisibility();
+});
+
 function switchView(name) {
   if (name === current || !VIEWS.includes(name)) return;
   const prev = current;
@@ -96,8 +124,8 @@ function switchView(name) {
   // P3 修复:toon twin 可见性统一收敛 —— 只在 Console 显示,其余视图(含 Autonomous)一律隐藏。
   // 原先隐藏只写在 else 内层,Console→Autonomous 走 if(autonomous) 分支绕过,
   // 导致 twin 残留在原点 (0,0,0) 与 ego 真车堆叠成"两辆车"。此处一句管所有路径。
-  if (consoleTwin) consoleTwin.group.visible = (name === 'console');
-  if (consoleStage) consoleStage.visible = (name === 'console');
+  if (consoleTwin) consoleTwin.group.visible = (name === 'console' && !isCompactViewport());
+  if (consoleStage) consoleStage.visible = (name === 'console' && !isCompactViewport());
   // Cluster 3D 感知世界：进 cluster 激活夜间驾驶环境，离开恢复（一句管所有路径）
   clusterWorld.setActive(name === 'cluster');
 
@@ -138,6 +166,7 @@ function switchView(name) {
       }
     }
   }
+  applyResponsiveCamera(name);
 
   // lifecycle
   cluster[name === 'cluster' ? 'onEnter' : 'onExit']();
