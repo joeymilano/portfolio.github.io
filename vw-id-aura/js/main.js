@@ -9,11 +9,13 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { createScene } from './scene.js?v=20260728-2';
 import { createCar } from './car.js?v=20260727-3';
-import { createCluster } from './cluster/index.js?v=20260728-6';
-import { createConsole } from './console.js?v=20260728-3';
+import { createCluster } from './cluster/index.js?v=20260729-2';
+import { createClusterWorld } from './cluster/world.js?v=20260729-1';
+import { createConsole } from './console.js?v=20260729-3';
 import { createAutonomous } from './autonomous.js?v=20260727-1';
 import { createAudio } from './audio.js?v=20260727-1';
 import { createQuality } from './quality.js?v=20260728-1';
+import { Reflector } from 'three/addons/objects/Reflector.js';
 
 const stage = document.getElementById('stage');
 const layers = {
@@ -42,6 +44,9 @@ const audio = createAudio();
 const cluster = createCluster(layers.cluster);
 const consoleView = createConsole(layers.console, audio);
 const autonomous = createAutonomous(view, layers.autonomous, car);
+// Cluster 3D 感知世界（共享 scene/renderer；在 HUD 浮层之下渲染实时驾驶世界）
+const clusterWorld = createClusterWorld(view, car);
+if (cluster.attachWorld) cluster.attachWorld(clusterWorld);
 
 /* ---------- loading: real GLB progress ---------- */
 let loaded = false;
@@ -55,6 +60,7 @@ car.onLoad(() => {
     loaded = true;
   }, 450);
   buildConsoleTwin();
+  clusterWorld.build();
 });
 // safety: never trap the user behind the loader
 setTimeout(() => { loader.classList.add('done'); loaded = true; }, 9000);
@@ -92,6 +98,8 @@ function switchView(name) {
   // 导致 twin 残留在原点 (0,0,0) 与 ego 真车堆叠成"两辆车"。此处一句管所有路径。
   if (consoleTwin) consoleTwin.group.visible = (name === 'console');
   if (consoleStage) consoleStage.visible = (name === 'console');
+  // Cluster 3D 感知世界：进 cluster 激活夜间驾驶环境，离开恢复（一句管所有路径）
+  clusterWorld.setActive(name === 'cluster');
 
   // camera
   if (name === 'autonomous') {
@@ -105,12 +113,22 @@ function switchView(name) {
       buildConsoleTwin();
       controls.enabled = false;
       cinematicCam = true;
-      controls.target.set(0, 0.85, 0);
+      controls.target.set(0, 0.55, 0);
+      view.renderer.toneMappingExposure = 0.74;   // 影棚提亮（盖过 setShowroomActive 的 0.56）
       // camera is eased to the hero lens in the render loop (CONSOLE_CAM_GOAL)
       // — robust against stray tweens from sibling modules' onExit handlers.
     } else {
       controls.enabled = true;
-      if (name !== 'showroom') {
+      if (name === 'cluster') {
+        // Cluster = 3D 感知尾随视角（本车静止、世界后移）；相机锁定，禁 orbit
+        controls.enabled = false;
+        cinematicCam = true;
+        gsap.to(camera.position, {
+          x: clusterWorld.CAM.pos.x, y: clusterWorld.CAM.pos.y, z: clusterWorld.CAM.pos.z,
+          duration: 1.6, ease: 'power3.inOut'
+        });
+        controls.target.copy(clusterWorld.CAM.tgt);
+      } else if (name !== 'showroom') {
         gsap.to(camera.position, {
           x: 0, y: 1.9, z: 8.8, duration: 1.5, ease: 'power3.inOut'
         });
@@ -329,6 +347,8 @@ function playBootRitual() {
   const word = bootRitual.querySelector('.ritual-word');
   const ready = bootRitual.querySelector('.ritual-ready');
   const tl = gsap.timeline({ onComplete: () => { bootRitual.style.display = 'none'; } });
+  // 兜底：timeline 若因故未完成，4.5s 后强制隐藏仪式层，防 blade 光带残留
+  setTimeout(() => { if (bootRitual) bootRitual.style.display = 'none'; }, 4500);
   tl.set(veil, { opacity: 1 })
     .set(word, { xPercent: -50, yPercent: -50, opacity: 0, scale: 0.96, filter: 'blur(8px)' })
     .set(ready, { xPercent: -50, opacity: 0, y: 10 })
@@ -403,8 +423,9 @@ controls.addEventListener('end', () => {
 });
 
 /* ---------- P2: Console 3D garage — cel-shaded twin + tap controls ---------- */
-const CONSOLE_CAM_GOAL = new THREE.Vector3(5.4, 2.3, 6.2);
+const CONSOLE_CAM_GOAL = new THREE.Vector3(5.0, 1.5, 6.4);
 let consoleTwin = null;
+let reflection = null;   // 假倒影（翻转车影，置于半透明地台之下）
 const twinPaints = ['#9fb3c8', '#0d2d6b', '#c22333', '#e8e6e0', '#0c1210', '#0e3a34'];
 let twinPaintIdx = 0;
 let twinLightsOn = true;
@@ -415,25 +436,79 @@ let consoleStage = null;
 function buildConsoleStage() {
   if (consoleStage) return;
   consoleStage = new THREE.Group();
-  const floor = new THREE.Mesh(
-    new THREE.CircleGeometry(9, 72),
-    new THREE.MeshPhysicalMaterial({
-      color: 0x06080c, roughness: 0.55, metalness: 0.25,
-      clearcoat: 0.35, clearcoatRoughness: 0.6, envMapIntensity: 0.4
-    })
+
+  /* 镜面反射地台（Reflector 真倒影）—— "车即主角"的关键一笔：
+     车身在黑色镜面上的倒影是影棚级产品摄影的灵魂。 */
+  const mirror = new THREE.Mesh(
+    new THREE.CircleGeometry(10, 72),
+    new THREE.MeshPhysicalMaterial({ color: 0x0a0e13, roughness: 0.12, metalness: 0.9, envMapIntensity: 1.1, transparent: true, opacity: 0.8 })
   );
-  floor.rotation.x = -Math.PI / 2;
-  floor.position.y = -0.02;
-  floor.receiveShadow = true;
-  consoleStage.add(floor);
+  mirror.rotation.x = -Math.PI / 2;
+  mirror.position.y = -0.02;
+  mirror.receiveShadow = true;
+  consoleStage.add(mirror);
+  // 暗化磨砂层：中心微透反射、边缘融入暗场（避免"全亮镜子"的廉价感）
+  const sheen = new THREE.Mesh(
+    new THREE.CircleGeometry(10, 72),
+    new THREE.MeshBasicMaterial({ color: 0x05070b, transparent: true, opacity: 0.32, depthWrite: false })
+  );
+  sheen.rotation.x = -Math.PI / 2;
+  sheen.position.y = -0.015;
+  consoleStage.add(sheen);
+  const sheenEdge = new THREE.Mesh(
+    new THREE.RingGeometry(3.0, 10, 72),
+    new THREE.MeshBasicMaterial({ color: 0x03050a, transparent: true, opacity: 0.5, depthWrite: false })
+  );
+  sheenEdge.rotation.x = -Math.PI / 2;
+  sheenEdge.position.y = -0.014;
+  consoleStage.add(sheenEdge);
+
+  /* 双层发光地环：内环实、外环虚，呼吸脉动 */
   const ringMat = new THREE.MeshBasicMaterial({
-    color: 0x54d3e3, transparent: true, opacity: 0.55, toneMapped: false
+    color: 0x54d3e3, transparent: true, opacity: 0.6, toneMapped: false,
+    blending: THREE.AdditiveBlending, depthWrite: false
   });
-  const ring = new THREE.Mesh(new THREE.RingGeometry(3.9, 3.96, 96), ringMat);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(3.9, 3.97, 96), ringMat);
   ring.rotation.x = -Math.PI / 2;
   ring.position.y = 0.005;
   consoleStage.add(ring);
+  const ringOuterMat = new THREE.MeshBasicMaterial({
+    color: 0x54d3e3, transparent: true, opacity: 0.16, toneMapped: false,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  });
+  const ringOuter = new THREE.Mesh(new THREE.RingGeometry(4.15, 4.45, 96), ringOuterMat);
+  ringOuter.rotation.x = -Math.PI / 2;
+  ringOuter.position.y = 0.005;
+  consoleStage.add(ringOuter);
   consoleStage.userData.ringMat = ringMat;
+  consoleStage.userData.ringOuterMat = ringOuterMat;
+
+  /* 三点影棚光的补充：暖色底光（fill，让车底/侧身不死黑）+ 冷青轮廓补光 */
+  const fillLight = new THREE.PointLight(0xffc493, 6, 12, 1.8);
+  fillLight.position.set(0, 0.35, 3.2);
+  consoleStage.add(fillLight);
+  const coolRim = new THREE.PointLight(0x54d3e3, 4, 12, 1.8);
+  coolRim.position.set(-4.5, 2.2, -3.5);
+  consoleStage.add(coolRim);
+
+  /* 环绕微尘（影棚空气感） */
+  const N = 160;
+  const pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    const a = Math.random() * Math.PI * 2, r = 2 + Math.random() * 7;
+    pos[i * 3] = Math.cos(a) * r;
+    pos[i * 3 + 1] = Math.random() * 3.2 + 0.1;
+    pos[i * 3 + 2] = Math.sin(a) * r;
+  }
+  const dustGeo = new THREE.BufferGeometry();
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({
+    color: 0x8fd8e8, size: 0.03, transparent: true, opacity: 0.4,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  }));
+  consoleStage.add(dust);
+  consoleStage.userData.dust = dust;
+
   consoleStage.visible = false;
   view.scene.add(consoleStage);
 }
@@ -496,7 +571,20 @@ function buildConsoleFX() {
   const arrowGroup = new THREE.Group();
   arrows.forEach((a) => arrowGroup.add(a));
 
-  consoleFX = { heatmap, arrowGroup, arrows, reveal: 0 };
+  /* 扫描光带：一道水平青色光带沿车身 Z 轴扫过（科幻"扫描"仪式感）。
+     平放贴地（rotation.x=-π/2），避免立环侧对相机压缩成垂直光柱。 */
+  const scanRing = new THREE.Mesh(
+    new THREE.PlaneGeometry(5.4, 0.6),
+    new THREE.MeshBasicMaterial({
+      color: 0x54d3e3, transparent: true, opacity: 0.0, toneMapped: false,
+      blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide
+    })
+  );
+  scanRing.rotation.x = -Math.PI / 2;
+  scanRing.position.y = 0.06;
+  consoleStage.add(scanRing);
+
+  consoleFX = { heatmap, arrowGroup, arrows, reveal: 0, scanRing };
   consoleStage.add(heatmap, arrowGroup);
 }
 
@@ -529,8 +617,42 @@ function buildConsoleTwin() {
   consoleTwin.group.visible = false;
   consoleTwin.group.position.set(0, 0, 0);
   view.scene.add(consoleTwin.group);
+  // 影棚级车漆：clearcoat 金属漆 + 强环境反射（写实高级感）
+  [...consoleTwin.bodyMats, ...consoleTwin.accentMats].forEach((m) => {
+    if ('metalness' in m) m.metalness = Math.max(m.metalness ?? 0, 0.9);
+    if ('roughness' in m) m.roughness = Math.min(m.roughness ?? 1, 0.26);
+    if ('clearcoat' in m) { m.clearcoat = 1.0; m.clearcoatRoughness = 0.07; }
+    m.envMapIntensity = 1.6;
+    m.needsUpdate = true;
+  });
+  // 玻璃降环境反射：避免车顶玻璃在特定角度反射 HDRI 形成垂直眩光柱
+  consoleTwin.group.traverse((o) => {
+    if (!o.isMesh) return;
+    (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => {
+      if (m && m.transparent && 'envMapIntensity' in m) m.envMapIntensity = Math.min(m.envMapIntensity, 0.5);
+    });
+  });
   buildConsoleStage();
   buildConsoleFX();
+  buildReflection();
+}
+
+/* 假倒影：克隆车翻转 scale.y=-1 置于半透明地台之下，半透明暗色车影
+   透过地台形成"黑色大理石倒影"（替代 Reflector —— 后者与 EffectComposer
+   的 render-target 链冲突，导致帧率崩溃 + 垂直光柱伪影）。 */
+function buildReflection() {
+  if (reflection || !car.cloneCar) return;
+  reflection = car.cloneCar({});
+  if (!reflection) return;
+  reflection.group.scale.y = -1;
+  reflection.group.position.y = 0;
+  // 统一替换为深色剪影材质：消除车灯/玻璃的反射与发光，只留干净车影（防光柱）
+  const silMat = new THREE.MeshBasicMaterial({
+    color: 0x33505e, transparent: true, opacity: 0.2,
+    depthWrite: false, side: THREE.DoubleSide
+  });
+  reflection.group.traverse((o) => { if (o.isMesh) o.material = silMat; });
+  if (consoleStage) consoleStage.add(reflection.group);
 }
 
 const raycaster = new THREE.Raycaster();
@@ -588,6 +710,9 @@ stage.addEventListener('pointerup', (e) => {
 window.__cam = camera;
 window.__ctrl = controls;
 window.__quality = quality;
+window.__view = view;
+window.__THREE = THREE;
+window.__raycaster = raycaster;
 
 /* ---------- main loop ---------- */
 const clock = new THREE.Clock();
@@ -600,13 +725,17 @@ function loop() {
   const inShowroom = current === 'showroom';
   car.update(t, inShowroom && autoRotate);
   view.update(t);
-  if (current === 'cluster') cluster.update(t, dt);
+  if (current === 'cluster') {
+    cluster.update(t, dt);
+    if (cinematicCam) camera.lookAt(clusterWorld.CAM.tgt);   // 感知视角锁定朝向
+  }
   if (current === 'console') {
     consoleView.update(t, dt);
     camera.position.lerp(CONSOLE_CAM_GOAL, 0.05);
-    camera.lookAt(0, 0.85, 0);
+    camera.lookAt(0, 0.55, 0);
     if (consoleTwin && consoleTwin.group.visible) {
       consoleTwin.group.rotation.y += dt * 0.22;
+      if (reflection) reflection.group.rotation.y = consoleTwin.group.rotation.y;
     }
     if (consoleFX) {
       consoleFX.heatmap.material.uniforms.time.value = t;
@@ -627,6 +756,18 @@ function loop() {
         arrow.material.opacity = 0.15 + fade * 0.55;
         arrow.material.color.set(color);
       });
+      // 扫描光带：沿车身 Z 缓慢往返扫过车底
+      if (consoleFX.scanRing) {
+        const scan = Math.sin(t * 0.45);
+        consoleFX.scanRing.position.z = scan * 2.6;
+        consoleFX.scanRing.material.opacity = (1 - Math.abs(scan)) * 0.38;
+      }
+    }
+    // 地环呼吸 + 微尘漂浮
+    if (consoleStage) {
+      if (consoleStage.userData.ringMat) consoleStage.userData.ringMat.opacity = 0.5 + Math.sin(t * 1.3) * 0.16;
+      if (consoleStage.userData.ringOuterMat) consoleStage.userData.ringOuterMat.opacity = 0.12 + Math.sin(t * 1.3 + 0.6) * 0.06;
+      if (consoleStage.userData.dust) consoleStage.userData.dust.rotation.y = t * 0.03;
     }
   }
   if (current === 'autonomous') autonomous.update(t, dt);

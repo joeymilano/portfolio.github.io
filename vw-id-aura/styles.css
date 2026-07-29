@@ -1779,14 +1779,14 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 /* ---------- Horizon Cluster ---------- */
 
 #layer-cluster {
-  background: #010306;
+  background: transparent;   /* 3D 感知世界透出（#stage 渲染在下层） */
 }
 
 .horizon-cluster {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #010306;
+  background: transparent;   /* 3D 感知世界透出（原不透明底已移除） */
   /* 跨模态辉光：模式切换时屏幕边缘氛围光联动换色（致敬 Lotus 屏+氛围灯）。
      --mode-hue 由 cluster.js 按当前档位设置，transition 让换色平滑。*/
   box-shadow: inset 0 0 160px -30px var(--mode-hue, #54d3e3);
@@ -1803,9 +1803,10 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 
 .horizon-cluster::before {
   inset: 0;
+  /* 四周 vignette 聚焦中央，但不再压暗下半屏的 3D 本车 */
   background:
-    linear-gradient(90deg, rgba(1, 3, 6, 0.92), transparent 28%, transparent 72%, rgba(1, 3, 6, 0.92)),
-    linear-gradient(180deg, rgba(1, 3, 6, 0.68), transparent 26%, transparent 72%, rgba(1, 3, 6, 0.86));
+    linear-gradient(90deg, rgba(1, 3, 6, 0.58), transparent 26%, transparent 74%, rgba(1, 3, 6, 0.58)),
+    linear-gradient(180deg, rgba(1, 3, 6, 0.5), transparent 24%, transparent 78%, rgba(1, 3, 6, 0.4));
 }
 
 .horizon-cluster::after {
@@ -1825,8 +1826,8 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
   /* P1: 隧道照片已废弃 — 道路场景由 Canvas cel-shaded 全权绘制。
      仅保留侧边/上下渐隐，让画面边缘融入 #010306 底层。*/
   background:
-    linear-gradient(90deg, rgba(1, 3, 6, 0.96) 0%, transparent 22%, transparent 78%, rgba(1, 3, 6, 0.96) 100%),
-    linear-gradient(180deg, rgba(1, 3, 6, 0.55), transparent 30%, transparent 68%, rgba(1, 3, 6, 0.88));
+    linear-gradient(90deg, rgba(1, 3, 6, 0.55) 0%, transparent 22%, transparent 78%, rgba(1, 3, 6, 0.55) 100%),
+    linear-gradient(180deg, rgba(1, 3, 6, 0.4), transparent 28%, transparent 72%, rgba(1, 3, 6, 0.38));
 }
 
 .cluster-heading {
@@ -1904,6 +1905,57 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
   width: 14px;
   height: 14px;
 }
+
+/* ---------- Cluster 三舱 · 性能/能量玻璃仪器舱 ---------- */
+.cluster-pod {
+  position: absolute;
+  top: 50%;
+  width: 218px;
+  padding: 16px 18px 14px;
+  z-index: 4;
+  transform: translateY(-50%);
+  background: linear-gradient(160deg, rgba(13, 23, 31, 0.6), rgba(3, 7, 11, 0.72));
+  border: 1px solid rgba(150, 205, 220, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 20px 60px rgba(0,0,0,0.4);
+  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+}
+.pod-perf { left: 3.2%; }
+.pod-energy { right: 3.2%; }
+.pod-label {
+  display: flex; align-items: center; gap: 7px; margin-bottom: 12px;
+  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.24em; color: rgba(124,158,165,0.6);
+}
+.pod-label i { width: 3px; height: 10px; background: var(--mode-hue, #54d3e3); box-shadow: 0 0 8px var(--mode-hue, #54d3e3); }
+.pod-kw-wrap { display: flex; align-items: baseline; gap: 5px; }
+.pod-kw-wrap b { font-family: var(--font-geo); font-size: 34px; font-weight: 300; color: #f5f7f7; letter-spacing: -0.02em; }
+.pod-kw-wrap span { font-family: var(--font-mono); font-size: 10px; color: rgba(150,180,190,0.5); }
+.pod-bar { position: relative; height: 3px; margin: 10px 0 13px; background: rgba(150,184,196,0.12); border-radius: 2px; }
+.pod-bar::before { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: rgba(150,184,196,0.3); }
+.pod-bar i { position: absolute; top: 0; left: 50%; height: 100%; background: var(--mode-hue, #54d3e3); box-shadow: 0 0 8px var(--mode-hue, #54d3e3); border-radius: 2px; }
+.pod-row { display: flex; align-items: center; gap: 8px; margin-top: 7px; font-family: var(--font-mono); }
+.pod-row > span { font-size: 8px; letter-spacing: 0.14em; color: rgba(124,158,165,0.55); width: 42px; }
+.pod-row b { font-size: 10px; font-weight: 500; color: rgba(230,240,243,0.85); margin-left: auto; }
+.pod-tq { flex: 1; height: 3px; background: rgba(150,184,196,0.1); border-radius: 2px; overflow: hidden; }
+.pod-tq i { display: block; height: 100%; background: rgba(120,200,220,0.7); border-radius: 2px; }
+.pod-g { margin-top: 14px; display: flex; align-items: center; gap: 10px; }
+.pod-g span { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.18em; color: rgba(124,158,165,0.5); }
+.pod-g-svg { width: 52px; height: 52px; }
+.pod-g-svg .g-ring { fill: none; stroke: rgba(150,184,196,0.16); stroke-width: 1; }
+.pod-g-svg .g-cross { stroke: rgba(150,184,196,0.12); stroke-width: 1; }
+.pod-g-svg .g-dot { fill: var(--mode-hue, #54d3e3); filter: drop-shadow(0 0 4px var(--mode-hue, #54d3e3)); }
+.pod-soc-wrap { position: relative; width: 76px; height: 76px; margin: 0 auto 6px; }
+.pod-soc-svg { width: 76px; height: 76px; transform: rotate(-90deg); }
+.pod-soc-svg .soc-track { fill: none; stroke: rgba(150,184,196,0.12); stroke-width: 3; }
+.pod-soc-svg .soc-arc { fill: none; stroke: var(--mode-hue, #54d3e3); stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 4px var(--mode-hue, #54d3e3)); transition: stroke-dashoffset 0.4s; }
+.pod-soc-num { position: absolute; inset: 0; display: flex; align-items: baseline; justify-content: center; padding-top: 22px; }
+.pod-soc-num b { font-family: var(--font-geo); font-size: 24px; font-weight: 300; color: #f5f7f7; }
+.pod-soc-num span { font-family: var(--font-mono); font-size: 9px; color: rgba(150,180,190,0.5); }
+.pod-range { text-align: center; margin-bottom: 8px; }
+.pod-range b { font-family: var(--font-geo); font-size: 20px; font-weight: 300; color: rgba(240,246,248,0.92); }
+.pod-range span { font-family: var(--font-mono); font-size: 8px; color: rgba(124,158,165,0.55); margin-left: 4px; }
+.pod-spark { width: 100%; height: 26px; display: block; }
+.pod-spark polyline { fill: none; stroke: rgba(120,200,220,0.6); stroke-width: 1.2; }
+.pod-recup b { color: var(--recup, #75e2bd); }
 
 .horizon-cluster .cluster-modes {
   bottom: 46px;
@@ -2106,9 +2158,15 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 .aura-card {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(145deg, rgba(9, 19, 24, 0.78), rgba(2, 6, 9, 0.84));
-  border: 1px solid rgba(133, 186, 195, 0.13);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.018), 0 30px 90px rgba(0, 0, 0, 0.18);
+  /* 光子玻璃：渐变 + 边框高光 + 内阴影模拟玻璃厚度。
+     不用 backdrop-filter（与 WebGL canvas 冲突致黑屏），以更高不透明度呈现。 */
+  background: linear-gradient(160deg, rgba(13, 23, 31, 0.74), rgba(3, 7, 11, 0.84));
+  border: 1px solid rgba(150, 205, 220, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    inset 0 0 28px rgba(84, 211, 227, 0.03),
+    0 24px 70px rgba(0, 0, 0, 0.42);
 }
 
 .aura-map {
@@ -2326,7 +2384,7 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
   height: 100%;
   border-radius: 2px;
   filter: saturate(0.68) contrast(1.08);
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.42);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.42), 0 0 34px rgba(84, 211, 227, 0.28);
 }
 
 .media-vinyl {
@@ -2352,6 +2410,12 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
   margin: 3px 0 0;
   font-size: 8.5px;
 }
+.aura-media .cc-lyric {
+  position: relative; z-index: 3; margin-top: 5px;
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.06em;
+  color: rgba(140, 180, 190, 0.5); font-style: italic;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 
 .aura-media .cc-track,
 .aura-media .cc-artist,
@@ -2364,7 +2428,7 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
   align-self: end;
   height: 31px;
   margin: 10px 0 0;
-  gap: 3px;
+  gap: 2px;
 }
 
 .aura-media .cc-eq span {
@@ -2478,6 +2542,306 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
   color: rgba(129, 161, 168, 0.48);
 }
 
+/* —— dual-zone climate —— */
+.climate-sync {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  padding: 2.5px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-brd);
+  color: var(--ink-faint);
+  transition: color 0.25s, border-color 0.25s, background 0.25s;
+}
+.climate-sync.on {
+  color: var(--cyan);
+  border-color: var(--cyan-dim);
+  background: var(--cyan-soft);
+}
+
+.climate-zones {
+  display: flex;
+  align-items: center;
+  margin: 6px 2px 0;
+}
+.climate-zone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.climate-zone button {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(126, 177, 186, 0.13);
+  color: var(--cyan);
+  font-size: 13px;
+  line-height: 1;
+  transition: border-color 0.2s, background 0.2s;
+}
+.climate-zone button:active { background: var(--cyan-soft); border-color: var(--cyan-dim); }
+.zone-temp { display: flex; flex-direction: column; align-items: center; }
+.zone-temp b {
+  font-family: var(--font-geo);
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--ink-bright);
+}
+.zone-temp span {
+  margin-top: 1px;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.15em;
+  color: rgba(126, 159, 166, 0.48);
+}
+.climate-divider {
+  width: 1px;
+  height: 34px;
+  margin: 0 10px;
+  background: linear-gradient(transparent, rgba(150, 190, 210, 0.16), transparent);
+}
+
+.climate-seats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 7px 4px 0;
+}
+.seat-heat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5px;
+  padding: 2px;
+}
+.seat-heat svg {
+  width: 21px;
+  height: 21px;
+  stroke: rgba(143, 160, 166, 0.55);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  transition: stroke 0.25s;
+}
+.seat-heat .sh-waves { stroke: var(--amber); opacity: 0; transition: opacity 0.25s; }
+.seat-heat.lv1 .sh-waves, .seat-heat.lv2 .sh-waves, .seat-heat.lv3 .sh-waves { opacity: 1; }
+.seat-heat.lv1 svg, .seat-heat.lv2 svg, .seat-heat.lv3 svg { stroke: rgba(230, 168, 119, 0.75); }
+.seat-pips { display: flex; gap: 2.5px; }
+.seat-pips i {
+  width: 8px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(150, 190, 210, 0.14);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.seat-heat.lv1 .seat-pips i:nth-child(-n+1),
+.seat-heat.lv2 .seat-pips i:nth-child(-n+2),
+.seat-heat.lv3 .seat-pips i:nth-child(-n+3) {
+  background: var(--amber);
+  box-shadow: 0 0 5px rgba(230, 168, 119, 0.55);
+}
+
+.climate-vents { display: flex; gap: 4px; }
+.climate-vents button {
+  width: 27px;
+  height: 27px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.climate-vents button svg {
+  width: 16px;
+  height: 16px;
+  stroke: rgba(143, 160, 166, 0.55);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  transition: stroke 0.2s;
+}
+.climate-vents button.on {
+  border-color: var(--cyan-dim);
+  background: var(--cyan-soft);
+}
+.climate-vents button.on svg { stroke: var(--cyan); }
+
+.aqi { display: inline-flex; align-items: center; gap: 4px; }
+.aqi-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 5px rgba(111, 217, 180, 0.6);
+}
+.aqi b { color: var(--green); font-weight: 500; }
+
+/* —— ENERGY FLOW charge card —— */
+.aura-charge { display: flex; flex-direction: column; }
+.charge-live {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.aura-charge.is-charging .charge-live { opacity: 1; }
+
+.charge-hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 2px;
+  min-height: 0;
+}
+.charge-ring-wrap {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  flex-shrink: 0;
+}
+.charge-ring { width: 100%; height: 100%; display: block; }
+.cr-ticks line { stroke: rgba(150, 190, 210, 0.15); stroke-width: 1; }
+.cr-ticks line.major { stroke: rgba(150, 190, 210, 0.36); stroke-width: 1.5; }
+.cr-track { fill: none; stroke: rgba(150, 190, 210, 0.1); stroke-width: 3.5; }
+.cr-prog {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 60px 60px;
+  filter: drop-shadow(0 0 5px var(--cyan-dim));
+  transition: stroke-dashoffset 0.5s ease, stroke 0.4s;
+}
+.aura-charge.is-low .cr-prog {
+  stroke: var(--amber);
+  filter: drop-shadow(0 0 5px rgba(230, 168, 119, 0.35));
+}
+.charge-soc {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+.charge-soc b {
+  font-family: var(--font-geo);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--ink-bright);
+}
+.charge-soc span {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--ink-dim);
+  align-self: center;
+  margin-top: 7px;
+}
+
+.charge-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.charge-power { display: flex; align-items: baseline; gap: 4px; }
+.charge-power b {
+  font-family: var(--font-geo);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--cyan);
+  text-shadow: 0 0 14px var(--cyan-dim);
+}
+.aura-charge.is-low .charge-power b { color: var(--amber); text-shadow: 0 0 14px rgba(230, 168, 119, 0.3); }
+.aura-charge:not(.is-charging) .charge-power b { color: var(--ink-faint); text-shadow: none; }
+.charge-power span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--ink-dim);
+}
+.charge-mode {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.15em;
+  color: rgba(126, 159, 166, 0.52);
+}
+.aura-charge.is-low .charge-mode { color: var(--amber); }
+
+.charge-flow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 5px;
+  color: rgba(143, 160, 166, 0.6);
+}
+.charge-flow .ph-icon { font-size: 13px; }
+.aura-charge.is-charging .charge-flow { color: var(--cyan); }
+.charge-flow-line {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(150, 190, 210, 0.12);
+}
+.charge-flow-line span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 7px var(--cyan);
+  opacity: 0;
+}
+.aura-charge.is-charging .charge-flow-line span { animation: chargeFlow 1.5s linear infinite; }
+.charge-flow-line span:nth-child(2) { animation-delay: 0.5s; }
+.charge-flow-line span:nth-child(3) { animation-delay: 1s; }
+@keyframes chargeFlow {
+  0% { left: 0; opacity: 0; }
+  12% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: calc(100% - 4px); opacity: 0; }
+}
+
+.charge-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(150, 190, 210, 0.07);
+}
+.charge-stats > div { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.charge-stats b {
+  font-family: var(--font-geo);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-bright);
+}
+.charge-stats small {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.13em;
+  color: rgba(126, 159, 166, 0.45);
+}
+
+.charge-curve { width: 100%; height: 22px; margin-top: 5px; flex-shrink: 0; }
+.charge-curve .cc-fill { fill: rgba(84, 211, 227, 0.06); }
+.aura-charge.is-low .charge-curve .cc-fill { fill: rgba(230, 168, 119, 0.06); }
+.charge-curve .cc-line {
+  stroke: var(--cyan);
+  stroke-width: 1.2;
+  filter: drop-shadow(0 0 4px var(--cyan-dim));
+}
+.aura-charge.is-low .charge-curve .cc-line { stroke: var(--amber); }
+.charge-curve .cc-now {
+  fill: var(--ink-bright);
+  stroke: var(--cyan);
+  stroke-width: 1.4;
+  filter: drop-shadow(0 0 5px var(--cyan-dim));
+}
+.aura-charge.is-low .charge-curve .cc-now { stroke: var(--amber); }
+
 .aura-vehicle {
   display: grid;
   grid-template-columns: 1fr;
@@ -2544,12 +2908,22 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 
 .vehicle-tyres {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px 10px;
+  align-items: center;
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid var(--glass-brd);
 }
+.tyre-car { grid-column: 2; grid-row: 1 / span 2; width: 32px; height: 62px; justify-self: center; }
+.tyre-car .tc-body { fill: rgba(120, 180, 200, 0.05); stroke: rgba(150, 205, 220, 0.32); stroke-width: 1; }
+.tyre-car .tc-glass { fill: rgba(84, 211, 227, 0.1); }
+.tyre-car .tc-line { stroke: rgba(150, 205, 220, 0.18); stroke-width: 0.6; }
+.tyre-corner.fl { grid-column: 1; grid-row: 1; }
+.tyre-corner.fr { grid-column: 3; grid-row: 1; }
+.tyre-corner.rl { grid-column: 1; grid-row: 2; }
+.tyre-corner.rr { grid-column: 3; grid-row: 2; }
 .tyre-corner {
   display: flex;
   flex-direction: column;

@@ -21,7 +21,7 @@
    ============================================================ */
 
 import { gsap } from 'gsap';
-import { createGauge } from './gauge.js';
+import { createGauge } from './gauge.js?v=20260729-1';
 
 const TAU = Math.PI * 2;
 
@@ -58,6 +58,35 @@ export function createCluster(layer) {
     <div class="horizon-cluster" data-mode="drive">
       <canvas class="cluster-canvas"></canvas>
       <div class="cluster-gauge-mount"></div>
+      <aside class="cluster-pod pod-perf" aria-label="Performance">
+        <div class="pod-label"><i></i>PERFORMANCE</div>
+        <div class="pod-kw-wrap"><b id="pod-kw">+58</b><span>kW</span></div>
+        <div class="pod-bar"><i id="pod-bar"></i></div>
+        <div class="pod-row"><span>FRONT</span><div class="pod-tq"><i id="tq-f"></i></div><b id="tq-f-v">96</b></div>
+        <div class="pod-row"><span>REAR</span><div class="pod-tq"><i id="tq-r"></i></div><b id="tq-r-v">144</b></div>
+        <div class="pod-g">
+          <svg viewBox="0 0 60 60" class="pod-g-svg" aria-hidden="true">
+            <circle cx="30" cy="30" r="24" class="g-ring"/>
+            <line x1="7" y1="30" x2="53" y2="30" class="g-cross"/>
+            <line x1="30" y1="7" x2="30" y2="53" class="g-cross"/>
+            <circle id="g-dot" cx="30" cy="30" r="4.5" class="g-dot"/>
+          </svg>
+          <span>G-FORCE</span>
+        </div>
+      </aside>
+      <aside class="cluster-pod pod-energy" aria-label="Energy">
+        <div class="pod-label"><i></i>ENERGY</div>
+        <div class="pod-soc-wrap">
+          <svg viewBox="0 0 72 72" class="pod-soc-svg" aria-hidden="true">
+            <circle cx="36" cy="36" r="30" class="soc-track"/>
+            <circle id="soc-arc" cx="36" cy="36" r="30" class="soc-arc"/>
+          </svg>
+          <div class="pod-soc-num"><b id="soc-v">82</b><span>%</span></div>
+        </div>
+        <div class="pod-range"><b id="range-v">412</b><span>KM RANGE</span></div>
+        <svg viewBox="0 0 100 26" class="pod-spark" preserveAspectRatio="none" aria-hidden="true"><polyline id="spark-line" points=""/></svg>
+        <div class="pod-row pod-recup"><span>RECUP</span><b id="recup-v">−34 kW</b></div>
+      </aside>
       <div class="cluster-heading">
         <span class="cluster-pilot">
           <i class="cluster-pilot-status"></i>
@@ -85,6 +114,18 @@ export function createCluster(layer) {
   const modeButtons = [...layer.querySelectorAll('.cluster-modes button')];
   const gauge = createGauge(layer.querySelector('.cluster-gauge-mount'), { mode: MODES.drive, recoilColor: RECOIL });
   const gaugeSize = { w: 0, h: 0 };
+  // 三舱 DOM 引用（性能舱 + 能量舱）
+  const el = {
+    podKw: layer.querySelector('#pod-kw'), podBar: layer.querySelector('#pod-bar'),
+    tqF: layer.querySelector('#tq-f'), tqFV: layer.querySelector('#tq-f-v'),
+    tqR: layer.querySelector('#tq-r'), tqRV: layer.querySelector('#tq-r-v'),
+    gDot: layer.querySelector('#g-dot'),
+    socArc: layer.querySelector('#soc-arc'), socV: layer.querySelector('#soc-v'),
+    rangeV: layer.querySelector('#range-v'), sparkLine: layer.querySelector('#spark-line'),
+    recupV: layer.querySelector('#recup-v')
+  };
+  // 3D 感知世界（共享 scene）：在 HUD 之下渲染实时驾驶世界，接管照片/车道/ADAS
+  let world = null;
 
   const state = {
     active: false,
@@ -487,7 +528,7 @@ export function createCluster(layer) {
      ============================================================ */
   function drawEnergyFlow(w, h, mode, focus) {
     if (focus < 0.02) return;
-    const cx = w * 0.5, cy = h * 0.585;
+    const cx = w * 0.5, cy = h * 0.34;
     const R = Math.min(w * 0.21, h * 0.30) * 1.18;
     const isRecup = state.power < 0;
     const half = isRecup ? -1 : 1;
@@ -720,9 +761,9 @@ export function createCluster(layer) {
 
     const mode = MODES[state.mode];
 
-    // BASE — photographic night-drive scene (AI asset, replaces procedural)
-    drawScenePhoto(w, h, mode, layout.roadAlpha);
-    drawLaneFlow(w, h, mode, layout.roadAlpha, layout.adasAlpha);
+    // BASE — 实时 3D 感知世界（js/cluster/world.js）已接管驾驶环境：
+    // 道路/车道/城市/雷达锥/前车由 WebGL 渲染在 HUD 之下，Canvas 只保留仪器层。
+    // (旧 AI 照片 drawScenePhoto / Canvas 车道 drawLaneFlow / Canvas ADAS drawADAS 已下线)
 
     // MID — SVG instrument (gauge.js): arcs, needle, digit-roll speed
     if (w !== gaugeSize.w || h !== gaugeSize.h) {
@@ -732,9 +773,7 @@ export function createCluster(layer) {
     gauge.update(state, layout, mode, state.dt);
     drawEnergyFlow(w, h, mode, layout.energyFocus);
 
-    // TOP
-    drawADAS(w, h, mode, layout.adasAlpha * (1 - layout.pureFocus * 0.55));
-    drawPerf(w, h, mode, layout.perfAlpha);
+    // 性能数据已整合进左性能舱（DOM）；旧 Canvas GT 面板 drawPerf 已下线
 
     // chrome
     drawTurnCue(w, h, mode);
@@ -744,12 +783,46 @@ export function createCluster(layer) {
     drawModePulse(w, h, mode);
   }
 
+  /* 三舱数据更新（DOM，每帧）：性能舱 = 功率/扭矩/G-force；能量舱 = SOC环/续航/能耗/回收 */
+  const SOC_CIRC = 2 * Math.PI * 30;
+  function updatePods(mode) {
+    if (!el.podKw) return;
+    const isRecup = state.power < 0;
+    el.podKw.textContent = (isRecup ? '−' : '+') + Math.round(Math.abs(state.power) * 240);
+    el.podKw.style.color = isRecup ? RECOIL : mode.hue;
+    const pw = Math.min(1, Math.abs(state.power));
+    el.podBar.style.width = (pw * 50) + '%';
+    el.podBar.style.left = isRecup ? (50 - pw * 50) + '%' : '50%';
+    el.podBar.style.background = isRecup ? RECOIL : mode.hue;
+    el.tqFV.textContent = Math.round(Math.abs(state.power) * 240 * 0.4);
+    el.tqRV.textContent = Math.round(Math.abs(state.power) * 240 * 0.6);
+    el.tqF.style.width = Math.min(100, Math.abs(state.power) * 40 + 4) + '%';
+    el.tqR.style.width = Math.min(100, Math.abs(state.power) * 60 + 4) + '%';
+    el.gDot.setAttribute('cx', 30 + Math.max(-1, Math.min(1, state.gLat)) * 17);
+    el.gDot.setAttribute('cy', 30 + Math.max(-1, Math.min(1, state.gLong)) * 17);
+    el.socArc.style.strokeDasharray = SOC_CIRC;
+    el.socArc.style.strokeDashoffset = SOC_CIRC * (1 - state.soc / 100);
+    el.socV.textContent = Math.round(state.soc);
+    el.rangeV.textContent = Math.round(state.range);
+    if (state.consumptionHistory.length > 1) {
+      const pts = state.consumptionHistory.map((v, i) => {
+        const x = (i / (state.consumptionHistory.length - 1)) * 100;
+        const t = Math.max(0, Math.min(1, (v - 12) / 10));
+        return `${x.toFixed(1)},${(26 - t * 26).toFixed(1)}`;
+      }).join(' ');
+      el.sparkLine.setAttribute('points', pts);
+    }
+    el.recupV.textContent = state.power < -0.02 ? Math.round(state.power * 240) + ' kW' : '—';
+  }
+
   function update(time, dt) {
     if (!state.active) return;
     state.time = time;
     state.dt = dt;
     updateDrive(dt);
+    if (world) world.update(time, dt, state);   // 3D 感知世界随驾驶数据流动
     draw();
+    updatePods(MODES[state.mode]);               // 三舱数据
   }
 
   function onEnter() {
@@ -765,9 +838,11 @@ export function createCluster(layer) {
     activate: onEnter, deactivate: onExit,
     setView: (on) => on ? onEnter() : onExit(),
     setMode,
+    attachWorld: (w) => { world = w; },
     get speed() { return state.speed; },
     get mode() { return state.mode; },
-    get layout() { return layout; }
+    get layout() { return layout; },
+    get state() { return state; }
   };
   // expose for QA / CDP screenshot harness
   window.__cluster = api;
