@@ -10,7 +10,7 @@ Canonical site: https://joeyzhao.cc/
 - English Writing hub: https://joeyzhao.cc/en/writing/
 - AI product design: https://joeyzhao.cc/en/writing/ai-designers-cannot-only-sell-screens
 - McDonald's seating and business trade-offs: https://joeyzhao.cc/en/writing/mcdonalds-seating-business-tradeoffs
-- Building Finfold, an AI content-growth workspace: https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms
+- Researching and building Finfold for fourteen content platforms: https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms
 - Elevator mirrors and inclusive design: https://joeyzhao.cc/en/writing/elevator-mirrors-four-problems
 - Portfolios as evidence of design judgment: https://joeyzhao.cc/en/writing/portfolio-as-evidence
 - Casino design and spatial psychology: https://joeyzhao.cc/en/writing/casino-design-four-traps

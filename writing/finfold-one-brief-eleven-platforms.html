@@ -1,57 +1,86 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>从一个 Brief 到 11 个平台：我如何设计「一鱼多吃」 | Joey Zhao</title>
-<meta name="description" content="一鱼多吃 Build in Public 复盘：如何把一个产品简报转成多平台原生内容，同时控制品牌、质量与发布节奏。">
-<link rel="canonical" href="https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms">
-<meta property="og:type" content="article"><meta property="og:title" content="从一个 Brief 到 11 个平台：我如何设计「一鱼多吃」"><meta property="og:description" content="一鱼多吃 Build in Public 复盘：如何把一个产品简报转成多平台原生内容，同时控制品牌、质量与发布节奏。"><meta property="og:url" content="https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms"><meta property="og:image" content="https://joeyzhao.cc/images/yiyuduochi-workbench-full.png"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="writing.css?v=20260714-1">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>从一个 Brief 到 14 个平台，我怎样把 Finfold 做成真实产品 | Joey Zhao</title>
+  <meta name="description" content="Finfold 创始产品设计复盘，记录我怎样研究十四个平台、舍弃聊天框、处理 AI 失败，并把真实产品带到 Link-X Demo Day。">
+  <link rel="canonical" href="https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms">
+  <link rel="alternate" hreflang="zh-CN" href="https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms">
+  <link rel="alternate" hreflang="en" href="https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms">
+  <link rel="alternate" hreflang="x-default" href="https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="从一个 Brief 到 14 个平台，我怎样把 Finfold 做成真实产品">
+  <meta property="og:description" content="研究、产品取舍和真实现场，共同组成这次 Finfold 复盘。">
+  <meta property="og:url" content="https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms">
+  <meta property="og:image" content="https://joeyzhao.cc/images/finfold-linkx-presentation.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="writing.css?v=20260811-1">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"从一个 Brief 到 14 个平台，我怎样把 Finfold 做成真实产品","description":"Finfold 创始产品设计复盘，记录我怎样研究十四个平台、舍弃聊天框、处理 AI 失败，并把真实产品带到 Link-X Demo Day。","url":"https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms","datePublished":"2026-06-30","dateModified":"2026-08-11","inLanguage":"zh-CN","image":"https://joeyzhao.cc/images/finfold-linkx-presentation.jpg","author":{"@type":"Person","name":"Joey Zhao","url":"https://joeyzhao.cc/","sameAs":["https://www.linkedin.com/in/joey-zhao-b8576b91/","https://x.com/JoeyKonad","https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"]},"mainEntityOfPage":"https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms"}</script>
+</head>
+<body>
+  <nav class="site-nav"><div class="nav-inner"><a class="brand" href="../">Joey Zhao<span class="brand-dot">.</span></a><div class="nav-links"><a href="../#projects">作品</a><a href="../#skills">技能</a><a href="./" aria-current="page">写作</a><a href="../#contact">联系</a><a href="../resume/joey-zhao-resume.pdf" class="resume-btn" target="_blank" rel="noopener noreferrer">简历</a></div><div class="lang-toggle"><a href="../en/writing/finfold-one-brief-eleven-platforms" lang="en" hreflang="en">EN</a><span>/</span><a class="active" href="finfold-one-brief-eleven-platforms" lang="zh-CN" hreflang="zh-CN">中</a></div></div></nav>
+  <main>
+    <div class="article-accent"></div>
+    <header class="article-header"><div class="page-shell"><p class="kicker">Build in public · Founder product design</p><h1>从一个 Brief 到 14 个平台</h1><p class="article-deck">我怎样研究一鱼多吃，怎样把 AI 的失败摆到台面上，又怎样把 Finfold 从设计稿带到真实现场。</p><div class="article-meta"><span>Joey Zhao</span><time datetime="2026-08-11">2026.08.11 更新</time><span>14 分钟阅读</span></div></div></header>
+    <figure class="article-hero"><img src="../images/finfold-linkx-presentation.jpg" alt="Joey Zhao 在 2026 Link-X Demo Day 现场介绍 Finfold" width="2200" height="1173" fetchpriority="high"><figcaption>我在 2026 Link-X Demo Day 讲 Finfold。屏幕上放的是正在运行的产品，台下看到的每一步都得经得起追问。</figcaption></figure>
+    <div class="page-shell article-layout">
+      <article class="article-body">
+        <p>把 Finfold 带到 Link-X Demo Day 以后，我重新看了一遍这个项目。</p>
+        <p>站在大屏旁边讲产品，和坐在电脑前写 case study 很不一样。页面上的一个按钮、一个数字、一次等待，都会被放大。设计稿里的顺滑路径到了现场，只要模型慢一点、资料少一点，问题马上露出来。那天我讲的是一鱼多吃，屏幕上跑的是 Finfold。它已经能接住一条产品更新，按十四个平台的规则准备文字和视觉，也能把发布后的结果带回下一轮建议。</p>
+        <p>我更在意另一件事。面试时，面试官常会追问调研。以前这篇文章花了很多篇幅讲我怎样做界面，读完却很难回答几个基本问题。问题从哪里来，我看过哪些替代方案，研究怎样改变了产品，哪些结论仍然没有证据。产品已经走到现场，case study 也该把这些说清楚。</p>
 
-<style>.lang-switch{display:inline-flex;gap:.1rem;margin-left:1rem;font-size:.82rem;vertical-align:middle}.lang-switch button{border:none;background:none;cursor:pointer;color:inherit;opacity:.4;padding:0 .2rem;font:inherit;border-radius:3px}.lang-switch button.active{opacity:1;font-weight:600}</style><link rel="alternate" hreflang="zh-CN" href="https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms"><link rel="alternate" hreflang="en" href="https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms"><link rel="alternate" hreflang="x-default" href="https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"从一个 Brief 到 11 个平台：我如何设计「一鱼多吃」","description":"一鱼多吃 Build in Public 复盘：如何把一个产品简报转成多平台原生内容，同时控制品牌、质量与发布节奏。","url":"https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms","datePublished":"2026-06-30","dateModified":"2026-07-12","inLanguage":"zh-CN","image":"https://joeyzhao.cc/images/yiyuduochi-workbench-full.png","author":{"@type":"Person","name":"Joey Zhao","url":"https://joeyzhao.cc/","sameAs":["https://www.linkedin.com/in/joey-zhao-b8576b91/","https://x.com/JoeyKonad","https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"]},"mainEntityOfPage":"https://joeyzhao.cc/writing/finfold-one-brief-eleven-platforms"}</script></head><body><nav class="site-nav"><div class="nav-inner"><a class="brand" href="../">Joey Zhao<span class="brand-dot">.</span></a><div class="nav-links"><a href="../#projects">作品</a><a href="../#skills">技能</a><a href="./" aria-current="page">写作</a><a href="../#contact">联系</a><a href="../resume/joey-zhao-resume.pdf" class="resume-btn" target="_blank" rel="noopener noreferrer">简历</a></div><div class="lang-toggle"><a href="../en/writing/finfold-one-brief-eleven-platforms" lang="en" hreflang="en">EN</a><span>/</span><a class="active" href="finfold-one-brief-eleven-platforms" lang="zh-CN" hreflang="zh-CN">中</a></div></div></nav>
-<main><div class="article-accent"></div><header class="article-header"><div class="page-shell"><p class="kicker">Build in public · AI product</p><h1>从一个 Brief 到 11 个平台</h1><p class="article-deck">我如何设计「一鱼多吃」：不是让 AI 批量复制文案，而是把品牌规则、平台差异和人工判断组织成一套真正可工作的内容系统。</p><div class="article-meta"><span>Joey Zhao</span><time datetime="2026-06-30">2026.06.30</time><span>12 min read</span></div></div></header>
-<figure class="article-hero"><img src="../images/yiyuduochi-workbench-full.png" alt="一鱼多吃三栏内容工作台完整界面"><figcaption>工作台最终采用三栏：左边定义意图，中间保存上下文，右边逐张生成渠道内容。它解决的是多对象编辑，不是把聊天框做宽。</figcaption></figure>
-<div class="page-shell article-layout"><article class="article-body">&gt;
-<p>我第一次把「一鱼多吃」的结果页跑通时，屏幕上整整齐齐排着 11 份内容：LinkedIn 帖子、X thread、小红书图文、视频脚本、Newsletter……作为 Demo，它看上去已经能卖了。</p>
-<p>我没急着高兴。因为我心里清楚，这 11 份里有几份，根本不是 AI 生成的。早期版本有个“聪明”的处理：模型一报错，它就悄悄塞一份模板进去，把空位补满。用户看到的是漂漂亮亮的 11 份，只有我知道，其中有几张是糊弄人的布景。</p>
-<p>这事儿让我别扭了好几天。后来我想明白了：这个产品真正坑人的地方，是把一份普通模板，包装成“AI 成功生成”的结果。用户一旦信了，拿着错的内容去发，砸的是他自己经营了好几年的号。</p>
-<div class="takeaway"><span class="label">这次复盘的结论</span><p>多平台生成不是“写十一遍”。它是把同一个事实，放进十一种不同的阅读场景，并让用户看得见每次转换的依据。</p></div>
+        <div class="takeaway"><span class="label">这次重写保留的判断</span><p>一条内容要进入十四个平台，设计任务落在事实、语境和状态的组织上。写得快只是其中一小段。</p></div>
 
-<h2>我亲手删掉的第一个功能，叫“永远成功”</h2>
-<p>静默兜底这东西，是个特别诱人的陷阱。Demo 永远不会断，看的人连连点头，你自己也舒坦。可它有个要命的死穴：用户分不清自己手里的，到底是模型真生成的、缓存里捞的，还是后台偷偷塞的模板。一份带着错事实的文案被发出去，赔进去的可是人家经营了三年的账号信誉，区区一次生成额度根本填不起这个窟窿。</p>
-<p>我纠结了两天，最后还是把它删了。</p>
-<div class="decision-record"><h3>Decision 01 · 删掉静默假数据</h3><dl><dt>约束</dt><dd>模型会超时、会返回格式错误，开发环境还可能压根没配密钥。</dd><dt>备选</dt><dd>继续模板兜底；全页报错；保留已成功的，只把失败的标出来。</dd><dt>选择</dt><dd>第三种。成功的接着能编辑，失败的卡片直接写明原因，给个重试按钮。</dd><dt>代价</dt><dd>Demo 再也不“完美”了，错误状态和恢复路径得单独设计一套。</dd><dt>收益</dt><dd>用户终于知道哪些能信，我也第一次拿到了真实的失败数据。</dd></dl></div>
-<figure><img src="../images/yiyuduochi-agents-full.png" alt="一鱼多吃渠道代理列表，不同代理显示准备、运行和失败状态"><figcaption>一个渠道炸了，另外十个凭什么跟着遭殃？更不该用一段假文案偷偷把坑填上，装作没事。</figcaption></figure>
-<p>这里有个很多人没想明白的产品常识：错误提示，别把它当成工程异常的创可贴——它是用户决策的一部分。一句干巴巴的“生成失败”，等于啥也没说。换成“小红书这条图片描述超了限制，其他 10 条都给你留着呢，要不要单独重试这一条？”，用户才知道下一步该干嘛。</p>
+        <h2>调研先从我自己的七次改写开始</h2>
+        <p>Finfold 的起点很具体。我做完一次产品更新，想把它发到 X、小红书、公众号、LinkedIn、Reddit 和 Product Hunt。复制粘贴很快，后面的修改一点都不快。X 需要一句能让人停下来的开头，小红书要先碰到生活里的麻烦，公众号要把前因后果讲完整，Reddit 对推广口吻尤其敏感。Product Hunt 还要单独准备 tagline、简介和 Maker Comment。</p>
+        <p>我把同一条更新改了七遍。每改一遍，就记下这次改动到底在解决什么。很快能看出两类工作。产品名、价格、发布日期和能力边界必须保持一致。开头、结构、语气、图片尺寸和行动入口则要跟着平台走。通用聊天机器人能加快起草，仍然需要我反复解释产品和平台。一次发布变成七轮提示词抽卡，省下来的时间又花在检查上。</p>
+        <p>这段自我观察给了我第一个设计约束。同一批内容必须共享一组事实，每个平台又要拥有自己的版本、状态和恢复路径。只返回一大段文字，用户很难知道哪条能发，哪条还在生成，哪条引用了什么资料。</p>
 
-<h2>我为什么亲手砍掉了那个万能聊天框</h2>
-<p>最早的版本，我也上了聊天框：左边对话，右边出结果。输入“把这篇稿子改成 11 个平台”，等它吐答案。这结构顺手得要命——因为所有 AI 产品都这么干，用户也熟，照着抄最省事。</p>
-<p>可我一拿真实运营场景去压，它立马露馅。</p>
-<p>真干活的人，根本不是这么干活的。他会锁死一条确认过的数据，只重写标题；他会同时对比两个 X 的开头，还得瞄一眼小红书有没有违禁词；他会把某个平台拖到下周再发。聊天记录能存下你俩的对话，可它死活表达不了 11 个对象各自是什么版本、什么状态、谁依赖谁。用聊天框管这些，就像用记事本去管一个项目——能凑合，但迟早乱套。</p>
-<div class="decision-record"><h3>Decision 02 · 从对话框改成空间工作台</h3><dl><dt>约束</dt><dd>同一份来源，要变出多个能独立编辑、锁定、重试、排期的结果。</dd><dt>备选</dt><dd>一条长回答；标签页切换；三栏工作台。</dd><dt>选择</dt><dd>第三种。左边定意图，中间存上下文，右边出结果。借的是 IDE 那种空间上的稳，扔掉聊天那种时间上的流水。</dd><dt>代价</dt><dd>首屏信息更密，层级和响应式得重新磨。</dd><dt>验证</dt><dd>用户不用滚回历史消息，就能答上来“这条结果用了哪些资料、现在到底能不能发”。</dd></dl></div>
-<div class="figure-grid"><figure><img src="../images/yiyuduochi-dashboard-hero.png" alt="一鱼多吃仪表盘展示待处理内容与渠道状态"><figcaption>仪表盘回答“哪里有压力”，而不是摆一排看起来很忙的数据。</figcaption></figure><figure><img src="../images/yiyuduochi-calendar-full.png" alt="一鱼多吃内容日历显示多个平台的发布时间"><figcaption>日历把生成结果变成承诺：哪天、哪个渠道、哪一版要发。</figcaption></figure></div>
+        <h2>十四个平台，我研究的是任务</h2>
+        <p>我随后把范围扩到十四个平台。每个平台都按同一组问题记录。用户为什么来这里发内容，第一屏承担什么任务，文字通常怎样展开，图片有哪些常用尺寸，社区对推广有什么忌讳，发布以后可以回收哪些数据。这个过程更接近 task analysis，也就是任务分析。它没有替我制造一份宏大的用户画像，却能把界面设计落到具体动作。</p>
+        <p>研究 X 时，第一行和展开节奏值得单独处理。研究小红书时，标题、封面、正文和收藏价值要一起看。公众号承担长文解释，排版和配图节奏会影响交付。Reddit、Hacker News 与 Indie Hackers 都要求创作者先贡献社区价值，品牌露出必须克制。Medium 和 Substack 更接近常青文章与订阅关系，复用方式自然也不同。</p>
+        <p>这些差异直接进入了产品。公开创作台现在支持十四个平台和九种图片尺寸，单次最多选择六个平台。这个上限也来自任务判断。一次把十四个都跑完看着厉害，等待和失败率却会一起上升。六个更接近一次真实发布批次，用户也更容易逐条检查。</p>
+        <figure><img src="../images/finfold-app-workbench.png" alt="Finfold 三栏创作台展示素材输入、平台选择和独立内容输出" loading="lazy" decoding="async"><figcaption>创作台把一批内容放进同一个空间。素材、平台和结果并排出现，用户不用翻聊天记录找状态。</figcaption></figure>
 
-<h2>Guardrail，得在生成之前就拦在门口</h2>
-<p>这个坑我也踩过：最早把品牌检查放在最后。11 份内容全生成完，系统才慢悠悠弹一句“语气可能不一致”。你说它说得对吗？对。有用吗？一点用没有。用户已经编辑了大半天了，你这时候才告诉他整段不能发？</p>
-<p>后来我把它整个挪到了生成之前。护栏里存着不许用的承诺、必须出现的产品名、一个字都不能改的数据、语气边界和 CTA。生成的时候，这些规则先进上下文；生成完，再回头查一遍。这东西更像一份能被执行的机构记忆，比一份躺在云盘里落灰的品牌手册强多了。</p>
-<figure><img src="../images/yiyuduochi-guardrails-full.png" alt="一鱼多吃品牌护栏页面，列出禁用词、事实约束与语气规则"><figcaption>规则得写成人和机器都能检查的句子。“保持高级感”这种，没法验收；换成“不许出现保证收益、第一、唯一这些词”，立马就能查。</figcaption></figure>
-<div class="evidence-note"><strong>边界说清楚：</strong>护栏能挡掉明显的越界，证明不了内容真假。事实还是得有来源；涉及价格、性能、客户结果这些，系统该做的是让用户自己确认，绝不替用户背书。</div>
+        <h2>替代方案拆解，让产品边界慢慢清楚</h2>
+        <p>我把常见方案分成三类去看。通用聊天工具很会起草，用户每次仍要补品牌、受众和平台要求。模板生成器能把格式固定下来，碰到真实语境时很快显得僵。内容运营套件擅长日历、审批和发布，前面的创作与品牌判断往往还散在别处。</p>
+        <p>Finfold 选择把几段工作接起来。品牌记忆保存定位、受众、语气、禁用词和认可过的范文。平台规则负责生成前的约束。内容卡承接每个平台的版本与状态。封面和配图进入同一个内容包。发布数据回来以后，系统再给下一轮建议。这条路径比一个聊天框更重，产品价值也因此更明确。</p>
+        <div class="decision-record"><h3>研究怎样改了界面</h3><dl><dt>发现</dt><dd>十四个平台会产生十四个独立对象，聊天时间线很难表达它们的并行状态。</dd><dt>改变</dt><dd>我把界面改成空间工作台，让素材、平台和输出同时可见。移动端再收成三步，避免信息挤在一屏。</dd><dt>发现</dt><dd>同一批内容需要共享事实，也需要保留平台自己的语气和禁忌。</dd><dt>改变</dt><dd>品牌记忆和平台规则进入生成上下文，每张卡仍能单独编辑、锁定和重试。</dd></dl></div>
 
-<h2>四秒钟的等待，不能只剩一个转圈</h2>
-<p>11 个平台同时生成，不可能秒出。早期版本就是在按钮上转个圈，四秒钟，用户眼里能拉长成十几秒。后来我让每张卡片各自亮起状态：读资料、套规则、生成、检查——完成一张就先冒出来一张。总耗时没省多少，但等待从一个黑箱，变成了一场你能看见的过程。</p>
-<p>我没敢把这写成“感知速度提升 40%”——因为压根没做能支撑这个百分比的实验。我能拍胸脯确认的就两点：用户看得见系统卡在哪了，也能先去处理那些已经好的。前者让人不慌，后者让人不干等。</p>
+        <h2>品牌规则要在生成前参与工作</h2>
+        <p>早期版本把品牌检查放在最后。十一份内容都生成完，系统才提示语气可能不一致。提醒没有错，出现得太晚。用户已经花时间编辑，整段重来只会让人泄气。</p>
+        <p>后来我把规则移到生成之前。品牌名怎样写，哪些数据不能改，哪些词不能出现，什么语气属于这个人，都先进入上下文。生成结束以后再检查一次。规则因此从一份文档变成了可执行的记忆。广告、电商、医疗、法律和金融相关内容还需要更严格的边界，极限词、疗效承诺和收益保证会在生成阶段被拦下。</p>
+        <figure><img src="../images/finfold-app-brand-rules.png" alt="Finfold 品牌规则页面展示语气、禁用词和行业规则包" loading="lazy" decoding="async"><figcaption>品牌规则保存可检查的约束。高级感这类空词很难验收，具体禁用词和事实边界才进得了系统。</figcaption></figure>
 
-<h2>计费页，逼着我回答一个最怕的问题</h2>
-<p>做到定价页，我被卡住了。一个产品要是只按“每月生成多少条”收钱，迟早被拖进一场 token 转售的价格战——谁家模型便宜谁赢，你辛辛苦苦做的产品，护城河约等于零。</p>
-<p>真正难被抄走的，是另一摊东西：能复用的品牌规则、攒下来的历史上下文、跨渠道的状态管理、一套发布节奏。所以定价不能光卖数量，得对上你真正提供的那种工作方式。</p>
-<figure><img src="../images/yiyuduochi-billing-full.png" alt="一鱼多吃定价页面，展示不同用量和协作能力的套餐"><figcaption>定价页可不是项目收尾时随便贴的装饰。它逼着我把能力拆成两类价值：一类是“生成更多”，一类是“管得更稳”。</figcaption></figure>
-<p>说句实话，我到现在也没有足够的真实付费数据，能证明这套套餐就是对的。这是当下最让我心里没底的事。我觉得下一步不该再堆功能了——该老老实实回去盯一件事：创作者掏钱，到底图什么？为省时间，为少出错，还是为品牌始终一个味儿。</p>
+        <h2>我把永远成功的假象删掉了</h2>
+        <p>第一版 Dashboard 上有一组很漂亮的数字。四十二条待发布，十一条待审核，十八条已排期。它让产品看起来很成熟，来源却只是演示数据。我后来把它删了。</p>
+        <p>早期生成流程还有一层静默兜底。模型报错时，系统会塞入一份模板，让卡片继续显示成功。演示因此很顺，用户却分不清哪份内容来自模型，哪份来自缓存，哪份只是模板。一段带错事实的文案如果真的发出去，损失落在用户经营了很久的账号上。</p>
+        <p>我最后保留已经成功的结果，失败卡片单独说明原因，并提供单卡重试。公开创作台也把登录边界写在页面里。任何人可以先看完整界面，真正生成前再注册免费账户。按钮没有神秘地变灰，用户知道为什么暂时不能继续。</p>
+        <p>等待状态也跟着改了。十四个平台不可能同时秒出，每张卡会显示读取资料、应用规则、生成和检查。先完成的内容先出现，用户可以开始编辑。总时间没有被我写成一个漂亮的提升百分比，因为我没有做足以支撑那个数字的实验。我能确认的是状态变得可见，恢复路径也变得具体。</p>
 
-<h2>到最后，这套产品反过来教我怎么做内容</h2>
-<p>有意思的是，做完这产品，我对自己“怎么发内容”这件事，也算彻底想通了。母体就放个人网站：完整论证、图片、来源，都搁这儿。LinkedIn 提炼职业判断，X 记录干活的短结论，小红书把一个机制拆成图来讲，视频号用大白话讲一个具体场景。它们共用一套事实，但谁也不抄谁的句子。</p>
-<p>就拿这篇文章来说——到了小红书，我不会把它缩成“AI 内容工具的 5 个原则”。我只讲一件事：为什么我删掉了一个能让 Demo 永远成功的功能。到 X，就是一句判断，配四张失败状态的图。到 LinkedIn，聊的是 AI 产品为什么非得把不确定性摆到台面上。网站负责把话讲透，平台负责把人领进门。</p>
+        <h2>真实现场给了这个项目一层新的证据</h2>
+        <p>Link-X Demo Day 没有替我证明产品已经成功。它证明了另外两件可以落地的事。我确实把一套运行中的产品带到了公开现场，也确实能站在界面旁，把研究、设计判断和实现边界讲出来。</p>
+        <p>这对作品集很重要。产品设计师常把过程写成一条过于整齐的线，研究之后得到洞察，洞察之后得到方案，方案上线后一切变好。真实项目没有这么整齐。Finfold 的很多判断来自我自己的工作，一部分来自平台任务分析，一部分来自对替代方案的拆解。公开演示能补上现场证据，仍然不能冒充规模化用户研究。</p>
+        <div class="figure-grid">
+          <figure><img src="../images/finfold-linkx-booth-redacted.jpg" alt="2026 Link-X Demo Day 的 Finfold 展位，联系方式和二维码已做隐私处理" width="1400" height="1866" loading="lazy" decoding="async"><figcaption>Finfold 展位。公开图片保留了现场与产品，个人联系方式和二维码已经处理。</figcaption></figure>
+          <figure><img src="../images/finfold-linkx-live-demo-redacted.jpg" alt="Joey Zhao 站在 Finfold 真实产品演示屏旁，私人信息已经隐藏" width="1400" height="1866" loading="lazy" decoding="async"><figcaption>现场演示使用真实创作台。邮箱和证件信息已经隐藏，产品界面与场景保留。</figcaption></figure>
+        </div>
 
-<div class="reader-tool"><h2>做 AI 产品之前，拿这五条先拷问自己一遍</h2><ul><li><strong>失败的时候</strong>，你的产品有没有偷偷塞一个看起来成功的东西给用户？</li><li>每条重要内容，能不能往前追到来源和规则？</li><li>你的护栏，是生成前就拦在门口，还是发布前才补一句没用的警告？</li><li>用户等待的时候，屏幕上是真实的进度，还是干巴巴一个转圈？</li><li>你卖的是 token 数，还是一种让人离不开的工作方式？</li></ul></div>
-<div class="references"><strong>项目与方法：</strong><ul class="source-list"><li><a href="../finfold">「一鱼多吃」完整产品案例</a>：工作台、代理、Guardrail、日历与计费画面。</li><li>本文关于等待和质量的判断来自当前产品实现与自我复盘，不冒充规模化用户研究结果。</li></ul></div>
-</article><aside class="article-aside"><span class="aside-label">Share / Follow</span><div class="aside-links"><a data-share-linkedin="" target="_blank" rel="noopener noreferrer">分享到 LinkedIn</a><a data-share-x="" target="_blank" rel="noopener noreferrer">分享到 X</a><button data-copy-link="">复制文章链接</button><a href="https://x.com/JoeyKonad" target="_blank" rel="noopener noreferrer">关注 @JoeyKonad</a><a href="https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021" target="_blank" rel="noopener noreferrer">小红书</a><button class="channel-id" data-copy-channel="">视频号 · Joey的产品美学<br>sphmQz03lemSzBD</button></div></aside></div></main>
-<section class="continue"><div class="page-shell"><h2>Continue reading</h2><div class="continue-grid"><a class="continue-card" href="ai-designers-cannot-only-sell-screens"><small>Point of view</small><h3>AI 时代，设计师不能只卖页面</h3></a><a class="continue-card" href="portfolio-as-evidence"><small>Career &amp; craft</small><h3>作品集是思维方式的证据链</h3></a></div></div></section>
-<footer class="site-footer"><div class="page-shell footer-inner"><a href="./">← All writing</a><span>© 2026 Joey Zhao</span></div></footer><script src="writing.js"></script>
-</body></html>
+        <h2>我现在能证明什么</h2>
+        <p>截至 2026 年 8 月 11 日，Finfold 的公开首页、创作台和定价页可以相互对上。当前公开版本是 v0.9.0-beta.3，支持十四个平台、九种图片尺寸和品牌记忆。未登录访客可以预览完整创作台，免费账户有五十创作点数。工作台也明确提示单次最多选择六个平台，用来控制等待和部分平台的失败。</p>
+        <p>这些证据能证明产品已经上线，核心路径可以被看见，商业化方案也进入了真实页面。它们还不能证明留存、收入和增长效果。关于付费用户为什么留下、哪种内容回流真正改变下一次生成，我现在没有足够的数据。</p>
+        <p>下一轮调研会把注意力放回真实任务。我准备让创始人和一人公司带一条刚写完的产品更新来，在 Finfold 里完成素材输入、平台选择、修改、导出和发布记录。访谈之外，再加一周内容日记，看看用户回到产品时带着什么资料，在哪一步离开，哪些建议真的被采用。研究会沿着行为往下走，直到能解释留存。</p>
+
+        <div class="reader-tool"><h2>看一个 AI 项目时，我会留下这四个问题</h2><ul><li>问题来自哪段真实工作，设计师手里有什么证据。</li><li>研究具体改了哪个界面、状态或产品边界。</li><li>AI 失败时，用户看见什么，又能怎样恢复。</li><li>当前结论能证明到哪里，下一轮研究准备补什么。</li></ul></div>
+
+        <div class="references"><strong>项目与核验</strong><ul class="source-list"><li><a href="../finfold">Finfold 完整项目案例</a>，包含调研路径、产品判断、现场照片与当前能力边界。</li><li><a href="https://www.finfold.app/" target="_blank" rel="noopener noreferrer">Finfold 公开官网</a>，用于核验十四个平台、九种图片尺寸、套餐与 v0.9.0-beta.3 状态。</li><li><a href="https://www.finfold.app/workbench" target="_blank" rel="noopener noreferrer">Finfold 公开创作台</a>，用于核验未登录预览、平台选择和生成前登录提示。</li><li>本文关于设计决策的判断来自当前产品实现与创始人自我复盘，没有把公开展示写成用户访谈。</li></ul></div>
+      </article>
+      <aside class="article-aside"><span class="aside-label">Share / Follow</span><div class="aside-links"><a data-share-linkedin="" target="_blank" rel="noopener noreferrer">分享到 LinkedIn</a><a data-share-x="" target="_blank" rel="noopener noreferrer">分享到 X</a><button data-copy-link="">复制文章链接</button><a href="https://x.com/JoeyKonad" target="_blank" rel="noopener noreferrer">关注 @JoeyKonad</a><a href="https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021" target="_blank" rel="noopener noreferrer">小红书</a><button class="channel-id" data-copy-channel="">视频号 · Joey的产品美学<br>sphmQz03lemSzBD</button></div></aside>
+    </div>
+  </main>
+  <section class="continue"><div class="page-shell"><h2>Continue reading</h2><div class="continue-grid"><a class="continue-card" href="ai-designers-cannot-only-sell-screens"><small>Point of view</small><h3>AI 时代，设计师不能只卖页面</h3></a><a class="continue-card" href="portfolio-as-evidence"><small>Career &amp; craft</small><h3>作品集是思维方式的证据链</h3></a></div></div></section>
+  <footer class="site-footer"><div class="page-shell footer-inner"><a href="./">← All writing</a><span>© 2026 Joey Zhao</span></div></footer>
+  <script src="writing.js"></script>
+</body>
+</html>
