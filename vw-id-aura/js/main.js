@@ -7,8 +7,8 @@
 
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-import { createScene } from './scene.js?v=20260728-2';
-import { createCar } from './car.js?v=20260727-3';
+import { createScene } from './scene.js?v=20260813-1';
+import { createCar } from './car.js?v=20260813-1';
 import { createCluster } from './cluster/index.js?v=20260729-3';
 import { createClusterWorld } from './cluster/world.js?v=20260729-2';
 import { createConsole } from './console.js?v=20260729-3';
@@ -27,6 +27,11 @@ const layers = {
 const viewName = document.getElementById('view-name');
 const loader = document.getElementById('loader');
 const loaderBar = document.getElementById('loader-bar');
+const loaderPercent = document.getElementById('loader-percent');
+const vehicleStreamBar = document.getElementById('vehicle-stream-bar');
+const vehicleStreamPercent = document.getElementById('vehicle-stream-percent');
+const vehicleStreamStatus = document.getElementById('vehicle-stream-status');
+const vehicleStreamDetail = document.getElementById('vehicle-stream-detail');
 
 /* ---------- core ---------- */
 const quality = createQuality();
@@ -48,22 +53,42 @@ const autonomous = createAutonomous(view, layers.autonomous, car);
 const clusterWorld = createClusterWorld(view, car);
 if (cluster.attachWorld) cluster.attachWorld(clusterWorld);
 
-/* ---------- loading: real GLB progress ---------- */
-let loaded = false;
-car.onProgress((p) => {
-  loaderBar.style.width = Math.round(p * 88) + '%';
+/* ---------- loading: optimized real GLB progress ---------- */
+document.body.classList.add('vehicle-loading');
+car.onProgress((p, bytesLoaded, bytesTotal) => {
+  const percent = Math.min(99, Math.round(p * 100));
+  loaderBar.style.width = percent + '%';
+  loaderPercent.textContent = String(percent).padStart(2, '0') + '%';
+  vehicleStreamBar.style.width = percent + '%';
+  vehicleStreamPercent.textContent = String(percent).padStart(2, '0') + '%';
+  if (bytesTotal) {
+    const loadedMb = (bytesLoaded / 1_000_000).toFixed(1);
+    const totalMb = (bytesTotal / 1_000_000).toFixed(1);
+    vehicleStreamDetail.textContent = `${loadedMb} / ${totalMb} MB · DRACO + WEBP STREAM`;
+  }
 });
-car.onLoad(() => {
+car.onLoad((isRealModel) => {
   loaderBar.style.width = '100%';
+  loaderPercent.textContent = '100%';
+  vehicleStreamBar.style.width = '100%';
+  vehicleStreamPercent.textContent = '100%';
+  document.body.classList.remove('vehicle-loading');
+  document.body.classList.add(isRealModel ? 'vehicle-ready' : 'vehicle-fallback');
+  vehicleStreamStatus.textContent = isRealModel ? 'DIGITAL TWIN READY' : 'FALLBACK PREVIEW ACTIVE';
+  vehicleStreamDetail.textContent = isRealModel
+    ? 'KHRONOS CAR CONCEPT · 162K VERTICES · REAL-TIME PBR'
+    : 'HIGH-FIDELITY MODEL COULD NOT BE LOADED';
   setTimeout(() => {
     loader.classList.add('done');
-    loaded = true;
-  }, 450);
-  buildConsoleTwin();
-  clusterWorld.build();
+  }, 220);
+  if (isRealModel) {
+    buildConsoleTwin();
+    clusterWorld.build();
+  }
 });
-// safety: never trap the user behind the loader
-setTimeout(() => { loader.classList.add('done'); loaded = true; }, 9000);
+// The app shell and intro are usable before the 3D payload finishes. Model
+// progress continues in the small, honest Digital Twin status plate.
+setTimeout(() => loader.classList.add('done'), 1800);
 
 /* ---------- views ---------- */
 const VIEWS = ['showroom', 'cluster', 'console', 'autonomous'];
@@ -82,7 +107,7 @@ function isPortraitPhone() {
 function applyResponsiveCamera(name = current) {
   const portrait = isPortraitPhone();
   camera.zoom = portrait
-    ? (name === 'showroom' ? 0.72 : name === 'cluster' ? 0.84 : name === 'autonomous' ? 0.74 : 1)
+    ? (name === 'showroom' ? 0.46 : name === 'cluster' ? 0.84 : name === 'autonomous' ? 0.74 : 1)
     : 1;
   camera.updateProjectionMatrix();
 }
@@ -186,10 +211,10 @@ document.querySelectorAll('.nav-btn').forEach((b) =>
 
 /* ---------- camera presets ---------- */
 const CAMERAS = {
-  front34: { pos: [8.8, 3.4, 8.8], tgt: [0, 0.8, 0], near: false },
-  side:    { pos: [0.4, 1.6, 10.6], tgt: [0, 0.8, 0], near: false },
-  rear:    { pos: [-7.4, 3.2, -7.8], tgt: [0, 0.9, 0], near: false },
-  top:     { pos: [0.01, 15.5, 0.01], tgt: [0, 0, 0], near: false },
+  front34: { pos: [5.9, 2.25, 6.25], tgt: [0, 0.82, 0], near: false },
+  side:    { pos: [0.25, 1.52, 7.65], tgt: [0, 0.78, 0], near: false },
+  rear:    { pos: [-5.7, 2.2, -6.0], tgt: [0, 0.84, 0], near: false },
+  top:     { pos: [0.01, 12.2, 0.01], tgt: [0, 0, 0], near: false },
   int:     { pos: [-0.28, 1.25, 0.46], tgt: [2.05, 1.0, 0.42], near: true },
   driver:  { pos: [-0.28, 1.25, 0.46], tgt: [2.05, 1.0, 0.42], near: true },
   center:  { pos: [0.04, 1.24, 0.12], tgt: [1.62, 0.86, 0.02], near: true },
@@ -202,8 +227,8 @@ function flyTo(p) {
   controls.enabled = true;
   cinematicCam = false;
   // near-camera ergonomics for interior POV
-  controls.minDistance = p.near ? 0.05 : 5.5;
-  controls.maxDistance = p.near ? 3.5 : 18;
+  controls.minDistance = p.near ? 0.05 : 4.6;
+  controls.maxDistance = p.near ? 3.5 : 15;
   controls.maxPolarAngle = p.near ? Math.PI : Math.PI / 2 - 0.04;
   // target snaps, position eases; sync controls each frame so the
   // damping-style update() never fights the programmatic tween.
@@ -255,7 +280,7 @@ lensBtns.forEach((b) =>
   b.addEventListener('click', () => {
     const lens = b.dataset.lens;
     lensBtns.forEach((x) => x.classList.toggle('active', x === b));
-    autoRotate = lens !== 'int';
+    autoRotate = lens !== 'int' && !isCompactViewport();
     const isCockpit = lens === 'int';
     car.setInterior(isCockpit);
     document.body.classList.toggle('interior-view', isCockpit);
@@ -272,11 +297,13 @@ interiorViewBtns.forEach((button) =>
 );
 
 /* ---------- showroom controls ---------- */
+const paintName = document.getElementById('paint-name');
 document.querySelectorAll('.paint-dot').forEach((b) =>
   b.addEventListener('click', () => {
     document.querySelectorAll('.paint-dot').forEach((x) =>
       x.classList.toggle('active', x === b));
     car.setPaint(parseInt(b.dataset.paint.slice(1), 16));
+    paintName.textContent = (b.title || 'PAINT').toUpperCase().replace(' SILVER', '').replace(' WHITE', '');
   })
 );
 
@@ -295,7 +322,7 @@ if (sceneRail && view.SCENES) {
       btn.classList.toggle('active', i === idx));
     // smooth exposure ramp so the new vista fades in instead of snapping
     gsap.fromTo(view.renderer, { toneMappingExposure: 0.3 },
-      { toneMappingExposure: 0.68, duration: 0.9, ease: 'power2.out' });
+      { toneMappingExposure: idx === 0 ? 0.62 : 0.68, duration: 0.9, ease: 'power2.out' });
   });
 }
 
@@ -437,7 +464,7 @@ addEventListener('keydown', (e) => {
 });
 
 /* ---------- idle auto-rotate ---------- */
-let autoRotate = true;
+let autoRotate = !isCompactViewport() && !matchMedia('(prefers-reduced-motion: reduce)').matches;
 let cinematicCam = false;   // true = gsap owns the camera, loop skips controls.update()
 let idleTimer;
 controls.addEventListener('start', () => {
@@ -447,7 +474,7 @@ controls.addEventListener('start', () => {
 controls.addEventListener('end', () => {
   clearTimeout(idleTimer);
   idleTimer = setTimeout(() => {
-    if (current === 'showroom') autoRotate = true;
+    if (current === 'showroom' && !isCompactViewport()) autoRotate = true;
   }, 4000);
 });
 

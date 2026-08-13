@@ -3590,3 +3590,257 @@ body[data-view="showroom"] #aura-glow { opacity: 0; }
   background: var(--eco);
   box-shadow: 0 0 8px rgba(111, 217, 180, 0.7);
 }
+
+/* ============================================================
+   SHOWROOM 2026 — automotive editorial / real-time product film
+   The car carries the page. UI becomes sparse provenance and
+   camera direction, while an honest streaming plate covers slow
+   networks without ever presenting the rough fallback as final.
+   ============================================================ */
+
+#loader {
+  overflow: hidden;
+  background: #020407;
+}
+#loader::before {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  background:
+    linear-gradient(90deg, rgba(2, 4, 7, 0.9), rgba(2, 4, 7, 0.42) 48%, rgba(2, 4, 7, 0.84)),
+    url("assets/card-cover.png") center / cover no-repeat;
+  filter: saturate(0.42) contrast(1.08) blur(8px);
+  opacity: 0.32;
+  transform: scale(1.05);
+}
+.loader-vehicle {
+  position: absolute;
+  left: 50%;
+  top: 53%;
+  width: min(72vw, 1040px);
+  aspect-ratio: 2.15;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(72, 187, 204, 0.11), rgba(3, 7, 11, 0) 67%);
+  filter: blur(8px);
+}
+.loader-core {
+  min-width: min(410px, calc(100vw - 48px));
+  padding: 34px 38px 28px;
+  border-top: 1px solid rgba(211, 242, 245, 0.1);
+  border-bottom: 1px solid rgba(211, 242, 245, 0.06);
+  background: linear-gradient(90deg, transparent, rgba(3, 8, 12, 0.78) 18%, rgba(3, 8, 12, 0.78) 82%, transparent);
+}
+.loader-logo {
+  font-family: var(--font-tech);
+  font-size: clamp(42px, 6vw, 74px);
+  letter-spacing: 0.02em;
+}
+.loader-track {
+  height: 1px;
+  border-radius: 0;
+  background: rgba(194, 229, 233, 0.1);
+}
+.loader-track i {
+  background: linear-gradient(90deg, rgba(84, 211, 227, 0.25), #dffcff);
+  box-shadow: 0 0 18px rgba(84, 211, 227, 0.45);
+}
+.loader-data {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font: 400 7px/1 var(--font-mono);
+  letter-spacing: 0.22em;
+  color: rgba(153, 188, 193, 0.42);
+}
+.loader-data b {
+  color: rgba(220, 246, 248, 0.72);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+}
+
+.showroom-plate {
+  position: absolute;
+  z-index: 2;
+  top: 118px;
+  left: 30px;
+  width: min(320px, 27vw);
+  padding-left: 15px;
+  border-left: 1px solid rgba(168, 222, 228, 0.26);
+  color: rgba(228, 239, 239, 0.9);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s var(--ease-flip) 0.34s, transform 0.8s var(--ease-flip) 0.34s;
+}
+body[data-view="showroom"].boot-done .showroom-plate {
+  opacity: 1;
+  transform: none;
+}
+.showroom-plate-kicker {
+  display: block;
+  margin-bottom: 11px;
+  font: 500 7px/1 var(--font-mono);
+  letter-spacing: 0.32em;
+  color: rgba(128, 190, 198, 0.62);
+}
+.showroom-plate-title {
+  font: 400 clamp(27px, 2.3vw, 42px)/0.9 var(--font-tech);
+  letter-spacing: 0.025em;
+  color: #f2f6f5;
+}
+.showroom-plate-title span { color: var(--cyan); }
+.showroom-plate > p {
+  max-width: 285px;
+  margin-top: 12px;
+  font-size: 10.5px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(178, 195, 198, 0.64);
+}
+.showroom-specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(177, 215, 219, 0.09);
+}
+.showroom-specs span {
+  display: grid;
+  gap: 5px;
+}
+.showroom-specs b {
+  font: 400 18px/1 var(--font-geo);
+  letter-spacing: 0.02em;
+  color: rgba(238, 246, 246, 0.9);
+}
+.showroom-specs small {
+  font: 400 6px/1.35 var(--font-mono);
+  letter-spacing: 0.18em;
+  color: rgba(126, 155, 160, 0.56);
+}
+
+.vehicle-stream {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: 138px;
+  width: min(390px, calc(100vw - 48px));
+  padding: 12px 14px 11px;
+  transform: translate(-50%, 8px);
+  border: 1px solid rgba(139, 203, 211, 0.16);
+  background: linear-gradient(105deg, rgba(2, 6, 10, 0.91), rgba(8, 18, 22, 0.77));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025), 0 24px 70px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.55s var(--ease-flip);
+}
+body[data-view="showroom"].boot-done.vehicle-loading .vehicle-stream {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+body[data-view="showroom"].boot-done.vehicle-fallback .vehicle-stream {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  border-color: rgba(230, 168, 119, 0.26);
+}
+.vehicle-stream-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 500 8px/1 var(--font-mono);
+  letter-spacing: 0.2em;
+  color: rgba(219, 239, 241, 0.78);
+}
+.vehicle-stream-head b {
+  font-weight: 400;
+  color: var(--cyan);
+}
+.vehicle-stream-track {
+  height: 1px;
+  margin-top: 10px;
+  overflow: hidden;
+  background: rgba(160, 207, 213, 0.12);
+}
+.vehicle-stream-track i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(84, 211, 227, 0.2), #bff7fb);
+  box-shadow: 0 0 14px rgba(84, 211, 227, 0.6);
+  transition: width 0.22s linear;
+}
+.vehicle-stream > p {
+  margin-top: 8px;
+  font: 400 6.5px/1 var(--font-mono);
+  letter-spacing: 0.15em;
+  color: rgba(120, 154, 160, 0.58);
+}
+
+body[data-view="showroom"] .lens-rail { left: 30px; }
+body[data-view="showroom"] .lens-btn {
+  min-width: 130px;
+  padding: 10px 13px;
+  border-color: rgba(160, 207, 213, 0.08);
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(3, 8, 12, 0.72), rgba(3, 8, 12, 0.3));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(18px);
+}
+body[data-view="showroom"] .lens-btn.active {
+  color: #eaffff;
+  border-color: rgba(119, 220, 231, 0.25);
+  border-left-color: rgba(169, 246, 252, 0.86);
+  background: linear-gradient(90deg, rgba(31, 103, 115, 0.24), rgba(3, 9, 13, 0.48));
+  box-shadow: inset 10px 0 28px rgba(69, 194, 211, 0.08), 0 14px 40px rgba(0, 0, 0, 0.2);
+}
+body[data-view="showroom"] .paint-rail {
+  right: 30px;
+  gap: 11px;
+  padding: 14px 11px;
+  border-radius: 18px;
+  background: rgba(3, 8, 12, 0.5);
+  border-color: rgba(160, 207, 213, 0.1);
+}
+body[data-view="showroom"] .paint-rail .rail-label {
+  max-height: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(164, 199, 204, 0.6);
+}
+body[data-view="showroom"] .paint-dot {
+  width: 20px;
+  height: 20px;
+  border-width: 1px;
+}
+body[data-view="showroom"] .scene-rail {
+  padding: 5px 7px;
+  border-radius: 4px;
+  background: rgba(3, 8, 12, 0.62);
+  border-color: rgba(160, 207, 213, 0.1);
+}
+body[data-view="showroom"] .scene-btn {
+  padding: 7px 10px;
+  border-radius: 2px;
+  font-size: 8.5px;
+  color: rgba(153, 178, 182, 0.64);
+}
+body[data-view="showroom"] .scene-btn.active {
+  color: #dcfbfd;
+  border-color: rgba(122, 220, 230, 0.28);
+  background: rgba(84, 211, 227, 0.075);
+  box-shadow: inset 0 -1px rgba(139, 238, 245, 0.48);
+}
+body[data-view="showroom"] #view-name {
+  color: rgba(147, 185, 190, 0.54);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vehicle-stream-track i,
+  .showroom-plate,
+  .vehicle-stream { transition-duration: 0.01ms; }
+}

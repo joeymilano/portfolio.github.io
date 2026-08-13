@@ -18,12 +18,13 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-600.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/sometype-mono-400.woff2" crossorigin>
   <link rel="preload" as="image" href="assets/video/aura-night-drive-poster.jpg">
+  <link rel="preload" as="fetch" href="assets/models/car.glb" type="model/gltf-binary" crossorigin>
   <link rel="stylesheet" href="vendor/maplibre-gl.css">
   <link rel="stylesheet" href="css/tokens.css?v=20260728-1">
   <link rel="stylesheet" href="css/system.css?v=20260728-1">
-  <link rel="stylesheet" href="styles.css?v=20260729-3">
+  <link rel="stylesheet" href="styles.css?v=20260813-1">
   <link rel="stylesheet" href="css/cluster-gauge.css?v=20260728-1">
-  <link rel="stylesheet" href="css/mobile.css?v=20260729-1">
+  <link rel="stylesheet" href="css/mobile.css?v=20260813-1">
 
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"CreativeWork","name":"Volkswagen ID.AURA — HMI Concept","description":"An immersive WebGL human-machine interface concept for Volkswagen's electric future.","url":"https://joeyzhao.cc/vw-id-aura/","inLanguage":"en","creator":{"@type":"Person","name":"Joey Zhao","jobTitle":"Senior AI Product Designer","url":"https://joeyzhao.cc/"}}
@@ -55,11 +56,13 @@
 
   <!-- Boot veil -->
   <div id="loader">
+    <div class="loader-vehicle" aria-hidden="true"></div>
     <div class="loader-core">
       <div class="loader-logo">ID<span class="dot">.</span>AURA</div>
       <div class="loader-sub">VOLKSWAGEN · HMI CONCEPT</div>
       <div class="loader-track"><i id="loader-bar"></i></div>
       <div class="loader-status" id="lstatus">LOADING VEHICLE DATA</div>
+      <div class="loader-data"><span>REAL-TIME PBR / DRACO</span><b id="loader-percent">00%</b></div>
     </div>
     <div class="loader-grid"></div>
   </div>
@@ -98,6 +101,26 @@
 
     <!-- Showroom controls -->
     <div class="showroom-ui">
+      <section class="showroom-plate" aria-label="ID.AURA vehicle concept">
+        <span class="showroom-plate-kicker">VOLKSWAGEN · DESIGN STUDY 01</span>
+        <div class="showroom-plate-title">ID<span>.</span>AURA</div>
+        <p>Electric grand tourer shaped around a predictive, spatial HMI.</p>
+        <div class="showroom-specs" aria-label="Concept specifications">
+          <span><b>02</b><small>AXLE DRIVE</small></span>
+          <span><b>800V</b><small>ARCHITECTURE</small></span>
+          <span><b>L4</b><small>INTELLIGENCE</small></span>
+        </div>
+      </section>
+
+      <div class="vehicle-stream" id="vehicle-stream" role="status" aria-live="polite">
+        <div class="vehicle-stream-head">
+          <span id="vehicle-stream-status">STREAMING DIGITAL TWIN</span>
+          <b id="vehicle-stream-percent">00%</b>
+        </div>
+        <div class="vehicle-stream-track"><i id="vehicle-stream-bar"></i></div>
+        <p id="vehicle-stream-detail">KHRONOS CAR CONCEPT · PBR MATERIAL PIPELINE</p>
+      </div>
+
       <div class="lens-rail">
         <button class="lens-btn active" data-lens="front34"><i>¾</i>FRONT</button>
         <button class="lens-btn" data-lens="side"><i>→</i>SIDE</button>
@@ -125,9 +148,9 @@
         </div>
       </section>
       <div class="paint-rail">
-        <span class="rail-label">PAINT</span>
-        <button class="paint-dot active" data-paint="#9fb3c8" style="--c:#9fb3c8" title="Moonstone Silver"></button>
-        <button class="paint-dot" data-paint="#0d2d6b" style="--c:#0d2d6b" title="Deep Ocean"></button>
+        <span class="rail-label" id="paint-name">DEEP OCEAN</span>
+        <button class="paint-dot" data-paint="#9fb3c8" style="--c:#9fb3c8" title="Moonstone Silver"></button>
+        <button class="paint-dot active" data-paint="#0d2d6b" style="--c:#0d2d6b" title="Deep Ocean"></button>
         <button class="paint-dot" data-paint="#0c1210" style="--c:#0c1210" title="Obsidian"></button>
         <button class="paint-dot" data-paint="#c22333" style="--c:#c22333" title="Crimson"></button>
         <button class="paint-dot" data-paint="#e8e6e0" style="--c:#e8e6e0" title="Glacier White"></button>
@@ -241,6 +264,6 @@
       }
     });
   </script>
-  <script type="module" src="js/main.js?v=20260729-5"></script>
+  <script type="module" src="js/main.js?v=20260813-1"></script>
 </body>
 </html>

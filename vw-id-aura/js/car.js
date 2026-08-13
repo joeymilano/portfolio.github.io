@@ -1,12 +1,13 @@
 /* ============================================================
    ID.AURA — Vehicle
-   Real concept-car GLB (Khronos Car Concept, draco-compressed)
+   Real concept-car GLB (Khronos Car Concept, Draco + WebP)
    with cinematic post-fitting:
      · two-tone PBR paint system (body + dark accent roof)
      · emissive light signatures (DRL / tail / indicators)
      · smoked-glass replacement, de-branded interior trim
      · wheel pivot rig (tyre+rim+disc spin, calipers static)
-   Falls back to a procedural ID.-style EV if the GLB fails.
+   Keeps the procedural ID.-style EV hidden unless the GLB genuinely fails,
+   so a slow connection never presents the rough backup as the final design.
    ============================================================ */
 
 import * as THREE from 'three';
@@ -14,7 +15,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
-const PAINTS = ['#8f9bab', '#0d2d6b', '#7a0f1d', '#d8d4cc', '#0c0e12', '#0e3a34'];
+const PAINTS = ['#0d2d6b', '#8f9bab', '#7a0f1d', '#d8d4cc', '#0c0e12', '#0e3a34'];
 
 export function createCar() {
   const group = new THREE.Group();
@@ -24,17 +25,20 @@ export function createCar() {
   const state = {
     ready: false, paint: PAINTS[0], lightsOn: true,
     paintMats: [], accentMats: [], glowMats: [],
-    wheelPivots: [], spin: true, loaded: null
+    wheelPivots: [], spin: true, loaded: null,
+    loadProgress: 0, revealAt: Infinity
   };
 
   /* ---------- shared materials ---------- */
   const paintMat = new THREE.MeshPhysicalMaterial({
-    color: state.paint, metalness: 0.85, roughness: 0.32,
-    clearcoat: 1.0, clearcoatRoughness: 0.06, envMapIntensity: 1.5
+    color: state.paint, metalness: 0.82, roughness: 0.2,
+    clearcoat: 1.0, clearcoatRoughness: 0.045, envMapIntensity: 1.7
   });
   const glassMat = new THREE.MeshPhysicalMaterial({
-    color: 0x0d1826, metalness: 0.9, roughness: 0.08,
-    transparent: true, opacity: 0.85, envMapIntensity: 1.1
+    name: 'Glass', color: 0x07111b, metalness: 0, roughness: 0.045,
+    transparent: true, opacity: 0.5, transmission: 0.18,
+    ior: 1.45, thickness: 0.025, envMapIntensity: 1.25,
+    depthWrite: false
   });
   const trimMat = new THREE.MeshStandardMaterial({ color: 0x14171d, metalness: 0.6, roughness: 0.5 });
   const tyreMat = new THREE.MeshStandardMaterial({ color: 0x0b0d10, roughness: 0.95 });
@@ -83,6 +87,7 @@ export function createCar() {
   }
 
   const fallback = buildBody();
+  fallback.visible = false;
   rig.add(fallback);
   state.paintMats.push(paintMat);
 
@@ -90,10 +95,11 @@ export function createCar() {
   // the authored emissive lamp texture now also throws a restrained beam
   // across the showroom floor and premiere wall.
   const headlightSpots = [-0.56, 0.56].map((z) => {
-    const light = new THREE.SpotLight(0xcfeaff, 18, 26, 0.18, 0.82, 1.35);
+    const light = new THREE.SpotLight(0xcfeaff, 5, 26, 0.18, 0.82, 1.35);
     light.position.set(2.06, 0.72, z);
     light.target.position.set(10, 0.18, z * 1.35);
     rig.add(light, light.target);
+    light.visible = false;
     return light;
   });
 
@@ -158,6 +164,7 @@ export function createCar() {
     model.traverse((o) => {
       if (!o.isMesh) return;
       o.castShadow = true;
+      o.receiveShadow = true;
       const mats = Array.isArray(o.material) ? o.material : [o.material];
       const mat = mats[0];
       const mName = (mat.name || '').toLowerCase();
@@ -181,17 +188,18 @@ export function createCar() {
       if (mName.startsWith('paint 1')) {          // body panels
         mat.map = null;
         mat.color.set(state.paint);
-        mat.metalness = 0.8; mat.roughness = 0.4;
-        if ('clearcoat' in mat) { mat.clearcoat = 0.65; mat.clearcoatRoughness = 0.2; }
-        if ('specularIntensity' in mat) mat.specularIntensity = 0.45;
-        mat.envMapIntensity = 0.7;
+        mat.metalness = 0.82; mat.roughness = 0.2;
+        if ('clearcoat' in mat) { mat.clearcoat = 1; mat.clearcoatRoughness = 0.045; }
+        if ('specularIntensity' in mat) mat.specularIntensity = 0.72;
+        mat.envMapIntensity = 1.55;
         state.paintMats.push(mat);
       } else if (mName.startsWith('paint 2')) {    // contrast roof / trim
         mat.map = null;
         mat.color.set(state.paint).multiplyScalar(0.22);
-        mat.metalness = 0.75; mat.roughness = 0.42;
-        if ('specularIntensity' in mat) mat.specularIntensity = 0.4;
-        mat.envMapIntensity = 0.6;
+        mat.metalness = 0.76; mat.roughness = 0.16;
+        if ('clearcoat' in mat) { mat.clearcoat = 1; mat.clearcoatRoughness = 0.06; }
+        if ('specularIntensity' in mat) mat.specularIntensity = 0.7;
+        mat.envMapIntensity = 1.35;
         state.accentMats.push(mat);
       } else if (mName === 'headlight') {
         glowUp(mat, 0xcfeaff, 1.35);
@@ -200,7 +208,7 @@ export function createCar() {
       } else if (mName === 'signallight') {
         glowUp(mat, 0xffb44d, 0.7);
       } else if (mName === 'mirror') {
-        mat.metalness = 1; mat.roughness = 0.05; mat.envMapIntensity = 1.2;
+        mat.metalness = 1; mat.roughness = 0.04; mat.envMapIntensity = 1.6;
       } else if (mName === 'interior 3 carmine') { // donor red → neutral charcoal
         mat.map = null;
         mat.color.set(0x171b21);
@@ -210,7 +218,7 @@ export function createCar() {
         mat.metalness = 0.5; mat.roughness = 0.6;
       } else if (mName === 'rim1' || mName === 'rim2') {
         mat.color.set(0xb9c2cf);
-        mat.metalness = 1; mat.roughness = 0.3; mat.envMapIntensity = 0.9;
+        mat.metalness = 1; mat.roughness = 0.18; mat.envMapIntensity = 1.35;
       } else if (mName === 'tireside' || mName === 'tiretread') {
         mat.color.set(0x0b0d10); mat.roughness = 0.95; mat.metalness = 0;
       } else if (mat.isMeshStandardMaterial) {
@@ -269,12 +277,26 @@ export function createCar() {
       state.loadedModel = model;            // source for cloneCar()
       state.loaded = 'glb';
       state.ready = true;
+      state.loadProgress = 1;
+      state.revealAt = null;
       setPaint(state.paint);
       setLights(state.lightsOn);
       loadCbs.forEach((cb) => cb(true));
     },
-    (ev) => { if (ev.total) progCbs.forEach((cb) => cb(ev.loaded / ev.total)); },
-    () => { state.ready = true; state.loaded = 'procedural'; loadCbs.forEach((cb) => cb(false)); }
+    (ev) => {
+      if (!ev.total) return;
+      state.loadProgress = ev.loaded / ev.total;
+      progCbs.forEach((cb) => cb(state.loadProgress, ev.loaded, ev.total));
+    },
+    (error) => {
+      console.warn('ID.AURA vehicle model failed to load; enabling labelled procedural fallback.', error);
+      fallback.visible = true;
+      state.ready = true;
+      state.loaded = 'procedural';
+      state.revealAt = null;
+      setLights(state.lightsOn);
+      loadCbs.forEach((cb) => cb(false));
+    }
   );
 
   /* ---------- behaviour ---------- */
@@ -289,14 +311,16 @@ export function createCar() {
       m.emissiveIntensity = on ? (m.userData.baseEmissive ?? 2.6) : 0.04;
     });
     headlightSpots.forEach((light) => {
-      light.intensity = on ? 18 : 0;
+      light.intensity = on ? 5 : 0;
+      light.visible = state.ready && on;
     });
   }
   function setInterior(on) {
     // drop glass opacity so the cockpit eye-point can read the cabin
     // and see out through the windshield cleanly
     glassMat.transparent = true;
-    glassMat.opacity = on ? 0.18 : 0.85;
+    glassMat.opacity = on ? 0.12 : 0.5;
+    glassMat.transmission = on ? 0.42 : 0.18;
   }
   function setTurntable(on) { state.spin = on; }
 
@@ -307,9 +331,14 @@ export function createCar() {
     const dt = Math.min(Math.max(t - lastT, 0), 0.05) || 0.016;
     lastT = t;
     state.spin = !!spin;
-    if (spin) rig.rotation.y += dt * 0.28;
-    // hover idle
-    rig.position.y = Math.sin(t * 0.9) * 0.012;
+    if (spin) rig.rotation.y += dt * 0.12;
+    // A slow, grounded reveal replaces the old instant model swap. The tiny
+    // breathing offset keeps the turntable alive without making the car float.
+    if (state.ready && state.revealAt === null) state.revealAt = t;
+    const reveal = THREE.MathUtils.clamp((t - state.revealAt) / 1.65, 0, 1);
+    const revealEase = 1 - Math.pow(1 - reveal, 4);
+    rig.scale.setScalar(0.94 + revealEase * 0.06);
+    rig.position.y = -0.055 * (1 - revealEase) + Math.sin(t * 0.72) * 0.004;
     // DRL breathing
     if (state.lightsOn) {
       drlMat.emissiveIntensity = 3.0 + Math.sin(t * 2.2) * 0.35;

@@ -3,6 +3,18 @@
 The experience uses human-authored photography, PBR materials and 3D models.
 No generative imagery is used in the Showroom, Cluster or Autonomous worlds.
 
+## Showroom hero vehicle
+
+- **Car Concept**
+- Model and textures by Eric Chadwick, Darmstadt Graphics Group GmbH
+- Source: https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CarConcept
+- License: CC BY 4.0 International
+- Local optimization: geometry compressed with Draco and embedded textures
+  transcoded to WebP at quality 95 using glTF Transform 4.4.2; mesh hierarchy,
+  interior, material extensions and 162K-vertex source detail preserved
+- Presentation adaptation: Khronos/3D Commerce marks and license plate hidden;
+  paint, glass, lighting and turntable direction re-authored for ID.AURA
+
 ## Intro and Autonomous concept film
 
 - **High-Speed Night Drive Through Urban Tunnel**
@@ -102,4 +114,3 @@ No generative imagery is used in the Showroom, Cluster or Autonomous worlds.
 - **Decompression dependency**: fflate (MIT) — https://github.com/101arrowz/fflate — required by pmtiles JS for gzip-compressed tile entries, vendored at `vendor/fflate.js`.
 - **Route**: one real driving route (Allersee → Autostadt) computed once via the OSRM demo routing API (https://router.project-osrm.org) and baked to `assets/map/route-wolfsburg.geojson` / `route-maneuvers.json`. Routing data derived from OpenStreetMap (ODbL).
 - **Points of interest & landmarks**: charging stations, fuel, parking, museums/attractions (`assets/map/pois.geojson`) and building footprints for VW Kraftwerk chimneys, Autostadt pavilions, Phaeno and Volkswagen Arena (`assets/map/landmarks.geojson`), queried once via the Overpass API (https://overpass-api.de) from OpenStreetMap data (ODbL). Real OSM `height` tags on the Kraftwerk chimneys drive the 3D massing extrusion on the map — not a modeled/decorative asset.
-

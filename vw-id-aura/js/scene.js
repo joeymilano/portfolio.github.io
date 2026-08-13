@@ -20,23 +20,23 @@ export function createScene(container, quality) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.68;
+  renderer.toneMappingExposure = 0.62;
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x04060b);
-  scene.fog = new THREE.FogExp2(0x04060b, 0.015);
+  scene.fog = new THREE.FogExp2(0x04060b, 0.009);
 
-  const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.05, 400);
-  camera.position.set(8.8, 3.4, 8.8);
+  const camera = new THREE.PerspectiveCamera(36, innerWidth / innerHeight, 0.05, 400);
+  camera.position.set(5.9, 2.25, 6.25);
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.06;
-  controls.minDistance = 5.5;
-  controls.maxDistance = 18;
+  controls.minDistance = 4.6;
+  controls.maxDistance = 15;
   controls.maxPolarAngle = Math.PI / 2 - 0.04;
-  controls.target.set(0, 0.8, 0);
+  controls.target.set(0, 0.82, 0);
 
   /* ---------- environment: tourist panoramas (background + PBR reflections) ----------
      Each panorama drives BOTH scene.background (the visible vista) and
@@ -45,12 +45,12 @@ export function createScene(container, quality) {
   const pmrem = new THREE.PMREMGenerator(renderer);
   const rgbeLoader = new RGBELoader();
   const SCENES = [
-    { name: 'Auto Show', file: 'assets/hdri/autoshop_01.hdr', stage: true },
-    { name: 'Swiss Alps', file: 'assets/hdri/scenes/alps_field_2k.hdr' },
+    { name: 'Studio 01',  file: 'assets/hdri/studio_small_09_2k.hdr', stage: true },
+    { name: 'Alpine',     file: 'assets/hdri/scenes/alps_field_2k.hdr' },
     { name: 'Route 66',   file: 'assets/hdri/scenes/autumn_road_2k.hdr' },
-    { name: 'Euro Night', file: 'assets/hdri/scenes/blaubeuren_night_2k.hdr' },
+    { name: 'Night Line', file: 'assets/hdri/scenes/blaubeuren_night_2k.hdr' },
     { name: 'Meadow',     file: 'assets/hdri/scenes/kloppenheim_06_2k.hdr' },
-    { name: 'Dawn Lake',  file: 'assets/hdri/scenes/bell_park_dawn_2k.hdr' }
+    { name: 'Blue Hour',  file: 'assets/hdri/scenes/bell_park_dawn_2k.hdr' }
   ];
   const sceneTex = [];
   let sceneIdx = -1;
@@ -68,7 +68,7 @@ export function createScene(container, quality) {
       // Keep every authored panorama pin-sharp. The previous 0.08 setting
       // softened distant architecture enough to read like a low-res asset.
       scene.backgroundBlurriness = 0;
-      scene.fog = isPremiere ? new THREE.FogExp2(0x02050a, 0.024) : null;
+      scene.fog = isPremiere ? new THREE.FogExp2(0x02050a, 0.009) : null;
     }
     sceneIdx = idx;
     sceneCbs.forEach((cb) => cb(idx));
@@ -85,10 +85,10 @@ export function createScene(container, quality) {
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
   /* ---------- lighting ---------- */
-  scene.add(new THREE.HemisphereLight(0x8fb4d8, 0x05070c, 0.28));
+  scene.add(new THREE.HemisphereLight(0xb7d4e8, 0x07080b, 0.28));
 
-  const key = new THREE.DirectionalLight(0xdfe9ff, 1.12);
-  key.position.set(7, 11, 5);
+  const key = new THREE.DirectionalLight(0xf1f7ff, 1.0);
+  key.position.set(6, 10, 7);
   key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048);
   key.shadow.camera.left = key.shadow.camera.bottom = -12;
@@ -97,9 +97,13 @@ export function createScene(container, quality) {
   key.shadow.radius = 6;
   scene.add(key);
 
-  const rim = new THREE.DirectionalLight(0x38f0ff, 0.42);
-  rim.position.set(-8, 5, -7);
+  const rim = new THREE.DirectionalLight(0x75dbea, 0.62);
+  rim.position.set(-7, 4.5, -6);
   scene.add(rim);
+
+  const warmFill = new THREE.DirectionalLight(0xffd1ad, 0.28);
+  warmFill.position.set(-4, 2.4, 7);
+  scene.add(warmFill);
 
   /* ---------- showroom world: authored PBR floor + premiere architecture ---------- */
   const showroomGroup = new THREE.Group();
@@ -124,12 +128,12 @@ export function createScene(container, quality) {
       roughnessMap: floorRoughness,
       normalMap: floorNormal,
       normalScale: new THREE.Vector2(0.32, 0.32),
-      color: 0x20262b,
-      roughness: 0.9,
-      metalness: 0.04,
-      clearcoat: 0.06,
-      clearcoatRoughness: 0.94,
-      envMapIntensity: 0.12
+      color: 0x090c10,
+      roughness: 0.68,
+      metalness: 0,
+      clearcoat: 0.14,
+      clearcoatRoughness: 0.42,
+      envMapIntensity: 0.16
     })
   );
   floor.rotation.x = -Math.PI / 2;
@@ -137,98 +141,110 @@ export function createScene(container, quality) {
   floor.receiveShadow = true;
   showroomGroup.add(floor);
 
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0x38f0ff, transparent: true, opacity: 0.13 });
-  const ring = new THREE.Mesh(new THREE.RingGeometry(4.6, 4.65, 96), ringMat);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0x9eeaf2, transparent: true, opacity: 0.18 });
+  const ring = new THREE.Mesh(new THREE.RingGeometry(4.85, 4.88, 128), ringMat);
   ring.rotation.x = -Math.PI / 2;
   ring.position.y = 0.005;
   showroomGroup.add(ring);
 
-  const grid = new THREE.PolarGridHelper(16, 12, 9, 96, 0x1c2a44, 0x101a2c);
+  const grid = new THREE.PolarGridHelper(15, 10, 6, 96, 0x20313a, 0x11191f);
   grid.position.y = 0.002;
   grid.material.transparent = true;
-  grid.material.opacity = 0.14;
+  grid.material.opacity = 0.075;
   showroomGroup.add(grid);
 
   premiereGroup = new THREE.Group();
   showroomGroup.add(premiereGroup);
 
+  // The default world is an authored automotive photo studio, not a stage
+  // photograph pasted behind the car. The external Poly Haven HDRI provides
+  // physically plausible reflections; the geometry below supplies a quiet,
+  // architectural horizon and real lights that move across the paint.
   const hallMat = new THREE.MeshPhysicalMaterial({
-    color: 0x080b11, roughness: 0.72, metalness: 0.22, envMapIntensity: 0.3
+    color: 0x090d12, roughness: 0.28, metalness: 0.72,
+    clearcoat: 0.36, clearcoatRoughness: 0.2, envMapIntensity: 0.9
   });
   const blackMat = new THREE.MeshStandardMaterial({
-    color: 0x020305, roughness: 0.82, metalness: 0.1
+    color: 0x020305, roughness: 0.52, metalness: 0.32
   });
   const lightMat = new THREE.MeshBasicMaterial({
-    color: 0x55eaf2, transparent: true, opacity: 0.7
+    color: 0xcff9ff, transparent: true, opacity: 0.78, toneMapped: false
+  });
+  const cyanLightMat = new THREE.MeshBasicMaterial({
+    color: 0x58cddd, transparent: true, opacity: 0.42, toneMapped: false
   });
 
-  const podium = new THREE.Mesh(new THREE.CylinderGeometry(5.2, 5.35, 0.12, 96), hallMat);
-  podium.position.y = 0.01;
+  const podiumMat = hallMat.clone();
+  podiumMat.color.set(0x0a0d12);
+  podiumMat.metalness = 0.22;
+  podiumMat.roughness = 0.45;
+  podiumMat.clearcoat = 0.2;
+  podiumMat.clearcoatRoughness = 0.3;
+  podiumMat.envMapIntensity = 0.3;
+  const podium = new THREE.Mesh(new THREE.CylinderGeometry(5.35, 5.52, 0.14, 128), podiumMat);
+  podium.position.y = 0.025;
   podium.receiveShadow = true;
   premiereGroup.add(podium);
 
-  const backWall = new THREE.Mesh(new THREE.BoxGeometry(23, 7.4, 0.24), blackMat);
-  backWall.position.set(0, 3.55, -8.2);
+  const backWall = new THREE.Mesh(new THREE.BoxGeometry(26, 8.2, 0.3), blackMat);
+  backWall.position.set(0, 3.85, -9.2);
   premiereGroup.add(backWall);
 
-  // Real exhibition photography replaces the moving tunnel wall. It reads as
-  // an automotive premiere, stays sharp while orbiting, and does not compete
-  // with the concept car through motion blur.
-  const ledTex = textureLoader.load('assets/art/showroom-auto-show.jpg');
-  ledTex.colorSpace = THREE.SRGBColorSpace;
-  ledTex.anisotropy = maxAnisotropy;
-  ledTex.repeat.set(1, 0.6);
-  ledTex.offset.set(0, 0.2);
-  const ledWall = new THREE.Mesh(
-    new THREE.PlaneGeometry(13.8, 5.5),
-    new THREE.MeshBasicMaterial({
-      map: ledTex,
-      color: 0x60717a,
-      toneMapped: false
-    })
-  );
-  ledWall.position.set(0, 3.42, -8.05);
-  premiereGroup.add(ledWall);
+  const horizonBand = new THREE.Mesh(new THREE.BoxGeometry(18.5, 0.026, 0.055), cyanLightMat);
+  horizonBand.position.set(0, 1.52, -9.0);
+  premiereGroup.add(horizonBand);
 
-  const trussMat = new THREE.MeshStandardMaterial({
-    color: 0x171c22, metalness: 0.82, roughness: 0.36
-  });
-  for (const x of [-8.8, 8.8]) {
-    const pylon = new THREE.Mesh(new THREE.BoxGeometry(0.24, 7.1, 0.24), trussMat);
-    pylon.position.set(x, 3.45, -7.7);
-    premiereGroup.add(pylon);
+  const wallBladeGeo = new THREE.BoxGeometry(0.045, 6.5, 0.09);
+  for (let i = -6; i <= 6; i++) {
+    const blade = new THREE.Mesh(wallBladeGeo, i % 3 === 0 ? cyanLightMat : hallMat);
+    blade.position.set(i * 1.45, 3.55, -8.98 + Math.abs(i) * 0.025);
+    premiereGroup.add(blade);
   }
-  const truss = new THREE.Mesh(new THREE.BoxGeometry(18, 0.22, 0.24), trussMat);
-  truss.position.set(0, 6.65, -7.7);
-  premiereGroup.add(truss);
 
-  for (let i = 0; i < 7; i++) {
-    const x = -7.2 + i * 2.4;
-    const bar = new THREE.Mesh(new THREE.BoxGeometry(1.35, 0.025, 0.07), lightMat);
-    bar.position.set(x, 6.48, -7.42);
+  const ceilingBars = [];
+  for (let i = -4; i <= 4; i++) {
+    const barMaterial = (i % 2 ? cyanLightMat : lightMat).clone();
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(1.35, 0.024, 3.1), barMaterial);
+    bar.position.set(i * 1.72, 6.2, -2.6);
+    bar.rotation.x = -0.08;
     premiereGroup.add(bar);
-    const spot = new THREE.SpotLight(0xd7faff, 7.5, 15, 0.26, 0.92, 1.8);
-    spot.position.set(x, 6.28, -6.9);
-    spot.target.position.set(x * 0.24, 0, 0);
-    premiereGroup.add(spot, spot.target);
-  }
+    ceilingBars.push(bar);
 
-  const sideFinGeo = new THREE.BoxGeometry(0.1, 5.2, 3.6);
-  for (const side of [-1, 1]) {
-    for (let i = 0; i < 4; i++) {
-      const fin = new THREE.Mesh(sideFinGeo, i === 3 ? hallMat : blackMat);
-      fin.position.set(side * (7.1 + i * 1.15), 2.65, -4.9 + i * 0.5);
-      fin.rotation.y = side * (-0.18 - i * 0.035);
-      premiereGroup.add(fin);
+    if (i % 2 === 0) {
+      const spot = new THREE.SpotLight(0xe8fbff, 7, 18, 0.24, 0.72, 1.55);
+      spot.position.set(i * 1.72, 6.05, -2.1);
+      spot.target.position.set(i * 0.32, 0.2, 0);
+      spot.castShadow = i === 0;
+      premiereGroup.add(spot, spot.target);
     }
   }
 
+  const sidePortalGeo = new THREE.BoxGeometry(0.12, 5.6, 2.8);
+  for (const side of [-1, 1]) {
+    for (let i = 0; i < 3; i++) {
+      const portal = new THREE.Mesh(sidePortalGeo, i === 0 ? hallMat : blackMat);
+      portal.position.set(side * (7.2 + i * 1.35), 2.8, -4.2 + i * 0.45);
+      portal.rotation.y = side * (-0.2 - i * 0.045);
+      premiereGroup.add(portal);
+    }
+  }
+
+  const scanKey = new THREE.SpotLight(0xbfefff, 12, 22, 0.2, 0.58, 1.35);
+  scanKey.position.set(-5.5, 4.2, 5.2);
+  scanKey.target.position.set(0, 0.62, 0);
+  premiereGroup.add(scanKey, scanKey.target);
+
+  const warmEdge = new THREE.SpotLight(0xffbf91, 7, 18, 0.28, 0.75, 1.65);
+  warmEdge.position.set(5.8, 2.8, -4.6);
+  warmEdge.target.position.set(0.8, 0.62, 0);
+  premiereGroup.add(warmEdge, warmEdge.target);
+
   const haloMat = new THREE.MeshBasicMaterial({
-    color: 0x39dce7, transparent: true, opacity: 0.28, toneMapped: false
+    color: 0x8cecf3, transparent: true, opacity: 0.25, toneMapped: false
   });
-  const halo = new THREE.Mesh(new THREE.TorusGeometry(5.15, 0.018, 8, 120), haloMat);
+  const halo = new THREE.Mesh(new THREE.TorusGeometry(5.0, 0.014, 8, 160), haloMat);
   halo.rotation.x = Math.PI / 2;
-  halo.position.set(0, 5.75, -0.8);
+  halo.position.set(0, 5.72, -0.6);
   premiereGroup.add(halo);
 
   /* ---------- dust particles ---------- */
@@ -251,6 +267,17 @@ export function createScene(container, quality) {
   const postfx = createPostFX(renderer, scene, camera, quality);
   const composer = postfx.composer;
   const bloom = postfx.bloom;
+  bloom.strength = 0.17;
+  postfx.setFilmGrade({
+    grainAmount: 0.012,
+    aberration: 0.00055,
+    vignetteStrength: 0.22,
+    vignetteSoftness: 0.74,
+    barrel: 0.004,
+    lift: [0.006, 0.008, 0.01],
+    gamma: [1.015, 1.015, 1.02],
+    gain: [1.035, 1.04, 1.045]
+  });
 
   function resize() {
     camera.aspect = innerWidth / innerHeight;
@@ -264,10 +291,16 @@ export function createScene(container, quality) {
 
   function update(t) {
     ring.rotation.z = t * 0.05;
-    ringMat.opacity = 0.1 + Math.sin(t * 1.2) * 0.025;
+    ringMat.opacity = 0.15 + Math.sin(t * 0.72) * 0.028;
     dust.rotation.y = t * 0.008;
-    halo.rotation.z = t * 0.018;
-    haloMat.opacity = 0.22 + Math.sin(t * 0.7) * 0.045;
+    halo.rotation.z = t * 0.012;
+    haloMat.opacity = 0.19 + Math.sin(t * 0.56) * 0.04;
+    const scan = Math.sin(t * 0.22);
+    scanKey.position.x = scan * 6.4;
+    scanKey.target.position.x = Math.sin(t * 0.17) * 1.2;
+    ceilingBars.forEach((bar, index) => {
+      bar.material.opacity = (index % 2 ? 0.32 : 0.64) + Math.sin(t * 0.34 + index * 0.58) * 0.08;
+    });
     postfx.update(t, camera.position.distanceTo(controls.target));
   }
 
@@ -282,8 +315,8 @@ export function createScene(container, quality) {
       bloom.strength = 0.13;
       return;
     }
-    renderer.toneMappingExposure = 0.68;
-    bloom.strength = 0.1;
+    renderer.toneMappingExposure = 0.62;
+    bloom.strength = 0.17;
     if (sceneIdx >= 0 && sceneTex[sceneIdx]) applySceneTexture(sceneTex[sceneIdx], sceneIdx);
   }
 
