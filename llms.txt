@@ -25,7 +25,7 @@ Canonical site: https://joeyzhao.cc/
 - Ctrip Hotel, video cover conversion: https://joeyzhao.cc/ctrip
 - Finfold, AI Content-Growth Workspace: https://joeyzhao.cc/finfold
 - Bill Vampire, AI subscription analysis: https://joeyzhao.cc/billvampire
-- Crypto Copilot, visual algorithmic trading: https://joeyzhao.cc/cryptocopilot
+- Crypto Copilot, live bilingual AI market research with real data and backtests: https://joeyzhao.cc/cryptocopilot
 - WeNeed, short-video gifting community: https://joeyzhao.cc/weneed
 - Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract
 - ID.AURA, immersive Volkswagen HMI concept: https://joeyzhao.cc/vw-id-aura/
