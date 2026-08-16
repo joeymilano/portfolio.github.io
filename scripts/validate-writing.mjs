@@ -3,6 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const articles = [
+  "seven-eleven-layout-psychology",
+  "starbucks-cup-perceived-value",
   "ai-designers-cannot-only-sell-screens",
   "mcdonalds-seating-business-tradeoffs",
   "finfold-one-brief-eleven-platforms",

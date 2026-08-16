@@ -18,6 +18,8 @@ const casePages = [
 ];
 
 const articleSlugs = [
+  "seven-eleven-layout-psychology",
+  "starbucks-cup-perceived-value",
   "casino-design-four-traps",
   "ikea-one-way-layout",
   "apple-store-invisible-door",
