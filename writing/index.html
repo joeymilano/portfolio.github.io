@@ -2,18 +2,18 @@
 <html lang="zh-CN"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Writing | Joey Zhao 的产品、设计与 Build in Public</title>
-  <meta name="description" content="Joey Zhao 关于 AI 产品、B2B 系统、设计判断与 Build in Public 的长期写作：从真实项目、空间与日常产品中拆解决策、证据边界、商业取舍和上线后的结果。">
+  <title>AI Agent UX 与产品设计 | Joey Zhao 的真实项目笔记</title>
+  <meta name="description" content="Joey Zhao 关于 AI Agent UX、AI 产品设计、B2B 系统和产品设计师作品集的长期写作。文章来自真实项目，重点讲失败状态、证据边界、商业取舍和上线结果。">
   <link rel="canonical" href="https://joeyzhao.cc/writing/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Writing | Joey Zhao 的产品、设计与 Build in Public">
-  <meta property="og:description" content="Joey Zhao 关于 AI 产品、B2B 系统、设计判断与 Build in Public 的长期写作：从真实项目、空间与日常产品中拆解决策、证据边界、商业取舍和上线后的结果。">
+  <meta property="og:title" content="AI Agent UX 与产品设计 | Joey Zhao 的真实项目笔记">
+  <meta property="og:description" content="Joey Zhao 关于 AI Agent UX、AI 产品设计、B2B 系统和产品设计师作品集的长期写作。文章来自真实项目，重点讲失败状态、证据边界、商业取舍和上线结果。">
   <meta property="og:url" content="https://joeyzhao.cc/writing/">
   <meta property="og:image" content="https://joeyzhao.cc/images/writing/ai-design-judgment-feature.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="alternate" type="application/rss+xml" title="Joey Zhao Writing" href="../feed.xml">
   <link rel="stylesheet" href="writing.css?v=20260714-1">
-<style>.lang-switch{display:inline-flex;gap:.1rem;margin-left:1rem;font-size:.82rem;vertical-align:middle}.lang-switch button{border:none;background:none;cursor:pointer;color:inherit;opacity:.4;padding:0 .2rem;font:inherit;border-radius:3px}.lang-switch button.active{opacity:1;font-weight:600}</style><link rel="alternate" hreflang="zh-CN" href="https://joeyzhao.cc/writing/"><link rel="alternate" hreflang="en" href="https://joeyzhao.cc/en/writing/"><link rel="alternate" hreflang="x-default" href="https://joeyzhao.cc/en/writing/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"关于设计与产品交付的笔记。","description":"Joey Zhao 关于 AI 产品、B2B 系统、设计判断和 Build in Public 的长期写作。","url":"https://joeyzhao.cc/writing/","inLanguage":"zh-CN","author":{"@type":"Person","name":"Joey Zhao","url":"https://joeyzhao.cc/"}}</script></head>
+<style>.lang-switch{display:inline-flex;gap:.1rem;margin-left:1rem;font-size:.82rem;vertical-align:middle}.lang-switch button{border:none;background:none;cursor:pointer;color:inherit;opacity:.4;padding:0 .2rem;font:inherit;border-radius:3px}.lang-switch button.active{opacity:1;font-weight:600}</style><link rel="alternate" hreflang="zh-CN" href="https://joeyzhao.cc/writing/"><link rel="alternate" hreflang="en" href="https://joeyzhao.cc/en/writing/"><link rel="alternate" hreflang="x-default" href="https://joeyzhao.cc/en/writing/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"AI Agent UX 与产品设计笔记","description":"Joey Zhao 关于 AI Agent UX、AI 产品设计、B2B 系统和产品设计师作品集的长期写作。","url":"https://joeyzhao.cc/writing/","inLanguage":"zh-CN","about":[{"@type":"Thing","name":"AI Agent UX"},{"@type":"Thing","name":"AI Product Design"},{"@type":"Thing","name":"Product Designer Portfolio"}],"author":{"@type":"Person","name":"Joey Zhao","url":"https://joeyzhao.cc/"}}</script></head>
 <body>
   <nav class="site-nav"><div class="nav-inner"><a class="brand" href="../">Joey Zhao<span class="brand-dot">.</span></a><div class="nav-links"><a href="../#projects">作品</a><a href="../#skills">技能</a><a href="./" aria-current="page">写作</a><a href="../#contact">联系</a><a href="../resume/joey-zhao-resume.pdf" class="resume-btn" target="_blank" rel="noopener noreferrer">简历</a></div><div class="lang-toggle"><a href="../en/writing/" lang="en" hreflang="en">EN</a><span>/</span><a class="active" href="./" lang="zh-CN" hreflang="zh-CN">中</a></div></div></nav>
 
@@ -21,9 +21,9 @@
     <header class="publication-hero">
       <div class="page-shell">
         <p class="kicker">Joey Zhao 的独立笔记</p>
-        <h1>关于设计<br>与产品交付的笔记。</h1>
+        <h1>关于 AI Agent<br>与产品判断的笔记。</h1>
         <p class="publication-intro">这里不写“设计很重要”。我会拆开一个已经上线的界面、一把快餐店的椅子、一次失败的 AI 生成，说明当时看见了什么、做了什么取舍，以及哪些结论仍然不能下。</p>
-        <div class="topic-line" aria-label="主题"><span>AI 产品</span><span>B2B 系统</span><span>Build in Public</span><span>设计观察</span></div>
+        <div class="topic-line" aria-label="主题"><span>AI Agent UX</span><span>AI 产品设计</span><span>UX Case Study</span><span>设计观察</span></div>
       </div>
     </header>
 
@@ -31,10 +31,10 @@
       <a class="featured" href="ai-designers-cannot-only-sell-screens">
         <div class="featured-visual"><img src="../images/writing/ai-design-judgment-feature.jpg" alt="半透明界面平面延伸成由节点、路径与约束组成的三维决策系统"><span class="visual-credit">AI-generated concept art</span></div>
         <div class="featured-copy">
-          <span class="kicker">精选文章 · AI 产品</span>
-          <h2>AI 时代，设计师不能只卖页面</h2>
-          <p>我把三个真实项目摆在一起复盘：AI 能快速补齐页面之后，设计师仍要为失败路径、证据边界、商业取舍和上线后的后果负责。</p>
-          <span class="story-meta">2026.06.30 · 12 min read</span>
+          <span class="kicker">精选文章 · AI Agent UX</span>
+          <h2>AI Agent UX 还需要什么？设计师不能只卖页面</h2>
+          <p>真实的 AI Agent 会超时、拿不准，也会失败。我用三个上线项目解释进度、证据和人工接管该怎么设计。</p>
+          <span class="story-meta">2026.08.25 更新 · 12 min read</span>
           <span class="read-link">阅读全文 →</span>
         </div>
       </a>
@@ -67,7 +67,7 @@
             <span class="story-index">08</span><img class="story-thumb" src="../images/writing/elevator-mirror-concept.jpg" alt="后墙设有镜面的无障碍电梯概念示意"><div class="story-main"><h2>电梯里的镜子，最重要的用途不是照脸</h2><p>从深圳一栋老写字楼出发，逐条核对等待心理、空间感、安全视野与轮椅倒车这四种解释。</p></div><span class="story-side">通用设计<br>10 分钟阅读</span>
           </a>
           <a class="story-row" href="portfolio-as-evidence">
-            <span class="story-index">09</span><img class="story-thumb" src="../images/render_p26.jpg" alt="Signals 推荐材料智能文件夹界面"><div class="story-main"><h2>作品集不是仓库，而是思维方式的证据链</h2><p>直接拆我的 Signals、UnifyUX 和一鱼多吃：什么算证据，什么只是把项目讲得像成功。</p></div><span class="story-side">职业与手艺<br>11 分钟阅读</span>
+            <span class="story-index">09</span><img class="story-thumb" src="../images/render_p26.jpg" alt="Signals 推荐材料智能文件夹界面"><div class="story-main"><h2>产品设计师作品集，应该是一条证据链</h2><p>直接拆我的 Signals、UnifyUX 和 Finfold。好的 UX Case Study 要讲清问题、取舍、失败和结果。</p></div><span class="story-side">UX Case Study<br>11 分钟阅读</span>
           </a>
         </div>
       </section>

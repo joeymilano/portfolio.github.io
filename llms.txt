@@ -1,6 +1,6 @@
 # Joey Zhao
 
-> Personal portfolio and independent writing by Joey Zhao, a senior AI product designer in Shanghai focused on trustworthy AI products, enterprise SaaS, complex systems, and growth design.
+> Personal portfolio and independent writing by Joey Zhao, a senior AI product designer in Shanghai focused on trustworthy AI agents, AI agent UX, enterprise SaaS, complex systems, and growth design.
 
 Canonical site: https://joeyzhao.cc/
 
@@ -8,11 +8,11 @@ Canonical site: https://joeyzhao.cc/
 
 - Chinese Writing hub: https://joeyzhao.cc/writing/
 - English Writing hub: https://joeyzhao.cc/en/writing/
-- AI product design: https://joeyzhao.cc/en/writing/ai-designers-cannot-only-sell-screens
+- AI agent UX and trustworthy AI product design: https://joeyzhao.cc/en/writing/ai-designers-cannot-only-sell-screens
 - McDonald's seating and business trade-offs: https://joeyzhao.cc/en/writing/mcdonalds-seating-business-tradeoffs
 - Researching and building Finfold for fourteen content platforms: https://joeyzhao.cc/en/writing/finfold-one-brief-eleven-platforms
 - Elevator mirrors and inclusive design: https://joeyzhao.cc/en/writing/elevator-mirrors-four-problems
-- Portfolios as evidence of design judgment: https://joeyzhao.cc/en/writing/portfolio-as-evidence
+- Product designer portfolios and UX case studies as evidence: https://joeyzhao.cc/en/writing/portfolio-as-evidence
 - Casino design and spatial psychology: https://joeyzhao.cc/en/writing/casino-design-four-traps
 - 7-Eleven layout and convenience store flow design: https://joeyzhao.cc/en/writing/seven-eleven-layout-psychology
 - Starbucks cup design and perceived value: https://joeyzhao.cc/en/writing/starbucks-cup-perceived-value
