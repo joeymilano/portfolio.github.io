@@ -105,6 +105,13 @@ function requirePattern(content, pattern, label, file) {
   if (!pattern.test(content)) failures.push(`${file}: missing ${label}`);
 }
 
+function extractMetaDescription(html) {
+  const match = html.match(
+    /<meta\s+name="description"\s+content="([^"]*)"\s*\/?>/i,
+  );
+  return match?.[1] ?? null;
+}
+
 function parseJsonLd(html, file) {
   const blocks = [];
   for (const match of html.matchAll(
@@ -190,13 +197,19 @@ for (const page of publicPages) {
     `html lang="${page.lang}"`,
     page.file,
   );
-  requirePattern(html, /<title>[^<]{8,}<\/title>/i, "descriptive title", page.file);
-  requirePattern(
-    html,
-    /<meta[^>]+name=["']description["'][^>]+content=["'][^"']{25,}["']/i,
-    "meta description",
-    page.file,
-  );
+  requirePattern(html, /<title>[^<]{25,}<\/title>/i, "descriptive title", page.file);
+
+  const description = extractMetaDescription(html);
+  if (description === null) {
+    failures.push(`${page.file}: missing or malformed meta description`);
+  } else {
+    const minimumDescriptionLength = page.lang === "zh-CN" ? 60 : 100;
+    if ([...description].length < minimumDescriptionLength) {
+      failures.push(
+        `${page.file}: meta description is too short (${[...description].length}; minimum ${minimumDescriptionLength})`,
+      );
+    }
+  }
   requirePattern(
     html,
     new RegExp(
@@ -301,12 +314,43 @@ for (const file of intentionallyNonIndexablePages) {
 }
 
 const robots = read("robots.txt");
+const faviconPath = path.join(root, "favicon.ico");
+if (!fs.existsSync(faviconPath) || fs.statSync(faviconPath).size === 0) {
+  failures.push("favicon.ico: missing root search-result favicon");
+}
 requirePattern(
   robots,
   /User-agent:\s*OAI-SearchBot[\s\S]*?Allow:\s*\//i,
   "explicit OAI-SearchBot allow rule",
   "robots.txt",
 );
+
+const indexNowKeyFiles = fs.readdirSync(root).filter((file) => {
+  if (!/^[A-Za-z0-9-]{8,128}\.txt$/.test(file)) return false;
+  const key = path.basename(file, ".txt");
+  return read(file).trim() === key;
+});
+if (indexNowKeyFiles.length !== 1) {
+  failures.push(
+    `IndexNow: expected one valid ownership key file, found ${indexNowKeyFiles.length}`,
+  );
+}
+
+const indexNowScript = read("scripts/submit-indexnow.mjs");
+requirePattern(
+  indexNowScript,
+  /https:\/\/api\.indexnow\.org\/indexnow/,
+  "IndexNow endpoint",
+  "scripts/submit-indexnow.mjs",
+);
+if (indexNowKeyFiles[0]) {
+  requirePattern(
+    indexNowScript,
+    new RegExp(escapeRegex(path.basename(indexNowKeyFiles[0], ".txt"))),
+    "published ownership key",
+    "scripts/submit-indexnow.mjs",
+  );
+}
 requirePattern(
   robots,
   /Sitemap:\s*https:\/\/joeyzhao\.cc\/sitemap\.xml/i,
