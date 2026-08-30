@@ -18,6 +18,8 @@ const casePages = [
 ];
 
 const articleSlugs = [
+  "neon-dream-ai-music-notes",
+  "silk-circuit-ai-music-notes",
   "seven-eleven-layout-psychology",
   "starbucks-cup-perceived-value",
   "casino-design-four-traps",

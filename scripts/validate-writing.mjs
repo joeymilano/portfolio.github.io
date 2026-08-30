@@ -3,6 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const articles = [
+  "neon-dream-ai-music-notes",
+  "silk-circuit-ai-music-notes",
   "seven-eleven-layout-psychology",
   "starbucks-cup-perceived-value",
   "ai-designers-cannot-only-sell-screens",

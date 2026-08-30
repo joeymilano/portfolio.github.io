@@ -87,6 +87,8 @@ button { font: inherit; }
 .article-hero { width:min(1160px,calc(100% - 40px)); margin:0 auto; }
 .article-hero img { display:block; width:100%; max-height:720px; object-fit:cover; }
 .article-hero--concept img { aspect-ratio:2/1; object-position:center; }
+.article-hero--square { max-width:760px; margin-top:44px; }
+.article-hero--square img { aspect-ratio:1; object-fit:cover; border-radius:22px; }
 .article-hero figcaption { max-width:760px; margin:12px auto 0; padding:0 18px; color:var(--muted); font-size:12px; }
 .article-body figure { margin:44px 0; }
 .article-hero:has(img[src*="yiyuduochi"]),
@@ -126,6 +128,12 @@ button { font: inherit; }
 .takeaway { margin: 42px 0; padding: 28px 30px; border-left: 3px solid var(--violet); background: linear-gradient(90deg,rgba(183,108,255,.12),rgba(183,108,255,.02)); border-radius: 0 14px 14px 0; }
 .takeaway .label { color: var(--violet); font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .takeaway p { margin: 8px 0 0; font-family: var(--sans); font-size: 27px; line-height: 1.25; }
+.article-accent--silk { background:linear-gradient(90deg,#d4af67,#36c2b4,transparent 78%); }
+.takeaway--silk { border-left-color:#d4af67; background:linear-gradient(90deg,rgba(212,175,103,.12),rgba(54,194,180,.025)); }
+.takeaway--silk .label { color:#d4af67; }
+.article-audio { margin:38px 0; padding:18px; border:1px solid var(--line); border-radius:16px; background:var(--surface); }
+.article-audio span { display:block; margin:0 0 10px; color:var(--violet); font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.article-audio iframe { display:block; max-width:100%; border-radius:8px; background:#fff; }
 .pullquote { margin: 54px 0; font-family: var(--sans); font-size: clamp(30px,5vw,48px); line-height: 1.12; color: #ddd5e5; }
 .article-aside { position: sticky; top: 94px; align-self: start; }
 .aside-label { color: #66626b; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
