@@ -334,6 +334,7 @@ for (const file of intentionallyNonIndexablePages) {
 const robots = read("robots.txt");
 const home = read("index.html");
 const signalsCaseStudy = read("signals.html");
+const baiduVerificationFile = read("baidu_verify_codeva-jgksB88SjU.html");
 const faviconPath = path.join(root, "favicon.ico");
 if (!fs.existsSync(faviconPath) || fs.statSync(faviconPath).size === 0) {
   failures.push("favicon.ico: missing root search-result favicon");
@@ -362,6 +363,9 @@ requirePattern(
   "Baidu site verification tag",
   "index.html",
 );
+if (baiduVerificationFile.trim() !== "7d04c964252bfc06f467e1ac64e91bf8") {
+  failures.push("baidu_verify_codeva-jgksB88SjU.html: invalid verification token");
+}
 requirePattern(
   signalsCaseStudy,
   /<title>Signals Notebook UX Case Study\s*\|\s*Joey Zhao<\/title>/i,
