@@ -1,10 +1,4 @@
-/* Custom cursor — icons8 glassmorphism 3D pointer */
-
+/* Use the native cursor; the former image cursor asset is no longer shipped. */
 html {
-    cursor: url('cursor-default.png') 5 2, auto;
-}
-
-/* Disable on touch devices — use native cursors */
-@media (pointer: coarse) {
-    html { cursor: auto; }
+    cursor: auto;
 }

@@ -43,7 +43,9 @@ function countMatches(content, pattern) {
 function localAssetExists(src, htmlFile) {
   if (/^(?:https?:|data:|#)/.test(src)) return true;
   const cleanPath = src.split("#")[0].split("?")[0];
-  const resolved = path.resolve(root, path.dirname(htmlFile), cleanPath);
+  const resolved = cleanPath.startsWith("/")
+    ? path.join(root, cleanPath.slice(1))
+    : path.resolve(root, path.dirname(htmlFile), cleanPath);
   return fs.existsSync(resolved) || (!path.extname(cleanPath) && fs.existsSync(`${resolved}.html`));
 }
 

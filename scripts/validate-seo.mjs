@@ -195,11 +195,21 @@ for (const page of publicPages) {
 
   requirePattern(
     html,
+    /<script[^>]+src=["']\/analytics\.js["'][^>]*><\/script>/i,
+    "production analytics bootstrap",
+    page.file,
+  );
+
+  requirePattern(
+    html,
     new RegExp(`<html[^>]+lang=["']${escapeRegex(page.lang)}["']`, "i"),
     `html lang="${page.lang}"`,
     page.file,
   );
   requirePattern(html, /<title>[^<]{25,}<\/title>/i, "descriptive title", page.file);
+  if (/<img[^>]+src=["']\s*["']/i.test(html)) {
+    failures.push(`${page.file}: image has an empty src attribute`);
+  }
 
   const description = extractMetaDescription(html);
   if (description === null) {
@@ -316,6 +326,9 @@ for (const file of intentionallyNonIndexablePages) {
 }
 
 const robots = read("robots.txt");
+const home = read("index.html");
+const signalsCaseStudy = read("signals.html");
+const analytics = read("analytics.js");
 const faviconPath = path.join(root, "favicon.ico");
 if (!fs.existsSync(faviconPath) || fs.statSync(faviconPath).size === 0) {
   failures.push("favicon.ico: missing root search-result favicon");
@@ -325,6 +338,36 @@ requirePattern(
   /User-agent:\s*OAI-SearchBot[\s\S]*?Allow:\s*\//i,
   "explicit OAI-SearchBot allow rule",
   "robots.txt",
+);
+requirePattern(
+  robots,
+  /User-agent:\s*Baiduspider[\s\S]*?Allow:\s*\//i,
+  "explicit Baiduspider allow rule",
+  "robots.txt",
+);
+requirePattern(
+  home,
+  /<title>Joey Zhao\s*\|[^<]+<\/title>/i,
+  "brand-first homepage title",
+  "index.html",
+);
+requirePattern(
+  signalsCaseStudy,
+  /<title>Signals Notebook UX Case Study\s*\|\s*Joey Zhao<\/title>/i,
+  "search-intent-aligned Signals title",
+  "signals.html",
+);
+requirePattern(
+  analytics,
+  /G-M8F4G6B3C6/,
+  "joeyzhao.cc GA4 measurement ID",
+  "analytics.js",
+);
+requirePattern(
+  analytics,
+  /productionHosts\.has\(window\.location\.hostname\)/,
+  "production-host analytics guard",
+  "analytics.js",
 );
 
 const indexNowKeyFiles = fs.readdirSync(root).filter((file) => {

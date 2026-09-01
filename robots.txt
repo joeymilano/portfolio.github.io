@@ -4,7 +4,7 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-User-agent: GPTBot
+User-agent: Baiduspider
 Allow: /
 
 Sitemap: https://joeyzhao.cc/sitemap.xml
