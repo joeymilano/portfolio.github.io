@@ -359,7 +359,7 @@ requirePattern(
 );
 requirePattern(
   home,
-  /<meta[^>]+name=["']baidu-site-verification["'][^>]+content=["']codeva-jgksB88SjU["']/i,
+  /<meta[^>]+name=["']baidu-site-verification["'][^>]+content=["']codeva-HguMyGP5v2["']/i,
   "Baidu site verification tag",
   "index.html",
 );
