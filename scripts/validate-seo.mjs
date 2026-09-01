@@ -195,7 +195,7 @@ for (const page of publicPages) {
 
   requirePattern(
     html,
-    /<script[^>]+src=["']\/analytics\.js["'][^>]*><\/script>/i,
+    /<script[^>]+src=["']\/site-metrics\.js["'][^>]*><\/script>/i,
     "production analytics bootstrap",
     page.file,
   );
@@ -328,7 +328,7 @@ for (const file of intentionallyNonIndexablePages) {
 const robots = read("robots.txt");
 const home = read("index.html");
 const signalsCaseStudy = read("signals.html");
-const analytics = read("analytics.js");
+const analytics = read("site-metrics.js");
 const faviconPath = path.join(root, "favicon.ico");
 if (!fs.existsSync(faviconPath) || fs.statSync(faviconPath).size === 0) {
   failures.push("favicon.ico: missing root search-result favicon");
@@ -361,13 +361,13 @@ requirePattern(
   analytics,
   /G-M8F4G6B3C6/,
   "joeyzhao.cc GA4 measurement ID",
-  "analytics.js",
+  "site-metrics.js",
 );
 requirePattern(
   analytics,
   /productionHosts\.has\(window\.location\.hostname\)/,
   "production-host analytics guard",
-  "analytics.js",
+  "site-metrics.js",
 );
 
 const indexNowKeyFiles = fs.readdirSync(root).filter((file) => {
