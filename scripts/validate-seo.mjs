@@ -357,6 +357,12 @@ requirePattern(
   "index.html",
 );
 requirePattern(
+  home,
+  /<meta[^>]+name=["']baidu-site-verification["'][^>]+content=["']codeva-jgksB88SjU["']/i,
+  "Baidu site verification tag",
+  "index.html",
+);
+requirePattern(
   signalsCaseStudy,
   /<title>Signals Notebook UX Case Study\s*\|\s*Joey Zhao<\/title>/i,
   "search-intent-aligned Signals title",
