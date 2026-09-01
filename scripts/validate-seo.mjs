@@ -195,8 +195,14 @@ for (const page of publicPages) {
 
   requirePattern(
     html,
-    /<script[^>]+src=["']\/site-metrics\.js["'][^>]*><\/script>/i,
-    "production analytics bootstrap",
+    /<script[^>]+src=["']https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-M8F4G6B3C6["'][^>]*><\/script>/i,
+    "official GA4 loader",
+    page.file,
+  );
+  requirePattern(
+    html,
+    /productionHosts\.includes\(window\.location\.hostname\)[\s\S]*?gtag\(["']config["'],\s*["']G-M8F4G6B3C6["']\)/i,
+    "production-only GA4 configuration",
     page.file,
   );
 
@@ -328,7 +334,6 @@ for (const file of intentionallyNonIndexablePages) {
 const robots = read("robots.txt");
 const home = read("index.html");
 const signalsCaseStudy = read("signals.html");
-const analytics = read("site-metrics.js");
 const faviconPath = path.join(root, "favicon.ico");
 if (!fs.existsSync(faviconPath) || fs.statSync(faviconPath).size === 0) {
   failures.push("favicon.ico: missing root search-result favicon");
@@ -356,18 +361,6 @@ requirePattern(
   /<title>Signals Notebook UX Case Study\s*\|\s*Joey Zhao<\/title>/i,
   "search-intent-aligned Signals title",
   "signals.html",
-);
-requirePattern(
-  analytics,
-  /G-M8F4G6B3C6/,
-  "joeyzhao.cc GA4 measurement ID",
-  "site-metrics.js",
-);
-requirePattern(
-  analytics,
-  /productionHosts\.has\(window\.location\.hostname\)/,
-  "production-host analytics guard",
-  "site-metrics.js",
 );
 
 const indexNowKeyFiles = fs.readdirSync(root).filter((file) => {

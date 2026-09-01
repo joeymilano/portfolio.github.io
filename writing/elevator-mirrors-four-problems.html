@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head>
-  <script src="/site-metrics.js" defer></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8F4G6B3C6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag("js", new Date());
+    const productionHosts = ["joeyzhao.cc", "www.joeyzhao.cc"];
+    if (productionHosts.includes(window.location.hostname)) {
+      gtag("config", "G-M8F4G6B3C6");
+    }
+  </script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>电梯里的镜子，最重要的用途不是照脸 | Joey Zhao</title>
 <meta name="description" content="电梯里的镜子为什么存在？Joey Zhao 从等待心理、空间感、安全视野和轮椅倒车四种解释入手，逐条核对证据与无障碍标准，说明哪些是硬要求，哪些只是听起来合理的故事。">

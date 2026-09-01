@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-  <script src="/site-metrics.js" defer></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8F4G6B3C6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag("js", new Date());
+    const productionHosts = ["joeyzhao.cc", "www.joeyzhao.cc"];
+    if (productionHosts.includes(window.location.hostname)) {
+      gtag("config", "G-M8F4G6B3C6");
+    }
+  </script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Product Designer Portfolio as Evidence | UX Case Studies | Joey Zhao</title>
 <meta name="description" content="How a product designer portfolio can prove senior judgment through UX case studies covering problems, roles, trade-offs, failure states, and measurable outcomes, plus a 15-minute audit.">

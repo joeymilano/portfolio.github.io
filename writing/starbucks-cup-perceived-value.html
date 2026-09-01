@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head>
-  <script src="/site-metrics.js" defer></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8F4G6B3C6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag("js", new Date());
+    const productionHosts = ["joeyzhao.cc", "www.joeyzhao.cc"];
+    if (productionHosts.includes(window.location.hostname)) {
+      gtag("config", "G-M8F4G6B3C6");
+    }
+  </script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>星巴克的杯子，是怎么说服你「40 块不贵」的？ | Joey Zhao</title>
 <meta name="description" content="熊杯被抢爆、黄牛加价、一年一度的杯子狂欢——拆解星巴克杯子的感知价值设计：杯型错觉、触觉信号、手写名字、绿色许可感，以及哪些流行说法经不起查。">
