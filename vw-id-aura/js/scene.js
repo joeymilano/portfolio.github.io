@@ -20,12 +20,12 @@ export function createScene(container, quality) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.62;
+  renderer.toneMappingExposure = 0.7;
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x04060b);
-  scene.fog = new THREE.FogExp2(0x04060b, 0.009);
+  scene.background = new THREE.Color(0x020408);
+  scene.fog = new THREE.FogExp2(0x020408, 0.010);
 
   const camera = new THREE.PerspectiveCamera(36, innerWidth / innerHeight, 0.05, 400);
   camera.position.set(5.9, 2.25, 6.25);
@@ -37,6 +37,10 @@ export function createScene(container, quality) {
   controls.maxDistance = 15;
   controls.maxPolarAngle = Math.PI / 2 - 0.04;
   controls.target.set(0, 0.82, 0);
+  // APEX 注:不要在 controls 上启用 autoRotate —— main.js 用 car.rig.rotation
+  // 驱动"转台旋转",镜头保持静止反而更接近影棚摄影车;在 controls 上开
+  // autoRotate 会与 gsap 镜头飞行冲突。
+  controls.enablePan = true;
 
   /* ---------- environment: tourist panoramas (background + PBR reflections) ----------
      Each panorama drives BOTH scene.background (the visible vista) and
@@ -84,26 +88,39 @@ export function createScene(container, quality) {
   // Initial environment stays neutral until the selected panorama is ready.
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
-  /* ---------- lighting ---------- */
-  scene.add(new THREE.HemisphereLight(0xb7d4e8, 0x07080b, 0.28));
+  /* ---------- lighting · 三点影棚 (APEX 2026-09-05) ---------- */
+  scene.add(new THREE.HemisphereLight(0xb7d4e8, 0x05070a, 0.32));
 
-  const key = new THREE.DirectionalLight(0xf1f7ff, 1.0);
+  // Key 主光:冷白,大角度柔光
+  const key = new THREE.DirectionalLight(0xf1f7ff, 1.4);
   key.position.set(6, 10, 7);
   key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048);
   key.shadow.camera.left = key.shadow.camera.bottom = -12;
   key.shadow.camera.right = key.shadow.camera.top = 12;
   key.shadow.bias = -0.0004;
-  key.shadow.radius = 6;
+  key.shadow.radius = 8;
   scene.add(key);
 
-  const rim = new THREE.DirectionalLight(0x75dbea, 0.62);
+  // Rim 轮廓光:主青,从侧后勾勒车身腰线(提亮,让腰线分离背景)
+  const rim = new THREE.DirectionalLight(0x75dbea, 1.05);
   rim.position.set(-7, 4.5, -6);
   scene.add(rim);
 
-  const warmFill = new THREE.DirectionalLight(0xffd1ad, 0.28);
+  // 第二道 Rim:更纯的青,从另一侧后方补轮廓(对称雕刻车身)
+  const rim2 = new THREE.DirectionalLight(0x54d3e3, 0.52);
+  rim2.position.set(7, 3.2, -7);
+  scene.add(rim2);
+
+  // Fill 底光:微弱暖光从地面反弹,让车底不死黑
+  const warmFill = new THREE.DirectionalLight(0xffd1ad, 0.42);
   warmFill.position.set(-4, 2.4, 7);
   scene.add(warmFill);
+
+  // 车底反弹光(纯氛围,把轮胎和底盘从死黑里拽出来)
+  const bounce = new THREE.PointLight(0x58cddd, 0.55, 6.5, 1.6);
+  bounce.position.set(0, 0.18, 0);
+  scene.add(bounce);
 
   /* ---------- showroom world: authored PBR floor + premiere architecture ---------- */
   const showroomGroup = new THREE.Group();
@@ -141,11 +158,65 @@ export function createScene(container, quality) {
   floor.receiveShadow = true;
   showroomGroup.add(floor);
 
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0x9eeaf2, transparent: true, opacity: 0.18 });
-  const ring = new THREE.Mesh(new THREE.RingGeometry(4.85, 4.88, 128), ringMat);
+  /* 双层发光地环(APEX):内环实、外环虚,呼吸脉动 */
+  const ringMat = new THREE.MeshBasicMaterial({
+    color: 0xbef2fa, transparent: true, opacity: 0.36, toneMapped: false
+  });
+  const ring = new THREE.Mesh(new THREE.RingGeometry(4.85, 4.92, 128), ringMat);
   ring.rotation.x = -Math.PI / 2;
   ring.position.y = 0.005;
   showroomGroup.add(ring);
+
+  const ringOuterMat = new THREE.MeshBasicMaterial({
+    color: 0x54d3e3, transparent: true, opacity: 0.08, toneMapped: false
+  });
+  const ringOuter = new THREE.Mesh(new THREE.RingGeometry(5.05, 5.65, 128), ringOuterMat);
+  ringOuter.rotation.x = -Math.PI / 2;
+  ringOuter.position.y = 0.004;
+  showroomGroup.add(ringOuter);
+
+  /* 车底镜面反光板(APEX · 关键一笔):圆形镜面,车真实倒映 */
+  const reflectorMat = new THREE.MeshPhysicalMaterial({
+    color: 0x060a10,
+    roughness: 0.08,
+    metalness: 0.9,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.04,
+    envMapIntensity: 2.4,
+    transparent: true,
+    opacity: 0.92
+  });
+  const mirror = new THREE.Mesh(new THREE.CircleGeometry(5.05, 96), reflectorMat);
+  mirror.rotation.x = -Math.PI / 2;
+  mirror.position.y = 0.002;
+  mirror.receiveShadow = true;
+  showroomGroup.add(mirror);
+
+  /* 扫描光环(APEX):一道青色光环沿车身 Z 轴缓慢扫描 */
+  const scanRingMat = new THREE.MeshBasicMaterial({
+    color: 0x54d3e3, transparent: true, opacity: 0.55, toneMapped: false,
+    side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false
+  });
+  const scanRing = new THREE.Mesh(new THREE.TorusGeometry(2.6, 0.018, 8, 96), scanRingMat);
+  scanRing.rotation.x = Math.PI / 2;
+  scanRing.position.set(0, 0.5, 0);
+  showroomGroup.add(scanRing);
+
+  /* 环绕微尘(APEX · 体积光空气感):比 dust 更慢更近的漂浮微粒 */
+  const DUST_N = 260;
+  const dustPos = new Float32Array(DUST_N * 3);
+  for (let i = 0; i < DUST_N; i++) {
+    dustPos[i * 3] = (Math.random() - 0.5) * 14;
+    dustPos[i * 3 + 1] = Math.random() * 4 + 0.2;
+    dustPos[i * 3 + 2] = (Math.random() - 0.5) * 14;
+  }
+  const nearDustGeo = new THREE.BufferGeometry();
+  nearDustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+  const nearDust = new THREE.Points(nearDustGeo, new THREE.PointsMaterial({
+    color: 0xcfeaff, size: 0.03, transparent: true, opacity: 0.32,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  }));
+  showroomGroup.add(nearDust);
 
   const grid = new THREE.PolarGridHelper(15, 10, 6, 96, 0x20313a, 0x11191f);
   grid.position.y = 0.002;
@@ -267,16 +338,18 @@ export function createScene(container, quality) {
   const postfx = createPostFX(renderer, scene, camera, quality);
   const composer = postfx.composer;
   const bloom = postfx.bloom;
-  bloom.strength = 0.17;
+  bloom.strength = 0.26;
+  bloom.threshold = 0.78;
+  bloom.radius = 0.45;
   postfx.setFilmGrade({
-    grainAmount: 0.012,
-    aberration: 0.00055,
-    vignetteStrength: 0.22,
-    vignetteSoftness: 0.74,
-    barrel: 0.004,
-    lift: [0.006, 0.008, 0.01],
-    gamma: [1.015, 1.015, 1.02],
-    gain: [1.035, 1.04, 1.045]
+    grainAmount: 0.018,
+    aberration: 0.0007,
+    vignetteStrength: 0.32,
+    vignetteSoftness: 0.68,
+    barrel: 0.005,
+    lift: [0.008, 0.010, 0.014],
+    gamma: [1.02, 1.02, 1.03],
+    gain: [1.05, 1.055, 1.06]
   });
 
   function resize() {
@@ -291,13 +364,24 @@ export function createScene(container, quality) {
 
   function update(t) {
     ring.rotation.z = t * 0.05;
-    ringMat.opacity = 0.15 + Math.sin(t * 0.72) * 0.028;
+    ringMat.opacity = 0.28 + Math.sin(t * 0.72) * 0.08;
+    ringOuterMat.opacity = 0.05 + Math.sin(t * 0.55 + 1.2) * 0.035;
     dust.rotation.y = t * 0.008;
+    nearDust.rotation.y = -t * 0.005;
+    nearDust.position.y = Math.sin(t * 0.18) * 0.06;
     halo.rotation.z = t * 0.012;
     haloMat.opacity = 0.19 + Math.sin(t * 0.56) * 0.04;
     const scan = Math.sin(t * 0.22);
     scanKey.position.x = scan * 6.4;
     scanKey.target.position.x = Math.sin(t * 0.17) * 1.2;
+    // 扫描光环沿 Z 轴缓慢扫过车身(-2.4m → +2.4m)
+    const scanPhase = (t * 0.16) % 2.0;
+    const scanZ = scanPhase < 1 ? (scanPhase * 2 - 1) * 2.4 : (1 - (scanPhase - 1) * 2) * 2.4;
+    scanRing.position.z = scanZ;
+    scanRingMat.opacity = 0.42 * Math.sin(scanPhase * Math.PI);
+    scanRing.scale.setScalar(1 + Math.sin(t * 0.9) * 0.015);
+    // 车底反弹光随呼吸脉动
+    bounce.intensity = 0.5 + Math.sin(t * 0.7) * 0.12;
     ceilingBars.forEach((bar, index) => {
       bar.material.opacity = (index % 2 ? 0.32 : 0.64) + Math.sin(t * 0.34 + index * 0.58) * 0.08;
     });
@@ -311,12 +395,12 @@ export function createScene(container, quality) {
       scene.background = new THREE.Color(0x010205);
       scene.backgroundBlurriness = 0;
       scene.fog = new THREE.FogExp2(0x010205, 0.018);
-      renderer.toneMappingExposure = 0.56;
-      bloom.strength = 0.13;
+      renderer.toneMappingExposure = 0.6;
+      bloom.strength = 0.18;
       return;
     }
-    renderer.toneMappingExposure = 0.62;
-    bloom.strength = 0.17;
+    renderer.toneMappingExposure = 0.7;
+    bloom.strength = 0.26;
     if (sceneIdx >= 0 && sceneTex[sceneIdx]) applySceneTexture(sceneTex[sceneIdx], sceneIdx);
   }
 

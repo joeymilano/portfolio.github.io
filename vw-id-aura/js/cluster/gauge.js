@@ -155,24 +155,27 @@ export function createGauge(mount, { mode, recoilColor }) {
     d: arcPath(CX, CY, R_SPEED, SPEED_A0, SPEED_A1), fill: 'none',
     stroke: 'rgba(150,184,196,0.10)', 'stroke-width': R * 0.02
   }));
-  for (let v = 0; v <= V_MAX; v += 10) {
+  // APEX 2026-09-05:刻度加密——每 2 km/h 一根发丝,每 10 一根中刻度,每 60 一根主刻度
+  for (let v = 0; v <= V_MAX; v += 2) {
     const ang = SPEED_A0 + (v / V_MAX) * (SPEED_A1 - SPEED_A0);
     const major = v % 60 === 0;
+    const mid = v % 10 === 0;
     const r1 = R_SPEED;
-    const r2 = R_SPEED + (major ? R * 0.10 : R * 0.05);
+    const r2 = R_SPEED + (major ? R * 0.11 : mid ? R * 0.065 : R * 0.032);
     const [x1, y1] = polar(CX, CY, r1, ang);
     const [x2, y2] = polar(CX, CY, r2, ang);
     speedring.appendChild(svgEl('line', {
       x1: x1.toFixed(2), y1: y1.toFixed(2), x2: x2.toFixed(2), y2: y2.toFixed(2),
-      stroke: `rgba(168,198,208,${major ? 0.42 : 0.16})`,
-      'stroke-width': major ? 1.2 : 0.5
+      stroke: `rgba(168,198,208,${major ? 0.5 : mid ? 0.24 : 0.10})`,
+      'stroke-width': major ? 1.4 : mid ? 0.7 : 0.5
     }));
     if (major) {
-      const [tx, ty] = polar(CX, CY, R_SPEED + R * 0.17, ang);
+      const [tx, ty] = polar(CX, CY, R_SPEED + R * 0.18, ang);
       speedring.appendChild(svgEl('text', {
         x: tx.toFixed(1), y: ty.toFixed(1), 'text-anchor': 'middle',
-        'dominant-baseline': 'middle', 'font-size': 9, 'font-weight': 500,
-        'font-family': 'Chakra Petch, sans-serif', fill: 'rgba(168,198,208,0.55)'
+        'dominant-baseline': 'middle', 'font-size': 8.5, 'font-weight': 500,
+        'font-family': 'Technor, Chakra Petch, sans-serif', fill: 'rgba(200,224,232,0.62)',
+        'letter-spacing': '0.04em'
       })).textContent = String(v);
     }
   }
@@ -181,6 +184,21 @@ export function createGauge(mount, { mode, recoilColor }) {
   const speedMarker = svgEl('path', { class: 'gauge-speed-marker' });
   speedring.appendChild(speedProg);
   speedring.appendChild(speedMarker);
+
+  // APEX:功率弧渐变拖尾层(在功率弧底下画一条更宽更淡的"残影弧")
+  const driveTrail = svgEl('path', {
+    class: 'gauge-drive-trail', fill: 'none', 'stroke-linecap': 'round',
+    'stroke-width': R * 0.11, opacity: 0.22
+  });
+  const recoilTrail = svgEl('path', {
+    class: 'gauge-recoil-trail', fill: 'none', 'stroke-linecap': 'round',
+    'stroke-width': R * 0.11, opacity: 0.22
+  });
+  // 插入到主弧之前(作为底层)
+  svg.insertBefore(driveTrail, driveArc);
+  svg.insertBefore(recoilTrail, recoilArc);
+  driveTrail.setAttribute('stroke', mode.hue);
+  recoilTrail.setAttribute('stroke', RECOIL);
 
   function applyHue(hex) {
     activeHue = hex;
@@ -284,6 +302,15 @@ export function createGauge(mount, { mode, recoilColor }) {
     recoilArc.setAttribute('d', recoilFill > 0.005 ? arcPath(CX, CY, R, ZERO, ZERO - SPAN * recoilFill) : '');
     driveArc.style.opacity = isRecup ? 0.18 : 1;
     recoilArc.style.opacity = isRecup ? 1 : 0.18;
+
+    // APEX:渐变拖尾——在弧尾端绘制一个稍大、更淡、带透明度衰减的"残影"
+    // 简化:用同一条弧线但 stroke 稍粗、opacity 更低,产生"光晕残留"感
+    driveTrail.setAttribute('d', driveFill > 0.005 ? arcPath(CX, CY, R, ZERO, ZERO + SPAN * Math.max(0, driveFill - 0.04)) : '');
+    recoilTrail.setAttribute('d', recoilFill > 0.005 ? arcPath(CX, CY, R, ZERO, ZERO - SPAN * Math.max(0, recoilFill - 0.04)) : '');
+    driveTrail.setAttribute('stroke', mode.hue);
+    recoilTrail.setAttribute('stroke', RECOIL);
+    driveTrail.style.opacity = isRecup ? 0 : (0.32 * Math.min(1, driveFill * 1.4));
+    recoilTrail.style.opacity = isRecup ? (0.32 * Math.min(1, recoilFill * 1.4)) : 0;
 
     // shine mask only sweeps across whichever arc currently carries fill
     const shineD = isRecup

@@ -1,0 +1,1473 @@
+/* ============================================================
+   ID.AURA — APEX COCKPIT · 光子仪器 (2026-09-05 全栈重写)
+   「科幻电影精密仪器感」覆盖层
+   参照:Tron Legacy × Blade Runner 2049 × Territory Studio ×
+         Lotus Hyper OS × Porsche Taycan 曲面仪表 × IWC 腕表
+   用法:此文件在 styles.css 之后加载,作为最终视觉覆盖层。
+   ============================================================ */
+
+/* ============================================================
+   0. 全局基底 · 更深邃的暗
+   ============================================================ */
+body {
+  background: var(--bg, #04060b);
+}
+
+/* ============================================================
+   1. BOOT RITUAL · 上电仪式 → 电影化
+   ============================================================ */
+#boot-ritual {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(4, 8, 12, 0.4) 0%, rgba(2, 3, 6, 0.95) 78%),
+    #020306;
+}
+
+/* 加宽光刃,前缘更亮更窄,后缘长拖尾 */
+.ritual-blade {
+  width: 48vw;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(84, 211, 227, 0) 30%,
+    rgba(84, 211, 227, 0.18) 44%,
+    rgba(84, 211, 227, 0.55) 48%,
+    rgba(240, 250, 252, 0.98) 49.5%,
+    rgba(240, 250, 252, 0.98) 50.5%,
+    rgba(84, 211, 227, 0.55) 52%,
+    rgba(84, 211, 227, 0.18) 56%,
+    transparent 72%);
+  filter: blur(1px);
+  box-shadow:
+    0 0 24px rgba(84, 211, 227, 0.6),
+    0 0 90px rgba(84, 211, 227, 0.28);
+}
+
+.ritual-word {
+  font-size: clamp(48px, 8.5vw, 118px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink-0, #f7fafa);
+  text-shadow:
+    0 0 1px rgba(247, 250, 250, 0.95),
+    0 0 18px rgba(84, 211, 227, 0.7),
+    0 0 60px rgba(84, 211, 227, 0.32),
+    0 0 120px rgba(84, 211, 227, 0.14);
+}
+.ritual-word span {
+  color: var(--cyan);
+  text-shadow:
+    0 0 2px currentColor,
+    0 0 24px currentColor,
+    0 0 80px currentColor;
+}
+.ritual-ready {
+  top: calc(50% + 88px);
+  font-size: 11px;
+  letter-spacing: 0.68em;
+  text-indent: 0.68em;
+  color: var(--cyan);
+  text-shadow: 0 0 12px rgba(84, 211, 227, 0.6);
+}
+
+/* ============================================================
+   2. INTRO · 电影预告片化
+   ============================================================ */
+#intro {
+  background: #010204;
+}
+
+/* 夜驶影片:更浓的电影调色(压得更暗、更单色、更颗粒) */
+.intro-film {
+  opacity: 0.42;
+  filter:
+    brightness(0.36)
+    contrast(1.18)
+    saturate(0.42)
+    hue-rotate(-6deg)
+    blur(1.4px);
+  transform: scale(1.045);
+}
+
+/* 电影 grade 层:更重的暗角 + 顶部扫描线 + 两侧色偏 */
+.intro-film-grade {
+  background:
+    /* 上下黑边(电影宽银幕感) */
+    linear-gradient(180deg,
+      rgba(0, 0, 0, 0.92) 0%,
+      rgba(0, 0, 0, 0.0) 6%,
+      rgba(0, 0, 0, 0.0) 94%,
+      rgba(0, 0, 0, 0.92) 100%),
+    /* 左侧主遮光(让标题区清晰) */
+    linear-gradient(90deg,
+      rgba(0, 3, 6, 0.96) 0%,
+      rgba(0, 5, 9, 0.78) 30%,
+      rgba(1, 5, 8, 0.32) 62%,
+      rgba(1, 4, 7, 0.72) 100%),
+    /* 中央 vignette */
+    radial-gradient(ellipse at 55% 48%,
+      transparent 0%,
+      transparent 36%,
+      rgba(0, 0, 0, 0.62) 88%),
+    /* 整体偏青 */
+    linear-gradient(180deg,
+      rgba(8, 22, 28, 0.18) 0%,
+      rgba(4, 12, 18, 0.24) 100%);
+}
+
+/* 颗粒 + 扫描线 + 色差叠加(伪电影胶片感) */
+.intro-film-vignette {
+  opacity: 0.85;
+  background:
+    /* 颗粒(重复细纹) */
+    repeating-linear-gradient(0deg,
+      rgba(255, 255, 255, 0.012) 0px,
+      transparent 1px,
+      transparent 2px),
+    /* 中央竖直扫描线 */
+    linear-gradient(90deg,
+      transparent 49.92%,
+      rgba(154, 233, 243, 0.18) 50%,
+      transparent 50.08%),
+    /* 侧边刻度带 */
+    repeating-linear-gradient(90deg,
+      transparent 0,
+      transparent 19.94vw,
+      rgba(148, 213, 223, 0.05) 20vw,
+      transparent 20.06vw),
+    /* 四角暗角 */
+    radial-gradient(ellipse at 50% 50%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.45) 100%);
+  mask-image: linear-gradient(180deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent);
+}
+
+/* 顶部「LIVE CONCEPT FILM」信号更精致 */
+.intro-transmission {
+  padding: 7px 14px;
+  border: 0.5px solid rgba(150, 190, 210, 0.18);
+  border-radius: 99px;
+  background: linear-gradient(180deg,
+    rgba(12, 18, 24, 0.42),
+    rgba(4, 8, 12, 0.55));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* 标题 · 更精致的分层 */
+.intro-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: rgba(180, 200, 205, 0.62);
+}
+.intro-eyebrow span {
+  color: var(--gold, #d2b078);
+  text-shadow: 0 0 12px rgba(210, 176, 120, 0.32);
+}
+
+.intro-title {
+  font-weight: 200;
+  letter-spacing: -0.085em;
+  text-shadow:
+    0 0 1px rgba(240, 248, 248, 0.5),
+    0 12px 90px rgba(0, 0, 0, 0.85),
+    0 0 60px rgba(84, 211, 227, 0.08);
+}
+.intro-id {
+  color: rgba(230, 240, 240, 0.78);
+  font-weight: 400;
+}
+.intro-id > span {
+  color: var(--cyan);
+  text-shadow:
+    0 0 4px currentColor,
+    0 0 24px rgba(98, 216, 238, 0.75),
+    0 0 70px rgba(98, 216, 238, 0.32);
+}
+.intro-aura {
+  background: linear-gradient(105deg,
+    #f7fafa 0%,
+    #d6e2e2 38%,
+    #b8c8c8 58%,
+    #d2b078 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 陈述句的 THINKS AHEAD 强调 */
+.intro-statement em {
+  background: linear-gradient(90deg, var(--cyan) 0%, #a8ecf5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 18px rgba(84, 211, 227, 0.55));
+}
+
+/* ============================================================
+   3. LAUNCH BUTTON · 点火装置
+   ============================================================ */
+.launch-orbit {
+  filter: drop-shadow(0 0 30px rgba(84, 211, 227, 0.18));
+}
+.launch-orbit::before {
+  border-color: rgba(151, 215, 225, 0.32);
+  box-shadow:
+    inset 0 0 60px rgba(84, 211, 227, 0.06),
+    0 0 24px rgba(84, 211, 227, 0.12);
+}
+.launch-orbit::after {
+  border-color: rgba(216, 176, 106, 0.36);
+  border-style: solid;
+  border-width: 0.5px;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.launch-btn {
+  border: 1px solid rgba(152, 217, 227, 0.48);
+  background:
+    radial-gradient(circle at 50% 100%, rgba(98, 216, 238, 0.16), transparent 50%),
+    radial-gradient(circle at 50% 0%, rgba(152, 217, 227, 0.06), transparent 55%),
+    linear-gradient(180deg, rgba(6, 12, 16, 0.78), rgba(2, 6, 10, 0.86));
+  box-shadow:
+    inset 0 0 0 6px rgba(116, 188, 200, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(0, 0, 0, 0.45),
+    0 0 80px rgba(84, 211, 227, 0.08);
+}
+.launch-btn strong {
+  font-size: clamp(11px, 0.92vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--ink-0, #f7fafa);
+  text-shadow: 0 0 12px rgba(84, 211, 227, 0.3);
+}
+.launch-btn:hover {
+  transform: scale(1.06);
+  border-color: rgba(126, 232, 245, 0.95);
+  box-shadow:
+    inset 0 0 0 6px rgba(116, 217, 230, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 90px rgba(74, 196, 216, 0.32),
+    0 0 160px rgba(74, 196, 216, 0.12);
+}
+
+/* ============================================================
+   4. HUD · 顶部导航 / 底栏 / 按钮的仪器化
+   ============================================================ */
+.hud-top {
+  background: linear-gradient(180deg,
+    rgba(2, 4, 7, 0.72) 0%,
+    rgba(2, 4, 7, 0.36) 60%,
+    transparent 100%);
+  border-bottom: 0.5px solid rgba(150, 190, 210, 0.06);
+}
+
+.hud-brand .hud-mark {
+  filter: drop-shadow(0 0 6px rgba(84, 211, 227, 0.4));
+}
+.hud-word {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-0, #f7fafa);
+}
+.hud-word span {
+  color: var(--cyan);
+  text-shadow: 0 0 8px rgba(84, 211, 227, 0.55);
+}
+
+.hud-nav {
+  padding: 4px;
+  border: 0.5px solid rgba(150, 190, 210, 0.12);
+  border-radius: 99px;
+  background:
+    linear-gradient(180deg, rgba(12, 18, 24, 0.55), rgba(4, 7, 11, 0.7));
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 24px -8px rgba(0, 0, 0, 0.5);
+}
+.nav-btn {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3, #8fa0a6);
+  padding: 8px 16px;
+  border-radius: 99px;
+  transition:
+    color 0.3s var(--ease-out, ease),
+    background 0.3s var(--ease-out, ease),
+    box-shadow 0.3s var(--ease-out, ease),
+    text-shadow 0.3s var(--ease-out, ease);
+}
+.nav-btn:hover {
+  color: var(--ink-1, #e6edef);
+}
+.nav-btn.active {
+  color: var(--cyan);
+  background: rgba(84, 211, 227, 0.08);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(84, 211, 227, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 12px rgba(84, 211, 227, 0.18);
+  text-shadow: 0 0 8px rgba(84, 211, 227, 0.6);
+}
+
+.hud-clock {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--ink-1, #e6edef);
+  font-variant-numeric: tabular-nums;
+}
+.hud-icon {
+  border: 0.5px solid rgba(150, 190, 210, 0.14);
+  background: linear-gradient(180deg, rgba(12, 18, 24, 0.45), rgba(4, 7, 11, 0.6));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.hud-icon.on {
+  border-color: rgba(84, 211, 227, 0.42);
+  box-shadow:
+    0 0 12px rgba(84, 211, 227, 0.22),
+    inset 0 0 0 0.5px rgba(84, 211, 227, 0.18);
+}
+
+#view-name {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+  color: rgba(247, 250, 250, 0.12);
+  text-shadow: 0 0 30px rgba(84, 211, 227, 0.06);
+}
+
+.hud-hint,
+.hud-meta {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--ink-4, #64747b);
+}
+
+/* ============================================================
+   5. SHOWROOM UI · 展车铭牌 / 镜头选择 / 漆色 / 场景
+   ============================================================ */
+.showroom-plate {
+  background: var(--photon-bg, linear-gradient(158deg, rgba(18,26,34,0.66) 0%, rgba(8,12,18,0.78) 58%, rgba(3,5,9,0.86) 100%));
+  backdrop-filter: blur(22px) saturate(1.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  border: 0;
+  border-radius: 14px;
+  box-shadow: var(--photon-shadow,
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(0,0,0,0.42),
+    0 24px 64px -16px rgba(0,0,0,0.66));
+  padding: 22px 26px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.showroom-plate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.32) 0%,
+    rgba(255,255,255,0.06) 20%,
+    rgba(150,190,210,0.04) 55%,
+    rgba(84,211,227,0.18) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.showroom-plate-kicker {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.34em;
+  color: var(--gold, #d2b078);
+  text-shadow: 0 0 10px rgba(210, 176, 120, 0.24);
+}
+.showroom-plate-title {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink-0, #f7fafa);
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.4),
+    0 0 32px rgba(84, 211, 227, 0.14);
+}
+.showroom-plate-title span { color: var(--cyan); }
+
+.showroom-specs b {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  color: var(--ink-0, #f7fafa);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 12px rgba(84, 211, 227, 0.18);
+}
+.showroom-specs small {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  color: var(--ink-4, #64747b);
+}
+
+/* Vehicle stream 状态 */
+.vehicle-stream {
+  background: var(--photon-bg, linear-gradient(158deg, rgba(18,26,34,0.66), rgba(8,12,18,0.78) 58%, rgba(3,5,9,0.86)));
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: var(--photon-shadow, 0 24px 64px -16px rgba(0,0,0,0.66));
+  position: relative;
+  overflow: hidden;
+}
+.vehicle-stream::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.28) 0%,
+    rgba(255,255,255,0.05) 25%,
+    rgba(84,211,227,0.14) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* 镜头选择器 · 仪器按钮 */
+.lens-rail {
+  padding: 4px;
+  border-radius: 99px;
+  background:
+    linear-gradient(180deg, rgba(12, 18, 24, 0.6), rgba(3, 6, 10, 0.75));
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 0.5px solid rgba(150, 190, 210, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 12px 32px -12px rgba(0, 0, 0, 0.6);
+}
+.lens-btn {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  color: var(--ink-3, #8fa0a6);
+  border-radius: 99px;
+  padding: 8px 13px;
+  transition: all 0.3s var(--ease-out, ease);
+}
+.lens-btn.active {
+  color: var(--cyan);
+  background: rgba(84, 211, 227, 0.1);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(84, 211, 227, 0.4),
+    0 0 14px rgba(84, 211, 227, 0.2);
+  text-shadow: 0 0 8px rgba(84, 211, 227, 0.6);
+}
+
+/* 内饰 tour */
+.interior-tour {
+  background: var(--photon-bg, linear-gradient(158deg, rgba(18,26,34,0.66), rgba(8,12,18,0.78) 58%, rgba(3,5,9,0.86)));
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 0;
+  border-radius: 14px;
+  box-shadow: var(--photon-shadow, 0 24px 64px -16px rgba(0,0,0,0.66));
+  position: relative;
+  overflow: hidden;
+}
+.interior-tour::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.28) 0%,
+    rgba(255,255,255,0.05) 25%,
+    rgba(84,211,227,0.16) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.interior-view-btn {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3, #8fa0a6);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.interior-view-btn span {
+  font-family: var(--font-tech);
+  color: var(--ink-4, #64747b);
+  margin-right: 6px;
+}
+.interior-view-btn.active {
+  color: var(--cyan);
+  background: rgba(84, 211, 227, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(84, 211, 227, 0.3);
+  text-shadow: 0 0 6px rgba(84, 211, 227, 0.5);
+}
+.interior-view-btn.active span { color: var(--cyan); }
+
+/* 漆色 rail */
+.paint-rail {
+  background:
+    linear-gradient(180deg, rgba(12, 18, 24, 0.6), rgba(3, 6, 10, 0.75));
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 0.5px solid rgba(150, 190, 210, 0.14);
+  border-radius: 99px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 12px 32px -12px rgba(0, 0, 0, 0.6);
+}
+.paint-dot {
+  border: 1px solid rgba(150, 190, 210, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.paint-dot.active {
+  border-color: rgba(84, 211, 227, 0.7);
+  box-shadow:
+    0 0 0 2px rgba(84, 211, 227, 0.22),
+    0 0 14px rgba(84, 211, 227, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+/* Scene rail */
+.scene-rail {
+  background:
+    linear-gradient(180deg, rgba(12, 18, 24, 0.6), rgba(3, 6, 10, 0.75));
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 0.5px solid rgba(150, 190, 210, 0.14);
+  border-radius: 99px;
+}
+.scene-btn {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3, #8fa0a6);
+  border-radius: 99px;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+}
+.scene-btn.active {
+  color: var(--cyan);
+  background: rgba(84, 211, 227, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(84, 211, 227, 0.32);
+  text-shadow: 0 0 6px rgba(84, 211, 227, 0.5);
+}
+
+/* ============================================================
+   6. CLUSTER · 仪器化
+   ============================================================ */
+/* Cluster 背景:整体压一层电影 grade */
+#layer-cluster {
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* 仪表环容器加一道极淡的光晕,让 SVG 仪器「悬浮」 */
+.cluster-gauge-mount {
+  filter: drop-shadow(0 0 24px rgba(84, 211, 227, 0.08));
+}
+
+/* 速度数字:Technor 宽体数字 + 强光晕 */
+.digit-strip i {
+  font-family: var(--font-tech, "Technor", "Chakra Petch", sans-serif) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em;
+  color: var(--ink-0, #f7fafa) !important;
+  text-shadow:
+    0 0 1px rgba(247, 250, 250, 0.7),
+    0 0 16px rgba(84, 211, 227, 0.32),
+    0 0 48px rgba(84, 211, 227, 0.14);
+}
+.digit-roll.dim .digit-strip i {
+  color: rgba(247, 250, 250, 0.2) !important;
+  text-shadow: none;
+}
+.gauge-unit {
+  font-family: var(--font-mono) !important;
+  letter-spacing: 0.32em !important;
+  color: var(--ink-4, #64747b) !important;
+}
+.gauge-kw {
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 12px currentColor;
+}
+
+/* Cluster 模式按钮:更仪器感 */
+.cluster-modes button {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  border-radius: 6px;
+  border: 0.5px solid rgba(150, 190, 210, 0.14);
+  background: linear-gradient(180deg, rgba(12, 18, 24, 0.5), rgba(4, 7, 11, 0.65));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+.cluster-modes button.active {
+  box-shadow:
+    inset 0 0 0 0.5px currentColor,
+    0 0 18px currentColor,
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  text-shadow: 0 0 8px currentColor;
+}
+
+/* Telltales / 状态条:统一精密线性图标 */
+.cluster-telltale,
+.cluster-status-icon {
+  filter: drop-shadow(0 0 4px rgba(84, 211, 227, 0.3));
+}
+
+/* ============================================================
+   7. CONSOLE · 光子玻璃卡片统一
+   ============================================================ */
+.console-card,
+.ui-card,
+.media-card,
+.climate-card,
+.vehicle-card,
+.charge-card,
+.console-rail-card {
+  background: var(--photon-bg, linear-gradient(158deg, rgba(18,26,34,0.66) 0%, rgba(8,12,18,0.78) 58%, rgba(3,5,9,0.86) 100%)) !important;
+  backdrop-filter: blur(22px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.5) !important;
+  border: 0 !important;
+  box-shadow: var(--photon-shadow,
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(0,0,0,0.42),
+    0 24px 64px -16px rgba(0,0,0,0.66)) !important;
+  position: relative;
+}
+.console-card::before,
+.ui-card::before,
+.media-card::before,
+.climate-card::before,
+.vehicle-card::before,
+.charge-card::before,
+.console-rail-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(255, 255, 255, 0.06) 20%,
+    rgba(150, 190, 210, 0.04) 55%,
+    rgba(84, 211, 227, 0.14) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 卡片标题(左主色条 + mono 标签) */
+.ui-card-title,
+.console-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-3, #8fa0a6);
+}
+.ui-card-title::before,
+.console-card-title::before {
+  content: "";
+  width: 2px;
+  height: 10px;
+  background: var(--cyan);
+  box-shadow: 0 0 6px rgba(84, 211, 227, 0.5);
+  border-radius: 1px;
+}
+
+/* Console 顶部状态栏 / 底部 dock */
+.console-top,
+.console-dock,
+.dock-pill {
+  background: linear-gradient(180deg, rgba(12, 18, 24, 0.6), rgba(3, 6, 10, 0.78)) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 0.5px solid rgba(150, 190, 210, 0.12) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 16px 40px -12px rgba(0, 0, 0, 0.65) !important;
+}
+
+/* ============================================================
+   8. AUTONOMOUS · 感知 HUD 科幻化
+   ============================================================ */
+.auto-level,
+.auto-status,
+.auto-chip,
+.auto-perception-chip {
+  background: linear-gradient(180deg, rgba(12, 18, 24, 0.62), rgba(4, 7, 11, 0.78)) !important;
+  backdrop-filter: blur(18px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.4) !important;
+  border: 0.5px solid rgba(230, 168, 119, 0.24) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 24px rgba(230, 168, 119, 0.08),
+    0 12px 32px -12px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* L4 徽章:金色脉冲 */
+.auto-level {
+  color: var(--amber, #e6a877) !important;
+  text-shadow: 0 0 14px rgba(230, 168, 119, 0.55) !important;
+}
+
+/* 感知目标锁定框:角括号 + 测距标尺 */
+.adas-target,
+.perception-target,
+.object-bracket {
+  border: 0 !important;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(230, 168, 119, 0.4),
+    0 0 12px rgba(230, 168, 119, 0.18);
+}
+
+/* ============================================================
+   9. LOADER · 启动画面
+   ============================================================ */
+#loader {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(6, 10, 14, 0.4) 0%, rgba(2, 3, 6, 0.96) 78%),
+    #020306;
+}
+.loader-logo {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-0, #f7fafa);
+  text-shadow:
+    0 0 1px rgba(247, 250, 250, 0.9),
+    0 0 24px rgba(84, 211, 227, 0.5),
+    0 0 80px rgba(84, 211, 227, 0.2);
+}
+.loader-logo .dot {
+  color: var(--cyan);
+  text-shadow:
+    0 0 4px currentColor,
+    0 0 20px currentColor,
+    0 0 60px currentColor;
+}
+.loader-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--ink-4, #64747b);
+}
+.loader-track {
+  background: rgba(150, 190, 210, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(150, 190, 210, 0.12);
+}
+.loader-track i {
+  background: linear-gradient(90deg,
+    var(--cyan) 0%,
+    #a8ecf5 50%,
+    var(--cyan) 100%);
+  box-shadow:
+    0 0 8px rgba(84, 211, 227, 0.6),
+    0 0 24px rgba(84, 211, 227, 0.3);
+}
+.loader-data {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--ink-4, #64747b);
+}
+.loader-data b {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  color: var(--cyan);
+  text-shadow: 0 0 8px rgba(84, 211, 227, 0.5);
+}
+
+/* ============================================================
+   10. 全局细节 · Toast / 提示
+   ============================================================ */
+#control-toast {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--ink-1, #e6edef);
+  background: linear-gradient(180deg, rgba(12, 18, 24, 0.78), rgba(3, 6, 10, 0.9));
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 0.5px solid rgba(84, 211, 227, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 24px rgba(84, 211, 227, 0.12),
+    0 16px 40px -12px rgba(0, 0, 0, 0.65);
+  text-shadow: 0 0 8px rgba(84, 211, 227, 0.3);
+}
+
+/* ============================================================
+   APEX CLUSTER PODS · 光子仪器舱(左右两侧)
+   覆盖默认卡片样式为 Photon Glass
+   ============================================================ */
+.cluster-pod {
+  background: var(--photon-bg, linear-gradient(158deg, rgba(18,26,34,0.68) 0%, rgba(8,12,18,0.8) 58%, rgba(3,5,9,0.88) 100%)) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(84, 211, 227, 0.05),
+    0 28px 70px -20px rgba(0, 0, 0, 0.7),
+    0 8px 28px -10px rgba(0, 0, 0, 0.55) !important;
+  position: relative;
+  overflow: hidden;
+}
+.cluster-pod::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.07) 18%,
+    rgba(150, 190, 210, 0.04) 52%,
+    rgba(84, 211, 227, 0.16) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+.cluster-pod::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 140px 140px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* pod 标签:主色条 + mono 标签 */
+.cluster-pod .pod-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(180, 200, 208, 0.68);
+  margin-bottom: 12px;
+}
+.cluster-pod .pod-label i {
+  display: block;
+  width: 2px;
+  height: 11px;
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(84, 211, 227, 0.6);
+  border-radius: 1px;
+}
+
+/* 大数字:Technor + 光晕 */
+.cluster-pod .pod-kw-wrap b,
+.cluster-pod .pod-range b,
+.cluster-pod .pod-soc-num b {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink-0, #f7fafa);
+  font-variant-numeric: tabular-nums;
+  text-shadow:
+    0 0 1px rgba(247, 250, 250, 0.6),
+    0 0 14px rgba(84, 211, 227, 0.32),
+    0 0 40px rgba(84, 211, 227, 0.12);
+}
+
+/* 微型行内数据条:精密感 */
+.cluster-pod .pod-row {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--ink-4, #64747b);
+}
+.cluster-pod .pod-row b {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  color: var(--ink-1, #e6edef);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   模式按钮带:更像仪器切换器
+   ============================================================ */
+.cluster-modes {
+  gap: 6px !important;
+  padding: 6px !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(180deg, rgba(14, 20, 28, 0.72), rgba(5, 8, 12, 0.85)) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 0.5px solid rgba(150, 190, 210, 0.14) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 20px 50px -12px rgba(0, 0, 0, 0.6) !important;
+}
+.cluster-modes button {
+  border-radius: 9px !important;
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  font-size: 10.5px !important;
+  letter-spacing: 0.2em !important;
+  border: 0.5px solid transparent !important;
+  background: transparent !important;
+  color: var(--ink-3, #8fa0a6) !important;
+  padding: 10px 20px !important;
+  transition: all 0.32s var(--ease-out, ease) !important;
+  position: relative;
+}
+.cluster-modes button:hover {
+  color: var(--ink-1, #e6edef) !important;
+  background: rgba(150, 190, 210, 0.06) !important;
+}
+.cluster-modes button.active {
+  color: var(--c) !important;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--c) 14%, transparent),
+      color-mix(in srgb, var(--c) 6%, transparent)) !important;
+  border-color: color-mix(in srgb, var(--c) 55%, transparent) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 20px color-mix(in srgb, var(--c) 28%, transparent),
+    0 0 50px color-mix(in srgb, var(--c) 12%, transparent) !important;
+  text-shadow: 0 0 12px color-mix(in srgb, var(--c) 70%, transparent);
+}
+
+/* Cluster 顶部状态带 */
+.cluster-heading {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  color: var(--ink-3, #8fa0a6);
+}
+.cluster-pilot {
+  color: var(--cyan);
+  text-shadow: 0 0 10px rgba(84, 211, 227, 0.5);
+}
+.cluster-assistance span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3, #8fa0a6);
+}
+.cluster-assistance .dot.ok {
+  box-shadow: 0 0 8px rgba(111, 217, 180, 0.7);
+}
+
+/* ============================================================
+   14. CLUSTER 背景层 · 3D 感知世界整体压暗 + 电影 vignette
+   ============================================================ */
+#layer-cluster {
+  background: radial-gradient(ellipse at 50% 55%, transparent 25%, rgba(2, 3, 5, 0.55) 100%);
+  box-shadow: inset 0 0 180px rgba(2, 4, 7, 0.55);
+}
+/* 两侧仪器舱区域略提亮,让玻璃舱浮出 */
+.cluster-pod {
+  filter: drop-shadow(0 0 24px rgba(84, 211, 227, 0.06));
+}
+
+/* ============================================================
+   15. CONSOLE 顶部时钟/日期 · Technor 仪器感
+   ============================================================ */
+.aura-console .console-clock {
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  color: var(--ink-0, #f7fafa) !important;
+  font-variant-numeric: tabular-nums !important;
+  font-feature-settings: "tnum" 1, "lnum" 1 !important;
+}
+.aura-console .console-date {
+  font-family: var(--font-mono) !important;
+  font-size: 9px !important;
+  letter-spacing: 0.32em !important;
+  color: var(--ink-4, #64747b) !important;
+  margin-top: 4px !important;
+}
+
+/* ============================================================
+   16. INTRO · LAUNCH 按钮按下时的高能反馈
+   ============================================================ */
+.launch-btn:active {
+  transform: scale(0.97) !important;
+  border-color: rgba(126, 232, 245, 1) !important;
+  box-shadow:
+    inset 0 0 0 8px rgba(116, 217, 230, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 0 120px rgba(74, 196, 216, 0.6),
+    0 0 240px rgba(74, 196, 216, 0.24) !important;
+  transition-duration: 0.08s !important;
+}
+/* 内圈光环按下时反向缩放(预备弹射感) */
+.launch-btn:active svg {
+  transform: translateX(6px) scale(1.2) !important;
+}
+
+/* ============================================================
+   17. VIEW 切换时 #view-name 的电影字标闪入
+   ============================================================ */
+#view-name {
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  font-size: clamp(28px, 3.4vw, 56px) !important;
+  letter-spacing: 0.5em !important;
+  text-indent: 0.5em !important;
+  color: transparent !important;
+  background: linear-gradient(90deg,
+    rgba(247, 250, 250, 0.05) 0%,
+    rgba(84, 211, 227, 0.4) 50%,
+    rgba(247, 250, 250, 0.05) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: blur(0.3px);
+}
+#view-name.flash {
+  animation: viewNameFlash 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes viewNameFlash {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.94) skewX(-2deg);
+    filter: blur(8px);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0.92;
+    transform: translate(-50%, -50%) scale(1) skewX(0deg);
+    filter: blur(0.2px);
+  }
+}
+
+/* ============================================================
+   18. 车辆 stream plate · 精密扫描进度
+   ============================================================ */
+.vehicle-stream-track {
+  height: 2px !important;
+  background: rgba(150, 190, 210, 0.12) !important;
+  border-radius: 99px !important;
+  overflow: hidden !important;
+  box-shadow: inset 0 0 0 0.5px rgba(150, 190, 210, 0.14) !important;
+}
+.vehicle-stream-track i {
+  background: linear-gradient(90deg,
+    var(--cyan) 0%,
+    #d6f5fa 50%,
+    var(--cyan) 100%) !important;
+  box-shadow:
+    0 0 8px rgba(84, 211, 227, 0.7),
+    0 0 24px rgba(84, 211, 227, 0.4) !important;
+}
+#vehicle-stream-percent {
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  color: var(--cyan) !important;
+  text-shadow: 0 0 10px rgba(84, 211, 227, 0.55) !important;
+}
+#vehicle-stream-detail {
+  font-family: var(--font-mono) !important;
+  font-size: 8.5px !important;
+  letter-spacing: 0.18em !important;
+  color: var(--ink-4, #64747b) !important;
+}
+
+/* ============================================================
+   19. AUTONOMOUS · 感知 ADAS 角括号目标框
+   ============================================================ */
+.autonomous .adas-target,
+.autonomous .object-bracket {
+  border-color: rgba(230, 168, 119, 0.55) !important;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 235, 210, 0.3),
+    0 0 14px rgba(230, 168, 119, 0.25),
+    0 0 40px rgba(230, 168, 119, 0.1) !important;
+}
+
+/* ============================================================
+   20. 全局滚动条(若出现): 精密线性
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(4, 6, 11, 0.6); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(84, 211, 227, 0.35), rgba(84, 211, 227, 0.18));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(84, 211, 227, 0.55);
+}
+
+
+/* ============================================================
+   12. CONSOLE · 卡片光子玻璃化(APEX 2026-09-05)
+   注意:JS 内不再依赖 backdrop-filter,改用更强的不透明渐变 + 渐变描边
+   ============================================================ */
+.aura-map,
+.aura-card {
+  background: linear-gradient(158deg,
+    rgba(20, 28, 38, 0.86) 0%,
+    rgba(10, 15, 22, 0.92) 55%,
+    rgba(4, 7, 12, 0.96) 100%) !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 0 40px rgba(84, 211, 227, 0.04),
+    0 1px 0 rgba(84, 211, 227, 0.06),
+    0 32px 80px -20px rgba(0, 0, 0, 0.75),
+    0 10px 32px -10px rgba(0, 0, 0, 0.6) !important;
+}
+.aura-map::after,
+.aura-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.08) 18%,
+    rgba(150, 190, 210, 0.05) 52%,
+    rgba(84, 211, 227, 0.18) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+/* 顶部主色条强化 */
+.aura-kicker,
+.card-label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.3em !important;
+  text-transform: uppercase !important;
+  color: var(--ink-3, #8fa0a6) !important;
+}
+.aura-kicker::before,
+.card-label::before {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 10px;
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(84, 211, 227, 0.6);
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+.aura-kicker .ph-icon,
+.card-label .ph-icon {
+  color: var(--cyan);
+  filter: drop-shadow(0 0 4px rgba(84, 211, 227, 0.4));
+}
+
+/* Console 顶部大时钟用 Technor 仪器感 */
+.aura-console .console-clock {
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  font-size: 30px !important;
+  letter-spacing: -0.02em !important;
+  color: var(--ink-0, #f7fafa) !important;
+  font-variant-numeric: tabular-nums !important;
+  text-shadow:
+    0 0 1px rgba(247, 250, 250, 0.7),
+    0 0 20px rgba(84, 211, 227, 0.2) !important;
+}
+
+/* 顶部状态栏 / 底部 dock 升级 */
+.aura-console .console-top,
+.aura-console .console-dock {
+  background: linear-gradient(180deg,
+    rgba(14, 20, 28, 0.72),
+    rgba(4, 7, 12, 0.85)) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 0.5px solid rgba(150, 190, 210, 0.14) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 24px 60px -16px rgba(0, 0, 0, 0.65) !important;
+}
+
+/* Scenario 切换器:仪器按钮 */
+.console-scenario-dock .ui-chip {
+  font-family: var(--font-mono) !important;
+  font-size: 9.5px !important;
+  letter-spacing: 0.22em !important;
+  border-radius: 99px !important;
+  border: 0.5px solid rgba(150, 190, 210, 0.14) !important;
+  background: linear-gradient(180deg, rgba(14, 20, 28, 0.5), rgba(4, 7, 11, 0.6)) !important;
+  transition: all 0.3s var(--ease-out, ease) !important;
+}
+.console-scenario-dock .ui-chip.active {
+  color: var(--cyan) !important;
+  border-color: rgba(84, 211, 227, 0.5) !important;
+  background: rgba(84, 211, 227, 0.1) !important;
+  box-shadow:
+    0 0 14px rgba(84, 211, 227, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  text-shadow: 0 0 8px rgba(84, 211, 227, 0.6);
+}
+
+/* ============================================================
+   13. AUTONOMOUS · 琥珀感知 HUD
+   ============================================================ */
+.autonomous .auto-level,
+.autonomous .auto-status,
+.autonomous .auto-chip,
+.autonomous .auto-perception-chip,
+.autonomous .adas-log,
+.autonomous .auto-card {
+  background: linear-gradient(158deg,
+    rgba(28, 20, 14, 0.72) 0%,
+    rgba(14, 10, 8, 0.85) 60%,
+    rgba(6, 4, 3, 0.92) 100%) !important;
+  backdrop-filter: blur(24px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.4) !important;
+  border: 0.5px solid rgba(230, 168, 119, 0.22) !important;
+  border-radius: 12px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 210, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 0 32px rgba(230, 168, 119, 0.1),
+    0 24px 60px -16px rgba(0, 0, 0, 0.7) !important;
+}
+.autonomous .auto-level {
+  color: var(--amber, #e6a877) !important;
+  text-shadow:
+    0 0 1px rgba(255, 235, 210, 0.8),
+    0 0 16px rgba(230, 168, 119, 0.6),
+    0 0 50px rgba(230, 168, 119, 0.24) !important;
+  font-family: var(--font-tech) !important;
+  letter-spacing: 0.2em !important;
+}
+
+/* ============================================================
+   21. NAV 按钮 · 仪器化(实心反白底 → 镂空发光,像精密仪器的档位指示)
+   ============================================================ */
+.nav-btn {
+  color: var(--ink-3, #8fa0a6) !important;
+  background: transparent !important;
+  border: 0.5px solid transparent !important;
+  padding: 8px 18px !important;
+  border-radius: 99px !important;
+  font-family: var(--font-tech) !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.24em !important;
+  transition: all 0.32s var(--ease-out, ease) !important;
+  position: relative;
+}
+.nav-btn:hover {
+  color: var(--ink-1, #e6edef) !important;
+  background: rgba(150, 190, 210, 0.06) !important;
+}
+.nav-btn.active {
+  color: var(--cyan) !important;
+  background: rgba(84, 211, 227, 0.08) !important;
+  border-color: rgba(84, 211, 227, 0.42) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 18px rgba(84, 211, 227, 0.28),
+    0 0 50px rgba(84, 211, 227, 0.12) !important;
+  text-shadow:
+    0 0 1px rgba(247, 250, 250, 0.5),
+    0 0 12px rgba(84, 211, 227, 0.6) !important;
+}
+
+/* ============================================================
+   22. HUD top 栏本身 · 不再带 backdrop-filter(避免与 WebGL 帧率冲突)
+   ============================================================ */
+.hud-top {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ============================================================
+   24. AUTONOMOUS HUD · 仪器精密感(覆盖默认胶囊样式)
+   ============================================================ */
+.auto-level {
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.28em !important;
+  padding: 10px 22px !important;
+  color: var(--amber, #e6a877) !important;
+  background: linear-gradient(180deg,
+    rgba(28, 20, 14, 0.78),
+    rgba(12, 8, 6, 0.9)) !important;
+  border: 0.5px solid rgba(230, 168, 119, 0.4) !important;
+  border-radius: 99px !important;
+  backdrop-filter: blur(24px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.4) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 210, 0.14),
+    0 0 24px rgba(230, 168, 119, 0.18),
+    0 0 70px rgba(230, 168, 119, 0.08),
+    0 20px 50px -12px rgba(0, 0, 0, 0.6) !important;
+  text-shadow:
+    0 0 1px rgba(255, 235, 210, 0.8),
+    0 0 14px rgba(230, 168, 119, 0.65) !important;
+}
+.auto-dot {
+  background: var(--amber, #e6a877) !important;
+  box-shadow:
+    0 0 8px rgba(230, 168, 119, 0.9),
+    0 0 20px rgba(230, 168, 119, 0.45) !important;
+}
+
+.auto-percept {
+  font-family: var(--font-mono) !important;
+  font-size: 9.5px !important;
+  letter-spacing: 0.34em !important;
+  color: var(--ink-3, #8fa0a6) !important;
+}
+.auto-percept b {
+  color: var(--amber, #e6a877) !important;
+  text-shadow: 0 0 10px rgba(230, 168, 119, 0.55);
+}
+
+.auto-tag {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.2em !important;
+  background: linear-gradient(180deg,
+    rgba(18, 24, 32, 0.72),
+    rgba(6, 9, 14, 0.85)) !important;
+  border: 0.5px solid rgba(150, 190, 210, 0.18) !important;
+  border-radius: 6px !important;
+  backdrop-filter: blur(18px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.4) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 16px 40px -12px rgba(0, 0, 0, 0.6) !important;
+}
+.auto-tag::before {
+  box-shadow:
+    0 0 8px var(--c, var(--cyan)),
+    0 0 20px var(--c, var(--cyan));
+}
+
+.auto-side-label {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.32em;
+  color: var(--ink-4, #64747b);
+  margin-bottom: 4px;
+}
+
+.auto-foot {
+  background: linear-gradient(180deg,
+    rgba(18, 24, 32, 0.78),
+    rgba(6, 9, 14, 0.92)) !important;
+  border: 0.5px solid rgba(150, 190, 210, 0.18) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 60px -16px rgba(0, 0, 0, 0.7) !important;
+  padding: 14px 30px !important;
+}
+.auto-foot b {
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  letter-spacing: 0.01em !important;
+  color: var(--ink-0, #f7fafa) !important;
+  text-shadow: 0 0 12px rgba(84, 211, 227, 0.24);
+}
+.auto-foot b.ok {
+  color: var(--green) !important;
+  text-shadow:
+    0 0 10px rgba(111, 217, 180, 0.55),
+    0 0 30px rgba(111, 217, 180, 0.2) !important;
+}
+
+.auto-frame i {
+  border-color: rgba(230, 168, 119, 0.42) !important;
+  box-shadow: 0 0 8px rgba(230, 168, 119, 0.18) !important;
+}
+
+.auto-intent {
+  font-family: var(--font-mono) !important;
+}
+.auto-intent b {
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  color: var(--amber, #e6a877) !important;
+  text-shadow:
+    0 0 1px rgba(255, 235, 210, 0.5),
+    0 0 16px rgba(230, 168, 119, 0.5) !important;
+}
+.auto-intent small {
+  font-family: var(--font-mono) !important;
+  font-size: 8.5px !important;
+  letter-spacing: 0.24em !important;
+  color: var(--ink-3, #8fa0a6) !important;
+}

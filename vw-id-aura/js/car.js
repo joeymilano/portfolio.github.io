@@ -188,27 +188,28 @@ export function createCar() {
       if (mName.startsWith('paint 1')) {          // body panels
         mat.map = null;
         mat.color.set(state.paint);
-        mat.metalness = 0.82; mat.roughness = 0.2;
-        if ('clearcoat' in mat) { mat.clearcoat = 1; mat.clearcoatRoughness = 0.045; }
-        if ('specularIntensity' in mat) mat.specularIntensity = 0.72;
-        mat.envMapIntensity = 1.55;
+        // APEX 2026-09-05:金属漆质感——更高 metalness + 极低 clearcoat 粗糙度
+        mat.metalness = 0.9; mat.roughness = 0.16;
+        if ('clearcoat' in mat) { mat.clearcoat = 1; mat.clearcoatRoughness = 0.04; }
+        if ('specularIntensity' in mat) mat.specularIntensity = 0.85;
+        mat.envMapIntensity = 2.1;
         state.paintMats.push(mat);
       } else if (mName.startsWith('paint 2')) {    // contrast roof / trim
         mat.map = null;
         mat.color.set(state.paint).multiplyScalar(0.22);
-        mat.metalness = 0.76; mat.roughness = 0.16;
-        if ('clearcoat' in mat) { mat.clearcoat = 1; mat.clearcoatRoughness = 0.06; }
-        if ('specularIntensity' in mat) mat.specularIntensity = 0.7;
-        mat.envMapIntensity = 1.35;
+        mat.metalness = 0.82; mat.roughness = 0.13;
+        if ('clearcoat' in mat) { mat.clearcoat = 1; mat.clearcoatRoughness = 0.05; }
+        if ('specularIntensity' in mat) mat.specularIntensity = 0.8;
+        mat.envMapIntensity = 1.7;
         state.accentMats.push(mat);
       } else if (mName === 'headlight') {
-        glowUp(mat, 0xcfeaff, 1.35);
+        glowUp(mat, 0xcfeaff, 1.6);
       } else if (mName === 'brakelight') {
-        glowUp(mat, 0xff2b3d, 1.25);
+        glowUp(mat, 0xff2b3d, 1.45);
       } else if (mName === 'signallight') {
-        glowUp(mat, 0xffb44d, 0.7);
+        glowUp(mat, 0xffb44d, 0.85);
       } else if (mName === 'mirror') {
-        mat.metalness = 1; mat.roughness = 0.04; mat.envMapIntensity = 1.6;
+        mat.metalness = 1; mat.roughness = 0.03; mat.envMapIntensity = 2.2;
       } else if (mName === 'interior 3 carmine') { // donor red → neutral charcoal
         mat.map = null;
         mat.color.set(0x171b21);
@@ -218,11 +219,11 @@ export function createCar() {
         mat.metalness = 0.5; mat.roughness = 0.6;
       } else if (mName === 'rim1' || mName === 'rim2') {
         mat.color.set(0xb9c2cf);
-        mat.metalness = 1; mat.roughness = 0.18; mat.envMapIntensity = 1.35;
+        mat.metalness = 1; mat.roughness = 0.15; mat.envMapIntensity = 1.85;
       } else if (mName === 'tireside' || mName === 'tiretread') {
         mat.color.set(0x0b0d10); mat.roughness = 0.95; mat.metalness = 0;
       } else if (mat.isMeshStandardMaterial) {
-        mat.envMapIntensity = Math.max(mat.envMapIntensity ?? 1, 1.1);
+        mat.envMapIntensity = Math.max(mat.envMapIntensity ?? 1, 1.3);
       }
     });
 

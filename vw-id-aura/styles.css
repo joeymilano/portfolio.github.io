@@ -1483,8 +1483,173 @@ body[data-view="autonomous"] { --flip-rx: 1.5deg; --flip-ty: 12px; --flip-sc: 0.
 }
 
 /* ============================================================
-   RESPONSIVE
+   APEX CLUSTER PODS · 光子仪器舱(左右两侧)
+   覆盖默认卡片样式为 Photon Glass
    ============================================================ */
+.cluster-pod {
+  background: var(--photon-bg, linear-gradient(158deg, rgba(18,26,34,0.68) 0%, rgba(8,12,18,0.8) 58%, rgba(3,5,9,0.88) 100%)) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(84, 211, 227, 0.05),
+    0 28px 70px -20px rgba(0, 0, 0, 0.7),
+    0 8px 28px -10px rgba(0, 0, 0, 0.55) !important;
+  position: relative;
+  overflow: hidden;
+}
+.cluster-pod::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.07) 18%,
+    rgba(150, 190, 210, 0.04) 52%,
+    rgba(84, 211, 227, 0.16) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+.cluster-pod::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 140px 140px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* pod 标签:主色条 + mono 标签 */
+.cluster-pod .pod-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(180, 200, 208, 0.68);
+  margin-bottom: 12px;
+}
+.cluster-pod .pod-label i {
+  display: block;
+  width: 2px;
+  height: 11px;
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(84, 211, 227, 0.6);
+  border-radius: 1px;
+}
+
+/* 大数字:Technor + 光晕 */
+.cluster-pod .pod-kw-wrap b,
+.cluster-pod .pod-range b,
+.cluster-pod .pod-soc-num b {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink-0, #f7fafa);
+  font-variant-numeric: tabular-nums;
+  text-shadow:
+    0 0 1px rgba(247, 250, 250, 0.6),
+    0 0 14px rgba(84, 211, 227, 0.32),
+    0 0 40px rgba(84, 211, 227, 0.12);
+}
+
+/* 微型行内数据条:精密感 */
+.cluster-pod .pod-row {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--ink-4, #64747b);
+}
+.cluster-pod .pod-row b {
+  font-family: var(--font-tech);
+  font-weight: 500;
+  color: var(--ink-1, #e6edef);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   模式按钮带:更像仪器切换器
+   ============================================================ */
+.cluster-modes {
+  gap: 6px !important;
+  padding: 6px !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(180deg, rgba(14, 20, 28, 0.72), rgba(5, 8, 12, 0.85)) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 0.5px solid rgba(150, 190, 210, 0.14) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 20px 50px -12px rgba(0, 0, 0, 0.6) !important;
+}
+.cluster-modes button {
+  border-radius: 9px !important;
+  font-family: var(--font-tech) !important;
+  font-weight: 500 !important;
+  font-size: 10.5px !important;
+  letter-spacing: 0.2em !important;
+  border: 0.5px solid transparent !important;
+  background: transparent !important;
+  color: var(--ink-3, #8fa0a6) !important;
+  padding: 10px 20px !important;
+  transition: all 0.32s var(--ease-out, ease) !important;
+  position: relative;
+}
+.cluster-modes button:hover {
+  color: var(--ink-1, #e6edef) !important;
+  background: rgba(150, 190, 210, 0.06) !important;
+}
+.cluster-modes button.active {
+  color: var(--c) !important;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--c) 14%, transparent),
+      color-mix(in srgb, var(--c) 6%, transparent)) !important;
+  border-color: color-mix(in srgb, var(--c) 55%, transparent) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 20px color-mix(in srgb, var(--c) 28%, transparent),
+    0 0 50px color-mix(in srgb, var(--c) 12%, transparent) !important;
+  text-shadow: 0 0 12px color-mix(in srgb, var(--c) 70%, transparent);
+}
+
+/* Cluster 顶部状态带 */
+.cluster-heading {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  color: var(--ink-3, #8fa0a6);
+}
+.cluster-pilot {
+  color: var(--cyan);
+  text-shadow: 0 0 10px rgba(84, 211, 227, 0.5);
+}
+.cluster-assistance span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3, #8fa0a6);
+}
+.cluster-assistance .dot.ok {
+  box-shadow: 0 0 8px rgba(111, 217, 180, 0.7);
+}
+
 @media (max-width: 900px) {
   .hud-top { padding: 14px 16px; }
   .hud-nav { order: 3; }

@@ -167,7 +167,7 @@ function switchView(name) {
       controls.enabled = false;
       cinematicCam = true;
       controls.target.set(0, 0.55, 0);
-      view.renderer.toneMappingExposure = 0.74;   // 影棚提亮（盖过 setShowroomActive 的 0.56）
+      view.renderer.toneMappingExposure = 0.82;   // APEX 影棚提亮
       // camera is eased to the hero lens in the render loop (CONSOLE_CAM_GOAL)
       // — robust against stray tweens from sibling modules' onExit handlers.
     } else {
@@ -322,7 +322,7 @@ if (sceneRail && view.SCENES) {
       btn.classList.toggle('active', i === idx));
     // smooth exposure ramp so the new vista fades in instead of snapping
     gsap.fromTo(view.renderer, { toneMappingExposure: 0.3 },
-      { toneMappingExposure: idx === 0 ? 0.62 : 0.68, duration: 0.9, ease: 'power2.out' });
+      { toneMappingExposure: idx === 0 ? 0.7 : 0.74, duration: 0.9, ease: 'power2.out' });
   });
 }
 
@@ -479,7 +479,7 @@ controls.addEventListener('end', () => {
 });
 
 /* ---------- P2: Console 3D garage — cel-shaded twin + tap controls ---------- */
-const CONSOLE_CAM_GOAL = new THREE.Vector3(5.0, 1.5, 6.4);
+const CONSOLE_CAM_GOAL = new THREE.Vector3(5.6, 1.42, 5.4);   // APEX:更低机位 3/4 前侧,电影海报角度
 let consoleTwin = null;
 let reflection = null;   // 假倒影（翻转车影，置于半透明地台之下）
 const twinPaints = ['#9fb3c8', '#0d2d6b', '#c22333', '#e8e6e0', '#0c1210', '#0e3a34'];
@@ -497,7 +497,11 @@ function buildConsoleStage() {
      车身在黑色镜面上的倒影是影棚级产品摄影的灵魂。 */
   const mirror = new THREE.Mesh(
     new THREE.CircleGeometry(10, 72),
-    new THREE.MeshPhysicalMaterial({ color: 0x0a0e13, roughness: 0.12, metalness: 0.9, envMapIntensity: 1.1, transparent: true, opacity: 0.8 })
+    new THREE.MeshPhysicalMaterial({
+      color: 0x080b10, roughness: 0.07, metalness: 0.92,
+      clearcoat: 1.0, clearcoatRoughness: 0.04,
+      envMapIntensity: 2.4, transparent: true, opacity: 0.92
+    })
   );
   mirror.rotation.x = -Math.PI / 2;
   mirror.position.y = -0.02;
@@ -540,12 +544,20 @@ function buildConsoleStage() {
   consoleStage.userData.ringOuterMat = ringOuterMat;
 
   /* 三点影棚光的补充：暖色底光（fill，让车底/侧身不死黑）+ 冷青轮廓补光 */
-  const fillLight = new THREE.PointLight(0xffc493, 6, 12, 1.8);
+  const fillLight = new THREE.PointLight(0xffc493, 9, 14, 1.6);
   fillLight.position.set(0, 0.35, 3.2);
   consoleStage.add(fillLight);
-  const coolRim = new THREE.PointLight(0x54d3e3, 4, 12, 1.8);
+  const coolRim = new THREE.PointLight(0x54d3e3, 7, 14, 1.6);
   coolRim.position.set(-4.5, 2.2, -3.5);
   consoleStage.add(coolRim);
+  // APEX:再加一道顶部柔光,让车顶从死黑里"被看见"
+  const topSoft = new THREE.PointLight(0xcfeaff, 5, 10, 1.8);
+  topSoft.position.set(0, 4.2, 0.5);
+  consoleStage.add(topSoft);
+  // APEX:另一侧暖 rim,雕刻侧身
+  const warmRim = new THREE.PointLight(0xffb98a, 3.5, 10, 1.8);
+  warmRim.position.set(4.2, 1.8, -3.2);
+  consoleStage.add(warmRim);
 
   /* 环绕微尘（影棚空气感） */
   const N = 160;
@@ -675,10 +687,11 @@ function buildConsoleTwin() {
   view.scene.add(consoleTwin.group);
   // 影棚级车漆：clearcoat 金属漆 + 强环境反射（写实高级感）
   [...consoleTwin.bodyMats, ...consoleTwin.accentMats].forEach((m) => {
-    if ('metalness' in m) m.metalness = Math.max(m.metalness ?? 0, 0.9);
-    if ('roughness' in m) m.roughness = Math.min(m.roughness ?? 1, 0.26);
-    if ('clearcoat' in m) { m.clearcoat = 1.0; m.clearcoatRoughness = 0.07; }
-    m.envMapIntensity = 1.6;
+    if ('metalness' in m) m.metalness = Math.max(m.metalness ?? 0, 0.92);
+    if ('roughness' in m) m.roughness = Math.min(m.roughness ?? 1, 0.18);
+    if ('clearcoat' in m) { m.clearcoat = 1.0; m.clearcoatRoughness = 0.045; }
+    if ('specularIntensity' in m) m.specularIntensity = 0.9;
+    m.envMapIntensity = 2.2;
     m.needsUpdate = true;
   });
   // 玻璃降环境反射：避免车顶玻璃在特定角度反射 HDRI 形成垂直眩光柱
@@ -788,6 +801,15 @@ function loop() {
   if (current === 'console') {
     consoleView.update(t, dt);
     camera.position.lerp(CONSOLE_CAM_GOAL, 0.05);
+    // APEX 呼吸感:在 hero lens 基础上加极慢的相机浮动,像摄影机 dolly
+    if (current === 'console' && camera.position.distanceTo(CONSOLE_CAM_GOAL) < 0.3) {
+      const bob = Math.sin(t * 0.5) * 0.04;
+      const sway = Math.sin(t * 0.31) * 0.05;
+      camera.position.x = CONSOLE_CAM_GOAL.x + sway;
+      camera.position.y = CONSOLE_CAM_GOAL.y + bob;
+      camera.position.z = CONSOLE_CAM_GOAL.z + Math.cos(t * 0.24) * 0.05;
+      camera.lookAt(controls.target);
+    }
     camera.lookAt(0, 0.55, 0);
     if (consoleTwin && consoleTwin.group.visible) {
       consoleTwin.group.rotation.y += dt * 0.22;
