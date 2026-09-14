@@ -1049,6 +1049,29 @@
             stroke: #22d3ee;
         }
 
+        /* 借一寸光 Borrowed Light Project Card */
+        .project-card[data-project="borrowedlight"] {
+            border: 1px solid rgba(245, 158, 11, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card[data-project="borrowedlight"]:hover {
+            border-color: rgba(245, 158, 11, 0.24);
+            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.12);
+        }
+        .project-card[data-project="borrowedlight"] .project-card-overlay {
+            background: linear-gradient(180deg, rgba(3,8,12,0.12) 0%, rgba(3,8,12,0.94) 100%);
+        }
+        .project-card[data-project="borrowedlight"] .project-tag {
+            background: rgba(245, 158, 11, 0.18);
+            border: 1px solid rgba(245, 158, 11, 0.16);
+        }
+        .project-card[data-project="borrowedlight"] .project-metric {
+            color: #fbbf24;
+        }
+        .project-card[data-project="borrowedlight"] .project-metric svg {
+            stroke: #fbbf24;
+        }
+
         /* Finfold / 一鱼多吃 Project Card */
         .project-card[data-project="finfold"] {
             border: 1px solid rgba(245, 158, 11, 0.08);
@@ -1354,6 +1377,24 @@
                     <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
                 </div>
             </a>
+            <a href="borrowedlight" class="project-card" data-project="borrowedlight">
+                <div class="project-card-bg" id="borrowedlight-bg"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <span class="project-tag" data-i18n="project.borrowedlight.tag">Gesture Game + AI Short Film · 2026</span>
+                    <h3 class="project-title" data-i18n="project.borrowedlight.title">Borrowed Light</h3>
+                    <p class="project-subtitle" data-i18n="project.borrowedlight.subtitle">Pinch to borrow light, open your palm to return it — plus a 3-minute AI film of the ending.</p>
+                    <span class="project-metric">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18V5l12-2v13"></path>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <circle cx="18" cy="16" r="3"></circle>
+                        </svg>
+                        <span data-i18n="project.borrowedlight.metric">On-Device Hand Tracking</span>
+                    </span>
+                    <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -1633,6 +1674,7 @@
         document.getElementById('cryptocopilot-bg').style.cssText = "background: url('images/crypto-copilot-live-market.jpg') center/cover;";
 
         document.getElementById('pleasurecontract-bg').style.cssText = "background: url('images/pc-cg-rooftop.png') center/cover;";
+        document.getElementById('borrowedlight-bg').style.cssText = "background: url('images/bl-hero.jpg') center/cover;";
         document.getElementById('finfold-bg').style.cssText = "background: linear-gradient(115deg, #0d0800 0%, #1a1100 45%, #100a00 100%); position: absolute; inset: 0; overflow: hidden;";
         document.getElementById('finfold-bg').innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(115deg,rgba(5,7,13,.96) 0%,rgba(5,7,13,.55) 55%,rgba(5,7,13,.12) 100%);pointer-events:none;z-index:1;"></div><img src="images/finfold-app-workbench.png" alt="Finfold workbench: one signal to fourteen platform-native assets" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;" />';
 
@@ -1900,6 +1942,10 @@
                 'project.pleasurecontract.title': 'Narrative Card RPG',
                 'project.pleasurecontract.subtitle': 'A card roguelike built with an Agentic Engineering mindset.',
                 'project.pleasurecontract.metric': '10K+ Lines GDScript',
+                'project.borrowedlight.tag': 'Gesture Game + AI Short Film · 2026',
+                'project.borrowedlight.title': 'Borrowed Light',
+                'project.borrowedlight.subtitle': 'Pinch to borrow light, open your palm to return it — plus a 3-minute AI film of the ending.',
+                'project.borrowedlight.metric': 'On-Device Hand Tracking',
                 'project.finfold.tag': 'Founding Product Designer · 2026',
                 'project.finfold.title': 'Finfold',
                 'project.finfold.subtitle': 'One signal in, fourteen platform-native content systems out. Researched, built, and demonstrated live.',
@@ -2385,6 +2431,10 @@
                 'project.pleasurecontract.tag': 'AI 游戏原型 · 2026',
                 'project.pleasurecontract.title': '叙事卡牌 RPG',
                 'project.pleasurecontract.subtitle': 'Agentic Engineering 思维开发的卡牌肉鸽游戏',
+                'project.borrowedlight.tag': '手势游戏 + AI 短片 · 2026',
+                'project.borrowedlight.title': '借一寸光',
+                'project.borrowedlight.subtitle': '伸手借光，张手还林——还把结局拍成了三分钟 AI 短片',
+                'project.borrowedlight.metric': '本机手势识别 · 零帧上传',
                 'project.pleasurecontract.metric': '10K+ 行 GDScript',
                 'project.finfold.tag': '创始产品设计师 · 2026',
                 'project.finfold.title': '一鱼多吃',
