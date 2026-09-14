@@ -3,3 +3,4 @@
 .worktrees/
 vw-id-aura/qa/
 vw-id-aura/tmp/
+.vscode/
