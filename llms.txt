@@ -23,16 +23,16 @@ Canonical site: https://joeyzhao.cc/
 
 ## Selected work
 
+- Finfold, AI Content-Growth Workspace: https://joeyzhao.cc/finfold
 - Signals Notebook, enterprise lineage visualization: https://joeyzhao.cc/signals
 - CollovGPT, AI interior design: https://joeyzhao.cc/collov
-- UnifyUX, enterprise design system: https://joeyzhao.cc/unifyux
 - Ctrip Hotel, video cover conversion: https://joeyzhao.cc/ctrip
-- Finfold, AI Content-Growth Workspace: https://joeyzhao.cc/finfold
-- Bill Vampire, AI subscription analysis: https://joeyzhao.cc/billvampire
-- Crypto Copilot, live bilingual AI market research with real data and backtests: https://joeyzhao.cc/cryptocopilot
-- WeNeed, short-video gifting community: https://joeyzhao.cc/weneed
-- Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract
+- UnifyUX, enterprise design system: https://joeyzhao.cc/unifyux
 - ID.AURA, immersive Volkswagen HMI concept: https://joeyzhao.cc/vw-id-aura/
+- Bill Vampire, AI subscription analysis: https://joeyzhao.cc/billvampire
+- WeNeed, short-video gifting community: https://joeyzhao.cc/weneed
+- Crypto Copilot, live bilingual AI market research with real data and backtests: https://joeyzhao.cc/cryptocopilot
+- Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract
 
 ## Identity
 
