@@ -368,7 +368,7 @@ if (baiduVerificationFile.trim() !== "7d04c964252bfc06f467e1ac64e91bf8") {
 }
 requirePattern(
   signalsCaseStudy,
-  /<title>Signals Notebook UX Case Study\s*\|\s*Joey Zhao<\/title>/i,
+  /<title>Signals AI · Trustworthy Agentic AI for Science\s*\|\s*Joey Zhao<\/title>/i,
   "search-intent-aligned Signals title",
   "signals.html",
 );
