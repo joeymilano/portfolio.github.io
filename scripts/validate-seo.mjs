@@ -6,6 +6,8 @@ const origin = "https://joeyzhao.cc";
 const failures = [];
 
 const casePages = [
+  "borrowedlight.html",
+  "yao.html",
   "billvampire.html",
   "collov.html",
   "cryptocopilot.html",
@@ -188,6 +190,11 @@ const sitemap = read("sitemap.xml");
 const sitemapUrls = new Set(
   [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]),
 );
+
+const validatedUrls = new Set(publicPages.map((page) => page.url));
+for (const url of sitemapUrls) {
+  if (!validatedUrls.has(url)) failures.push(`sitemap.xml: no SEO validation coverage for ${url}`);
+}
 
 for (const page of publicPages) {
   const html = read(page.file);
