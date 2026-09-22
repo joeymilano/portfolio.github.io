@@ -33,6 +33,7 @@ Canonical site: https://joeyzhao.cc/
 - WeNeed, short-video gifting community: https://joeyzhao.cc/weneed
 - Crypto Copilot, live bilingual AI market research with real data and backtests: https://joeyzhao.cc/cryptocopilot
 - Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract
+- CALL ME YAO 妖, AI-native girl group music project with a 3'34" MV (four Journey to the West demons, full pipeline by one person): https://joeyzhao.cc/yao
 
 ## Identity
 

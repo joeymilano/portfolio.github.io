@@ -1072,6 +1072,30 @@
             stroke: #fbbf24;
         }
 
+        /* CALL ME YAO Project Card */
+        .project-card[data-project="yao"] {
+            border: 1px solid rgba(167, 139, 250, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card[data-project="yao"]:hover {
+            border-color: rgba(167, 139, 250, 0.32);
+            box-shadow: 0 20px 60px rgba(124, 92, 240, 0.16);
+        }
+        .project-card[data-project="yao"] .project-card-overlay {
+            background: linear-gradient(180deg, rgba(10,7,20,0.15) 0%, rgba(10,7,20,0.55) 50%, rgba(7,5,16,0.95) 100%);
+        }
+        .project-card[data-project="yao"] .project-tag {
+            background: rgba(167, 139, 250, 0.18);
+            border: 1px solid rgba(167, 139, 250, 0.22);
+            backdrop-filter: blur(12px);
+        }
+        .project-card[data-project="yao"] .project-metric {
+            color: #c4b5fd;
+        }
+        .project-card[data-project="yao"] .project-metric svg {
+            stroke: #c4b5fd;
+        }
+
         /* Finfold / 一鱼多吃 Project Card */
         .project-card[data-project="finfold"] {
             border: 1px solid rgba(245, 158, 11, 0.08);
@@ -1317,6 +1341,17 @@
             <p class="section-eyebrow" data-i18n="projects.sideEyebrow">Side Projects & Explorations</p>
         </div>
         <div class="projects-grid side-projects-grid">
+            <a href="yao" class="project-card" data-project="yao">
+                <div class="project-card-bg" id="yao-bg"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <span class="project-tag" data-i18n="project.yao.tag">AI Music Project · 2026</span>
+                    <h3 class="project-title" data-i18n="project.yao.title">CALL ME YAO 妖</h3>
+                    <p class="project-subtitle" data-i18n="project.yao.subtitle">Four Journey to the West demons debut as an AI-native girl group — one song, one MV, one person, full pipeline.</p>
+                    <span class="project-metric"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg> <span data-i18n="project.yao.metric">Full AI Pipeline · 3'34" MV</span></span>
+                    <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                </div>
+            </a>
             <a href="billvampire" class="project-card" data-project="billvampire">
                 <div class="project-card-bg" id="billvampire-bg"></div>
                 <div class="project-card-overlay"></div>
@@ -1666,6 +1701,7 @@
         document.getElementById('signals-bg').style.cssText = "background: url('images/signalsai-02-explorer.png?v=20260918') center/cover;";
         document.getElementById('unifyux-bg').style.backgroundImage = "url('31.png')";
         document.getElementById('ctrip-bg').style.backgroundImage = "url('39.png')";
+        document.getElementById('yao-bg').style.cssText = "background: url('images/yao-group.jpg') center/cover;";
         document.getElementById('billvampire-bg').style.cssText = "background: url('images/billvampire-landing.jpg') center/cover;";
 
         document.getElementById('weneed-bg').style.cssText = "background: linear-gradient(135deg, #0F172A 0%, #1E293B 30%, #1e3a5f 60%, #0c1929 100%); display: flex; align-items: center; justify-content: center;";
@@ -1942,6 +1978,10 @@
                 'project.pleasurecontract.title': 'Narrative Card RPG',
                 'project.pleasurecontract.subtitle': 'A card roguelike built with an Agentic Engineering mindset.',
                 'project.pleasurecontract.metric': '10K+ Lines GDScript',
+                'project.yao.tag': 'AI Music Project · 2026',
+                'project.yao.title': 'CALL ME YAO 妖',
+                'project.yao.subtitle': 'Four Journey to the West demons debut as an AI-native girl group — one song, one MV, one person, full pipeline.',
+                'project.yao.metric': 'Full AI Pipeline · 3\'34" MV',
                 'project.borrowedlight.tag': 'Gesture Game + AI Short Film · 2026',
                 'project.borrowedlight.title': 'Borrowed Light',
                 'project.borrowedlight.subtitle': 'Pinch to borrow light, open your palm to return it — plus a 3-minute AI film of the ending.',
@@ -2431,6 +2471,10 @@
                 'project.pleasurecontract.tag': 'AI 游戏原型 · 2026',
                 'project.pleasurecontract.title': '叙事卡牌 RPG',
                 'project.pleasurecontract.subtitle': 'Agentic Engineering 思维开发的卡牌肉鸽游戏',
+                'project.yao.tag': 'AI 音乐企划 · 2026',
+                'project.yao.title': 'CALL ME YAO 妖',
+                'project.yao.subtitle': '四个《西游记》女妖的出道企划——一首歌、一支 MV、一个人跑通全流程',
+                'project.yao.metric': '全 AI 流水线 · 3\'34" MV',
                 'project.borrowedlight.tag': '手势游戏 + AI 短片 · 2026',
                 'project.borrowedlight.title': '借一寸光',
                 'project.borrowedlight.subtitle': '伸手借光，张手还林——还把结局拍成了三分钟 AI 短片',

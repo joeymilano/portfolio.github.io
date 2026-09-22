@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8F4G6B3C6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag("js", new Date());
+    const productionHosts = ["joeyzhao.cc", "www.joeyzhao.cc"];
+    if (productionHosts.includes(window.location.hostname)) {
+      gtag("config", "G-M8F4G6B3C6");
+    }
+  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALL ME YAO 妖 | Joey Zhao</title>
+    <meta name="description" content="CALL ME YAO 妖 — four female demons from Journey to the West debut as an AI-native girl group. One song, one 3'34" music video, 8 Shorts. Lyrics, costume design, generation, editing and release, one person with 36 Python scripts.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="CALL ME YAO 妖 | Joey Zhao">
+    <meta property="og:description" content="有主的叫坐骑，无主的叫妖。Four Journey to the West demons debut as an AI-native girl group. One person, 36 scripts, one full pipeline from lyrics to YouTube release.">
+    <meta property="og:url" content="https://joeyzhao.cc/yao">
+    <meta property="og:image" content="https://joeyzhao.cc/images/yao-moon.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://joeyzhao.cc/yao">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #07060c;
+            --bg-secondary: #0c0b14;
+            --bg-elevated: #12101d;
+            --text-primary: #eceaf4;
+            --text-secondary: #a8a4bb;
+            --text-tertiary: #736f85;
+            --accent: #a78bfa;
+            --accent-deep: #7c5cf0;
+            --accent-light: #c9bdfd;
+            --silver: #d8d5e4;
+            --border: rgba(236, 234, 244, 0.1);
+            --font: 'Plus Jakarta Sans', 'PingFang SC', 'Segoe UI', sans-serif;
+            --font-display: 'Noto Serif SC', 'Songti SC', serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font); color: var(--text-primary); line-height: 1.5; padding-top: 52px;
+            background:
+                radial-gradient(1100px 480px at 50% -120px, rgba(124,92,240,0.16), transparent 60%),
+                radial-gradient(900px 420px at 88% 108%, rgba(124,92,240,0.09), transparent 55%),
+                var(--bg);
+            background-attachment: fixed;
+        }
+        @keyframes chrome-shift { from { background-position: 0% 0; } to { background-position: 100% 0; } }
+        ::selection { background: rgba(124, 92, 240, 0.5); color: var(--text-primary); }
+        a, button { outline: none; }
+        a:focus-visible, button:focus-visible { box-shadow: 0 0 0 2px rgba(7,6,12,0.55), 0 0 0 4px rgba(167,139,250,0.76); }
+
+        .project-page-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 52px;
+            background: rgba(7,6,12,0.88); backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-page-nav .nav-content {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; width: 100%; padding: 0 24px;
+        }
+        .back-link {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 14px;
+            min-height: 44px; padding: 0 6px; border-radius: 10px;
+            transition: color 0.28s var(--ease-out-quart), background-color 0.28s var(--ease-out-quart);
+        }
+        .back-link:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle { display: flex; align-items: center; gap: 4px; }
+        .lang-toggle button {
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 14px; min-height: 44px; min-width: 44px; padding: 8px 12px; border-radius: 20px;
+            cursor: pointer; transition: color 0.28s var(--ease-out-quart), background-color 0.28s var(--ease-out-quart);
+            font-family: var(--font);
+        }
+        .lang-toggle button:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle button.active { color: var(--text-primary); font-weight: 600; }
+        .lang-toggle span { color: var(--text-tertiary); }
+
+        .modal-container {
+            max-width: 1000px; margin: 40px auto; overflow: hidden;
+            background: linear-gradient(180deg, #0a0912 0%, #0b0a15 100%);
+            border-radius: 24px; border: 1px solid rgba(167, 139, 250, 0.14);
+            box-shadow: 0 0 90px rgba(124, 92, 240, 0.07);
+        }
+
+        /* Hero: video facade */
+        .video-facade {
+            position: relative; width: 100%; aspect-ratio: 16/9; background: #000 center/cover no-repeat;
+            display: block; cursor: pointer; border: none; padding: 0; text-align: inherit;
+        }
+        .video-facade::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(7,6,12,0) 55%, rgba(10,9,18,0.85) 100%);
+        }
+        .video-facade .play-badge {
+            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+            width: 76px; height: 54px; border-radius: 16px; z-index: 2;
+            background: rgba(10,9,18,0.72); border: 1px solid rgba(201, 189, 253, 0.35);
+            backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s var(--ease-out-quart), background-color 0.3s var(--ease-out-quart), border-color 0.3s var(--ease-out-quart);
+        }
+        .video-facade:hover .play-badge { transform: translate(-50%, -50%) scale(1.06); background: rgba(124,92,240,0.5); border-color: rgba(201,189,253,0.7); }
+        .video-facade .play-badge svg { fill: #eceaf4; margin-left: 3px; }
+        .video-facade .facade-tag {
+            position: absolute; left: 20px; bottom: 16px; z-index: 2;
+            font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+            color: var(--accent-light); text-transform: uppercase;
+            background: rgba(10,9,18,0.6); border: 1px solid rgba(167,139,250,0.25);
+            padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(8px);
+        }
+        .video-embed { width: 100%; aspect-ratio: 16/9; display: block; border: none; background: #000; }
+
+        .modal-header {
+            position: relative; padding: 46px 48px 32px; text-align: center;
+            background: radial-gradient(ellipse at 50% 0%, rgba(124, 92, 240, 0.14) 0%, transparent 70%);
+        }
+        .debut-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--accent-light);
+            border: 1px solid rgba(201,189,253,0.35); border-radius: 999px; padding: 7px 16px;
+            background: linear-gradient(135deg, rgba(167,139,250,0.14), rgba(167,139,250,0.03));
+            margin-bottom: 18px;
+        }
+        .debut-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+        .modal-eyebrow { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px; }
+        .modal-title { font-size: 50px; font-weight: 800; letter-spacing: 0.01em; margin-bottom: 8px; color: var(--text-primary); }
+        .modal-title .chrome {
+            background: linear-gradient(100deg, #f4f2fb 0%, #c9bdfd 30%, #ffffff 48%, #a78bfa 72%, #e6e3f2 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            animation: chrome-shift 6s ease-in-out infinite alternate;
+        }
+        .modal-title .zh-seal {
+            display: inline-block; font-family: var(--font-display); font-weight: 900; color: var(--accent-light);
+            border: 2px solid rgba(167,139,250,0.55); border-radius: 10px;
+            padding: 0 10px; margin-left: 12px; transform: translateY(-4px);
+            box-shadow: 0 0 24px rgba(124,92,240,0.25);
+        }
+        .modal-title .en { font-size: 17px; display: block; margin-top: 6px; color: var(--text-secondary); font-weight: 600; letter-spacing: 0.02em; }
+        .modal-meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 20px; }
+        .modal-meta-item { text-align: center; }
+        .modal-meta-label { font-size: 10px; color: var(--accent-deep); text-transform: uppercase; letter-spacing: 0.12em; font-family: var(--font-mono); }
+        .modal-meta-value { font-size: 14px; font-weight: 500; margin-top: 4px; color: var(--silver); }
+        .modal-body { padding: 0 48px 60px; }
+
+        /* Big visual quote */
+        .hook-quote { text-align: center; margin: 38px 0 10px; }
+        .hook-quote .rule { width: 64px; height: 1px; background: linear-gradient(90deg, transparent, rgba(167,139,250,0.65), transparent); margin: 0 auto 20px; }
+        .hook-quote .line {
+            font-family: var(--font-display); font-weight: 900; color: var(--text-primary);
+            font-size: clamp(22px, 3.4vw, 34px); line-height: 1.55; letter-spacing: 0.04em;
+            text-shadow: 0 0 60px rgba(124,92,240,0.4);
+        }
+        .hook-quote .line em { font-style: normal; color: var(--accent-light); text-shadow: 0 0 28px rgba(124,92,240,0.6); }
+        .hook-quote .attr { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.14em; text-transform: uppercase; }
+        .hook-quote .rule.b { margin: 20px auto 0; }
+
+        .modal-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 28px 0 8px; }
+        .modal-metric {
+            background: linear-gradient(145deg, rgba(124, 92, 240, 0.09), rgba(124, 92, 240, 0.02));
+            border: 1px solid rgba(167, 139, 250, 0.14); border-radius: 20px;
+            padding: 24px 16px; text-align: center;
+            transition: transform 0.4s var(--ease-out-quart), border-color 0.4s var(--ease-out-quart);
+        }
+        .modal-metric:hover { transform: translateY(-4px); border-color: rgba(167, 139, 250, 0.35); box-shadow: 0 12px 40px rgba(124, 92, 240, 0.12); }
+        .modal-metric-value { font-size: 30px; font-weight: 800; background: linear-gradient(135deg, #d9cfff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(124,92,240,0.3)); }
+        .modal-metric-label { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* Section headers: tiny */
+        .strip-title { display: flex; align-items: center; gap: 14px; margin: 44px 0 18px; }
+        .strip-title .no { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; }
+        .strip-title h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+        .strip-title .tail { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(167,139,250,0.35), transparent); }
+
+        .member-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .member-card {
+            position: relative;
+            background: var(--bg-elevated); border-radius: 18px; overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.35s var(--ease-out-quart), border-color 0.35s var(--ease-out-quart), box-shadow 0.35s var(--ease-out-quart);
+        }
+        .member-card:hover { transform: translateY(-6px); border-color: rgba(167,139,250,0.45); box-shadow: 0 18px 48px rgba(124,92,240,0.18); }
+        .member-card .member-no {
+            position: absolute; top: 12px; left: 12px; z-index: 2;
+            font-family: var(--font-mono); font-size: 12px; color: var(--text-primary);
+            background: rgba(7,6,12,0.55); border: 1px solid rgba(201,189,253,0.32); backdrop-filter: blur(8px);
+            border-radius: 8px; padding: 4px 9px; letter-spacing: 0.1em;
+        }
+        .member-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; background: var(--bg-secondary); }
+        .member-info { padding: 14px 14px 16px; }
+        .member-pos { font-family: var(--font-mono); font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+        .member-time { color: var(--text-tertiary); letter-spacing: 0.06em; white-space: nowrap; }
+        .member-name { font-size: 17px; font-weight: 700; margin: 4px 0 2px; color: var(--text-primary); }
+        .member-name .lat { font-size: 12px; font-weight: 500; color: var(--text-tertiary); margin-left: 6px; }
+        .member-set { font-size: 11.5px; color: var(--text-tertiary); line-height: 1.55; margin-top: 4px; }
+        .member-lyric { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; margin-top: 8px; font-family: var(--font-display); font-weight: 600; }
+
+        /* Stills gallery */
+        .gallery { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+        .gallery figure { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin: 0; transition: border-color 0.35s, box-shadow 0.35s; }
+        .gallery figure:hover { border-color: rgba(167,139,250,0.42); box-shadow: 0 14px 44px rgba(124,92,240,0.16); }
+        .gallery img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; background: var(--bg-secondary); transition: transform 0.45s var(--ease-out-quart); }
+        .gallery figure:hover img { transform: scale(1.04); }
+        .gallery figcaption {
+            position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+            padding: 22px 12px 10px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em;
+            color: var(--silver); background: linear-gradient(180deg, transparent, rgba(7,6,12,0.85));
+            opacity: 0; transform: translateY(6px); transition: opacity 0.3s, transform 0.3s;
+        }
+        .gallery figure:hover figcaption { opacity: 1; transform: translateY(0); }
+        .g-wide { grid-column: span 4; }
+        .g-mid { grid-column: span 2; }
+        .g-sm { grid-column: span 2; }
+
+        /* Pipeline chips */
+        .pipe-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .pipe-chip {
+            background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 16px;
+            padding: 16px 10px; text-align: center;
+        }
+        .pipe-chip .step { font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.12em; }
+        .pipe-chip .name { font-size: 15px; font-weight: 700; margin-top: 4px; }
+        .pipe-chip .tool { font-size: 11px; color: var(--text-tertiary); margin-top: 3px; font-family: var(--font-mono); }
+
+        .cost-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+        .cost-chip {
+            display: inline-flex; align-items: baseline; gap: 8px;
+            background: linear-gradient(145deg, rgba(124,92,240,0.09), rgba(124,92,240,0.02));
+            border: 1px solid rgba(167,139,250,0.14); border-radius: 999px; padding: 10px 18px;
+        }
+        .cost-chip .what { font-size: 13px; color: var(--text-secondary); }
+        .cost-chip .how { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--accent-light); }
+        .cost-total { margin-top: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); text-align: center; }
+
+        .xhs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .xhs-card {
+            display: block; text-decoration: none; background: var(--bg-elevated);
+            border: 1px solid var(--border); border-radius: 16px; padding: 20px;
+            transition: transform 0.3s var(--ease-out-quart), border-color 0.3s var(--ease-out-quart);
+        }
+        .xhs-card:hover { transform: translateY(-3px); border-color: rgba(220,38,38,0.45); }
+        .xhs-card .xhs-platform { font-size: 11px; font-weight: 700; color: #ff5c5c; letter-spacing: 0.08em; margin-bottom: 8px; font-family: var(--font-mono); }
+        .xhs-card .xhs-title { font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.5; }
+        .xhs-card .xhs-status { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; font-family: var(--font-mono); }
+
+        /* Collapsible story (SEO/GEO text lives here) */
+        .story-block { margin-top: 48px; border-top: 1px solid var(--border); padding-top: 8px; }
+        .story-block details { border: 1px solid var(--border); border-radius: 18px; background: var(--bg-secondary); overflow: hidden; }
+        .story-block summary {
+            list-style: none; cursor: pointer; padding: 20px 28px;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            font-size: 16px; font-weight: 700; color: var(--text-primary);
+            transition: background-color 0.3s;
+        }
+        .story-block summary::-webkit-details-marker { display: none; }
+        .story-block summary:hover { background: var(--bg-elevated); }
+        .story-block summary .chev { color: var(--accent); transition: transform 0.3s var(--ease-out-quart); font-size: 14px; }
+        .story-block details[open] summary .chev { transform: rotate(90deg); }
+        .story-body { padding: 4px 28px 28px; }
+        .story-body h3 { font-size: 17px; font-weight: 700; margin: 26px 0 12px; color: var(--text-primary); }
+        .story-body h3 .n { font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-right: 8px; }
+        .story-body p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+        .story-body p strong { color: var(--silver); font-weight: 600; }
+
+        .story-img { width: 100%; border-radius: 12px; margin: 16px 0; border: 1px solid var(--border); display: block; }
+        .img-169 { aspect-ratio: 16/9; object-fit: cover; background: var(--bg-secondary); }
+        .img-23 { aspect-ratio: 2/3; object-fit: cover; background: var(--bg-secondary); max-width: 560px; margin-left: auto; margin-right: auto; display: block; }
+        .story-caption { font-size: 12.5px; color: var(--text-tertiary); text-align: center; margin: 6px 0 12px; }
+
+        .reflection {
+            background: linear-gradient(135deg, rgba(124,92,240,0.09), rgba(10,9,18,0.9));
+            border: 1px solid rgba(167,139,250,0.14); border-radius: 20px; padding: 30px; margin-top: 24px;
+        }
+        .reflection-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
+        .reflection p { font-size: 15px; color: var(--text-secondary); line-height: 1.85; }
+        .reflection a { color: var(--accent-light); text-decoration: none; border-bottom: 1px solid rgba(167,139,250,0.4); }
+        .reflection a:hover { color: var(--text-primary); }
+
+        .ending-wrap { text-align: center; margin: 8px 0 32px; }
+        .ending-wrap img { width: 100%; max-width: 720px; border-radius: 12px; border: 1px solid var(--border); aspect-ratio: 16/9; object-fit: cover; background: var(--bg-secondary); }
+
+        .cta-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 8px 0 40px; }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+            font-weight: 700; font-size: 15px; padding: 14px 30px; border-radius: 32px;
+            transition: transform 0.3s var(--ease-out-quart), box-shadow 0.3s var(--ease-out-quart), background-color 0.3s;
+        }
+        .cta-primary { background: linear-gradient(120deg, #d9cfff, #a78bfa 38%, #7c5cf0 68%, #c9bdfd 100%); background-size: 220% 100%; animation: chrome-shift 4.5s ease-in-out infinite alternate; color: #0d0a1a; box-shadow: 0 8px 32px rgba(124, 92, 240, 0.35); }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 44px rgba(124, 92, 240, 0.45); }
+        .cta-ghost { background: transparent; color: var(--silver); border: 1px solid rgba(167,139,250,0.4); }
+        .cta-ghost:hover { transform: translateY(-2px); background: rgba(124,92,240,0.12); }
+
+        .page-bottom-nav { padding: 40px 0 60px; text-align: center; }
+        .page-bottom-nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .page-bottom-nav a:hover { color: var(--text-primary); }
+
+        @media (max-width: 860px) {
+            .member-grid { grid-template-columns: repeat(2, 1fr); }
+            .xhs-grid { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+            .g-wide, .g-mid, .g-sm { grid-column: span 2; }
+            .pipe-row { grid-template-columns: repeat(2, 1fr); }
+            .gallery figcaption { opacity: 1; transform: none; }
+        }
+        @media (max-width: 768px) {
+            .modal-container { margin: 16px; border-radius: 20px; }
+            .modal-header { padding: 30px 24px 24px; }
+            .modal-title { font-size: 34px; }
+            .modal-title .zh-seal { font-size: 30px; }
+            .modal-title .en { font-size: 15px; }
+            .modal-body { padding: 0 24px 40px; }
+            .modal-metrics { grid-template-columns: repeat(2, 1fr); }
+            .modal-meta { gap: 24px; }
+            .story-body { padding: 4px 20px 20px; }
+            .story-block summary { padding: 16px 20px; }
+        }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"MusicVideo","name":"CALL ME YAO 妖","description":"Four female demons from Journey to the West (Baigujing, Jade Fox, Spider Spirit, Scorpion Spirit) debut as an AI-native girl group. One song, one 3'34\" music video, 8 YouTube Shorts. Lyrics, costume design, generation, editing and release by one person with 36 Python scripts: Suno v6, Kling, MiniMax-H3, FFmpeg.","url":"https://joeyzhao.cc/yao","image":"https://joeyzhao.cc/images/yao-moon.jpg","embedUrl":"https://www.youtube.com/watch?v=FXCQGqpYmto","inLanguage":["en","zh-CN"],"creator":{"@type":"Person","name":"Joey Zhao","url":"https://joeyzhao.cc/","sameAs":["https://www.linkedin.com/in/joey-zhao-b8576b91/","https://x.com/JoeyKonad","https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"]}}</script>
+</head>
+<body>
+
+<nav class="project-page-nav">
+    <div class="nav-content">
+        <a href="/" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="nav.back">All Work</span>
+        </a>
+        <div class="lang-toggle">
+            <button id="lang-en" class="active">EN</button>
+            <span>/</span>
+            <button id="lang-zh">中</button>
+        </div>
+    </div>
+</nav>
+
+<div class="modal-container">
+
+    <!-- Hero: lazy YouTube facade -->
+    <button class="video-facade" id="mv-facade" style="background-image:url('images/yao-moon.jpg')" aria-label="Play the CALL ME YAO music video">
+        <span class="facade-tag" data-i18n="yao.facadeTag">MV · 3'34" · YouTube</span>
+        <span class="play-badge"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+    </button>
+
+    <div class="modal-header">
+        <div class="debut-badge"><span class="dot"></span><span data-i18n="yao.debut">DEBUT SINGLE · 2026.09</span></div>
+        <p class="modal-eyebrow" data-i18n="yao.eyebrow">AI Music Project · 2026 · Suno / Kling / MiniMax-H3</p>
+        <h1 class="modal-title"><span class="chrome">CALL ME YAO</span> <span class="zh-seal">妖</span><span class="en" data-i18n="yao.titleEn">Four Journey to the West demons. One AI-native girl group debut.</span></h1>
+        <div class="modal-meta">
+            <div class="modal-meta-item">
+                <div class="modal-meta-label" data-i18n="yao.metaLabel1">Role</div>
+                <div class="modal-meta-value" data-i18n="yao.metaValue1">Solo · Everything</div>
+            </div>
+            <div class="modal-meta-item">
+                <div class="modal-meta-label" data-i18n="yao.metaLabel2">Genre</div>
+                <div class="modal-meta-value" data-i18n="yao.metaValue2">AI-Native Girl Group</div>
+            </div>
+            <div class="modal-meta-item">
+                <div class="modal-meta-label" data-i18n="yao.metaLabel3">Stack</div>
+                <div class="modal-meta-value" data-i18n="yao.metaValue3">Suno v6 · Kling · MiniMax-H3 · FFmpeg</div>
+            </div>
+            <div class="modal-meta-item">
+                <div class="modal-meta-label" data-i18n="yao.metaLabel4">Shipped</div>
+                <div class="modal-meta-value" data-i18n="yao.metaValue4">2026.09 · YouTube</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+
+        <!-- Hook quote -->
+        <div class="hook-quote">
+            <div class="rule"></div>
+            <p class="line" data-i18n="yao.hook">Beasts with masters get called <em>mounts</em>.<br>Beasts without masters get called <em>demons</em>.</p>
+            <p class="attr" data-i18n="yao.hookAttr">— the rule of Heaven, and the first line of the song</p>
+            <div class="rule b"></div>
+        </div>
+
+        <div class="modal-metrics">
+            <div class="modal-metric"><div class="modal-metric-value">4</div><div class="modal-metric-label" data-i18n="yao.metricLabel1">Members</div></div>
+            <div class="modal-metric"><div class="modal-metric-value">3'34"</div><div class="modal-metric-label" data-i18n="yao.metricLabel2">Music Video</div></div>
+            <div class="modal-metric"><div class="modal-metric-value">36</div><div class="modal-metric-label" data-i18n="yao.metricLabel3">Python Scripts</div></div>
+            <div class="modal-metric"><div class="modal-metric-value">9</div><div class="modal-metric-label" data-i18n="yao.metricLabel4">Edits · 1 Day</div></div>
+        </div>
+
+        <!-- Lineup -->
+        <div class="strip-title"><span class="no">01</span><h2 data-i18n="yao.s2Title">The Lineup · 出场顺序</h2><span class="tail"></span></div>
+        <div class="member-grid">
+            <div class="member-card">
+                <span class="member-no">01</span>
+                <img src="images/yao-baigu.webp" alt="白骨精定装照：冷白皮肤、直黑长发、象牙白束身骨线舞台装" loading="lazy">
+                <div class="member-info">
+                    <div class="member-pos"><span data-i18n="yao.m1Pos">队长 · 主唱</span><span class="member-time">VERSE 1 · 0:04</span></div>
+                    <div class="member-name">白骨精<span class="lat">Bai Gu Jing</span></div>
+                    <div class="member-set" data-i18n="yao.m1Set">钻石长脸冷白皮 · 直黑长发 · 象牙白束身骨线 · 三枚瓷面具扣</div>
+                    <div class="member-lyric" data-i18n="yao.m1Lyric">「我死了几百年，还舍不得这个人间。」</div>
+                </div>
+            </div>
+            <div class="member-card">
+                <span class="member-no">02</span>
+                <img src="images/yao-scorpion.webp" alt="蝎子精定装照：蜜铜色皮肤、高马尾、青铜分节短裙与蝎尾饰" loading="lazy">
+                <div class="member-info">
+                    <div class="member-pos"><span data-i18n="yao.m4Pos">说唱 · 力量舞担</span><span class="member-time">RAP · 1:25</span></div>
+                    <div class="member-name">蝎子精<span class="lat">Scorpion</span></div>
+                    <div class="member-set" data-i18n="yao.m4Set">蜜铜色肌肤 · 高马尾无刘海 · 黑丝绸青铜分节短裙 · 青铜蝎尾饰</div>
+                    <div class="member-lyric" data-i18n="yao.m4Lyric">「那只手推我一下，我还它一针。」</div>
+                </div>
+            </div>
+            <div class="member-card">
+                <span class="member-no">03</span>
+                <img src="images/yao-fox.webp" alt="玉面狐狸定装照：深孔雀绿交领、酒红短裙、狐形玉簪" loading="lazy">
+                <div class="member-info">
+                    <div class="member-pos"><span data-i18n="yao.m2Pos">门面 · 副唱</span><span class="member-time">VERSE 2 · 1:41</span></div>
+                    <div class="member-name">玉面狐狸<span class="lat">Jade Fox</span></div>
+                    <div class="member-set" data-i18n="yao.m2Set">暖象牙肤大波浪 · 深孔雀绿交领 · 酒红短裙 · 狐形玉簪</div>
+                    <div class="member-lyric" data-i18n="yao.m2Lyric">「男人占一座山，叫一方大王。」</div>
+                </div>
+            </div>
+            <div class="member-card">
+                <span class="member-no">04</span>
+                <img src="images/yao-spider.webp" alt="蜘蛛精定装照：齐下巴黑 bob、紫红舞台服、八足肩饰" loading="lazy">
+                <div class="member-info">
+                    <div class="member-pos"><span data-i18n="yao.m3Pos">主舞</span><span class="member-time">DANCE · 1:56</span></div>
+                    <div class="member-name">蜘蛛精<span class="lat">Spider</span></div>
+                    <div class="member-set" data-i18n="yao.m3Set">齐下巴黑 bob 薄刘海 · 紫红轻量舞台服 · 蛛网银线 · 八足肩饰</div>
+                    <div class="member-lyric" data-i18n="yao.m3Lyric">「你们叫它欲，我们叫它，活。」</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stills gallery · 按歌曲时间轴排序 -->
+        <div class="strip-title"><span class="no">02</span><h2 data-i18n="yao.galleryTitle">Frames</h2><span class="tail"></span></div>
+        <div class="gallery">
+            <figure class="g-wide"><img src="images/yao-moon.jpg" alt="白骨精月宫开场镜头，巨大满月" loading="lazy"><figcaption data-i18n="yao.gCap2">开场 · 0:02 · 月亮</figcaption></figure>
+            <figure class="g-mid"><img src="images/yao-group.jpg" alt="四人舞台群舞镜头，紫银配色舞台灯光" loading="lazy"><figcaption data-i18n="yao.gCap1">副歌舞台 · 1:10 · v9</figcaption></figure>
+            <figure class="g-sm"><img src="images/yao-scorpion-frame.jpg" alt="蝎子精说唱镜头" loading="lazy"><figcaption data-i18n="yao.gCap5">蝎子精 RAP · 1:25</figcaption></figure>
+            <figure class="g-sm"><img src="images/yao-fox-frame.jpg" alt="玉面狐狸满月场景镜头" loading="lazy"><figcaption data-i18n="yao.gCap3">玉面狐狸 · 1:41</figcaption></figure>
+            <figure class="g-sm"><img src="images/yao-spider-frame.jpg" alt="蜘蛛精舞蹈镜头" loading="lazy"><figcaption data-i18n="yao.gCap4">蜘蛛精 · 1:56</figcaption></figure>
+            <figure class="g-sm"><img src="images/yao-bridge.jpg" alt="白骨精冰宫桥段镜头" loading="lazy"><figcaption data-i18n="yao.gCap6">桥段 · 2:37 ·「修一千年，能成仙吗」</figcaption></figure>
+            <figure class="g-sm"><img src="images/yao-ending.jpg" alt="片尾妖字印章落版" loading="lazy"><figcaption data-i18n="yao.gCap7">片尾落版 · 妖</figcaption></figure>
+        </div>
+
+        <!-- Pipeline chips -->
+        <div class="strip-title"><span class="no">03</span><h2 data-i18n="yao.pipeTitle">One Person, Full Pipeline</h2><span class="tail"></span></div>
+        <div class="pipe-row">
+            <div class="pipe-chip"><div class="step">01</div><div class="name" data-i18n="yao.pipe1">词曲</div><div class="tool">Suno v6</div></div>
+            <div class="pipe-chip"><div class="step">02</div><div class="name" data-i18n="yao.pipe2">定装</div><div class="tool">ChatGPT ×17</div></div>
+            <div class="pipe-chip"><div class="step">03</div><div class="name" data-i18n="yao.pipe3">视频</div><div class="tool">Kling + H3</div></div>
+            <div class="pipe-chip"><div class="step">04</div><div class="name" data-i18n="yao.pipe4">剪辑</div><div class="tool">FFmpeg · 9版</div></div>
+            <div class="pipe-chip"><div class="step">05</div><div class="name" data-i18n="yao.pipe5">质检</div><div class="tool">validation.json</div></div>
+        </div>
+        <div style="margin-top:14px;"></div>
+        <div class="cost-chips">
+            <span class="cost-chip"><span class="what">MiniMax-H3</span><span class="how">¥155.7</span></span>
+            <span class="cost-chip"><span class="what" data-i18n="yao.costKling">Kling</span><span class="how">40 灵感值</span></span>
+            <span class="cost-chip"><span class="what">Suno</span><span class="how">2 unlocks</span></span>
+        </div>
+        <p class="cost-total" data-i18n="yao.costTotal">Under ¥200 cash for a 1080p debut. The priciest thing here was my sleep schedule.</p>
+
+        <!-- XHS notes -->
+        <div class="strip-title"><span class="no">04</span><h2 data-i18n="yao.s5Title">Process Notes</h2><span class="tail"></span></div>
+        <div class="xhs-grid">
+            <!-- TODO(XHS): 后两张笔记发布后把 href 换成真实链接。第一张已填真实笔记链接。 -->
+            <a class="xhs-card" href="https://xhslink.cn/o/99V7EXYJ8Wg" target="_blank" rel="noopener">
+                <div class="xhs-platform">小红书 · NOTE</div>
+                <div class="xhs-title" data-i18n="yao.xhs1">我把《西游记》女妖做成了 K-pop 女团</div>
+                <div class="xhs-status" data-i18n="yao.xhsStatus1">已发布 · 2026.09</div>
+            </a>
+            <a class="xhs-card" href="https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021" target="_blank" rel="noopener">
+                <div class="xhs-platform">小红书 · NOTE</div>
+                <div class="xhs-title" data-i18n="yao.xhs2">36 个脚本，一个女团：全管线</div>
+                <div class="xhs-status" data-i18n="yao.xhsStatus2">链接待补</div>
+            </a>
+            <a class="xhs-card" href="https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021" target="_blank" rel="noopener">
+                <div class="xhs-platform">小红书 · NOTE</div>
+                <div class="xhs-title" data-i18n="yao.xhs3">Shorts A/B 实验：钩子先行 vs 直接开唱</div>
+                <div class="xhs-status" data-i18n="yao.xhsStatus3">随数据一起发</div>
+            </a>
+        </div>
+
+        <!-- Collapsible full story (SEO/GEO text) -->
+        <div class="story-block">
+            <details>
+                <summary><span data-i18n="yao.storySummary">制作故事 · The full making-of</span><span class="chev">▶</span></summary>
+                <div class="story-body">
+                    <h3><span class="n">01</span><span data-i18n="yao.s1Title">先有气，后有歌</span></h3>
+                    <p data-i18n="yao.s1P1">9 月 20 日凌晨，output/mv-v9/deliverables/ 里多了一个 313MB 的文件。CALL_ME_YAO_FULL_1080p_v9.mp4，214.08 秒。从当天早上算起，这是第九版。看到第三遍，我笑出了声，笑完接着回去把字幕的紫色又调了一遍。</p>
+                    <p data-i18n="yao.s1P2">这个企划最初不是从歌开始的，是从气开始的。重读《西游记》，越读越气。金角银角是老君看炉子的童子，下界作乱，主人一句带回去就完事。青牛精拿一个圈子打得满天神佛没脾气，那也是坐骑，也收了。轮到没后台的呢。蝎子精蜇了如来一针，可原著里先动手的是佛祖，推了她一把，她还了一针，三界从此说她毒。白骨精想吃唐僧，这是真的，她也没吃到，三次变化三次被打死，连一次辩解的机会都没有。玉面狐狸的全部罪名，翻来覆去就是长得好看，被一个有老婆的有钱老头看上。蜘蛛精的网，你们叫欲，她们叫活命。</p>
+                    <p data-i18n="yao.s1P3">天庭的规矩就这么一句，有主的叫坐骑，无主的叫妖。行，那就让妖出道。</p>
+
+                    <p data-i18n="yao.koreaP">2025 年，我在韩国看了一场女团演出。灯海、应援、口号，那种工业级的整齐，像一台精密的机器在运转。也是那次前后，我把一件事想明白了。K-pop 在欧美影响力已经这么大，它输出的不只是歌，是一整套把人包装成偶像的流水线。而我们手里攥着一个老得多的 IP，《西游记》，孙悟空全世界都认识。我翻了一圈，做神仙的这么多，做妖精的却几乎没有。为什么？妖精是被定义的那一方，没人替她们说话，自然也没人做。那就我来。我一向就想干点离经叛道的事，把四个被判了几百年的女妖拉出来出道，这件事够离经叛道。而且越想越顺，有主的叫坐骑，无主的叫妖，这句话放进偶像工业里，一样成立。</p>
+
+                    <img src="images/yao-lineup.jpg" alt="四人身着定装照，从左至右：白骨精、玉面狐狸、蜘蛛精、蝎子精" class="story-img img-23" loading="lazy">
+                    <p class="story-caption" data-i18n="yao.s1Cap1">定装照，2026.09.17。四张脸卸掉饰品也要分得清，这是角色圣经里的硬规矩。</p>
+
+                    <h3><span class="n">02</span><span data-i18n="yao.s3Title">一个人的娱乐公司</span></h3>
+                    <p data-i18n="yao.s3P1">都在问 AI 会不会取代创作者。我把问题反过来，让 AI 当练习生，我当娱乐公司，看谁先累。</p>
+                    <p data-i18n="yao.s3P2">词曲是 Suno v6，214.08 秒，约 129 BPM，每句词我都对着原著查过才锁定时间轴。出图 API 第一天就挂了，连接断开，500，重试三次。我改成浏览器自动化驱动 ChatGPT 网页，一张一张对话着磨，17 张定装照分五批落地。表演素材走可灵图生视频，首帧图加运镜提示词，叙事镜头用 MiniMax-H3，三个妖王同框的镜头被内容审核拦了两次，妖王开会算违规，这个细节我很喜欢。剪辑是 FFmpeg 加 PyAV，剪辑点对齐节拍网格，v3 修对口型，v5 补天庭权力镜头，v7 三个妖王进场，v9 撤静态运镜换动态、月亮开场、字幕重调成紫银配色，一天九版。最后一道门是 validation.json，音轨必须和母带 WAV 逐字节一致。通过了，才算交片。</p>
+                    <p data-i18n="yao.s4P1">完整版 MV 发出去，播放量很诚实。所以策略换到 Shorts，8 条竖版，一条已发，五条排期在 9 月 23 到 27，北京时间每天上午十点，同时跑一组 A/B，一版概念钩子开头，一版直接开唱。数据还没回来，回来之前我不吹。</p>
+
+                    <div class="reflection">
+                        <div class="reflection-title" data-i18n="yao.reflTitle">第三支歌</div>
+                        <p data-i18n="yao.reflText">这是我用 AI 做的第三支音乐。《霓虹梦境》是纯音乐，那一次我学会把世界收窄。《丝电回路》把东方的声音接了进去。到 CALL ME YAO，AI 第一次唱我写的词，词属于四个从来不被允许为自己辩护的人。剪到第九版我发现，我最在意的镜头不是群舞，是白骨精一个人站在月亮底下唱，我死了几百年，还舍不得这个人间。妖想成人，人想成仙，仙怕下凡，谁都不想当自己。歌就是这个。<a href="writing/neon-dream-ai-music-notes.html">《霓虹梦境》笔记</a> · <a href="writing/silk-circuit-ai-music-notes.html">《丝电回路》笔记</a></p>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="ending-wrap">
+            <img src="images/yao-ending.jpg" alt="MV 片尾：妖字印章落版" loading="lazy">
+        </div>
+
+        <div class="cta-row">
+            <a class="cta-btn cta-primary" href="https://www.youtube.com/watch?v=FXCQGqpYmto" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                <span data-i18n="yao.ctaMv">看完整 MV</span>
+            </a>
+            <a class="cta-btn cta-ghost" href="/#contact">
+                <span data-i18n="yao.ctaTalk">跟我合作</span>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="page-bottom-nav">
+    <a href="/" data-i18n="nav.backAll">&larr; Back to All Work</a>
+</div>
+
+<script>
+const translations = {
+    en: {
+        'nav.back': 'All Work',
+        'nav.backAll': '← Back to All Work',
+        'yao.facadeTag': "MV · 3'34\" · YouTube",
+        'yao.debut': 'DEBUT SINGLE · 2026.09',
+        'yao.eyebrow': 'AI Music Project · 2026 · Suno / Kling / MiniMax-H3',
+        'yao.titleEn': 'Four Journey to the West demons. One AI-native girl group debut.',
+        'yao.metaLabel1': 'Role', 'yao.metaValue1': 'Solo · Everything',
+        'yao.metaLabel2': 'Genre', 'yao.metaValue2': 'AI-Native Girl Group',
+        'yao.metaLabel3': 'Stack', 'yao.metaValue3': 'Suno v6 · Kling · MiniMax-H3 · FFmpeg',
+        'yao.metaLabel4': 'Shipped', 'yao.metaValue4': '2026.09 · YouTube',
+        'yao.hook': 'Beasts with masters get called <em>mounts</em>.<br>Beasts without masters get called <em>demons</em>.',
+        'yao.hookAttr': '— the rule of Heaven, and the first line of the song',
+        'yao.metricLabel1': 'Members', 'yao.metricLabel2': 'Music Video', 'yao.metricLabel3': 'Python Scripts', 'yao.metricLabel4': 'Edits · 1 Day',
+        'yao.s2Title': 'The Lineup · in order of appearance',
+        'yao.m1Pos': 'Leader · Lead Vocals', 'yao.m1Set': 'Diamond face, cool ivory skin · long straight black hair · ivory boned corset · three porcelain mask clasps', 'yao.m1Lyric': '"Dead for centuries — still can\'t quit this world."',
+        'yao.m4Pos': 'Rapper · Performance', 'yao.m4Set': 'Honey-bronze skin · high ponytail · black silk with bronze segments · bronze scorpion tail', 'yao.m4Lyric': '"That hand pushed me first. I returned one needle."',
+        'yao.m2Pos': 'Visual · Vocals', 'yao.m2Set': 'Warm ivory skin, waves · deep peacock-green collar · wine-red skirt · fox-form jade pin', 'yao.m2Lyric': '"A man takes a mountain, they call him king."',
+        'yao.m3Pos': 'Main Dancer', 'yao.m3Set': 'Chin-length black bob, thin fringe · crimson stage suit · silver web threads · eight-legged shoulder piece', 'yao.m3Lyric': '"You call it desire. We call it staying alive."',
+        'yao.galleryTitle': 'Frames',
+        'yao.gCap2': 'Opening · 0:02 · the moon',
+        'yao.gCap1': 'Chorus stage · 1:10 · v9',
+        'yao.gCap5': 'Scorpion RAP · 1:25',
+        'yao.gCap3': 'Jade Fox · 1:41',
+        'yao.gCap4': 'Spider · 1:56',
+        'yao.gCap6': 'Bridge · 2:37 · "a thousand years of practice — enough to become immortal?"',
+        'yao.gCap7': 'End card · 妖',
+        'yao.pipeTitle': 'One Person, Full Pipeline',
+        'yao.pipe1': 'Track', 'yao.pipe2': 'Costume', 'yao.pipe3': 'Video', 'yao.pipe4': 'Edit', 'yao.pipe5': 'QC',
+        'yao.costKling': 'Kling',
+        'yao.costTotal': 'Under ¥200 cash for a 1080p debut. The priciest thing here was my sleep schedule.',
+        'yao.s5Title': 'Process Notes',
+        'yao.xhs1': 'I turned Journey to the West\'s demon women into a K-pop girl group',
+        'yao.xhsStatus1': 'Live · 2026.09',
+        'yao.xhs2': '36 scripts, one girl group: the full pipeline',
+        'yao.xhsStatus2': 'Link pending',
+        'yao.xhs3': 'Shorts A/B: hook-first vs sing-first',
+        'yao.xhsStatus3': 'Publishes with the data',
+        'yao.storySummary': 'The Making · full story',
+        'yao.s1Title': 'It Started With Anger, Not a Song',
+        'yao.s1P1': 'At 2 a.m. on September 20, a 313MB file landed in output/mv-v9/deliverables/. CALL_ME_YAO_FULL_1080p_v9.mp4, 214.08 seconds. Counting from that morning, it was the ninth edit. On my third watch I laughed out loud. Then I went back and nudged the subtitle purple again.',
+        'yao.s1P2': 'The project didn\'t start as a song. It started as anger. I reread Journey to the West and kept getting angrier. Golden Horn and Silver Horn are Laozi\'s furnace boys — they descend, devour people, and their master says "bring them back" and that\'s that. The Azure Ox beats every god in heaven with one bracelet; also a mount, also "collected." Now the ones without connections. The Scorpion stung the Buddha one needle — but in the original text, he pushed her first. She returned one sting. The three realms have called her venomous ever since. Baigujing wanted to eat the monk, true, and never got to — three disguises, three fatal blows, zero chances to explain herself. The Jade Fox\'s entire criminal record amounts to being beautiful and noticed by a wealthy married old man. And the Spiders\' web — you call it desire; they call it staying alive.',
+        'yao.s1P3': 'Heaven\'s rule turns out to be one sentence long. Beasts with masters get called mounts; beasts without masters get called demons. Fine. Then let the demons debut.',
+        'yao.koreaP': 'In 2025 I watched a girl-group show in Korea. Ocean of lights, fan chants, that industrial-grade precision — a machine running exactly on beat. Somewhere around that trip, a thought locked in. K-pop\'s influence in the West had grown this big, and what it exports isn\'t just songs; it\'s an entire pipeline that packages people into idols. And we\'re sitting on a much older IP — Journey to the West; the Monkey King is known worldwide. Yet everyone makes immortals, almost nobody makes demons. Why? Demons are the ones who get defined by others. Nobody speaks for them, so nobody builds for them. Fine, I will. I\'ve always wanted to do something heretical, and debuting four women who\'ve carried centuries of verdicts qualifies. And the more I sat with it, the cleaner it got: beasts with masters get called mounts, beasts without masters get called demons. Inside the idol industry, that sentence holds just as well.',
+        'yao.s1Cap1': 'Costume approval shots, 2026.09.17. Four faces distinguishable even stripped of props — a hard rule from the character bible.',
+        'yao.s3Title': 'One Person, One Entertainment Company',
+        'yao.s3P1': 'Everyone keeps asking whether AI will replace creators. I flipped the question. Let the AI be the trainees; I\'ll be the entertainment company. Let\'s see who gets tired first.',
+        'yao.s3P2': 'The track is Suno v6 — 214.08 seconds at ~129 BPM; I checked every lyric line against the original novel before locking the timeline. The image API died on day one — dropped connections, HTTP 500s, three retries — so I drove the ChatGPT web interface through browser automation instead and talked the 17 costume photos out, five batches, one conversation at a time. Performance footage went through Kling image-to-video, first frame plus camera-move prompts; narrative shots through MiniMax-H3. The three Demon Kings sitting together got flagged by content moderation, twice. Demon Kings holding a meeting counts as a violation — I love that detail. Editing was FFmpeg + PyAV on the beat grid: v3 lip-sync repair, v5 heaven power shots, v7 the three Kings, v9 dynamic camera moves, moon opening, purple-silver subtitles. Nine versions in one day. The final gate is validation.json — the audio track must match the master WAV byte for byte. It passed. Only then did I call it shipped.',
+        'yao.s4P1': 'The full MV went up and the view count was brutally honest. So the strategy moved to Shorts: eight vertical cuts, one live, five scheduled September 23–27, 10 a.m. Beijing time, with an A/B running — one cut opens on the concept hook, one opens mid-chorus. The data isn\'t back. I\'m not going to brag before it is.',
+        'yao.reflTitle': 'Third Song In',
+        'yao.reflText': 'This is the third piece of music I\'ve made with AI. Neon Dream was instrumental — that one taught me to keep the world narrow. Silk Circuit wired Eastern sounds into the mix. With CALL ME YAO, the AI sang my own lyrics for the first time, and the lyrics belonged to four women who were never allowed to speak in their own defense. By edit nine I noticed the shot I cared about most wasn\'t the group choreography. It was Baigujing alone under the moon, singing "I\'ve been dead for centuries and still can\'t quit this world." Demons want to be human, humans want to be immortal, immortals fear falling — nobody wants to be what they are. That\'s the song. <a href="writing/neon-dream-ai-music-notes.html">Neon Dream notes</a> · <a href="writing/silk-circuit-ai-music-notes.html">Silk Circuit notes</a>',
+        'yao.ctaMv': 'Watch the MV',
+        'yao.ctaTalk': 'Work with me'
+    },
+    zh: {
+        'nav.back': '全部作品',
+        'nav.backAll': '← 返回全部作品',
+        'yao.facadeTag': "MV · 3'34\" · YouTube",
+        'yao.debut': '出道单曲 · 2026.09',
+        'yao.eyebrow': 'AI 音乐企划 · 2026 · Suno / Kling / MiniMax-H3',
+        'yao.titleEn': '四个《西游记》女妖，一场 AI 原生女团出道。',
+        'yao.metaLabel1': '角色', 'yao.metaValue1': '独立完成 · 全部',
+        'yao.metaLabel2': '类型', 'yao.metaValue2': 'AI 原生虚拟女团',
+        'yao.metaLabel3': '技术', 'yao.metaValue3': 'Suno v6 · 可灵 · MiniMax-H3 · FFmpeg',
+        'yao.metaLabel4': '发布', 'yao.metaValue4': '2026.09 · YouTube',
+        'yao.hook': '有主的，叫<em>坐骑</em>。<br>无主的，叫<em>妖</em>。',
+        'yao.hookAttr': '—— 天庭的规矩，也是这首歌的第一句',
+        'yao.metricLabel1': '位出道成员', 'yao.metricLabel2': '分钟成片', 'yao.metricLabel3': '个脚本', 'yao.metricLabel4': '版剪辑 · 一天内',
+        'yao.s2Title': '出道阵容 · 按出场顺序',
+        'yao.m1Pos': '队长 · 主唱', 'yao.m1Set': '钻石长脸冷白皮 · 直黑长发 · 象牙白束身骨线 · 三枚瓷面具扣', 'yao.m1Lyric': '「我死了几百年，还舍不得这个人间。」',
+        'yao.m4Pos': '说唱 · 力量舞担', 'yao.m4Set': '蜜铜色肌肤 · 高马尾无刘海 · 黑丝绸青铜分节短裙 · 青铜蝎尾饰', 'yao.m4Lyric': '「那只手推我一下，我还它一针。」',
+        'yao.m2Pos': '门面 · 副唱', 'yao.m2Set': '暖象牙肤大波浪 · 深孔雀绿交领 · 酒红短裙 · 狐形玉簪', 'yao.m2Lyric': '「男人占一座山，叫一方大王。」',
+        'yao.m3Pos': '主舞', 'yao.m3Set': '齐下巴黑 bob 薄刘海 · 紫红轻量舞台服 · 蛛网银线 · 八足肩饰', 'yao.m3Lyric': '「你们叫它欲，我们叫它，活。」',
+        'yao.galleryTitle': '成片截帧',
+        'yao.gCap2': '开场 · 0:02 · 月亮',
+        'yao.gCap1': '副歌舞台 · 1:10 · v9',
+        'yao.gCap5': '蝎子精 RAP · 1:25',
+        'yao.gCap3': '玉面狐狸 · 1:41',
+        'yao.gCap4': '蜘蛛精 · 1:56',
+        'yao.gCap6': '桥段 · 2:37 ·「修一千年，能成仙吗」',
+        'yao.gCap7': '片尾落版 · 妖',
+        'yao.pipeTitle': '一个人，全流程',
+        'yao.pipe1': '词曲', 'yao.pipe2': '定装', 'yao.pipe3': '视频', 'yao.pipe4': '剪辑', 'yao.pipe5': '质检',
+        'yao.costKling': '可灵',
+        'yao.costTotal': '两百块以内的现金，一支 1080p 出道。这个项目最贵的是我的作息。',
+        'yao.s5Title': '过程笔记',
+        'yao.xhs1': '我把《西游记》女妖做成了 K-pop 女团',
+        'yao.xhsStatus1': '已发布 · 2026.09',
+        'yao.xhs2': '36 个脚本，一个女团：全管线',
+        'yao.xhsStatus2': '链接待补',
+        'yao.xhs3': 'Shorts A/B 实验：钩子先行 vs 直接开唱',
+        'yao.xhsStatus3': '随数据一起发',
+        'yao.storySummary': '制作故事 · 完整版',
+        'yao.s1Title': '先有气，后有歌',
+        'yao.s1P1': '9 月 20 日凌晨，output/mv-v9/deliverables/ 里多了一个 313MB 的文件。CALL_ME_YAO_FULL_1080p_v9.mp4，214.08 秒。从当天早上算起，这是第九版。看到第三遍，我笑出了声，笑完接着回去把字幕的紫色又调了一遍。',
+        'yao.s1P2': '这个企划最初不是从歌开始的，是从气开始的。重读《西游记》，越读越气。金角银角是老君看炉子的童子，下界作乱，主人一句带回去就完事。青牛精拿一个圈子打得满天神佛没脾气，那也是坐骑，也收了。轮到没后台的呢。蝎子精蜇了如来一针，可原著里先动手的是佛祖，推了她一把，她还了一针，三界从此说她毒。白骨精想吃唐僧，这是真的，她也没吃到，三次变化三次被打死，连一次辩解的机会都没有。玉面狐狸的全部罪名，翻来覆去就是长得好看，被一个有老婆的有钱老头看上。蜘蛛精的网，你们叫欲，她们叫活命。',
+        'yao.s1P3': '天庭的规矩就这么一句，有主的叫坐骑，无主的叫妖。行，那就让妖出道。',
+        'yao.koreaP': '2025 年，我在韩国看了一场女团演出。灯海、应援、口号，那种工业级的整齐，像一台精密的机器在运转。也是那次前后，我把一件事想明白了。K-pop 在欧美影响力已经这么大，它输出的不只是歌，是一整套把人包装成偶像的流水线。而我们手里攥着一个老得多的 IP，《西游记》，孙悟空全世界都认识。我翻了一圈，做神仙的这么多，做妖精的却几乎没有。为什么？妖精是被定义的那一方，没人替她们说话，自然也没人做。那就我来。我一向就想干点离经叛道的事，把四个被判了几百年的女妖拉出来出道，这件事够离经叛道。而且越想越顺，有主的叫坐骑，无主的叫妖，这句话放进偶像工业里，一样成立。',
+        'yao.s1Cap1': '定装照，2026.09.17。四张脸卸掉饰品也要分得清，这是角色圣经里的硬规矩。',
+        'yao.s3Title': '一个人的娱乐公司',
+        'yao.s3P1': '都在问 AI 会不会取代创作者。我把问题反过来，让 AI 当练习生，我当娱乐公司，看谁先累。',
+        'yao.s3P2': '词曲是 Suno v6，214.08 秒，约 129 BPM，每句词我都对着原著查过才锁定时间轴。出图 API 第一天就挂了，连接断开，500，重试三次。我改成浏览器自动化驱动 ChatGPT 网页，一张一张对话着磨，17 张定装照分五批落地。表演素材走可灵图生视频，首帧图加运镜提示词，叙事镜头用 MiniMax-H3，三个妖王同框的镜头被内容审核拦了两次，妖王开会算违规，这个细节我很喜欢。剪辑是 FFmpeg 加 PyAV，剪辑点对齐节拍网格，v3 修对口型，v5 补天庭权力镜头，v7 三个妖王进场，v9 撤静态运镜换动态、月亮开场、字幕重调成紫银配色，一天九版。最后一道门是 validation.json，音轨必须和母带 WAV 逐字节一致。通过了，才算交片。',
+        'yao.s4P1': '完整版 MV 发出去，播放量很诚实。所以策略换到 Shorts，8 条竖版，一条已发，五条排期在 9 月 23 到 27，北京时间每天上午十点，同时跑一组 A/B，一版概念钩子开头，一版直接开唱。数据还没回来，回来之前我不吹。',
+        'yao.reflTitle': '第三支歌',
+        'yao.reflText': '这是我用 AI 做的第三支音乐。《霓虹梦境》是纯音乐，那一次我学会把世界收窄。《丝电回路》把东方的声音接了进去。到 CALL ME YAO，AI 第一次唱我写的词，词属于四个从来不被允许为自己辩护的人。剪到第九版我发现，我最在意的镜头不是群舞，是白骨精一个人站在月亮底下唱，我死了几百年，还舍不得这个人间。妖想成人，人想成仙，仙怕下凡，谁都不想当自己。歌就是这个。<a href="writing/neon-dream-ai-music-notes.html">《霓虹梦境》笔记</a> · <a href="writing/silk-circuit-ai-music-notes.html">《丝电回路》笔记</a>',
+        'yao.ctaMv': '看完整 MV',
+        'yao.ctaTalk': '跟我合作'
+    }
+};
+
+let currentLang = localStorage.getItem('lang') || (navigator.language.startsWith('zh') ? 'zh' : 'en');
+
+function applyTranslations(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            el.innerHTML = translations[lang][key].replace(/\n/g, '<br>');
+        }
+    });
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+}
+
+document.getElementById('lang-en').addEventListener('click', () => applyTranslations('en'));
+document.getElementById('lang-zh').addEventListener('click', () => applyTranslations('zh'));
+
+// Lazy YouTube facade: swap poster for iframe on first click
+document.getElementById('mv-facade').addEventListener('click', function () {
+    const iframe = document.createElement('iframe');
+    iframe.className = 'video-embed';
+    iframe.src = 'https://www.youtube-nocookie.com/embed/FXCQGqpYmto?autoplay=1&rel=0';
+    iframe.title = 'CALL ME YAO MV';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    this.replaceWith(iframe);
+});
+
+applyTranslations(currentLang);
+</script>
+</body>
+</html>
