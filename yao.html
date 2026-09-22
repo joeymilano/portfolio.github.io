@@ -245,16 +245,20 @@
         .cost-chip .how { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--accent-light); }
         .cost-total { margin-top: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); text-align: center; }
 
-        .xhs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-        .xhs-card {
-            display: block; text-decoration: none; background: var(--bg-elevated);
-            border: 1px solid var(--border); border-radius: 16px; padding: 20px;
-            transition: transform 0.3s var(--ease-out-quart), border-color 0.3s var(--ease-out-quart);
+        .xhs-feature {
+            display: flex; align-items: stretch; gap: 20px; text-decoration: none;
+            background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 18px;
+            padding: 18px; max-width: 640px; margin: 0 auto;
+            transition: transform 0.3s var(--ease-out-quart), border-color 0.3s var(--ease-out-quart), box-shadow 0.3s var(--ease-out-quart);
         }
-        .xhs-card:hover { transform: translateY(-3px); border-color: rgba(220,38,38,0.45); }
-        .xhs-card .xhs-platform { font-size: 11px; font-weight: 700; color: #ff5c5c; letter-spacing: 0.08em; margin-bottom: 8px; font-family: var(--font-mono); }
-        .xhs-card .xhs-title { font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.5; }
-        .xhs-card .xhs-status { font-size: 12px; color: var(--text-tertiary); margin-top: 10px; font-family: var(--font-mono); }
+        .xhs-feature:hover { transform: translateY(-3px); border-color: rgba(220,38,38,0.45); box-shadow: 0 14px 44px rgba(220,38,38,0.12); }
+        .xhs-feature .xhs-thumb { width: 132px; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); flex-shrink: 0; background: var(--bg-secondary); }
+        .xhs-feature .xhs-body { display: flex; flex-direction: column; justify-content: center; gap: 8px; min-width: 0; }
+        .xhs-feature .xhs-platform { font-size: 11px; font-weight: 700; color: #ff5c5c; letter-spacing: 0.08em; font-family: var(--font-mono); }
+        .xhs-feature .xhs-title { font-size: 18px; font-weight: 700; color: var(--text-primary); line-height: 1.5; }
+        .xhs-feature .xhs-cta { font-size: 13px; color: var(--text-secondary); transition: color 0.2s; }
+        .xhs-feature:hover .xhs-cta { color: var(--accent-light); }
+        @media (max-width: 560px) { .xhs-feature { gap: 14px; padding: 14px; } .xhs-feature .xhs-thumb { width: 96px; } .xhs-feature .xhs-title { font-size: 15px; } }
 
         /* Collapsible story (SEO/GEO text lives here) */
         .story-block { margin-top: 48px; border-top: 1px solid var(--border); padding-top: 8px; }
@@ -309,7 +313,6 @@
 
         @media (max-width: 860px) {
             .member-grid { grid-template-columns: repeat(2, 1fr); }
-            .xhs-grid { grid-template-columns: 1fr; }
             .gallery { grid-template-columns: repeat(2, 1fr); }
             .g-wide, .g-mid, .g-sm { grid-column: span 2; }
             .pipe-row { grid-template-columns: repeat(2, 1fr); }
@@ -469,26 +472,16 @@
         </div>
         <p class="cost-total" data-i18n="yao.costTotal">Under ¥200 cash for a 1080p debut. The priciest thing here was my sleep schedule.</p>
 
-        <!-- XHS notes -->
-        <div class="strip-title"><span class="no">04</span><h2 data-i18n="yao.s5Title">Process Notes</h2><span class="tail"></span></div>
-        <div class="xhs-grid">
-            <!-- TODO(XHS): 后两张笔记发布后把 href 换成真实链接。第一张已填真实笔记链接。 -->
-            <a class="xhs-card" href="https://xhslink.cn/o/99V7EXYJ8Wg" target="_blank" rel="noopener">
-                <div class="xhs-platform">小红书 · NOTE</div>
+        <!-- XHS note -->
+        <div class="strip-title"><span class="no">04</span><h2 data-i18n="yao.s5Title">过程笔记</h2><span class="tail"></span></div>
+        <a class="xhs-feature" href="https://xhslink.cn/o/99V7EXYJ8Wg" target="_blank" rel="noopener">
+            <img class="xhs-thumb" src="images/yao-lineup.jpg" alt="小红书笔记封面：四人定装照" loading="lazy">
+            <div class="xhs-body">
+                <div class="xhs-platform">小红书 · <span data-i18n="yao.xhsStatus1">已发布 · 2026.09</span></div>
                 <div class="xhs-title" data-i18n="yao.xhs1">我把《西游记》女妖做成了 K-pop 女团</div>
-                <div class="xhs-status" data-i18n="yao.xhsStatus1">已发布 · 2026.09</div>
-            </a>
-            <a class="xhs-card" href="https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021" target="_blank" rel="noopener">
-                <div class="xhs-platform">小红书 · NOTE</div>
-                <div class="xhs-title" data-i18n="yao.xhs2">36 个脚本，一个女团：全管线</div>
-                <div class="xhs-status" data-i18n="yao.xhsStatus2">链接待补</div>
-            </a>
-            <a class="xhs-card" href="https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021" target="_blank" rel="noopener">
-                <div class="xhs-platform">小红书 · NOTE</div>
-                <div class="xhs-title" data-i18n="yao.xhs3">Shorts A/B 实验：钩子先行 vs 直接开唱</div>
-                <div class="xhs-status" data-i18n="yao.xhsStatus3">随数据一起发</div>
-            </a>
-        </div>
+                <div class="xhs-cta" data-i18n="yao.xhsHint">在小红书阅读完整笔记 →</div>
+            </div>
+        </a>
 
         <!-- Collapsible full story (SEO/GEO text) -->
         <div class="story-block">
@@ -575,10 +568,7 @@ const translations = {
         'yao.s5Title': 'Process Notes',
         'yao.xhs1': 'I turned Journey to the West\'s demon women into a K-pop girl group',
         'yao.xhsStatus1': 'Live · 2026.09',
-        'yao.xhs2': '36 scripts, one girl group: the full pipeline',
-        'yao.xhsStatus2': 'Link pending',
-        'yao.xhs3': 'Shorts A/B: hook-first vs sing-first',
-        'yao.xhsStatus3': 'Publishes with the data',
+        'yao.xhsHint': 'Read the full note on Xiaohongshu →',
         'yao.storySummary': 'The Making · full story',
         'yao.s1Title': 'It Started With Anger, Not a Song',
         'yao.s1P1': 'At 2 a.m. on September 20, a 313MB file landed in output/mv-v9/deliverables/. CALL_ME_YAO_FULL_1080p_v9.mp4, 214.08 seconds. Counting from that morning, it was the ninth edit. On my third watch I laughed out loud. Then I went back and nudged the subtitle purple again.',
@@ -629,10 +619,7 @@ const translations = {
         'yao.s5Title': '过程笔记',
         'yao.xhs1': '我把《西游记》女妖做成了 K-pop 女团',
         'yao.xhsStatus1': '已发布 · 2026.09',
-        'yao.xhs2': '36 个脚本，一个女团：全管线',
-        'yao.xhsStatus2': '链接待补',
-        'yao.xhs3': 'Shorts A/B 实验：钩子先行 vs 直接开唱',
-        'yao.xhsStatus3': '随数据一起发',
+        'yao.xhsHint': '在小红书阅读完整笔记 →',
         'yao.storySummary': '制作故事 · 完整版',
         'yao.s1Title': '先有气，后有歌',
         'yao.s1P1': '9 月 20 日凌晨，output/mv-v9/deliverables/ 里多了一个 313MB 的文件。CALL_ME_YAO_FULL_1080p_v9.mp4，214.08 秒。从当天早上算起，这是第九版。看到第三遍，我笑出了声，笑完接着回去把字幕的紫色又调了一遍。',
