@@ -235,15 +235,8 @@
         .pipe-chip .name { font-size: 15px; font-weight: 700; margin-top: 4px; }
         .pipe-chip .tool { font-size: 11px; color: var(--text-tertiary); margin-top: 3px; font-family: var(--font-mono); }
 
-        .cost-chips { display: flex; gap: 10px; flex-wrap: wrap; }
-        .cost-chip {
-            display: inline-flex; align-items: baseline; gap: 8px;
-            background: linear-gradient(145deg, rgba(124,92,240,0.09), rgba(124,92,240,0.02));
-            border: 1px solid rgba(167,139,250,0.14); border-radius: 999px; padding: 10px 18px;
-        }
-        .cost-chip .what { font-size: 13px; color: var(--text-secondary); }
-        .cost-chip .how { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--accent-light); }
-        .cost-total { margin-top: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); text-align: center; }
+        .creed { max-width: 640px; margin: 26px auto 0; text-align: center; font-size: 15px; color: var(--text-secondary); line-height: 1.85; }
+        .creed strong { color: var(--silver); font-weight: 600; }
 
         .xhs-feature {
             display: flex; align-items: stretch; gap: 20px; text-decoration: none;
@@ -460,17 +453,12 @@
         <div class="pipe-row">
             <div class="pipe-chip"><div class="step">01</div><div class="name" data-i18n="yao.pipe1">词曲</div><div class="tool">Suno v6</div></div>
             <div class="pipe-chip"><div class="step">02</div><div class="name" data-i18n="yao.pipe2">定装</div><div class="tool">ChatGPT ×17</div></div>
-            <div class="pipe-chip"><div class="step">03</div><div class="name" data-i18n="yao.pipe3">视频</div><div class="tool">Kling + H3</div></div>
+            <div class="pipe-chip"><div class="step">03</div><div class="name" data-i18n="yao.pipe3">视频</div><div class="tool">Kling · MiniMax-H3</div></div>
             <div class="pipe-chip"><div class="step">04</div><div class="name" data-i18n="yao.pipe4">剪辑</div><div class="tool">FFmpeg · 9版</div></div>
             <div class="pipe-chip"><div class="step">05</div><div class="name" data-i18n="yao.pipe5">质检</div><div class="tool">validation.json</div></div>
         </div>
         <div style="margin-top:14px;"></div>
-        <div class="cost-chips">
-            <span class="cost-chip"><span class="what">MiniMax-H3</span><span class="how">¥155.7</span></span>
-            <span class="cost-chip"><span class="what" data-i18n="yao.costKling">Kling</span><span class="how">40 灵感值</span></span>
-            <span class="cost-chip"><span class="what">Suno</span><span class="how">2 unlocks</span></span>
-        </div>
-        <p class="cost-total" data-i18n="yao.costTotal">Under ¥200 cash for a 1080p debut. The priciest thing here was my sleep schedule.</p>
+        <p class="creed" data-i18n="yao.creed">做妖精，不做神仙。神仙的故事讲了一千年，妖的案卷没人翻过。这个企划想做的，就是让四个被定义了几百年的女人自己开口，唱自己的案子。2026 年，这件事一个人加一套 AI 工具就能做完，词曲、定装、生成、剪辑、发布，全流程 Suno、Kling、MiniMax、FFmpeg。</p>
 
         <!-- XHS note -->
         <div class="strip-title"><span class="no">04</span><h2 data-i18n="yao.s5Title">过程笔记</h2><span class="tail"></span></div>
@@ -563,8 +551,7 @@ const translations = {
         'yao.gCap7': 'End card · 妖',
         'yao.pipeTitle': 'One Person, Full Pipeline',
         'yao.pipe1': 'Track', 'yao.pipe2': 'Costume', 'yao.pipe3': 'Video', 'yao.pipe4': 'Edit', 'yao.pipe5': 'QC',
-        'yao.costKling': 'Kling',
-        'yao.costTotal': 'Under ¥200 cash for a 1080p debut. The priciest thing here was my sleep schedule.',
+        'yao.creed': 'Make demons, not immortals. The immortals\' stories have been told for a thousand years; nobody ever opened the demons\' case files. This project lets four women who\'ve been defined for centuries speak for themselves and sing their own cases. In 2026 that takes one person and one AI stack — lyrics, costume, generation, editing, release, end to end on Suno, Kling, MiniMax and FFmpeg.',
         'yao.s5Title': 'Process Notes',
         'yao.xhs1': 'I turned Journey to the West\'s demon women into a K-pop girl group',
         'yao.xhsStatus1': 'Live · 2026.09',
@@ -614,8 +601,7 @@ const translations = {
         'yao.gCap7': '片尾落版 · 妖',
         'yao.pipeTitle': '一个人，全流程',
         'yao.pipe1': '词曲', 'yao.pipe2': '定装', 'yao.pipe3': '视频', 'yao.pipe4': '剪辑', 'yao.pipe5': '质检',
-        'yao.costKling': '可灵',
-        'yao.costTotal': '两百块以内的现金，一支 1080p 出道。这个项目最贵的是我的作息。',
+        'yao.creed': '做妖精，不做神仙。神仙的故事讲了一千年，妖的案卷没人翻过。这个企划想做的，就是让四个被定义了几百年的女人自己开口，唱自己的案子。2026 年，这件事一个人加一套 AI 工具就能做完，词曲、定装、生成、剪辑、发布，全流程 Suno、Kling、MiniMax、FFmpeg。',
         'yao.s5Title': '过程笔记',
         'yao.xhs1': '我把《西游记》女妖做成了 K-pop 女团',
         'yao.xhsStatus1': '已发布 · 2026.09',
