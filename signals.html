@@ -12,221 +12,1395 @@
       gtag("config", "G-M8F4G6B3C6");
     }
   </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signals AI · Trustworthy Agentic AI for Science | Joey Zhao</title>
-  <meta name="description" content="How Joey Zhao designed Signals AI at Revvity Signals: a native agentic framework where every answer is traceable — semantic search, transparent AI filters, and an AI embedded in scientists' real workflows.">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Signals AI — every answer traceable to source experiments.">
-  <meta property="og:description" content="A native agentic framework on the Signals One platform, publicly launched June 2026. Design case study by Joey Zhao.">
-  <meta property="og:url" content="https://joeyzhao.cc/signals">
-  <meta property="og:image" content="https://joeyzhao.cc/images/signalsai-02-explorer.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://joeyzhao.cc/signals">
-  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="cursor.css">
-  <script src="cursor.js" defer></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Signals AI","alternateName":"explorer AI","description":"A native agentic framework on the Revvity Signals One platform, designed so every AI answer stays traceable to source experiments. Publicly launched June 22, 2026.","url":"https://joeyzhao.cc/signals","image":"https://joeyzhao.cc/images/signalsai-02-explorer.png","dateModified":"2026-09-18","inLanguage":["zh-CN","en"],"creator":{"@type":"Person","name":"Joey Zhao","jobTitle":"Senior Product Designer, Revvity Signals","url":"https://joeyzhao.cc/"}}</script>
-  <style>
-    :root{--teal:#0e7490;--teal-bright:#3fd6c6;--violet:#8b5cf6;--dark:#0a1214;--dark-2:#101a1d;--paper:#f4f6f5;--white:#fff;--ink:#0c1213;--muted:#5d6a68;--line:#d9dfde;--font:'Manrope','Noto Sans SC',sans-serif;--zh:'Noto Sans SC','Manrope',sans-serif;--mono:'IBM Plex Mono',monospace}
-    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.6;padding-top:52px}html[lang="zh-CN"] body{font-family:var(--zh)}::selection{background:var(--teal);color:#fff}a{color:inherit}
-    .topbar{position:fixed;inset:0 0 auto;z-index:50;height:52px;background:rgba(10,18,20,.9);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(63,214,198,.16)}.topbar-inner{max-width:1200px;height:100%;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}.back{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 6px;border-radius:10px;color:#8fa5a2;font-size:14px;font-weight:500;text-decoration:none;transition:color .28s,background .28s}.back:hover{color:var(--teal-bright);background:rgba(63,214,198,.08)}.back svg{width:16px;height:16px}.lang{display:flex;align-items:center;gap:4px}.lang span{color:#4a5b59;font-size:13px}.lang button{min-width:44px;min-height:44px;border:0;border-radius:22px;background:transparent;padding:8px 12px;color:#8fa5a2;font:500 14px var(--font);cursor:pointer;transition:color .28s,background .28s}.lang button:hover{color:var(--teal-bright);background:rgba(63,214,198,.08)}.lang button.active{color:var(--teal-bright);font-weight:700}
-    .page{max-width:1440px;margin:auto;background:var(--white);border-left:1px solid var(--line);border-right:1px solid var(--line)}.hero{display:block;border-bottom:1px solid var(--line)}.hero-copy{min-height:610px;background:var(--dark);color:#fff;padding:68px 72px 72px;position:relative;overflow:hidden}.hero-copy:before{content:"";position:absolute;top:-30%;right:-10%;width:60%;height:140%;background:radial-gradient(ellipse at center,rgba(63,214,198,.14),transparent 60%);pointer-events:none}.hero-brand{display:flex;align-items:center;gap:14px;margin-bottom:32px;position:relative}.brand-mark{width:52px;height:52px;border-radius:13px;flex:0 0 52px;background:linear-gradient(135deg,#16302f,#0c1c1e);border:1px solid rgba(63,214,198,.3);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.4)}.brand-mark svg{width:26px;height:26px}.hero-brand strong{display:block;font-size:20px;line-height:1.1;letter-spacing:-.03em}.hero-brand span{display:block;margin-top:6px;color:var(--teal-bright);font:500 9px var(--mono);letter-spacing:.12em}.folio{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--teal-bright);position:relative}.hero h1{max-width:1180px;margin-top:38px;font-size:clamp(56px,7.2vw,104px);font-weight:300;line-height:.98;letter-spacing:-.06em;position:relative;text-wrap:balance}.hero h1 em{display:block;color:var(--teal-bright);font-style:normal}.hero-story{max-width:830px;margin-top:42px;font-size:18px;line-height:1.78;color:rgba(255,255,255,.78);position:relative}.hero-story strong{color:#fff}.hero-cta{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:14px 20px;background:var(--teal-bright);color:var(--dark);font-size:14px;font-weight:700;text-decoration:none;width:max-content;transition:transform .2s,box-shadow .2s,background .2s;position:relative}.hero-cta:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(63,214,198,.3);background:#63e4d5}.hero-visual{position:relative;background:var(--dark);overflow:hidden}.hero-visual img{width:100%;height:auto;display:block}.image-tag{position:absolute;left:18px;bottom:18px;background:rgba(10,18,20,.85);color:var(--teal-bright);padding:7px 10px;font:400 10px var(--mono);letter-spacing:.06em}
-    .case-meta{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}.meta-cell{padding:24px 28px;border-right:1px solid var(--line)}.meta-cell:last-child{border-right:0}.meta-label{font:500 10px var(--mono);color:var(--teal);letter-spacing:.1em;text-transform:uppercase}.meta-value{margin-top:7px;font-size:15px;font-weight:600}
-    .section{padding:86px 72px;border-bottom:1px solid var(--line)}.section.dark{background:var(--dark);color:#fff}.section-head{display:grid;grid-template-columns:220px 1fr;gap:40px;margin-bottom:48px}.section-index{font:500 11px var(--mono);color:var(--teal);letter-spacing:.12em;text-transform:uppercase}.dark .section-index{color:var(--teal-bright)}.section-title{font-size:clamp(38px,5vw,72px);font-weight:300;line-height:1.08;letter-spacing:-.06em;max-width:1000px;text-wrap:balance}.section-title strong{font-weight:500;color:var(--teal)}.dark .section-title strong{color:var(--teal-bright)}.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px}.copy{color:var(--muted);font-size:16px;line-height:1.85}.copy p+p{margin-top:18px}.copy strong{color:var(--ink)}.dark .copy{color:rgba(255,255,255,.7)}.dark .copy strong{color:#fff}.quote{font-size:clamp(24px,3vw,40px);font-weight:300;line-height:1.35;letter-spacing:-.035em;border-left:4px solid var(--teal);padding-left:24px}.dark .quote{border-left-color:var(--teal-bright)}
-    .evidence-row{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border-top:2px solid var(--teal);border-bottom:1px solid var(--line)}.evidence{padding:25px 20px;min-height:160px;border-right:1px solid var(--line)}.evidence:last-child{border-right:0;background:var(--dark);color:#fff}.evidence-number{font-size:50px;font-weight:300;line-height:1;letter-spacing:-.05em}.evidence:last-child .evidence-number{color:var(--teal-bright)}.evidence-label{display:block;margin-top:14px;font:500 10px var(--mono);color:var(--teal);letter-spacing:.08em}.evidence:last-child .evidence-label{color:var(--teal-bright)}.evidence p{margin-top:7px;color:var(--muted);font-size:12px;line-height:1.55}.evidence:last-child p{color:rgba(255,255,255,.72)}.evidence-note{margin-top:12px;color:#777f7e;font-size:11px}
-    .role-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-top:44px}.role-cell{padding:22px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.role-cell:nth-child(2n){border-right:1px solid var(--line)}.role-cell:nth-child(4n){border-right:0}.role-cell:nth-child(n+5){border-bottom:0}.role-label{font:500 10px var(--mono);color:var(--teal);letter-spacing:.1em;text-transform:uppercase}.role-value{margin-top:8px;font-size:14px;line-height:1.65;color:#3d4745}
-    .note-box{margin-top:26px;padding:20px 22px;border-left:3px solid var(--teal);background:#eef3f2;color:#4d5957;font-size:14px;line-height:1.75}.note-box strong{color:var(--ink)}
-    .point-grid{display:grid;grid-template-columns:repeat(2,1fr);margin-top:44px;border-top:2px solid var(--teal)}.point{padding:28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.point:nth-child(2n){border-right:0}.point-no{font:500 10px var(--mono);color:var(--teal);letter-spacing:.1em}.point h3{margin-top:16px;font-size:24px;font-weight:400;letter-spacing:-.035em}.point p{margin-top:10px;color:var(--muted);font-size:14px;line-height:1.75}
-    .comp-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:44px;border-top:2px solid var(--teal)}.comp{padding:28px 26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.comp:last-child{border-right:0}.comp-name{font-size:26px;font-weight:400;letter-spacing:-.03em}.comp p{margin-top:14px;font-size:13.5px;line-height:1.7}.comp .pro{color:#2f6b4f}.comp .con{color:#9b4444;margin-top:8px}
-    .decision-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--teal);margin-bottom:42px}.decision{padding:26px 24px;border-right:1px solid var(--line);background:#ecf0ef}.decision:last-child{background:var(--dark);color:#fff;border-right:0}.decision small{font:500 10px var(--mono);letter-spacing:.1em;color:var(--teal)}.decision:last-child small{color:var(--teal-bright)}.decision h3{margin-top:34px;font-size:27px;font-weight:400;letter-spacing:-.04em}.decision p{margin-top:14px;font-size:13px;line-height:1.7;color:#5b6360}.decision:last-child p{color:rgba(255,255,255,.75)}
-    .trade-stack{margin-top:44px;border-top:2px solid var(--teal)}.trade{padding:22px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:230px 1fr;gap:26px}.trade span{font:500 10px var(--mono);color:var(--teal);letter-spacing:.1em;text-transform:uppercase;padding-top:4px}.trade p{color:var(--muted);font-size:15px;line-height:1.75}
-    .process-strip{display:grid;grid-template-columns:repeat(5,1fr);margin-top:44px;border:1px solid var(--line)}.process{padding:22px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.process:last-child{border-right:0}.process-no{font-size:30px;font-weight:300;color:var(--teal);letter-spacing:-.04em}.process-label{margin-top:10px;font-size:13.5px;font-weight:600;line-height:1.4}
-    .shot{display:block;margin-top:26px;border:1px solid var(--line);background:var(--dark)}.shot img{display:block;width:100%;height:auto}.shot figcaption{padding:14px 20px;border-top:1px solid var(--line);background:#fafbfb;font-size:13.5px;color:var(--muted);line-height:1.6}.shot figcaption strong{color:var(--ink)}
-    .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);margin-top:44px;border-top:2px solid var(--teal)}.feat{padding:28px 26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.feat:nth-child(2n){border-right:0}.feat h3{font-size:23px;font-weight:400;letter-spacing:-.03em}.feat h3 em{font:500 10px var(--mono);font-style:normal;color:var(--teal);letter-spacing:.1em;display:block;margin-bottom:10px}.feat p{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.75}
-    .cap-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:34px;border-top:2px solid var(--teal-bright)}.cap{padding:25px 22px;min-height:170px;border-right:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16)}.cap:last-child{border-right:0;background:var(--teal-bright);color:var(--dark)}.cap-name{font:500 10px var(--mono);letter-spacing:.12em;color:var(--teal-bright)}.cap:last-child .cap-name{color:var(--dark)}.cap h3{font-size:24px;font-weight:300;margin-top:20px}.cap p{font-size:12px;margin-top:8px;color:rgba(255,255,255,.62)}.cap:last-child p{color:#0c2e2a}
-    .visual-split{display:block;margin-top:46px;border:1px solid #223133}.visual-split figure{position:relative;background:var(--dark)}.visual-split img{width:100%;height:auto;display:block}.visual-copy{padding:48px;background:var(--dark-2)}.visual-copy h3{font-size:38px;font-weight:300;line-height:1.2;letter-spacing:-.045em}.visual-copy p{margin-top:22px;color:#a3b3b0;line-height:1.85}.rule-stack{margin-top:30px;border-top:1px solid #26383a}.rule{padding:18px 0;border-bottom:1px solid #26383a;display:flex;justify-content:space-between;gap:16px}.rule span{font:400 10px var(--mono);color:var(--teal-bright)}.rule strong{font-weight:400;text-align:right;color:#fff}
-    .mistake{display:grid;grid-template-columns:.9fr 1.1fr}.mistake-copy{padding:68px 54px;background:#fff}.mistake-copy h2{font-size:clamp(40px,5vw,72px);font-weight:300;line-height:1.05;letter-spacing:-.06em}.mistake-copy p{margin-top:26px;color:#555f5d;font-size:16px;line-height:1.85}.mistake-copy strong{color:#000}.mistake-proof{background:var(--dark);color:#fff;padding:68px 54px;display:flex;flex-direction:column;justify-content:space-between}.mistake-proof blockquote{font-size:27px;font-weight:300;line-height:1.5;color:#fff}.mistake-proof blockquote em{color:var(--teal-bright);font-style:normal}.mistake-proof .proof-line{font:400 11px var(--mono);color:var(--teal-bright)}.evidence-links{margin-top:30px;border-top:1px solid #26383a}.evidence-links a{display:flex;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid #26383a;color:#c6d4d1;text-decoration:none;font:400 12px var(--mono);transition:color .2s}.evidence-links a:hover{color:var(--teal-bright)}.evidence-links a span{color:var(--teal-bright)}
-    .screen-feature{display:block;margin-top:46px;border:1px solid var(--line)}.screen-feature figure{position:relative;background:var(--dark);overflow:hidden}.screen-feature img{display:block;width:100%;height:auto}.screen-feature .feat-copy{padding:38px 46px;background:#fafbfb;display:grid;grid-template-columns:220px 1fr;gap:40px;border-top:1px solid var(--line);align-items:start}.screen-feature .kicker{font:500 10px var(--mono);color:var(--teal);letter-spacing:.12em;text-transform:uppercase}.screen-feature h3{margin-top:12px;font-size:25px;font-weight:500;line-height:1.22;letter-spacing:-.025em;color:var(--ink)}.screen-feature p{color:var(--muted);line-height:1.82;font-size:15px}.status-card{border-top:2px solid var(--teal);padding-top:24px;margin-top:40px}.status-card h3{font-size:25px;font-weight:400}.status-card p{margin-top:12px;color:#66706e;line-height:1.8;max-width:820px}.status-list{display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;border-bottom:1px solid var(--line)}.status-item{display:flex;justify-content:space-between;gap:16px;padding:16px;border-top:1px solid var(--line);border-right:1px solid var(--line);font-size:13px}.status-item:last-child{border-right:0}.status-item span{font-family:var(--mono);color:var(--teal)}
-    .final{display:grid;grid-template-columns:1fr 1fr}.final-copy{padding:80px 58px;background:var(--dark);color:#fff}.final-copy h2{font-size:clamp(48px,6vw,86px);font-weight:300;line-height:1.04;letter-spacing:-.065em}.final-copy h2 em{color:var(--teal-bright);font-style:normal}.final-copy p{margin-top:22px;color:rgba(255,255,255,.72);max-width:550px}.final-actions{padding:80px 58px;background:#fff;color:#000;display:flex;flex-direction:column;justify-content:center;gap:14px}.final-actions .hero-cta{background:var(--teal-bright);color:var(--dark);font-size:16px}.proof-link{display:inline-flex;justify-content:space-between;gap:14px;padding:13px 2px;border-bottom:1px solid var(--line);color:#3d4a48;text-decoration:none;font:400 12px var(--mono);transition:color .2s,border-color .2s}.proof-link:hover{color:var(--teal);border-color:var(--teal)}.proof-link span{color:var(--teal)}.bottom{padding:28px;text-align:center;font:400 11px var(--mono);background:#fff;color:#99a29f}.bottom a{text-decoration:none;color:var(--teal)}
-    @media(max-width:800px){body{padding-top:52px}.topbar{height:52px}.topbar-inner{padding:0 15px}.page{border:0}.hero-copy{min-height:0;padding:54px 24px 48px}.hero h1{margin-top:26px;font-size:44px}.hero-story{margin-top:30px;font-size:16px}.image-tag{position:static;background:var(--dark)}.case-meta{grid-template-columns:1fr 1fr}.meta-cell:nth-child(2){border-right:0}.meta-cell{border-bottom:1px solid var(--line)}.section{padding:58px 24px}.section-head,.lead-grid,.mistake,.final{grid-template-columns:1fr}.section-head{gap:16px}.section-title{font-size:38px}.evidence-row,.decision-grid,.cap-grid,.status-list,.role-grid,.point-grid,.comp-grid,.feat-grid,.process-strip{grid-template-columns:1fr}.evidence,.decision,.cap,.status-item,.role-cell,.point,.comp,.feat,.process{border-right:0}.trade{grid-template-columns:1fr;gap:8px}.screen-feature .feat-copy{grid-template-columns:1fr;gap:16px}.visual-copy{padding:34px 24px}.final-copy,.final-actions,.mistake-copy,.mistake-proof{padding:54px 24px}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signals Notebook UX Case Study | Joey Zhao</title>
+    <meta name="description" content="Signals Notebook — a lineage visualization case study for global pharma R&D teams. Cut tracing time 66% (2h to 40min) in task-based usability checks. Designed and shipped by Joey Zhao.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Signals Notebook UX Case Study | Joey Zhao">
+    <meta property="og:description" content="Enterprise UX case study: lineage visualization that cut tracing time 66% for global pharma R&D teams. Designed by Joey Zhao.">
+    <meta property="og:url" content="https://joeyzhao.cc/signals">
+    <meta property="og:image" content="https://joeyzhao.cc/images/page14_img1.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://joeyzhao.cc/signals">
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="favicon.png" sizes="512x512" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Fonts loaded via <link> in <head> for performance */
+        :root {
+            --bg: #000;
+            --bg-secondary: #0d0d0d;
+            --bg-elevated: #1a1a1a;
+            --bg-card: #141414;
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --text-tertiary: #6e6e73;
+            --accent: #a855f7;
+            --accent-light: #c084fc;
+            --blue: #2997ff;
+            --border: rgba(255,255,255,0.08);
+            --font: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text-primary); line-height: 1.5; }
+        body.modal-open { overflow: hidden; }
+        ::selection { background: color-mix(in oklab, var(--accent) 78%, black); color: var(--text-primary); }
+        a,
+        button {
+            outline: none;
+        }
+        a:focus-visible,
+        button:focus-visible {
+            box-shadow: 0 0 0 2px color-mix(in oklab, var(--bg) 55%, transparent), 0 0 0 4px color-mix(in oklab, var(--accent) 76%, transparent);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 52px;
+            background: rgba(0,0,0,0.85); backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; width: 100%; padding: 0 24px; }
+        .logo { font-size: 18px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; }
+        .nav-links { display: flex; gap: 8px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; padding: 8px 16px; border-radius: 20px; transition: all 0.3s; }
+        .nav-links a:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .nav-links a.resume-btn { background: var(--accent); color: white; font-weight: 500; }
+        .nav-links a.resume-btn:hover { background: var(--accent-light); }
+
+        .lang-toggle { display: flex; align-items: center; gap: 4px; margin-left: 16px; }
+        .lang-toggle button { background: none; border: none; color: var(--text-secondary); font-size: 14px; padding: 8px 12px; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-family: var(--font); }
+        .lang-toggle button:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle button.active { color: var(--text-primary); font-weight: 600; }
+        .lang-toggle span { color: var(--text-tertiary); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 120px 24px 80px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.15) 0%, transparent 60%);
+        }
+        .hero-content { max-width: 900px; text-align: center; }
+        .hero-photo {
+            width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 40px;
+            background-size: cover; background-position: center center;
+            box-shadow: 0 0 80px rgba(168, 85, 247, 0.4);
+            opacity: 0; animation: fadeUp 1s ease 0.1s forwards;
+        }
+        .hero-title { font-size: clamp(56px, 12vw, 100px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin-bottom: 20px; opacity: 0; animation: fadeUp 1s ease 0.2s forwards; }
+        .hero-subtitle { font-size: clamp(20px, 3vw, 28px); font-weight: 400; color: var(--text-secondary); margin-bottom: 48px; opacity: 0; animation: fadeUp 1s ease 0.3s forwards; }
+        .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s ease 0.4s forwards; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; text-decoration: none; padding: 14px 28px; border-radius: 980px; font-weight: 500; transition: all 0.3s; }
+        .btn-primary { background: var(--text-primary); color: var(--bg); }
+        .btn-primary:hover { transform: scale(1.05); }
+        .btn-secondary { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--bg-card); border-color: var(--text-tertiary); }
+        .btn svg { width: 16px; height: 16px; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Sections */
+        #projects { padding: 120px 24px; background: var(--bg); }
+        .section-header { max-width: 800px; margin: 0 auto 80px; }
+        .section-eyebrow { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; }
+        .section-title { font-size: clamp(36px, 5vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+        .projects-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .project-card { position: relative; aspect-ratio: 16/10; border-radius: 20px; overflow: hidden; cursor: pointer; background: var(--bg-card); }
+        .project-card-bg { position: absolute; inset: 0; background-size: cover; background-position: center center; transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.6s; opacity: 0.9; }
+        .project-card:hover .project-card-bg { transform: scale(1.08); opacity: 1; }
+        .project-card-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%); }
+        .project-card-content { position: absolute; inset: 0; padding: 32px; display: flex; flex-direction: column; justify-content: flex-end; z-index: 1; }
+        .project-tag { display: inline-block; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; width: fit-content; }
+        .project-title { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+        .project-subtitle { font-size: 15px; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+        .project-metric { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--accent-light); font-weight: 500; }
+        .project-metric svg { width: 14px; height: 14px; }
+
+        /* Skills */
+        #skills { padding: 120px 24px; background: var(--bg-secondary); }
+        .skills-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+        .skill-category h3 { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+        .skill-list { list-style: none; }
+        .skill-list li { font-size: 15px; color: var(--text-secondary); padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .skill-list li:last-child { border-bottom: none; }
+
+        /* Music */
+        #music { padding: 120px 24px; background: var(--bg-secondary); }
+        .music-content { max-width: 900px; margin: 0 auto; }
+        .music-album { display: flex; gap: 48px; align-items: flex-start; margin-top: 60px; }
+        .music-cover { flex-shrink: 0; }
+        .music-cover img { width: 280px; height: 280px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+        .music-info { flex: 1; }
+        .music-album-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .music-artist { font-size: 18px; color: var(--accent); margin-bottom: 16px; }
+        .music-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 32px; }
+        .music-tracks { list-style: none; }
+        .music-track { display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--bg-elevated); border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border); }
+        .music-track:hover { background: var(--bg-card); border-color: var(--accent); transform: translateX(4px); }
+        .music-track-number { width: 32px; height: 32px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+        .music-track-info { flex: 1; }
+        .music-track-name { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+        .music-track-meta { font-size: 13px; color: var(--text-tertiary); }
+        .music-play-icon { width: 20px; height: 20px; color: var(--accent); }
+        .music-player-container { margin-top: 24px; background: var(--bg-elevated); border-radius: 12px; padding: 16px; border: 1px solid var(--border); }
+        .music-player-title { font-size: 13px; color: var(--text-tertiary); margin: 0; }
+        .music-external-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; color: var(--accent); text-decoration: none; font-size: 14px; transition: all 0.3s; }
+        .music-external-link:hover { color: var(--accent-light); }
+        .music-external-link svg { width: 16px; height: 16px; }
+        @media (max-width: 768px) { .music-album { flex-direction: column; align-items: center; text-align: center; } .music-cover img { width: 200px; height: 200px; } }
+
+        /* Contact */
+        #contact { padding: 120px 24px; background: var(--bg); text-align: center; }
+        .contact-title { font-size: clamp(40px, 8vw, 64px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 20px; }
+        .contact-desc { font-size: 18px; color: var(--text-secondary); max-width: 500px; margin: 0 auto 48px; }
+        .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .contact-link { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 16px 24px; background: var(--bg-elevated); border-radius: 12px; transition: all 0.3s; border: 1px solid var(--border); }
+        .contact-link:hover { background: var(--bg-card); transform: translateY(-2px); border-color: var(--accent); }
+        .contact-link svg { width: 20px; height: 20px; stroke: var(--accent); }
+        .contact-link span { font-size: 15px; color: var(--text-primary); }
+
+        /* Footer */
+        footer { padding: 24px; background: var(--bg); border-top: 1px solid var(--border); text-align: center; }
+        .footer-text { font-size: 13px; color: var(--text-tertiary); }
+
+        /* Resume Modal */
+        .resume-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.4s; overflow-y: auto; }
+        .resume-overlay.active { opacity: 1; visibility: visible; }
+        .resume-container { max-width: 900px; margin: 0 auto; padding: 80px 24px; transform: translateY(30px); transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1); }
+        .resume-overlay.active .resume-container { transform: translateY(0); }
+        .resume-close { position: fixed; top: 24px; right: 24px; width: 48px; height: 48px; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001; transition: all 0.3s; }
+        .resume-close:hover { background: var(--bg-card); border-color: var(--accent); }
+        .resume-close svg { width: 20px; height: 20px; stroke: var(--text-primary); }
+        .resume-header { text-align: center; margin-bottom: 80px; padding-top: 20px; }
+        .resume-photo { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 24px; background-size: cover; background-position: center center; box-shadow: 0 0 60px rgba(168, 85, 247, 0.3); }
+        .resume-name { font-size: 48px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+        .resume-title { font-size: 20px; color: var(--accent); margin-bottom: 16px; }
+        .resume-bio { font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+        .resume-contact-row { display: flex; justify-content: center; gap: 24px; margin-top: 24px; flex-wrap: wrap; }
+        .resume-contact-item { font-size: 14px; color: var(--text-tertiary); display: flex; align-items: center; gap: 6px; }
+        .resume-contact-item svg { width: 14px; height: 14px; stroke: var(--accent); }
+        .resume-section { margin-bottom: 64px; }
+        .resume-section-title { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .exp-item { padding: 32px 0; border-bottom: 1px solid var(--border); }
+        .exp-item:last-child { border-bottom: none; }
+        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+        .exp-company { font-size: 24px; font-weight: 600; }
+        .exp-date { font-size: 13px; color: var(--text-tertiary); background: var(--bg-elevated); padding: 6px 14px; border-radius: 20px; }
+        .exp-role { font-size: 16px; color: var(--accent); margin-bottom: 6px; }
+        .exp-location { font-size: 14px; color: var(--text-tertiary); margin-bottom: 16px; }
+        .exp-list { list-style: none; }
+        .exp-list li { font-size: 15px; color: var(--text-secondary); line-height: 1.7; padding: 10px 0; padding-left: 20px; position: relative; }
+        .exp-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+        .exp-metric { color: var(--text-primary); font-weight: 600; }
+        .edu-grid { display: grid; gap: 24px; }
+        .edu-card { background: var(--bg-elevated); border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .edu-badge { display: inline-block; background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+        .edu-degree { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+        .edu-school { font-size: 16px; color: var(--accent); margin-bottom: 8px; }
+        .edu-date { font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px; }
+        .edu-detail { font-size: 14px; color: var(--text-secondary); }
+        .skills-resume-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+        .skill-resume-category { background: var(--bg-elevated); border-radius: 16px; padding: 28px; border: 1px solid var(--border); }
+        .skill-resume-category h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-tag { background: var(--bg-card); padding: 8px 14px; border-radius: 8px; font-size: 13px; color: var(--text-secondary); }
+
+        /* Project Modal - Enhanced */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.4s; overflow-y: auto; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-container { max-width: 1000px; margin: 40px auto; background: var(--bg-secondary); border-radius: 24px; overflow: hidden; border: 1px solid var(--border); transform: scale(0.95) translateY(20px); transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1); }
+        .modal-overlay.active .modal-container { transform: scale(1) translateY(0); }
+        .modal-close { position: fixed; top: 24px; right: 24px; width: 48px; height: 48px; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001; }
+        .modal-close:hover { background: var(--bg-card); border-color: var(--accent); }
+        .modal-close svg { width: 20px; height: 20px; stroke: var(--text-primary); }
+        .modal-hero-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .modal-header { padding: 48px 48px 32px; text-align: center; }
+        .modal-eyebrow { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+        .modal-title { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+        .modal-subtitle { font-size: 18px; color: var(--text-secondary); margin-bottom: 24px; }
+        .modal-meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .modal-meta-item { text-align: center; }
+        .modal-meta-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .modal-meta-value { font-size: 15px; font-weight: 500; margin-top: 4px; }
+        .modal-body { padding: 0 48px 60px; }
+        .modal-section { margin-bottom: 48px; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .modal-section-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary); }
+        .modal-section p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+        .modal-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+        .modal-metric { background: var(--bg-elevated); border-radius: 16px; padding: 24px 16px; text-align: center; border: 1px solid transparent; transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.35s, box-shadow 0.35s; }
+        .modal-metric:hover { transform: translateY(-3px); border-color: rgba(168,85,247,0.28); box-shadow: 0 18px 45px rgba(0,0,0,0.22); }
+        .modal-metric.featured { background: linear-gradient(145deg, rgba(168,85,247,0.2), rgba(41,151,255,0.1)), var(--bg-elevated); border-color: rgba(168,85,247,0.42); box-shadow: 0 0 0 1px rgba(168,85,247,0.12), 0 22px 60px rgba(168,85,247,0.14); }
+        .modal-metric.featured .modal-metric-value { color: #fff; text-shadow: 0 0 24px rgba(168,85,247,0.55); }
+        .modal-metric-value { font-size: 28px; font-weight: 700; color: var(--accent); }
+        .modal-metric-label { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .modal-metric-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        .modal-list { list-style: none; }
+        .modal-list li { font-size: 15px; color: var(--text-secondary); padding: 14px 0; border-bottom: 1px solid var(--border); line-height: 1.6; }
+        .modal-list li:last-child { border-bottom: none; }
+        .modal-list li strong { color: var(--text-primary); font-weight: 500; }
+        .modal-image { width: 100%; border-radius: 12px; margin: 20px 0; cursor: zoom-in; transition: transform 0.3s ease; }
+        .modal-image:hover { transform: scale(1.01); }
+        .modal-image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+        .modal-image-grid img { width: 100%; border-radius: 12px; }
+        .modal-image-caption { font-size: 13px; color: var(--text-tertiary); text-align: center; margin-top: 8px; }
+        .modal-process { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 24px 0; padding: 24px; background: var(--bg-elevated); border-radius: 12px; }
+        .modal-process-step { padding: 10px 16px; background: var(--bg-card); border-radius: 8px; font-size: 13px; color: var(--text-secondary); }
+        .modal-process-step.highlight { background: var(--accent); color: white; }
+        .modal-process-arrow { color: var(--text-tertiary); font-size: 18px; }
+
+        /* Enhanced Project Case Study Styles */
+        .modal-tldr { background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(168,85,247,0.05)); border-left: 3px solid var(--accent); padding: 24px 28px; border-radius: 0 16px 16px 0; margin-bottom: 40px; }
+        .modal-tldr-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; }
+        .modal-tldr-text { font-size: 18px; font-weight: 500; color: var(--text-primary); line-height: 1.5; }
+        .case-storyline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: -16px 0 36px; }
+        .case-story-item { position: relative; background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 14px; padding: 18px; overflow: hidden; transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.35s, box-shadow 0.35s; }
+        .case-story-item::before { content: ''; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, var(--accent), var(--blue)); opacity: 0.7; }
+        .case-story-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.12) 48%, transparent 70%); transform: translateX(-130%); opacity: 0; pointer-events: none; transition: transform 0.75s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.35s; }
+        .case-story-item:hover { transform: translateY(-4px); border-color: rgba(168,85,247,0.32); box-shadow: 0 18px 45px rgba(0,0,0,0.22); }
+        .case-story-item:hover::after { opacity: 1; transform: translateX(130%); }
+        .case-story-kicker { display: block; font-size: 10px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .case-story-text { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+        .modal-role-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 24px 0; }
+        .modal-role-item { background: var(--bg-elevated); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+        .modal-role-label { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+        .modal-role-value { font-size: 15px; color: var(--text-primary); line-height: 1.5; }
+        .modal-insight { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 24px 0; border: 1px solid var(--border); }
+        .modal-insight-icon { font-size: 24px; margin-bottom: 12px; }
+        .modal-insight-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; font-style: italic; }
+        .modal-decision { background: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(41,151,255,0.04)); border-radius: 16px; padding: 28px 32px; margin: 28px 0 42px; border: 1px solid rgba(168,85,247,0.22); position: relative; overflow: hidden; transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.35s, box-shadow 0.35s; }
+        .modal-decision::after { content: ''; position: absolute; top: 18px; right: 22px; width: 78px; height: 78px; border-radius: 50%; background: radial-gradient(circle, rgba(168,85,247,0.25), transparent 70%); pointer-events: none; }
+        .modal-decision:hover { transform: translateY(-4px); border-color: rgba(168,85,247,0.42); box-shadow: 0 20px 55px rgba(0,0,0,0.26); }
+        .modal-decision-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .modal-decision-title { font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+        .modal-decision-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+        .case-reasoning { display: grid; grid-template-columns: 1.05fr 1fr; gap: 18px; margin: -18px 0 42px; }
+        .case-reasoning-card { background: rgba(255,255,255,0.028); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+        .case-reasoning-label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+        .case-reasoning-title { font-size: 17px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin-bottom: 10px; }
+        .case-reasoning-text { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
+        .case-tradeoff-list { display: grid; gap: 14px; }
+        .case-tradeoff-item { display: grid; grid-template-columns: 112px 1fr; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+        .case-tradeoff-item:last-child { padding-bottom: 0; border-bottom: 0; }
+        .case-tradeoff-label { font-size: 12px; font-weight: 700; color: var(--text-primary); line-height: 1.45; }
+        .case-tradeoff-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+        .modal-quote { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.4; margin: 32px 0; padding: 24px 32px; border-left: 4px solid var(--accent); background: var(--bg-elevated); border-radius: 0 12px 12px 0; }
+        .modal-challenge-list { list-style: none; margin: 20px 0; }
+        .modal-challenge-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+        .modal-challenge-list li:last-child { border-bottom: none; }
+        .modal-challenge-list li::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+        .modal-process-enhanced { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin: 32px 0; padding: 32px; background: var(--bg-elevated); border-radius: 16px; flex-wrap: wrap; border: 1px solid var(--border); position: relative; overflow: hidden; }
+        .modal-process-enhanced::before { content: ''; position: absolute; left: 8%; right: 8%; top: 52px; height: 1px; background: linear-gradient(90deg, transparent, rgba(168,85,247,0.5), rgba(41,151,255,0.42), transparent); opacity: 0.38; animation: processRailPulse 3s ease-in-out infinite; }
+        .modal-process-item { flex: 1; min-width: 120px; text-align: center; position: relative; z-index: 1; opacity: 0.58; transform: translateY(8px); transition: opacity 0.45s, transform 0.45s; }
+        .modal-process-item.is-active { opacity: 1; transform: translateY(0); }
+        .modal-process-item.is-active .modal-process-number { background: linear-gradient(135deg, var(--accent), var(--blue)); box-shadow: 0 0 0 6px rgba(168,85,247,0.12), 0 12px 28px rgba(168,85,247,0.28); }
+        .modal-process-item.is-active .modal-process-label { color: var(--text-primary); }
+        .modal-process-item:not(:last-child)::after { content: '→'; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font-size: 20px; }
+        .modal-process-number { width: 40px; height: 40px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 12px; }
+        .modal-process-label { font-size: 13px; color: var(--text-secondary); }
+        @keyframes processRailPulse { 0%, 100% { opacity: 0.28; transform: scaleX(0.92); } 50% { opacity: 0.9; transform: scaleX(1); } }
+        .modal-feature-card { background: var(--bg-elevated); border-radius: 16px; padding: 24px; margin: 16px 0; border: 1px solid var(--border); transition: all 0.3s; }
+        .modal-feature-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .modal-feature-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .modal-feature-title::before { content: '✦'; color: var(--accent); }
+        .modal-feature-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+        .modal-reflection { background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card)); border-radius: 16px; padding: 32px; margin-top: 40px; border: 1px solid var(--border); }
+        .modal-reflection-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .modal-reflection-text { font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+        .modal-divider { height: 1px; background: var(--border); margin: 48px 0; }
+        .modal-section-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--accent); color: white; border-radius: 50%; font-size: 13px; font-weight: 700; margin-right: 12px; }
+        .modal-competitor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0; }
+        .modal-competitor-card { background: var(--bg-elevated); border-radius: 12px; padding: 20px; border: 1px solid var(--border); }
+        .modal-competitor-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+        .modal-competitor-pros, .modal-competitor-cons { font-size: 13px; margin-bottom: 8px; }
+        .modal-competitor-pros { color: #4ade80; }
+        .modal-competitor-cons { color: #f87171; }
+        .case-reveal { opacity: 1; transform: translateY(10px); transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1); }
+        .case-reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .modal-metric.case-reveal.is-visible:hover { transform: translateY(-3px); }
+        .modal-decision.case-reveal.is-visible:hover { transform: translateY(-4px); }
+        .modal-image.case-reveal.is-visible:hover { transform: scale(1.01); }
+        @media (max-width: 900px) { .case-storyline { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .modal-role-grid, .case-reasoning { grid-template-columns: 1fr; } .case-tradeoff-item { grid-template-columns: 1fr; gap: 6px; } .modal-process-enhanced { flex-direction: column; align-items: center; } .modal-process-enhanced::before { display: none; } .modal-process-item:not(:last-child)::after { display: none; } .modal-competitor-grid { grid-template-columns: 1fr; } .case-storyline { grid-template-columns: 1fr; } }
+        @media (prefers-reduced-motion: reduce) {
+            .case-reveal, .case-story-item, .case-story-item::after, .modal-metric, .modal-decision, .modal-image, .modal-process-enhanced::before, .modal-process-item { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) { .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: repeat(2, 1fr); } .modal-metrics { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .nav-links { display: none; } .nav-content { justify-content: center; } section { padding: 80px 24px; } .skills-grid, .skills-resume-grid, .modal-image-grid { grid-template-columns: 1fr; } .modal-header, .modal-body { padding: 32px 24px; } .modal-metrics { grid-template-columns: 1fr; } .exp-header { flex-direction: column; } .resume-contact-row { flex-direction: column; align-items: center; } .hero-photo { width: 100px; height: 100px; } .contact-links { flex-direction: column; align-items: center; } }
+
+        /* ===== Collov Project Enhanced Styles ===== */
+        #modal-collov .modal-container {
+            background: linear-gradient(180deg, #0a0a14 0%, #0d0d1a 100%);
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            box-shadow: 0 0 80px rgba(99, 102, 241, 0.06);
+        }
+        #modal-collov .modal-hero-image {
+            position: relative;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+        }
+        #modal-collov .modal-header {
+            position: relative;
+            padding: 56px 48px 36px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+        }
+        #modal-collov .modal-eyebrow {
+            color: #818cf8;
+            letter-spacing: 0.18em;
+            font-size: 11px;
+        }
+        #modal-collov .modal-title {
+            font-size: 44px;
+            background: linear-gradient(135deg, #f5f5f7 0%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        #modal-collov .modal-subtitle {
+            color: #94a3b8;
+        }
+        #modal-collov .modal-meta-item {
+            position: relative;
+            padding: 12px 0;
+        }
+        #modal-collov .modal-meta-label {
+            color: #6366f1;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+        }
+
+        /* Collov TL;DR */
+        #modal-collov .modal-tldr {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(139, 92, 246, 0.06));
+            border-left: 3px solid #6366f1;
+            border-radius: 0 20px 20px 0;
+            padding: 28px 32px;
+            backdrop-filter: blur(20px);
+        }
+        #modal-collov .modal-tldr-label {
+            color: #818cf8;
+        }
+        #modal-collov .modal-tldr-text {
+            font-size: 17px;
+            letter-spacing: -0.01em;
+        }
+
+        /* Collov Metrics */
+        #modal-collov .modal-metrics {
+            gap: 12px;
+        }
+        #modal-collov .modal-metric {
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.03));
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            border-radius: 20px;
+            padding: 28px 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        #modal-collov .modal-metric::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        #modal-collov .modal-metric:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.12);
+        }
+        #modal-collov .modal-metric:hover::before {
+            opacity: 1;
+        }
+        #modal-collov .modal-metric-value {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #818cf8, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        /* Collov Section Titles */
+        #modal-collov .modal-section-number {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            box-shadow: 0 2px 12px rgba(99, 102, 241, 0.3);
+        }
+        #modal-collov .modal-section-title {
+            font-size: 22px;
+            letter-spacing: -0.01em;
+        }
+
+        /* Collov Role Grid */
+        #modal-collov .modal-role-item {
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.06), rgba(15, 15, 30, 0.8));
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        #modal-collov .modal-role-item:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            transform: translateY(-2px);
+        }
+        #modal-collov .modal-role-label {
+            color: #818cf8;
+        }
+
+        /* Collov Insight Cards */
+        #modal-collov .modal-insight {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(15, 15, 30, 0.9));
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        /* Collov Quote */
+        #modal-collov .modal-quote {
+            font-size: 22px;
+            border-left: 4px solid #6366f1;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(15, 15, 30, 0.6));
+            border-radius: 0 16px 16px 0;
+            padding: 28px 36px;
+        }
+
+        /* Collov Competitor Cards */
+        #modal-collov .modal-competitor-card {
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.06), rgba(15, 15, 30, 0.8));
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        #modal-collov .modal-competitor-card:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.08);
+        }
+
+        /* Collov Process Flow */
+        #modal-collov .modal-process-enhanced {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(15, 15, 30, 0.8));
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            padding: 36px 32px;
+        }
+        #modal-collov .modal-process-number {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+            width: 44px;
+            height: 44px;
+            font-size: 16px;
+        }
+        #modal-collov .modal-process-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #c7d2fe;
+        }
+        #modal-collov .modal-process-item:not(:last-child)::after {
+            color: rgba(99, 102, 241, 0.4);
+        }
+
+        /* Collov Design Showcase Images */
+        #modal-collov .collov-showcase-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #818cf8;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 20px;
+            padding: 6px 14px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+        #modal-collov .collov-img-frame {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #0a0a14;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            margin: 16px 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #modal-collov .collov-img-frame:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            box-shadow: 0 16px 48px rgba(99, 102, 241, 0.1);
+            transform: translateY(-3px);
+        }
+        #modal-collov .collov-img-frame img {
+            width: 100%;
+            display: block;
+            border-radius: 0;
+            margin: 0;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #modal-collov .collov-img-frame:hover img {
+            transform: scale(1.015);
+        }
+        #modal-collov .collov-img-frame .collov-img-label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+            background: rgba(99, 102, 241, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            z-index: 2;
+        }
+        #modal-collov .modal-image-caption {
+            font-size: 13px;
+            color: #64748b;
+            padding: 12px 16px 0;
+            font-style: italic;
+        }
+        #modal-collov .collov-grid-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 16px 0;
+        }
+        #modal-collov .collov-grid-showcase .collov-img-frame {
+            margin: 0;
+        }
+
+        /* Collov Feature Cards */
+        #modal-collov .modal-feature-card {
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.06), rgba(15, 15, 30, 0.8));
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            padding: 28px;
+            margin: 12px 0;
+        }
+        #modal-collov .modal-feature-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(99, 102, 241, 0.1);
+        }
+        #modal-collov .modal-feature-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #6366f1;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Collov Reflection */
+        #modal-collov .modal-reflection {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(15, 15, 30, 0.9));
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            border-radius: 20px;
+            padding: 36px;
+        }
+
+        /* Collov Divider */
+        #modal-collov .modal-divider {
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
+        }
+
+        /* Collov Challenge List */
+        #modal-collov .modal-challenge-list li::before {
+            background: #6366f1;
+            box-shadow: 0 0 6px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Collov Project Card Enhancement */
+        .project-card[data-project="collov"] {
+            border: 1px solid rgba(99, 102, 241, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card[data-project="collov"]:hover {
+            border-color: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.12);
+        }
+        .project-card[data-project="collov"] .project-card-overlay {
+            background: linear-gradient(180deg, rgba(10,10,20,0.05) 0%, rgba(10,10,20,0.5) 50%, rgba(10,10,20,0.92) 100%);
+        }
+        .project-card[data-project="collov"] .project-tag {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            backdrop-filter: blur(12px);
+        }
+        .project-card[data-project="collov"] .project-metric {
+            color: #818cf8;
+        }
+        .project-card[data-project="collov"] .project-metric svg {
+            stroke: #818cf8;
+        }
+
+        @media (max-width: 768px) {
+            #modal-collov .modal-header { padding: 36px 24px 24px; }
+            #modal-collov .modal-title { font-size: 32px; }
+            #modal-collov .collov-grid-showcase { grid-template-columns: 1fr; }
+            #modal-collov .modal-quote { font-size: 18px; padding: 20px 24px; }
+        }
+
+        /* Project Page Overrides */
+        body { padding-top: 52px; }
+        .project-page-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 52px;
+            background: rgba(0,0,0,0.85); backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-page-nav .nav-content {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; width: 100%; padding: 0 24px;
+        }
+        .back-link {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 14px;
+            transition: all 0.3s; font-family: var(--font);
+        }
+        .back-link:hover { color: var(--text-primary); }
+        .lang-toggle { display: flex; align-items: center; gap: 4px; }
+        .lang-toggle button {
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 14px; padding: 8px 12px; border-radius: 20px;
+            cursor: pointer; transition: all 0.3s; font-family: var(--font);
+        }
+        .lang-toggle button:hover { color: var(--text-primary); background: var(--bg-elevated); }
+        .lang-toggle button.active { color: var(--text-primary); font-weight: 600; }
+        .lang-toggle span { color: var(--text-tertiary); }
+        .modal-container {
+            max-width: 1000px; margin: 40px auto; background: var(--bg-secondary);
+            border-radius: 24px; overflow: hidden; border: 1px solid var(--border);
+            transform: none !important;
+        }
+        .case-fastlane {
+            margin: 0 48px 28px;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(168,85,247,0.24);
+            background: linear-gradient(120deg, rgba(168,85,247,0.12), rgba(41,151,255,0.04)), rgba(255,255,255,0.02);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .case-fastlane-label {
+            margin: 0 0 12px;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            font-weight: 700;
+        }
+        .case-fastlane-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+        .case-fastlane-pill {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 14px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid var(--border);
+        }
+        .case-fastlane-pill.result {
+            border-color: rgba(168,85,247,0.38);
+            background: linear-gradient(145deg, rgba(168,85,247,0.16), rgba(41,151,255,0.08));
+        }
+        .case-fastlane-pill span {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .case-fastlane-pill strong {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.35;
+        }
+        .case-fastlane-pill.result strong {
+            font-size: 18px;
+            color: #fff;
+            text-shadow: 0 0 18px rgba(168,85,247,0.5);
+        }
+        @media (max-width: 768px) {
+            .case-fastlane { margin: 0 24px 24px; }
+            .case-fastlane-grid { grid-template-columns: 1fr; }
+        }
+        .page-bottom-nav {
+            max-width: 1000px; margin: 40px auto; padding: 0 24px 80px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+        }
+        .page-bottom-nav a {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--text-secondary); text-decoration: none; font-size: 15px;
+            padding: 14px 28px; background: var(--bg-elevated); border-radius: 980px;
+            transition: all 0.3s; border: 1px solid var(--border); font-family: var(--font);
+        }
+        .page-bottom-nav a:hover {
+            color: var(--text-primary); background: var(--bg-card);
+            border-color: var(--accent); transform: translateY(-2px);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation: none !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="cursor.css">
+    <script src="cursor.js" defer></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Signals Notebook UX Case Study","description":"Signals Notebook — a lineage visualization case study for global pharma R&D teams. Cut tracing time 66% (2h to 40min) in task-based usability checks. Designed and shipped by Joey Zhao.","url":"https://joeyzhao.cc/signals","image":"https://joeyzhao.cc/images/page14_img1.jpeg","inLanguage":"en","keywords":["Signals Notebook","UX Case Study","Enterprise UX","Lineage Visualization","Pharma R&D"],"about":[{"@type":"Thing","name":"Enterprise UX"},{"@type":"Thing","name":"Scientific Data Lineage"}],"creator":{"@type":"Person","name":"Joey Zhao","url":"https://joeyzhao.cc/","sameAs":["https://www.linkedin.com/in/joey-zhao-b8576b91/","https://x.com/JoeyKonad","https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"]}}</script>
 </head>
 <body>
-  <nav class="topbar"><div class="topbar-inner"><a class="back" href="/#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span data-i18n="nav.back">返回作品</span></a><div class="lang" aria-label="Language"><button id="lang-en" type="button">EN</button><span>/</span><button id="lang-zh" class="active" type="button">中</button></div></div></nav>
+    <nav class="project-page-nav">
+        <div class="nav-content">
+            <a href="/#projects" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span data-i18n="nav.back">Back</span>
+            </a>
+            <div class="lang-toggle">
+                <button id="lang-en" class="active">EN</button>
+                <span>/</span>
+                <button id="lang-zh">中</button>
+            </div>
+        </div>
+    </nav>
 
-  <main class="page">
-    <header class="hero">
-      <figure class="hero-visual"><img src="images/signalsai-02-explorer.png" alt="Signals AI explorer: What would you like to explore? Ask anything across your workspace." width="3456" height="1988"><figcaption class="image-tag" data-i18n="hero.caption">真实产品截图 · explorer AI · 2026.09.17</figcaption></figure>
-      <div class="hero-copy"><div class="hero-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.5 14.2 9.8 21.5 12 14.2 14.2 12 21.5 9.8 14.2 2.5 12 9.8 9.8 12 2.5Z" fill="#3fd6c6"/><path d="M18.5 15.5 19.4 18.1 22 19 19.4 19.9 18.5 22.5 17.6 19.9 15 19 17.6 18.1 18.5 15.5Z" fill="#8b5cf6"/></svg></span><div><strong>Signals AI</strong><span>REVITY SIGNALS · AGENTIC SCIENTIFIC INTELLIGENCE</span></div></div><p class="folio">01 / 13 · ORIGIN · 2021-2026</p><h1 data-i18n="hero.title">科学家只信能查证的东西。<em>我给这个 AI 定的第一条规矩，<br>是每个回答都给得出处。</em></h1><p class="hero-story" data-i18n="hero.story">这个页面讲我在 Revvity Signals 的两段工作。2021 到 2023 年，我负责 Signals Notebook 里最难的工作流之一，谱系可视化，让科学家看得见一株细胞系的来历。2026 年，公司把 Signals AI 装进了平台，我负责它的体验设计。两段工作隔着五年，要解决的其实是同一件事，科学家凭什么相信屏幕上的东西。<strong>本页所有截图和设计稿都来自真实产品。</strong></p><a class="hero-cta" href="https://revvitysignals.com/products/artificial-intelligence/signals-one-signals-ai" target="_blank" rel="noopener noreferrer"><span data-i18n="hero.cta">查看公开产品页</span> →</a></div>
-    </header>
+    <!-- Signals Notebook Project Modal -->
+    <div class="modal-container">
+            <img class="modal-hero-image" src="images/signals-cover.jpg?v=20260613" alt="Signals Notebook">
+            <div class="modal-header">
+                <p class="modal-eyebrow" data-i18n="modal.signals.eyebrow">Enterprise B2B · 2021–Present</p>
+                <h1 class="modal-title" data-i18n="modal.signals.title">Signals Notebook</h1>
+                <p class="modal-subtitle" data-i18n="modal.signals.subtitle">Lineage visualization for global pharma R&D teams</p>
+                <div class="modal-meta">
+                    <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.signals.metaLabel1">Role</span><span class="modal-meta-value" data-i18n="modal.signals.metaValue1">Sr. Product Designer</span></div>
+                    <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.signals.metaLabel2">Company</span><span class="modal-meta-value" data-i18n="modal.signals.metaValue2">Revvity</span></div>
+                    <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.signals.metaLabel3">Users</span><span class="modal-meta-value" data-i18n="modal.signals.metaValue3">10,000+ Teams</span></div>
+                    <div class="modal-meta-item"><span class="modal-meta-label" data-i18n="modal.signals.metaLabel4">Countries</span><span class="modal-meta-value" data-i18n="modal.signals.metaValue4">50+</span></div>
+                </div>
+            </div>
+            <section class="case-fastlane case-reveal" aria-label="Impact Snapshot">
+                <p class="case-fastlane-label" data-i18n="modal.signals.fastlaneLabel">Impact Snapshot</p>
+                <div class="case-fastlane-grid">
+                    <article class="case-fastlane-pill">
+                        <span data-i18n="modal.signals.fastlaneProblemLabel">Problem</span>
+                        <strong data-i18n="modal.signals.fastlaneProblem">Scientists spent 2+ hours tracing a single cell line.</strong>
+                    </article>
+                    <article class="case-fastlane-pill">
+                        <span data-i18n="modal.signals.fastlaneDecisionLabel">Decision</span>
+                        <strong data-i18n="modal.signals.fastlaneDecision">Flipped lineage from table-first to map-first.</strong>
+                    </article>
+                    <article class="case-fastlane-pill result">
+                        <span data-i18n="modal.signals.fastlaneResultLabel">Result</span>
+                    <strong data-i18n="modal.signals.fastlaneResult">Task-based usability checks: tracing time cut 66%, from 2 hours to 40 minutes.</strong>
+                    </article>
+                </div>
+            </section>
+            <div class="modal-body">
+                <!-- TL;DR Section -->
+                <div class="modal-tldr case-reveal">
+                    <div class="modal-tldr-label" data-i18n="modal.signals.tldrLabel">TL;DR</div>
+                    <div class="modal-tldr-text" data-i18n="modal.signals.tldrText">Cut lineage tracing time 66% in task-based usability checks (2 hours to 40 minutes) by designing an interactive visualization for tangled biological material relationships. The number measures the tracing workflow itself — adoption and NPS also moved with rollout timing, product maturity, and customer context.</div>
+                </div>
 
-    <section class="case-meta"><div class="meta-cell"><p class="meta-label">ROLE</p><p class="meta-value" data-i18n="meta.role.value">Sr. Product Designer</p></div><div class="meta-cell"><p class="meta-label">COMPANY</p><p class="meta-value" data-i18n="meta.company.value">Revvity Signals</p></div><div class="meta-cell"><p class="meta-label">PRODUCT</p><p class="meta-value" data-i18n="meta.product.value">Signals AI · Signals One 智能体框架</p></div><div class="meta-cell"><p class="meta-label" data-i18n="meta.ship.label">SHIPPED</p><p class="meta-value" data-i18n="meta.ship.value">2026.06 · 公开发布</p></div></section>
+                <div class="case-storyline" aria-label="Case story">
+                    <div class="case-story-item">
+                        <span class="case-story-kicker" data-i18n="modal.signals.storyPainLabel">Pain</span>
+                        <p class="case-story-text" data-i18n="modal.signals.storyPain">Scientists needed 2+ hours to reconstruct one material lineage.</p>
+                    </div>
+                    <div class="case-story-item">
+                        <span class="case-story-kicker" data-i18n="modal.signals.storyDecisionLabel">Decision</span>
+                        <p class="case-story-text" data-i18n="modal.signals.storyDecision">Make the lineage map primary, with tables as evidence support.</p>
+                    </div>
+                    <div class="case-story-item">
+                        <span class="case-story-kicker" data-i18n="modal.signals.storyResultLabel">Result</span>
+                        <p class="case-story-text" data-i18n="modal.signals.storyResult">Tracing time dropped from 2 hours to 40 minutes.</p>
+                    </div>
+                    <div class="case-story-item">
+                        <span class="case-story-kicker" data-i18n="modal.signals.storyEvidenceLabel">Evidence</span>
+                        <p class="case-story-text" data-i18n="modal.signals.storyEvidence">Scaled inside a $100M+ enterprise product context.</p>
+                    </div>
+                </div>
 
-    <!-- ═══════════ ACT I · SYSTEM OF RECORD ═══════════ -->
+                <!-- Impact Metrics -->
+                <div class="modal-metrics case-reveal">
+                    <div class="modal-metric"><div class="modal-metric-value">+20%</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel1">NPS Score</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc1">25 → 30, post-release pulse</div></div>
+                    <div class="modal-metric featured"><div class="modal-metric-value">-66%</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel2">Tracing Time</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc2">Task check: 2hrs → 40min</div></div>
+                    <div class="modal-metric"><div class="modal-metric-value">$100M+</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel3">Annual Revenue</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc3">Contribution</div></div>
+                    <div class="modal-metric"><div class="modal-metric-value">1M+</div><div class="modal-metric-label" data-i18n="modal.signals.metricLabel4">Workflows</div><div class="modal-metric-desc" data-i18n="modal.signals.metricDesc4">Annually</div></div>
+                </div>
 
-    <section class="section">
-      <div class="section-head"><p class="section-index">02 / BEFORE AI</p><h2 class="section-title" data-i18n="before.title">前五年，我设计的是<strong>药企科学家天天在用的实验记录本。</strong></h2></div>
-      <div class="lead-grid"><div class="quote" data-i18n="before.quote">「过去，科学家要花两个多小时，才能追溯一株细胞系的来历。」</div><div class="copy"><p data-i18n="before.p1">Signals Notebook 是一本电子实验记录本，全球一万多个科学团队在用。它连着 ChemDraw、Spotfire 和实验室仪器，一年要跑一百万个工作流。Pfizer、Roche、Novartis、Moderna、Merck 的实验记录每天都在上面走。用它的公司签的是多年合同，设计师留下的每一个多余步骤，都会在几千个用户身上，一天一天重复下去。</p><p data-i18n="before.p2">作为 Sr. Product Designer，我把谱系工作流从访谈一路带到工程交接。这段经历留给我一个问题，在受监管的科学环境里，科学家怎么学会相信一块屏幕。五年之后，这个问题原样摆在了 Signals AI 面前。</p></div></div>
-      <div class="role-grid"><div class="role-cell"><p class="role-label" data-i18n="before.r1.label">MY RESPONSIBILITIES</p><p class="role-value" data-i18n="before.r1.value">谱系工作流端到端设计，研究综合、信息架构、线框图、原型、可用性测试、工程交接，以及和 PM、工程把范围谈拢</p></div><div class="role-cell"><p class="role-label" data-i18n="before.r2.label">TEAM</p><p class="role-value" data-i18n="before.r2.value">我（Sr. Product Designer）+ 1 名产品经理 + 10 名开发工程师</p></div><div class="role-cell"><p class="role-label" data-i18n="before.r3.label">TIMELINE</p><p class="role-value" data-i18n="before.r3.value">约 5 个月核心设计，2021 年起随产品持续迭代</p></div><div class="role-cell"><p class="role-label" data-i18n="before.r4.label">TOOLS</p><p class="role-value">Figma · Jira · Confluence · Miro</p></div></div>
-      <div class="evidence-row"><article class="evidence"><p class="evidence-number">-66%</p><span class="evidence-label" data-i18n="before.e1.label">TASK CHECK</span><p data-i18n="before.e1.copy">谱系追溯，2 小时变 40 分钟（任务测试）</p></article><article class="evidence"><p class="evidence-number">+20%</p><span class="evidence-label" data-i18n="before.e2.label">NPS</span><p data-i18n="before.e2.copy">25 到 30，发布后脉搏调研</p></article><article class="evidence"><p class="evidence-number">$100M+</p><span class="evidence-label" data-i18n="before.e3.label">ANNUAL REVENUE</span><p data-i18n="before.e3.copy">所在产品线的年收入量级</p></article><article class="evidence"><p class="evidence-number">1M+</p><span class="evidence-label" data-i18n="before.e4.label">WORKFLOWS</span><p data-i18n="before.e4.copy">每年在平台上运行的工作流</p></article></div>
-      <p class="evidence-note" data-i18n="before.boundary">测量边界。-66% 和 NPS 来自任务测试与发布后调研，量的是谱系追溯这个工作流本身，不能说成设计单独改变了产品的全部表现。NPS 和营收描述的是发布后产品的整体状态。设计贡献最清楚的地方，是发现、定位、导出需要的步骤变少了。</p>
-    </section>
+                <div class="modal-insight case-reveal">
+                    <div class="modal-insight-icon">📌</div>
+                    <div class="modal-insight-text" data-i18n="modal.signals.measurementNote" data-i18n-html><strong>Measurement boundary:</strong> I present the -66% as a task-based usability outcome for the lineage tracing workflow, not as a claim that design alone changed all product behavior. NPS and revenue figures describe post-release/product context; the clearest design contribution is reducing the steps scientists needed for discovery, orientation, and export.</div>
+                </div>
 
-    <section class="section">
-      <div class="section-head"><p class="section-index">03 / THE CHALLENGE</p><h2 class="section-title" data-i18n="challenge.title">追一株细胞系的来历，<strong>要两个多小时。</strong></h2></div>
-      <div class="copy"><p data-i18n="challenge.lead">这是我在头部药企做用户访谈时，听到最多的抱怨。拆开看，是四个老问题。</p></div>
-      <div class="point-grid"><article class="point"><p class="point-no">PAIN 01</p><h3 data-i18n="challenge.p1.title">数据碎片化</h3><p data-i18n="challenge.p1.copy">谱系数据散落在不同实验、工具与格式里，拼出一段完整的历史既费时又容易出错。</p></article><article class="point"><p class="point-no">PAIN 02</p><h3 data-i18n="challenge.p2.title">复杂关系</h3><p data-i18n="challenge.p2.copy">生物材料（细胞系、蛋白质、抗体、病毒载体）有多层的父子关系，现有工具没法画清楚。</p></article><article class="point"><p class="point-no">PAIN 03</p><h3 data-i18n="challenge.p3.title">规模问题</h3><p data-i18n="challenge.p3.copy">研究体量一大，系统在大型数据集和实时协作上就开始吃力。</p></article><article class="point"><p class="point-no">PAIN 04</p><h3 data-i18n="challenge.p4.title">非技术用户</h3><p data-i18n="challenge.p4.copy">当时的可视化工具是给数据科学家做的，急着要答案的是一线科学家。</p></article></div>
-    </section>
+                <div class="modal-divider"></div>
 
-    <section class="section">
-      <div class="section-head"><p class="section-index">04 / THE LANDSCAPE</p><h2 class="section-title" data-i18n="landscape.title">市面上的谱系工具，<strong>我挨个用了一遍。</strong></h2></div>
-      <div class="comp-grid"><article class="comp"><h3 class="comp-name">WormWeb</h3><p class="pro" data-i18n="landscape.c1.pro">✓ 为模式生物提供简单、可交互的谱系追踪</p><p class="con" data-i18n="landscape.c1.con">✗ 撑不住复杂的生物制剂工作流</p></article><article class="comp"><h3 class="comp-name">LabKey</h3><p class="pro" data-i18n="landscape.c2.pro">✓ 数据集成灵活，谱系表格做得不错</p><p class="con" data-i18n="landscape.c2.con">✗ 实时协作和大数据集上表现弱</p></article><article class="comp"><h3 class="comp-name">IDBS</h3><p class="pro" data-i18n="landscape.c3.pro">✓ 细胞系谱系和合规能力扎实</p><p class="con" data-i18n="landscape.c3.con">✗ 界面对非技术用户太复杂</p></article></div>
-      <div class="note-box" data-i18n="landscape.insight" data-i18n-html><strong>访谈里最重要的发现</strong>，是科学家不用数据库的方式想问题，他们用关系想问题。这株细胞系从哪来，哪些实验用过它，衍生出了哪些批次。方案得照着这个思路做，别让用户迁就软件。</div>
-    </section>
+                <!-- My Role Section -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">1</span><span data-i18n="modal.signals.section1Title">My Role & Context</span></h3>
+                    <div class="modal-role-grid">
+                        <div class="modal-role-item">
+                            <div class="modal-role-label" data-i18n="modal.signals.roleLabel1">My Responsibilities</div>
+                            <div class="modal-role-value" data-i18n="modal.signals.roleValue1">Owned the end-to-end lineage workflow design: research synthesis, IA, wireframes, prototypes, usability checks, engineering handoff, and PM/engineering alignment on scope</div>
+                        </div>
+                        <div class="modal-role-item">
+                            <div class="modal-role-label" data-i18n="modal.signals.roleLabel2">Team</div>
+                            <div class="modal-role-value" data-i18n="modal.signals.roleValue2">Me (Sr. Product Designer), 1 Product Manager, 10 Dev Engineers</div>
+                        </div>
+                        <div class="modal-role-item">
+                            <div class="modal-role-label" data-i18n="modal.signals.roleLabel3">Timeline</div>
+                            <div class="modal-role-value" data-i18n="modal.signals.roleValue3">~5 months (2021-Present)</div>
+                        </div>
+                        <div class="modal-role-item">
+                            <div class="modal-role-label" data-i18n="modal.signals.roleLabel4">Tools</div>
+                            <div class="modal-role-value" data-i18n="modal.signals.roleValue4">Figma, Jira, Confluence, Miro</div>
+                        </div>
+                    </div>
+                    <div class="modal-insight">
+                        <div class="modal-insight-icon">🧭</div>
+                        <div class="modal-insight-text" data-i18n="modal.signals.roleBoundary" data-i18n-html><strong>Role boundary:</strong> I was the sole product designer on this workflow, so I owned the design strategy and interaction model. Product prioritization, technical feasibility, and release timing were shared with the PM and engineering team; my senior-level contribution was making the trade-offs explicit enough for the team to commit.</div>
+                    </div>
+                </div>
 
-    <section class="section">
-      <div class="section-head"><p class="section-index">05 / THE DECISION</p><h2 class="section-title" data-i18n="decision.title">地图放第一屏，<strong>表格退到第二层。</strong></h2></div>
-      <div class="lead-grid"><div class="quote" data-i18n="decision.quote">「地图当主视图，表格退回去做证据。」</div><div class="copy"><p data-i18n="decision.p1">竞品全都默认表格视图。访谈里科学家是用关系想问题的，我就用地图当主视图、表格做辅助，照着他们真实的建模方式来。任务测试里，追溯时间缩到原来的三分之一多一点，用户不用再在脑子里把扁平数据拼成层级。设计贡献最明显的，是发现、定位、导出这三个环节。</p><p data-i18n="decision.p2"><strong>推动落地。</strong>难的地方在让 PM 和工程相信，地图优先这件事进得了一个合规至上的企业产品。我把提案从视觉实验改写成低风险的工作流变更，智能文件夹留着做发现，图谱放进独立的 Lineage 标签页，表格和导出留给审计，不逼任何人改信息架构。PM 拿到了干净的边界，工程拿到了一条能做的路径。</p></div></div>
-      <div class="trade-stack"><div class="trade"><span data-i18n="decision.t1.label">Rejected · Table-only</span><p data-i18n="decision.t1.copy">纯表格方案构建风险更低，但核心的认知负担还在，科学家仍要自己动手重建父子关系。</p></div><div class="trade"><span data-i18n="decision.t2.label">Constraint · Scale</span><p data-i18n="decision.t2.copy">大型材料图谱可能又乱又贵，所以用渐进式探索，不一次把所有关系都摊开。</p></div><div class="trade"><span data-i18n="decision.t3.label">Cut from v1</span><p data-i18n="decision.t3.copy">跨产品谱系留作方向，v1 先做 Materials 智能文件夹、Lineage 标签页、表格支撑和导出。</p></div></div>
-    </section>
+                <!-- Context Section -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">2</span><span data-i18n="modal.signals.section2Title">Understanding the Product</span></h3>
+                    <p data-i18n="modal.signals.section2P1">Signals Notebook is an AI-powered electronic lab notebook (ELN) trusted by 10,000+ scientific teams worldwide. It talks to ChemDraw, Spotfire, and lab instruments over APIs, and runs 1M+ workflows a year.</p>
+                    <div class="modal-insight">
+                        <div class="modal-insight-icon">🔬</div>
+                        <div class="modal-insight-text" data-i18n="modal.signals.insightText1" data-i18n-html><strong>Key Clients:</strong> Pfizer, Roche, Novartis, Johnson & Johnson, Takeda, Moderna, GSK, Merck, AstraZeneca, Bayer, and more. These pharmaceutical giants rely on our software for mission-critical research.</div>
+                    </div>
+                </div>
 
-    <section class="section">
-      <div class="section-head"><p class="section-index">06 / THE WORKFLOW</p><h2 class="section-title" data-i18n="workflow.title">五步，六个界面，<strong>两个小时变四十分钟。</strong></h2></div>
-      <div class="copy"><p data-i18n="workflow.lead">我把整个工作流重新走了一遍，让追溯从按小时计变成按分钟计。</p></div>
-      <div class="process-strip"><div class="process"><p class="process-no">1</p><p class="process-label" data-i18n="workflow.s1">Materials 智能文件夹</p></div><div class="process"><p class="process-no">2</p><p class="process-label" data-i18n="workflow.s2">选择材料</p></div><div class="process"><p class="process-no">3</p><p class="process-label" data-i18n="workflow.s3">进入 Lineage 标签页</p></div><div class="process"><p class="process-no">4</p><p class="process-label" data-i18n="workflow.s4">查看地图与表格</p></div><div class="process"><p class="process-no">5</p><p class="process-label" data-i18n="workflow.s5">配置与导出</p></div></div>
-      <figure class="shot"><img src="images/render_p25.jpg" alt="Before: existing experiments table with lineage data scattered across views" loading="lazy" decoding="async"><figcaption data-i18n="workflow.cap1">Before，既有的实验表格，谱系数据散落在各视图里</figcaption></figure>
-      <figure class="shot"><img src="images/render_p26.jpg" alt="Materials Smart Folder with unified search and filtering" loading="lazy" decoding="async"><figcaption data-i18n="workflow.cap2">Recommended，带统一搜索与筛选的 Materials 智能文件夹</figcaption></figure>
-      <figure class="shot"><img src="images/render_p27.jpg" alt="Materials Smart Folder showing all material types in one interface" loading="lazy" decoding="async"><figcaption data-i18n="workflow.cap3">Materials 智能文件夹，一个界面看全所有材料类型</figcaption></figure>
-      <figure class="shot"><img src="images/render_p28.jpg" alt="Material detail page for viewing and editing properties" loading="lazy" decoding="async"><figcaption data-i18n="workflow.cap4">材料详情页，查看与编辑单个材料的属性</figcaption></figure>
-      <figure class="shot"><img src="images/render_p29.jpg" alt="Lineage tab with interactive lineage map and lineage table view" loading="lazy" decoding="async"><figcaption data-i18n="workflow.cap5">Lineage 标签页，交互式谱系地图加谱系表格视图</figcaption></figure>
-      <figure class="shot"><img src="images/render_p30.jpg" alt="Configure and export lineage data" loading="lazy" decoding="async"><figcaption data-i18n="workflow.cap6">配置与导出，谱系数据管理的高级操作</figcaption></figure>
-      <div class="feat-grid"><article class="feat"><h3><em>FEATURE 01</em><span data-i18n="workflow.f1.title">Materials 智能文件夹</span></h3><p data-i18n="workflow.f1.copy">所有材料类型（细胞系、蛋白质、抗体、病毒载体）放进同一个可搜索、可筛选的界面。现在找任何材料都是几秒钟的事。</p></article><article class="feat"><h3><em>FEATURE 02</em><span data-i18n="workflow.f2.title">交互式谱系地图</span></h3><p data-i18n="workflow.f2.copy">父子关系直接画出来，黑色节点是材料资产，橙色节点是批次。点一下就能展开、折叠、往下探。</p></article><article class="feat"><h3><em>FEATURE 03</em><span data-i18n="workflow.f3.title">谱系表格视图</span></h3><p data-i18n="workflow.f3.copy">给喜欢数据网格的人保留表格，支持排序、筛选，也能批量导出 Excel/PDF 做合规文档。</p></article><article class="feat"><h3><em>FEATURE 04</em><span data-i18n="workflow.f4.title">跨产品集成</span></h3><p data-i18n="workflow.f4.copy">和 Signals Inventa、BioDesign 打通，跨实验、跨项目、跨产品线都能追谱系。</p></article></div>
-      <div class="lead-grid" style="margin-top:48px"><div class="quote" data-i18n="workflow.reflection">「它就是把我需要知道的，摆在我面前。」</div><div class="copy"><p data-i18n="workflow.reflectionCopy">这是用户给过我们最好的一句评价。企业软件的用户走不掉，合同一签多年，不喜欢也只能接着用，所以每一个多余的步骤，都会在几千个人身上天天重复。谱系地图教会我的是，可视化不用显得聪明，等用户注意不到它的时候，它就成了。</p></div></div>
-    </section>
+                <!-- Problem Section -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">3</span><span data-i18n="modal.signals.section3Title">The Challenge</span></h3>
+                    <div class="modal-quote" data-i18n="modal.signals.quote">“Scientists spent 2+ hours just to trace where a single cell line came from”</div>
+                    <p data-i18n="modal.signals.section3P1">User interviews with bench researchers at major pharma companies surfaced four pain points:</p>
+                    <ul class="modal-challenge-list">
+                        <li data-i18n="modal.signals.challenge1" data-i18n-html><strong>Data Fragmentation:</strong> Lineage data was scattered across different experiments, tools, and formats—making it error-prone to piece together a complete history.</li>
+                        <li data-i18n="modal.signals.challenge2" data-i18n-html><strong>Complex Relationships:</strong> Biological materials (cell lines, proteins, antibodies, viral vectors) have layered parent-child connections that existing tools couldn't visualize clearly.</li>
+                        <li data-i18n="modal.signals.challenge3" data-i18n-html><strong>Scalability Issues:</strong> As research grew, systems struggled to handle large datasets and real-time collaboration.</li>
+                        <li data-i18n="modal.signals.challenge4" data-i18n-html><strong>Non-Technical Users:</strong> Current visualization tools were designed for data scientists, not bench scientists who needed quick answers.</li>
+                    </ul>
+                </div>
 
-    <!-- ═══════════ ACT II · SYSTEM OF UNDERSTANDING ═══════════ -->
+                <!-- Research Section -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">4</span><span data-i18n="modal.signals.section4Title">Competitive Analysis</span></h3>
+                    <p data-i18n="modal.signals.section4P1">I sized up the existing life-sciences solutions:</p>
+                    <div class="modal-competitor-grid">
+                        <div class="modal-competitor-card">
+                            <div class="modal-competitor-name" data-i18n="modal.signals.comp1Name">WormWeb</div>
+                            <div class="modal-competitor-pros" data-i18n="modal.signals.comp1Pros">✓ Simple, interactive lineage tracking for model organisms</div>
+                            <div class="modal-competitor-cons" data-i18n="modal.signals.comp1Cons">✗ Can’t scale to complex biologics workflows</div>
+                        </div>
+                        <div class="modal-competitor-card">
+                            <div class="modal-competitor-name" data-i18n="modal.signals.comp2Name">LabKey</div>
+                            <div class="modal-competitor-pros" data-i18n="modal.signals.comp2Pros">✓ Flexible data integration and lineage grids</div>
+                            <div class="modal-competitor-cons" data-i18n="modal.signals.comp2Cons">✗ Weak on real-time collaboration and large datasets</div>
+                        </div>
+                        <div class="modal-competitor-card">
+                            <div class="modal-competitor-name" data-i18n="modal.signals.comp3Name">IDBS</div>
+                            <div class="modal-competitor-pros" data-i18n="modal.signals.comp3Pros">✓ Robust cell line genealogy and compliance features</div>
+                            <div class="modal-competitor-cons" data-i18n="modal.signals.comp3Cons">✗ Interface too complex for non-technical users</div>
+                        </div>
+                    </div>
+                    <div class="modal-insight">
+                        <div class="modal-insight-icon">💡</div>
+                        <div class="modal-insight-text" data-i18n="modal.signals.insightText2">Key insight: scientists don’t think in database queries — they think in relationships. “Where did this cell line come from? Which experiments used it? What batches were derived?” The solution had to mirror that mental model.</div>
+                    </div>
+                </div>
 
-    <section class="section">
-      <div class="section-head"><p class="section-index">07 / THE SHIFT</p><h2 class="section-title" data-i18n="shift.title">2026 年，<strong>轮到 AI 来回答这个问题。</strong></h2></div>
-      <div class="copy" style="max-width:1000px"><p data-i18n="shift.lead">谱系项目回答的是材料从哪来。五年后 Signals AI 要回答一个更大的问题，我的数据能告诉我什么。2026 年 6 月 22 日，它作为 Signals One 平台的原生智能体框架公开发布，官方的说法是「把科学软件从记录系统变成理解系统」。当时摆在设计面前的还是两条老路，两条都没走。</p></div>
-      <div class="decision-grid"><article class="decision"><small>OPTION A</small><h3 data-i18n="shift.a.title">外挂聊天机器人</h3><p data-i18n="shift.a.copy">上市最快。但科学家得离开实验记录、切到新窗口去提问，回答跟数据脱了钩，没人敢把这样的结论写回受监管的实验记录。</p></article><article class="decision"><small>OPTION B</small><h3 data-i18n="shift.b.title">更多仪表盘和筛选器</h3><p data-i18n="shift.b.copy">稳妥，但走的还是老路。Revvity Signals 总裁 Kevin Willoe 是这么形容旧世界的，「几十年来，科学软件把信息锁进预定义的应用、工作流和仪表盘。」</p></article><article class="decision"><small>CHOICE</small><h3 data-i18n="shift.c.title">做成平台的原生智能</h3><p data-i18n="shift.c.copy">Signals AI 做成了 Signals One 的一层原生智能。它停在科学家已经在用的界面里，回答落在本体论和结构化的实验数据上，能溯源，也能直接执行。代价是信任得做进信息架构里，免责声明救不了场。</p></article></div>
-    </section>
+                <div class="modal-decision case-reveal">
+                    <div class="modal-decision-label" data-i18n="modal.signals.decision1Label">Design Decision</div>
+                    <div class="modal-decision-title" data-i18n="modal.signals.decision1Title">Map-first, not table-first</div>
+                    <div class="modal-decision-text" data-i18n="modal.signals.decision1Text">Competitors all default to table views. But interviews showed scientists think in relationships, not rows. I made the interactive map the primary view and demoted tables to secondary — matching how they actually model biological lineage. In task-based usability checks this cut tracing time 66%: users no longer had to mentally rebuild hierarchies from flat data. The design contribution showed up strongest in discovery, orientation, and export readiness.</div>
+                </div>
 
-    <section class="section dark">
-      <div class="section-head"><p class="section-index">08 / TRUST</p><h2 class="section-title" data-i18n="trust.title">AI 说的每句话，<strong>都要点得开、对得上。</strong></h2></div>
-      <div class="copy"><p data-i18n="trust.lead">药企的研发受监管，一个编出来的回答可能让一条实验线白做。所以我把「能相信」这件事，拆成了界面里四件看得见的东西。</p></div>
-      <div class="visual-split"><figure><img src="images/signalsai-04-search.png" alt="Signals AI semantic search: natural-language filter on cell lines, result cards with experiment metadata" loading="lazy" decoding="async" width="3456" height="1992"><figcaption class="image-tag" data-i18n="trust.shot.tag">真实产品截图 · AI 语义搜索 · 2026.09.17</figcaption></figure><div class="visual-copy"><h3 data-i18n="trust.subtitle">从一句话进来，到一条点得开的出处</h3><p data-i18n="trust.copy">看这张截图。有人输入了一句「和细胞系相关的条目」，这句话变成了左上角一个看得见的筛选器，AI 改了什么条件，一眼能看到，也能撤掉。下面每张结果卡带着实验类型、状态、创建者和日期，点开就是原始记录。回答是从模型里出来的，落点却在这个工作区自己的实验里。</p><div class="rule-stack"><div class="rule"><span>01 · ASK</span><strong data-i18n="trust.r1">科学家平时怎么说话就怎么问，不用学查询语言</strong></div><div class="rule"><span>02 · FILTER</span><strong data-i18n="trust.r2">AI 生成的筛选条件，看得见，也撤得掉</strong></div><div class="rule"><span>03 · SOURCE</span><strong data-i18n="trust.r3">结果卡自带元数据和创建者，点开就是原始记录</strong></div><div class="rule"><span>04 · ANCHOR</span><strong data-i18n="trust.r4">@ 提人、# 引用 Notebook 实体，把问题钉在真实对象上</strong></div></div></div></div>
-      <div class="lead-grid" style="margin-top:52px"><div class="quote" data-i18n="trust.quote">「连空状态都写着，AI can make mistakes. Double-check important information.」</div><div class="copy"><p data-i18n="trust.note">开头那张截图是我在演示环境里自己截的，左栏还留着截屏前试问题的会话记录。输入框下面那行小字，说的就是 AI 可能出错、重要信息请自己核验。它是我最早定下来的文案之一，第一版设计稿里就有。第一屏就承认会错，比装全知更像一个值得用的工具。</p></div></div>
-    </section>
+                <div class="case-reasoning case-reveal">
+                    <article class="case-reasoning-card">
+                        <div class="case-reasoning-label" data-i18n="modal.signals.influenceLabel">Influence & Alignment</div>
+                        <div class="case-reasoning-title" data-i18n="modal.signals.influenceTitle">Turned a risky visualization shift into a buildable enterprise workflow</div>
+                        <p class="case-reasoning-text" data-i18n="modal.signals.influenceText">The hard part wasn’t convincing anyone lineage mattered. It was getting PM and engineering to trust a map-first experience inside a compliance-heavy product. So I reframed the proposal as a low-risk workflow change rather than a visual experiment: keep Smart Folder for discovery, put the graph inside a dedicated Lineage tab, retain table/export for audit, and never force users into a new information architecture. That compromise handed PM a cleaner scope and gave engineering a buildable path.</p>
+                    </article>
+                    <article class="case-reasoning-card">
+                        <div class="case-reasoning-label" data-i18n="modal.signals.tradeoffLabel">Trade-offs</div>
+                        <div class="case-tradeoff-list">
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff1Label">Rejected: Table-only</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff1Text">A table-only fix was safer to build, but it kept the core cognitive load: scientists still had to reconstruct parent-child relationships manually.</span>
+                            </div>
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff2Label">Constraint: Scale</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff2Text">Large material graphs could become unreadable and expensive to render, so I used progressive exploration rather than exposing every relationship at once.</span>
+                            </div>
+                            <div class="case-tradeoff-item">
+                                <span class="case-tradeoff-label" data-i18n="modal.signals.tradeoff3Label">Cut from v1</span>
+                                <span class="case-tradeoff-text" data-i18n="modal.signals.tradeoff3Text">Full cross-product lineage was kept as a direction, while v1 focused on Materials Smart Folder, Lineage tab, table support, and export readiness.</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-    <section class="section dark">
-      <div class="section-head"><p class="section-index">09 / SYSTEM</p><h2 class="section-title" data-i18n="system.title">从记录系统，<strong>到理解系统。</strong></h2></div>
-      <div class="copy"><p data-i18n="system.lead">Signals One 是 Revvity Signals 的统一云原生研发平台。Signals AI 没有另起炉灶，它是平台自己的智能体框架。科学家过去十年录进系统的实验，第一次可以拿一句话去问。</p></div>
-      <div class="cap-grid"><article class="cap"><span class="cap-name">SEMANTIC SEARCH</span><h3 data-i18n="system.c1.title">语义搜索</h3><p data-i18n="system.c1.copy">按含义检索多年实验数据，不做关键词匹配。</p></article><article class="cap"><span class="cap-name">SUMMARIZATION</span><h3 data-i18n="system.c2.title">摘要助手</h3><p data-i18n="system.c2.copy">把成堆的记录压成可核对的摘要，来源能点开。</p></article><article class="cap"><span class="cap-name">IMAGE SEARCH</span><h3 data-i18n="system.c3.title">图像搜索</h3><p data-i18n="system.c3.copy">用一句话描述，找到当时的实验图像。</p></article><article class="cap"><span class="cap-name">COPILOTS &amp; AGENTS</span><h3 data-i18n="system.c4.title">智能体生态</h3><p data-i18n="system.c4.copy">和最强的模型伙伴一起做，首发 Claude，2026 年 7 月官宣 MCP 集成。</p></article></div>
-      <div class="visual-split"><figure><img src="images/signalsai-03-dashboard.png" alt="Signals Notebook dashboard with the explorer AI panel docked on the right side" loading="lazy" decoding="async" width="3452" height="1988"><figcaption class="image-tag" data-i18n="system.shot.tag">真实产品截图 · Notebook 仪表盘 + explorer AI · 2026.09.17</figcaption></figure><div class="visual-copy"><h3 data-i18n="system.subtitle">停在科学家干活的地方</h3><p data-i18n="system.copy">explorer AI 停在 Notebook 仪表盘右侧，不抢工作台。四张建议提问卡问的都是科学家上班会问自己的事，我最近做了什么，上次做到哪，有没有等着我审的东西。AI 长在工作发生的地方，省掉一个要切换的标签页。</p><div class="rule-stack"><div class="rule"><span>EMBEDDED</span><strong data-i18n="system.r1">停在已有界面里，不另开窗口</strong></div><div class="rule"><span>WORKFLOW-AWARE</span><strong data-i18n="system.r2">建议提问来自真实的工作流状态</strong></div><div class="rule"><span>GROUNDED</span><strong data-i18n="system.r3">回答落在本体论和结构化数据上</strong></div></div></div></div>
-    </section>
+                <!-- Process Section -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">5</span><span data-i18n="modal.signals.section5Title">Design Process</span></h3>
+                    <p data-i18n="modal.signals.section5P1">I designed a streamlined workflow that lets scientists trace lineage in seconds instead of hours:</p>
+                    <div class="modal-process-enhanced case-reveal">
+                        <div class="modal-process-item">
+                            <div class="modal-process-number">1</div>
+                            <div class="modal-process-label" data-i18n="modal.signals.process1">Materials Smart Folder</div>
+                        </div>
+                        <div class="modal-process-item">
+                            <div class="modal-process-number">2</div>
+                            <div class="modal-process-label" data-i18n="modal.signals.process2">Select Material</div>
+                        </div>
+                        <div class="modal-process-item">
+                            <div class="modal-process-number">3</div>
+                            <div class="modal-process-label" data-i18n="modal.signals.process3">Go to Lineage Tab</div>
+                        </div>
+                        <div class="modal-process-item">
+                            <div class="modal-process-number">4</div>
+                            <div class="modal-process-label" data-i18n="modal.signals.process4">View Map & Table</div>
+                        </div>
+                        <div class="modal-process-item">
+                            <div class="modal-process-number">5</div>
+                            <div class="modal-process-label" data-i18n="modal.signals.process5">Configure & Export</div>
+                        </div>
+                    </div>
+                </div>
 
-    <section class="section">
-      <div class="section-head"><p class="section-index">10 / SHOWCASE</p><h2 class="section-title" data-i18n="show.title">它为什么叫 Explorer，<strong>不叫 Copilot。</strong></h2></div>
-      <div class="copy"><p data-i18n="show.lead">AI Explorer 没有做成独立产品，它站在 Signals 套件的应用阵容里，跟 Notebook、Inventory、BioDesign 平级。名字也是设计的一部分，它帮你翻自己的数据，科学还得你自己做。</p></div>
-      <div class="screen-feature"><figure><img src="images/signalsai-01-home.png" alt="Signals Home app grid with AI Explorer listed alongside Notebook, Inventory and BioDesign" loading="lazy" decoding="async" width="3456" height="1994"><figcaption class="image-tag" data-i18n="show.shot.tag">真实产品截图 · Signals Home · 2026.09.17</figcaption></figure><div class="feat-copy"><div><span class="kicker">01 · SIGNALS HOME</span><h3 data-i18n="show.shot.title">入口就在应用宫格里</h3></div><div><p data-i18n="show.shot.copy">Signals Home 的应用宫格里，AI Explorer 和实验记录、库存、BioDesign 摆在同一层。页面下半排 Administration 卡片是另一半现实，权限、治理、企业合规。AI 得在这些规矩里头干活。</p></div></div></div>
-      <article class="status-card"><h3 data-i18n="show.card.title">2026.09.17 公开证据核验</h3><p data-i18n="show.card.copy">产品页、发布新闻稿和 Claude 合作公告都能公开访问，页面上四张界面截图截自同一个演示工作区的真实产品。</p><div class="status-list"><div class="status-item"><strong data-i18n="show.s1">公开发布</strong><span>2026.06.22</span></div><div class="status-item"><strong data-i18n="show.s2">官方体验模块</strong><span>4</span></div><div class="status-item"><strong data-i18n="show.s3">首个模型伙伴</strong><span>CLAUDE</span></div><div class="status-item"><strong data-i18n="show.s4">截图环境</strong><span>DEMO</span></div></div></article>
-      <p class="evidence-note" data-i18n="show.boundary">以上是公开可查的产品事实。设计过程、内部迭代和我角色的细节，是我的一面之词。</p>
-    </section>
+                <!-- Design Showcase -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">6</span><span data-i18n="modal.signals.section6Title">Design Showcase</span></h3>
+                    <p data-i18n="modal.signals.section6P1">Complete design flow for the Lineage Visualisation feature — from existing state to final high-fidelity screens:</p>
+                    <img src="images/render_p25.jpg" alt="Before — Experiments Table" class="modal-image" loading="lazy">
+                    <p class="modal-image-caption" data-i18n="modal.signals.caption1">Before: Existing experiments table — lineage data scattered across views</p>
+                    <img src="images/render_p26.jpg" alt="Recommended — Materials Smart Folder" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption" data-i18n="modal.signals.caption2">Recommended: Materials Smart Folder with unified search and filtering</p>
+                    <img src="images/render_p27.jpg" alt="Materials Smart Folder Final" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption" data-i18n="modal.signals.caption3">Materials Smart Folder — view all material types in one interface</p>
+                    <img src="images/render_p28.jpg" alt="Material Detail Page" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption" data-i18n="modal.signals.caption4">Material Detail Page — view and edit single material properties</p>
+                    <img src="images/render_p29.jpg" alt="Lineage Tab" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption" data-i18n="modal.signals.caption5">Lineage Tab — interactive lineage map and lineage table view</p>
+                    <img src="images/render_p30.jpg" alt="Configure & Export Lineage" class="modal-image" loading="lazy" style="margin-top: 24px;">
+                    <p class="modal-image-caption" data-i18n="modal.signals.caption6">Configure/Export — advanced actions for lineage data management</p>
+                </div>
 
-    <section class="mistake">
-      <div class="mistake-copy"><p class="section-index">11 / THE BOUNDARY</p><h2 data-i18n="boundary.title">哪些你能查证，哪些只能听我说。</h2><p data-i18n="boundary.copy">这个页面混着两种东西，我把线画清楚。外部事实这一半，Signals AI 2026 年 6 月 22 日公开发布，产品页和新闻稿谁都能点开，Claude 集成是 7 月官宣的，都能验证。我的叙述这一半，界面怎么定、文案怎么磨、团队里怎么商量，没有公开材料能对账，你只能决定信不信我。产品刚发布，我不编采用率和留存。前半段那个 -66%，量的是五年前谱系工作流的任务测试，放在今天的 AI 身上不算数。Signals AI 部分的四张截图都来自演示工作区，里面没有一行客户数据。</p></div><div class="mistake-proof"><blockquote data-i18n="boundary.quote">「能查证的我都挂了链接。剩下的部分，你只能先听我讲。」</blockquote><div><div class="evidence-links"><a href="https://revvitysignals.com/products/artificial-intelligence/signals-one-signals-ai" target="_blank" rel="noopener noreferrer"><span data-i18n="boundary.l1">产品页</span>REVVITYSIGNALS.COM →</a><a href="https://news.revvity.com/press-announcements/press-releases/press-release-details/2026/Revvity-Launches-Signals-AI-a-Native-Agentic-Framework-for-Accelerating-Scientific-RD/default.aspx" target="_blank" rel="noopener noreferrer"><span data-i18n="boundary.l2">发布新闻稿</span>2026.06.22 →</a><a href="https://www.businesswire.com/news/home/20260701291483/en/Revvity-Expands-Signals-AI-Ecosystem-Through-Anthropic-Claude-Integration" target="_blank" rel="noopener noreferrer"><span data-i18n="boundary.l3">Claude 集成公告</span>2026.07 →</a><a href="https://www.selectscience.net/article/revvity-introduces-signals-ai-a-native-agentic-framework-to-accelerate-scientific-r-and-d" target="_blank" rel="noopener noreferrer"><span data-i18n="boundary.l4">媒体报道</span>SELECTSCIENCE →</a></div><p class="proof-line" style="margin-top:22px" data-i18n="boundary.proof">PUBLIC EVIDENCE · 2026.06.22 LAUNCH / 2026.07 CLAUDE × MCP / DEMO-WORKSPACE SCREENSHOTS</p></div></div>
-    </section>
+                <!-- Solution Section -->
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><span class="modal-section-number">7</span><span data-i18n="modal.signals.section7Title">Solution: Key Features I Designed</span></h3>
+                    <div class="modal-feature-card">
+                        <div class="modal-feature-title" data-i18n="modal.signals.feature1Title">Materials Smart Folder</div>
+                        <div class="modal-feature-desc" data-i18n="modal.signals.feature1Desc">A unified view of all material types (Cell Lines, Proteins, Antibodies, Viral Vectors) organized in one searchable, filterable interface. Scientists can now find any material in seconds.</div>
+                    </div>
+                    <div class="modal-feature-card">
+                        <div class="modal-feature-title" data-i18n="modal.signals.feature2Title">Interactive Lineage Map</div>
+                        <div class="modal-feature-desc" data-i18n="modal.signals.feature2Desc">Visual representation of parent-child relationships with clear distinction between Asset Level (black nodes) and Batch Level (orange nodes). Users can click to expand, collapse, and explore relationships.</div>
+                    </div>
+                    <div class="modal-feature-card">
+                        <div class="modal-feature-title" data-i18n="modal.signals.feature3Title">Lineage Table View</div>
+                        <div class="modal-feature-desc" data-i18n="modal.signals.feature3Desc">Tabular alternative for users who prefer data grids. Supports sorting, filtering, and bulk export to Excel/PDF for compliance documentation.</div>
+                    </div>
+                    <div class="modal-feature-card">
+                        <div class="modal-feature-title" data-i18n="modal.signals.feature4Title">Cross-Product Integration</div>
+                        <div class="modal-feature-desc" data-i18n="modal.signals.feature4Desc">Seamless integration with Signals Inventa and BioDesign—scientists can trace lineage across experiments, projects, and even different product lines.</div>
+                    </div>
+                </div>
 
-    <section class="section">
-      <div class="section-head"><p class="section-index">12 / MY ROLE</p><h2 class="section-title" data-i18n="role.title">这五年，<strong>我具体做了什么。</strong></h2></div><div class="lead-grid"><div class="quote" data-i18n="role.quote">「让 AI 敢说『这个我不确定』，比让它显得聪明难得多。」</div><div class="copy"><p data-i18n="role.p1">前半段，我负责谱系工作流的端到端设计，从用户访谈、信息架构、线框和原型，到可用性测试和工程交接。后半段，我负责 Signals AI 的体验层，对话怎么问、结果怎么摆、筛选器怎么让人看见、AI 从哪里进入套件。</p><p data-i18n="role.p2"><strong>角色边界。</strong>这些产品不是我一个人做出来的。谱系的优先级和发布节奏，是我和 PM、工程一起定的；Signals AI 的模型、本体论和平台工程有专门的团队。我管的一直是体验层，科学家在哪里碰到工具、怎么开口问、答案怎么自证清白。这页上所有关于设计的说法，都适用这条边界。</p></div></div>
-    </section>
+                <!-- Reflection Section -->
+                <div class="modal-reflection">
+                    <div class="modal-reflection-title" data-i18n="modal.signals.reflectionTitle">💭 What I Learned</div>
+                    <div class="modal-reflection-text" data-i18n="modal.signals.reflectionText" data-i18n-html>
+                        Enterprise B2B design isn’t consumer design. Users can’t just switch to a competitor if they hate your UI — they’re locked into multi-year contracts. So <strong>every friction point compounds into hours of lost productivity</strong> across thousands of users. The lineage map taught me that visualization isn’t about being clever. It’s about being invisible. Best compliment we got: “It just shows me what I need to know.”</div>
+                </div>
+            </div>
+    
+    </div>
 
-    <section class="final"><div class="final-copy"><p class="folio">13 / LIVE</p><h2 data-i18n="final.title">去<em>公开产品页</em>，<br>看它今天的样子。</h2><p data-i18n="final.copy">Signals AI 已经跟着 Signals One 平台公开发布。右边每条证据都能自己点开验证，这也是这个案例想示范的事。</p></div><div class="final-actions"><p class="section-index">REVVITYSIGNALS.COM</p><a class="hero-cta" href="https://revvitysignals.com/products/artificial-intelligence/signals-one-signals-ai" target="_blank" rel="noopener noreferrer"><span data-i18n="final.cta">Signals AI 产品页</span> →</a><a class="proof-link" href="https://news.revvity.com/press-announcements/press-releases/press-release-details/2026/Revvity-Launches-Signals-AI-a-Native-Agentic-Framework-for-Accelerating-Scientific-RD/default.aspx" target="_blank" rel="noopener noreferrer"><span data-i18n="final.l1">发布新闻稿</span>2026.06.22 →</a><a class="proof-link" href="https://www.businesswire.com/news/home/20260701291483/en/Revvity-Expands-Signals-AI-Ecosystem-Through-Anthropic-Claude-Integration" target="_blank" rel="noopener noreferrer"><span data-i18n="final.l2">Claude × MCP 公告</span>2026.07 →</a><a class="proof-link" href="https://www.selectscience.net/article/revvity-introduces-signals-ai-a-native-agentic-framework-to-accelerate-scientific-r-and-d" target="_blank" rel="noopener noreferrer"><span data-i18n="final.l3">媒体报道</span>SELECTSCIENCE →</a></div></section>
-  </main>
-  <footer class="bottom"><a href="/#projects" data-i18n="nav.back">返回作品</a><span> · </span><a href="collov" data-i18n="nav.next">下一个项目 · CollovGPT</a></footer>
+    <div class="page-bottom-nav">
+        <a href="/#projects">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="nav.backToWork">Back to All Work</span>
+        </a>
+        <a href="collov">
+            <span data-i18n="nav.nextProject">Next: CollovGPT</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
 
-  <script>
-    const translations={
-      zh:{},
-      en:{
-        "nav.back":"Back to work",
-        "nav.next":"Next project · CollovGPT",
-        "hero.caption":"LIVE PRODUCT SCREENSHOT · EXPLORER AI · SEP 17, 2026",
-        "hero.title":"Scientists only trust what they can verify. <em>The first rule I set for this AI was that<br>every answer shows its source.</em>",
-        "hero.story":"This page covers two stretches of my work at Revvity Signals. From 2021 to 2023 I owned one of the hardest workflows in Signals Notebook, the lineage visualization that lets scientists see where a cell line came from. In 2026 the company shipped Signals AI inside the platform, and I owned its experience design. Five years apart, both stretches were about the same thing, why a scientist should believe what's on a screen. <strong>Every screenshot and design deliverable on this page comes from the real product.</strong>",
-        "hero.cta":"Visit the public product page",
-        "meta.role.value":"Sr. Product Designer","meta.company.value":"Revvity Signals","meta.product.value":"Signals AI · agentic framework on Signals One","meta.ship.label":"SHIPPED","meta.ship.value":"June 2026 · public launch",
-        "before.title":"For the first five years, I designed the lab notebook <strong>pharma scientists live in every day.</strong>",
-        "before.quote":"“It used to take scientists more than two hours to trace where a single cell line came from.”",
-        "before.p1":"Signals Notebook is an electronic lab notebook used by 10,000+ scientific teams. It connects to ChemDraw, Spotfire and lab instruments, and runs over a million workflows a year. Experiment records from Pfizer, Roche, Novartis, Moderna and Merck move through it daily. Customers are locked in by multi-year contracts, so every unnecessary step a designer leaves behind gets repeated, day after day, across thousands of users.",
-        "before.p2":"As the Sr. Product Designer, I carried the lineage workflow from interviews all the way to engineering handoff. That work left me with a question, how a scientist learns to trust a screen in a regulated environment. Five years later the same question came back, unchanged, and stood in front of Signals AI.",
-        "before.r1.label":"MY RESPONSIBILITIES","before.r1.value":"End-to-end lineage workflow design, research synthesis, IA, wireframes, prototypes, usability checks, engineering handoff, and alignment with PM and engineering","before.r2.label":"TEAM","before.r2.value":"Me (Sr. Product Designer) + 1 Product Manager + 10 engineers","before.r3.label":"TIMELINE","before.r3.value":"~5 months core design, iterated with the product since 2021","before.r4.label":"TOOLS",
-        "before.e1.label":"TASK CHECK","before.e1.copy":"Lineage tracing, 2 hours down to 40 minutes (task check)","before.e2.label":"NPS","before.e2.copy":"25 to 30, post-release pulse","before.e3.label":"ANNUAL REVENUE","before.e3.copy":"Revenue scale of the product line","before.e4.label":"WORKFLOWS","before.e4.copy":"Workflows run on the platform annually",
-        "before.boundary":"Measurement boundary. The -66% and NPS come from task checks and post-release surveys that measured the lineage tracing workflow itself, not a claim that design alone changed all product behavior. NPS and revenue describe the overall post-release product state. The clearest design contribution is fewer steps for discovery, orientation and export.",
-        "challenge.title":"Tracing one cell line's history <strong>took more than two hours.</strong>",
-        "challenge.lead":"That was the most common complaint I heard in user interviews at major pharma companies. Broken down, it was four old problems.",
-        "challenge.p1.title":"Data fragmentation","challenge.p1.copy":"Lineage data was scattered across experiments, tools and formats. Piecing together a complete history was slow and error-prone.","challenge.p2.title":"Complex relationships","challenge.p2.copy":"Biological materials (cell lines, proteins, antibodies, viral vectors) carry layered parent-child connections that existing tools couldn't draw clearly.","challenge.p3.title":"Scalability issues","challenge.p3.copy":"Once research volume grew, systems struggled with large datasets and real-time collaboration.","challenge.p4.title":"Non-technical users","challenge.p4.copy":"The visualization tools of the time were built for data scientists. The people who needed fast answers were bench scientists.",
-        "landscape.title":"Every lineage tool on the market, <strong>I used them one by one.</strong>",
-        "landscape.c1.pro":"✓ Simple, interactive lineage tracking for model organisms","landscape.c1.con":"✗ Couldn't hold up under complex biologics workflows","landscape.c2.pro":"✓ Flexible data integration, decent lineage grids","landscape.c2.con":"✗ Weak on real-time collaboration and large datasets","landscape.c3.pro":"✓ Solid cell-line genealogy and compliance features","landscape.c3.con":"✗ Interface far too complex for non-technical users",
-        "landscape.insight":"<strong>The most important finding from interviews</strong> was that scientists don't think the way databases do, they think in relationships. Where did this cell line come from, which experiments used it, what batches were derived. The design had to follow that path, not make users adapt to the software.",
-        "decision.title":"The map gets the first screen. <strong>The table steps back to the second.</strong>",
-        "decision.quote":"“The map becomes the primary view, the table steps back to serve as evidence.”",
-        "decision.p1":"Every competitor defaulted to tables. Interviews showed scientists reason in relationships, so I made the map primary and the table secondary, matching how they actually model lineage. In task checks, tracing time dropped to a bit over a third of what it was, users no longer rebuilt hierarchies in their heads from flat data. The design contribution showed up most clearly in discovery, orientation and export.",
-        "decision.p2":"<strong>Getting it built.</strong> The hard part was convincing PM and engineering that map-first could survive inside a compliance-heavy product. I reframed the proposal from a visual experiment into a low-risk workflow change, keep the Smart Folder for discovery, put the graph in its own Lineage tab, leave tables and export for audit, force nobody into a new information architecture. PM got a clean scope, engineering got a buildable path.",
-        "decision.t1.label":"Rejected · Table-only","decision.t1.copy":"A table-only fix was safer to build, but the core cognitive load stayed, scientists still had to reconstruct parent-child relationships themselves.","decision.t2.label":"Constraint · Scale","decision.t2.copy":"Large material graphs could turn unreadable and expensive, so I used progressive exploration instead of laying out every relationship at once.","decision.t3.label":"Cut from v1","decision.t3.copy":"Cross-product lineage stayed as a direction. v1 shipped the Materials Smart Folder, the Lineage tab, table support and export.",
-        "workflow.title":"Five steps, six screens, <strong>two hours down to forty minutes.</strong>",
-        "workflow.lead":"I walked the whole workflow again and redesigned it, so tracing would be counted in minutes instead of hours.",
-        "workflow.s1":"Materials Smart Folder","workflow.s2":"Select a material","workflow.s3":"Go to the Lineage tab","workflow.s4":"View map &amp; table","workflow.s5":"Configure &amp; export",
-        "workflow.cap1":"Before, the existing experiments table, lineage data scattered across views","workflow.cap2":"Recommended, Materials Smart Folder with unified search and filtering","workflow.cap3":"Materials Smart Folder, every material type in one interface","workflow.cap4":"Material detail page, view and edit a single material's properties","workflow.cap5":"The Lineage tab, interactive lineage map plus the lineage table view","workflow.cap6":"Configure and export, advanced actions for lineage data management",
-        "workflow.f1.title":"Materials Smart Folder","workflow.f1.copy":"All material types (cell lines, proteins, antibodies, viral vectors) in one searchable, filterable interface. Finding any material became a matter of seconds.","workflow.f2.title":"Interactive lineage map","workflow.f2.copy":"Parent-child relationships drawn directly, black nodes for material assets, orange nodes for batches. Click to expand, collapse and dig deeper.","workflow.f3.title":"Lineage table view","workflow.f3.copy":"The grid stays for people who prefer tables, with sorting, filtering and bulk export to Excel/PDF for compliance docs.","workflow.f4.title":"Cross-product integration","workflow.f4.copy":"Connected with Signals Inventa and BioDesign, so lineage can be traced across experiments, projects and product lines.",
-        "workflow.reflection":"“It just shows me what I need to know.”",
-        "workflow.reflectionCopy":"The best thing a user ever said about our work. Enterprise users can't leave, contracts run for years, so every unnecessary step repeats daily across thousands of people. The lineage map taught me that visualization doesn't need to look clever. When users stop noticing it, it's done.",
-        "shift.title":"In 2026, <strong>it was the AI's turn to answer.</strong>",
-        "shift.lead":"The lineage project answered where a material came from. Five years later Signals AI had to answer a much bigger question, what can my data tell me. On June 22, 2026 it launched publicly as the native agentic framework of the Signals One platform, with the official ambition of “turning scientific software from a system of record into a system of scientific understanding.” Design faced two familiar roads, and took neither.",
-        "shift.a.title":"A bolt-on chatbot","shift.a.copy":"Fastest to ship. But scientists would leave their records for a separate window, answers would come unmoored from data, and nobody would write those conclusions back into a regulated notebook.","shift.b.title":"More dashboards and filters","shift.b.copy":"Safe, but the same old road. Kevin Willoe, President of Revvity Signals Software, described the old world this way, “For decades, scientific software has organized information into predefined applications, workflows and dashboards.”","shift.c.title":"A native layer of the platform","shift.c.copy":"Signals AI became a native intelligence layer of Signals One. It stays inside the interfaces scientists already use, answers land on ontologies and structured experimental data, traceable and task-ready. The cost is that trust has to be built into the information architecture, a disclaimer won't save you.",
-        "trust.title":"Every sentence the AI says <strong>has to open, and has to check out.</strong>",
-        "trust.lead":"Pharma R&D is regulated, and one fabricated answer can waste an entire experimental line. So I broke “believable” down into four things you can actually see in the interface.",
-        "trust.shot.tag":"LIVE PRODUCT SCREENSHOT · AI SEMANTIC SEARCH · SEP 17, 2026",
-        "trust.subtitle":"One sentence in, one clickable source out",
-        "trust.copy":"Look at this screenshot. Someone typed “items related to cell lines,” and that sentence became a visible filter at the top left. What the AI changed is in plain sight, and reversible. Every result card below carries experiment type, status, creator and date, one click from the original record. The answer comes out of a model, but it lands inside this workspace's own experiments.",
-        "trust.r1":"Ask the way scientists actually talk, no query language to learn","trust.r2":"AI-generated filter conditions are visible, and reversible","trust.r3":"Result cards carry metadata and creator, one click from the source record","trust.r4":"@ people, # Notebook entities, pin the question to real objects",
-        "trust.quote":"“Even the empty state says, AI can make mistakes. Double-check important information.”",
-        "trust.note":"The screenshot at the top is one I took myself in the demo workspace, the sidebar still holds the sessions from my own test rounds before capture. The small line under the input box says the AI can make mistakes and asks you to double-check important information. It wasn't added by legal later, it was one of the earliest pieces of copy we settled. Admitting fallibility on the first screen makes the tool more usable, not less.",
-        "system.title":"From a system of record <strong>to a system of understanding.</strong>",
-        "system.lead":"Signals One is Revvity Signals' unified cloud-native R&amp;D platform. Signals AI didn't build a separate house, it is the platform's own agentic framework. For the first time, scientists can take a decade of recorded experiments and ask it a question in one sentence.",
-        "system.c1.title":"Semantic search","system.c1.copy":"Retrieve years of experiments by meaning, not keyword matching.","system.c2.title":"Summarization","system.c2.copy":"Compress piles of records into checkable summaries, sources stay clickable.","system.c3.title":"Image search","system.c3.copy":"Describe it in one sentence and find that experiment image.","system.c4.title":"Copilots &amp; agents","system.c4.copy":"Built with the strongest model partners, starting with Claude. MCP integration announced July 2026.",
-        "system.shot.tag":"LIVE PRODUCT SCREENSHOT · NOTEBOOK DASHBOARD + EXPLORER AI · SEP 17, 2026",
-        "system.subtitle":"Docked where the work happens","system.copy":"explorer AI docks on the right side of the Notebook dashboard without stealing the workspace. The four suggested prompts ask what a scientist would ask themselves at work, what did I do recently, where did I leave off, is anything waiting on my review. The AI lives where the work happens, one less tab to switch to.",
-        "system.r1":"Docked in the existing UI, no new window","system.r2":"Suggested prompts come from real workflow state","system.r3":"Answers land on ontologies and structured data",
-        "show.title":"Why it's called Explorer, <strong>not Copilot.</strong>",
-        "show.lead":"AI Explorer didn't ship as a standalone product. It stands in the Signals app lineup, level with Notebook, Inventory and BioDesign. The name is part of the design too, it helps you dig through your own data, the science is still yours.",
-        "show.shot.tag":"LIVE PRODUCT SCREENSHOT · SIGNALS HOME · SEP 17, 2026",
-        "show.shot.title":"The entrance is the app grid","show.shot.copy":"In Signals Home, AI Explorer sits in the same tier as the notebook, inventory and BioDesign. The Administration cards in the lower half are the other half of the reality, permissions, governance, enterprise compliance. The AI works inside those rules.",
-        "show.card.title":"Public-evidence check · Sep 17, 2026","show.card.copy":"The product page, launch press release and Claude partnership announcement are all publicly accessible. The four interface screenshots on this page were captured from the same demo workspace of the real product.",
-        "show.s1":"Public launch","show.s2":"Official experience modules","show.s3":"First model partner","show.s4":"Screenshot environment",
-        "show.boundary":"The above are publicly checkable product facts. The design process, internal iterations and the details of my role are my side of the story.",
-        "boundary.title":"What you can verify, and what you can only take my word for.",
-        "boundary.copy":"This page mixes two kinds of material, so I'll draw the line. The external half, Signals AI launched publicly on June 22, 2026, the product page and press release are open to anyone, the Claude integration was announced in July, all verifiable. The narrative half, how the interface was decided, how the copy was tuned, how the team negotiated, has no public material to check against, you can only decide whether to believe me. The product just launched, so I won't invent adoption or retention numbers. The -66% from the first stretch measured a lineage task check five years ago, it doesn't count as today's AI. The four Signals AI screenshots come from a demo workspace, not a single row of customer data.",
-        "boundary.quote":"“Everything checkable has a link. The rest, you'll have to take from me.”",
-        "boundary.l1":"PRODUCT PAGE","boundary.l2":"LAUNCH PRESS RELEASE","boundary.l3":"CLAUDE INTEGRATION","boundary.l4":"PRESS COVERAGE",
-        "boundary.proof":"PUBLIC EVIDENCE · 2026.06.22 LAUNCH / 2026.07 CLAUDE × MCP / DEMO-WORKSPACE SCREENSHOTS",
-        "role.title":"Five years. <strong>What exactly I did.</strong>",
-        "role.quote":"“Getting an AI to say ‘I'm not sure about this one' is harder than making it look smart.”",
-        "role.p1":"In the first stretch I owned the lineage workflow end to end, from user interviews, IA, wireframes and prototypes to usability testing and engineering handoff. In the second I owned the experience layer of Signals AI, how conversations ask, how results present, how filters stay visible, where the AI enters the suite.",
-        "role.p2":"<strong>Role boundary.</strong> I didn't build these products alone. Lineage priorities and release rhythm were decided with PM and engineering, and the models, ontology and platform engineering behind Signals AI belonged to dedicated teams. What I owned was the experience layer, where scientists meet the tool, how they ask, how an answer proves itself clean. Every design claim on this page stands inside that boundary.",
-        "final.title":"Go see it <em>on the public<br>product page</em>, as it ships today.",
-        "final.copy":"Signals AI is publicly available with the Signals One platform. Every piece of evidence on the right is one click away, which is exactly what this case study wants to demonstrate.",
-        "final.cta":"Signals AI product page","final.l1":"LAUNCH PRESS RELEASE","final.l2":"CLAUDE × MCP ANNOUNCEMENT","final.l3":"PRESS COVERAGE"
-      }
-    };
-    const zhText={};document.querySelectorAll('[data-i18n]').forEach(el=>zhText[el.dataset.i18n]=el.innerHTML);
-    function setLanguage(lang){localStorage.setItem('lang',lang);document.documentElement.lang=lang==='zh'?'zh-CN':'en';document.querySelectorAll('[data-i18n]').forEach(el=>{const v=lang==='zh'?zhText[el.dataset.i18n]:translations.en[el.dataset.i18n];if(v)el.innerHTML=v});document.getElementById('lang-zh').classList.toggle('active',lang==='zh');document.getElementById('lang-en').classList.toggle('active',lang==='en')}
-    document.getElementById('lang-zh').addEventListener('click',()=>setLanguage('zh'));document.getElementById('lang-en').addEventListener('click',()=>setLanguage('en'));setLanguage(localStorage.getItem('lang')==='en'?'en':'zh');
-  </script>
+    <script>
+        // i18n
+        const translations = {
+            en: {
+                'nav.back': 'Back',
+                'nav.backToWork': 'Back to All Work',
+                'nav.nextProject': 'Next: CollovGPT',
+                'modal.signals.eyebrow': 'Enterprise B2B · 2021–Present',
+                'modal.signals.title': 'Signals Notebook',
+                'modal.signals.subtitle': 'Lineage visualization for global pharma R&D teams',
+                'modal.signals.metaLabel1': 'Role',
+                'modal.signals.metaValue1': 'Sr. Product Designer',
+                'modal.signals.metaLabel2': 'Company',
+                'modal.signals.metaValue2': 'Revvity',
+                'modal.signals.metaLabel3': 'Users',
+                'modal.signals.metaValue3': '10,000+ Teams',
+                'modal.signals.metaLabel4': 'Countries',
+                'modal.signals.metaValue4': '50+',
+                'modal.signals.fastlaneLabel': 'Impact Snapshot',
+                'modal.signals.fastlaneProblemLabel': 'Problem',
+                'modal.signals.fastlaneProblem': 'Scientists spent 2+ hours tracing a single cell line.',
+                'modal.signals.fastlaneDecisionLabel': 'Decision',
+                'modal.signals.fastlaneDecision': 'Flipped lineage from table-first to map-first.',
+                'modal.signals.fastlaneResultLabel': 'Result',
+                'modal.signals.fastlaneResult': 'Task-based usability checks: tracing time cut 66%, from 2 hours to 40 minutes.',
+                'modal.signals.tldrLabel': 'TL;DR',
+                'modal.signals.tldrText': 'Cut lineage tracing time 66% in task-based usability checks (2 hours to 40 minutes) by designing an interactive visualization for tangled biological material relationships. The number measures the tracing workflow itself — adoption and NPS also moved with rollout timing, product maturity, and customer context.',
+                'modal.signals.storyPainLabel': 'Pain',
+                'modal.signals.storyPain': 'Scientists needed 2+ hours to rebuild one material lineage.',
+                'modal.signals.storyDecisionLabel': 'Decision',
+                'modal.signals.storyDecision': 'Make the lineage map the primary view; keep tables as evidence.',
+                'modal.signals.storyResultLabel': 'Result',
+                'modal.signals.storyResult': 'Tracing time dropped from 2 hours to 40 minutes.',
+                'modal.signals.storyEvidenceLabel': 'Evidence',
+                'modal.signals.storyEvidence': 'Rolled out inside a $100M+ enterprise product.',
+                'modal.signals.metricLabel1': 'NPS Score',
+                'modal.signals.metricDesc1': '25 → 30, post-release pulse',
+                'modal.signals.metricLabel2': 'Tracing Time',
+                'modal.signals.metricDesc2': 'Task check: 2h → 40min',
+                'modal.signals.metricLabel3': 'Annual Revenue',
+                'modal.signals.metricDesc3': 'Contribution',
+                'modal.signals.metricLabel4': 'Workflows',
+                'modal.signals.metricDesc4': 'Per year',
+                'modal.signals.measurementNote': '<strong>Measurement boundary:</strong> I report the -66% as a task-based usability outcome for the lineage tracing workflow — not a claim that design alone changed every product metric. NPS and revenue describe post-release product context; the clearest design contribution is cutting the steps scientists needed to discover, orient, and export.',
+                'modal.signals.section1Title': 'My Role & Context',
+                'modal.signals.roleLabel1': 'My Responsibilities',
+                'modal.signals.roleValue1': 'Owned the end-to-end lineage workflow design: research synthesis, IA, wireframes, prototypes, usability checks, engineering handoff, and PM/engineering scope alignment',
+                'modal.signals.roleLabel2': 'Team',
+                'modal.signals.roleValue2': 'Me (Sr. Product Designer), 1 PM, 10 Dev Engineers',
+                'modal.signals.roleLabel3': 'Timeline',
+                'modal.signals.roleValue3': '~5 months (2021–Present)',
+                'modal.signals.roleLabel4': 'Tools',
+                'modal.signals.roleValue4': 'Figma, Jira, Confluence, Miro',
+                'modal.signals.roleBoundary': '<strong>Role boundary:</strong> I was the sole product designer on this workflow, so I owned the design strategy and interaction model. Product prioritization, technical feasibility, and release timing were shared calls with the PM and engineering team. My senior-level contribution: making the trade-offs explicit enough that the team could actually commit.',
+                'modal.signals.section2Title': 'Understanding the Product',
+                'modal.signals.section2P1': 'Signals Notebook is an AI-powered electronic lab notebook (ELN) trusted by 10,000+ scientific teams worldwide. It talks to ChemDraw, Spotfire, and lab instruments over APIs, and runs 1M+ workflows a year.',
+                'modal.signals.insightText1': '<strong>Key clients:</strong> Pfizer, Roche, Novartis, Johnson & Johnson, Takeda, Moderna, GSK, Merck, AstraZeneca, Bayer, and more. These pharma giants run mission-critical research on our software.',
+                'modal.signals.section3Title': 'The Challenge',
+                'modal.signals.quote': '“Scientists spent 2+ hours just to trace where a single cell line came from.”',
+                'modal.signals.section3P1': 'User interviews with bench researchers at major pharma companies surfaced four pain points:',
+                'modal.signals.challenge1': '<strong>Data fragmentation:</strong> Lineage data was scattered across experiments, tools, and formats — stitching together a full history was slow and error-prone.',
+                'modal.signals.challenge2': '<strong>Layered relationships:</strong> Biological materials (cell lines, proteins, antibodies, viral vectors) carry parent-child chains that existing tools couldn’t visualize clearly.',
+                'modal.signals.challenge3': '<strong>Scale:</strong> As research volume grew, systems choked on large datasets and real-time collaboration.',
+                'modal.signals.challenge4': '<strong>Wrong audience:</strong> Current visualization tools were built for data scientists — not bench scientists who need a fast answer.',
+                'modal.signals.section4Title': 'Competitive Analysis',
+                'modal.signals.section4P1': 'I sized up the existing life-sciences solutions:',
+                'modal.signals.comp1Name': 'WormWeb',
+                'modal.signals.comp1Pros': '✓ Simple, interactive lineage tracking for model organisms',
+                'modal.signals.comp1Cons': '✗ Can’t scale to complex biologics workflows',
+                'modal.signals.comp2Name': 'LabKey',
+                'modal.signals.comp2Pros': '✓ Flexible data integration and lineage grids',
+                'modal.signals.comp2Cons': '✗ Weak on real-time collaboration and large datasets',
+                'modal.signals.comp3Name': 'IDBS',
+                'modal.signals.comp3Pros': '✓ Robust cell-line genealogy and compliance features',
+                'modal.signals.comp3Cons': '✗ Interface too complex for non-technical users',
+                'modal.signals.insightText2': 'Key insight: scientists don’t think in database queries — they think in relationships. “Where did this cell line come from? Which experiments used it? What batches were derived?” The solution had to mirror that mental model.',
+                'modal.signals.decision1Label': 'Design Decision',
+                'modal.signals.decision1Title': 'Map-first, not table-first',
+                'modal.signals.decision1Text': 'Every competitor defaults to table views. But interviews showed scientists think in relationships, not rows. I made the interactive map the primary view and demoted tables to secondary — matching how they actually model biological lineage. In task-based usability checks this cut tracing time 66%: users no longer had to mentally rebuild hierarchies from flat data. The design contribution showed up strongest in discovery, orientation, and export readiness.',
+                'modal.signals.influenceLabel': 'Influence & Alignment',
+                'modal.signals.influenceTitle': 'Turned a risky visualization shift into a buildable enterprise workflow',
+                'modal.signals.influenceText': 'The hard part wasn’t convincing anyone lineage mattered. It was getting PM and engineering to trust a map-first experience inside a compliance-heavy product. So I reframed the proposal as a low-risk workflow change rather than a visual experiment: keep Smart Folder for discovery, put the graph inside a dedicated Lineage tab, retain table/export for audit, and never force users into a new information architecture. That compromise handed PM a cleaner scope and gave engineering a buildable path.',
+                'modal.signals.tradeoffLabel': 'Trade-offs',
+                'modal.signals.tradeoff1Label': 'Rejected: table-only',
+                'modal.signals.tradeoff1Text': 'A table-only fix was safer to build — but it kept the real cognitive load. Scientists would still reconstruct parent-child relationships by hand.',
+                'modal.signals.tradeoff2Label': 'Constraint: scale',
+                'modal.signals.tradeoff2Text': 'Large material graphs get unreadable and expensive to render, so I used progressive exploration instead of exposing every relationship at once.',
+                'modal.signals.tradeoff3Label': 'Cut from v1',
+                'modal.signals.tradeoff3Text': 'Full cross-product lineage stayed on the roadmap. v1 shipped Materials Smart Folder, the Lineage tab, table support, and export readiness.',
+                'modal.signals.section5Title': 'Design Process',
+                'modal.signals.section5P1': 'I designed a workflow that lets scientists trace lineage in seconds, not hours:',
+                'modal.signals.process1': 'Materials Smart Folder',
+                'modal.signals.process2': 'Select a material',
+                'modal.signals.process3': 'Open the Lineage tab',
+                'modal.signals.process4': 'Read map + table',
+                'modal.signals.process5': 'Configure & export',
+                'modal.signals.section6Title': 'Design Showcase',
+                'modal.signals.section6P1': 'The full design flow for the Lineage Visualization feature — from current state to final hi-fi screens:',
+                'modal.signals.caption1': 'Before: existing experiments table — lineage data scattered across views',
+                'modal.signals.caption2': 'Recommended: Materials Smart Folder with unified search and filtering',
+                'modal.signals.caption3': 'Materials Smart Folder — every material type in one interface',
+                'modal.signals.caption4': 'Material Detail Page — view and edit a single material’s properties',
+                'modal.signals.caption5': 'Lineage Tab — interactive lineage map plus lineage table',
+                'modal.signals.caption6': 'Configure / Export — advanced actions for lineage data management',
+                'modal.signals.section7Title': 'Solution: Key Features I Designed',
+                'modal.signals.feature1Title': 'Materials Smart Folder',
+                'modal.signals.feature1Desc': 'One unified view of every material type — Cell Lines, Proteins, Antibodies, Viral Vectors — in a single searchable, filterable interface. Scientists now find any material in seconds.',
+                'modal.signals.feature2Title': 'Interactive Lineage Map',
+                'modal.signals.feature2Desc': 'A visual map of parent-child relationships, with a clear split between Asset Level (black nodes) and Batch Level (orange nodes). Click to expand, collapse, and explore.',
+                'modal.signals.feature3Title': 'Lineage Table View',
+                'modal.signals.feature3Desc': 'A tabular alternative for users who live in data grids. Supports sorting, filtering, and bulk export to Excel/PDF for compliance documentation.',
+                'modal.signals.feature4Title': 'Cross-Product Integration',
+                'modal.signals.feature4Desc': 'Connects with Signals Inventa and BioDesign — scientists can trace lineage across experiments, projects, and even different product lines.',
+                'modal.signals.reflectionTitle': '💭 What I Learned',
+                'modal.signals.reflectionText': 'Enterprise B2B design isn’t consumer design. Users can’t just switch to a competitor if they hate your UI — they’re locked into multi-year contracts. So <strong>every friction point compounds into hours of lost productivity</strong> across thousands of users. The lineage map taught me that visualization isn’t about being clever. It’s about being invisible. Best compliment we got: “It just shows me what I need to know.”',
+
+            },
+            zh: {
+                'nav.back': '返回',
+                'nav.backToWork': '返回所有作品',
+                'nav.nextProject': '下一个：CollovGPT',
+                'modal.signals.eyebrow': '企业 B2B · 2021 至今',
+                'modal.signals.title': 'Signals Notebook',
+                'modal.signals.subtitle': '给全球药企研发团队的数据系谱图',
+                'modal.signals.metaLabel1': '角色',
+                'modal.signals.metaValue1': '高级产品设计师',
+                'modal.signals.metaLabel2': '公司',
+                'modal.signals.metaValue2': 'Revvity',
+                'modal.signals.metaLabel3': '用户',
+                'modal.signals.metaValue3': '10,000+ 团队',
+                'modal.signals.metaLabel4': '覆盖国家',
+                'modal.signals.metaValue4': '50+',
+                'modal.signals.fastlaneLabel': '影响快照',
+                'modal.signals.fastlaneProblemLabel': '痛点',
+                'modal.signals.fastlaneProblem': '科学家追溯一个细胞系，要花 2 小时以上。',
+                'modal.signals.fastlaneDecisionLabel': '决策',
+                'modal.signals.fastlaneDecision': '把谱系从「表格优先」翻成「图谱优先」。',
+                'modal.signals.fastlaneResultLabel': '结果',
+                'modal.signals.fastlaneResult': '任务型可用性测试里，追溯时间砍掉 66%——从 2 小时压到 40 分钟。',
+                'modal.signals.tldrLabel': '概要',
+                'modal.signals.tldrText': '靠一套交互式可视化系统，把任务型可用性测试里的谱系追溯时间砍了 66%（2 小时降到 40 分钟），针对的是生物材料之间那些缠成一团的关系。这个数测的是追溯流程本身——采用率和 NPS 还会被上线节奏、产品成熟度、客户环境拖着走。',
+                'modal.signals.storyPainLabel': '痛点',
+                'modal.signals.storyPain': '科学家要花 2 小时以上，才能重建一条材料谱系。',
+                'modal.signals.storyDecisionLabel': '决策',
+                'modal.signals.storyDecision': '让谱系地图当主视图，表格退回去做证据。',
+                'modal.signals.storyResultLabel': '结果',
+                'modal.signals.storyResult': '追溯时间从 2 小时压到 40 分钟。',
+                'modal.signals.storyEvidenceLabel': '证据',
+                'modal.signals.storyEvidence': '在一款年营收 $100M+ 的企业产品里落地。',
+                'modal.signals.metricLabel1': 'NPS 分数',
+                'modal.signals.metricDesc1': '25 → 30，上线后脉冲调研',
+                'modal.signals.metricLabel2': '追溯时间',
+                'modal.signals.metricDesc2': '任务测试：2 小时 → 40 分钟',
+                'modal.signals.metricLabel3': '年营收',
+                'modal.signals.metricDesc3': '贡献',
+                'modal.signals.metricLabel4': '工作流',
+                'modal.signals.metricDesc4': '每年',
+                'modal.signals.measurementNote': '<strong>数据口径边界：</strong>-66% 是谱系追溯任务里测出来的可用性结果，不是说设计一个人就把产品每项指标都改了。NPS 和营收讲的是上线后的产品背景；设计最直接的贡献，是把科学家在发现、定位、导出这三步上的操作成本砍下去。',
+                'modal.signals.section1Title': '我的角色与背景',
+                'modal.signals.roleLabel1': '我的职责',
+                'modal.signals.roleValue1': '一个人扛下端到端的谱系工作流设计——研究综合、信息架构、线框、原型、可用性测试、工程交付，以及跟产品/工程对齐范围',
+                'modal.signals.roleLabel2': '团队',
+                'modal.signals.roleValue2': '我（高级产品设计师）、1 名产品经理、10 名开发',
+                'modal.signals.roleLabel3': '周期',
+                'modal.signals.roleValue3': '约 5 个月（2021 至今）',
+                'modal.signals.roleLabel4': '工具',
+                'modal.signals.roleValue4': 'Figma、Jira、Confluence、Miro',
+                'modal.signals.roleBoundary': '<strong>角色边界：</strong>这条工作流只有我一个产品设计师，所以设计策略和交互模型归我。产品优先级、技术可行性、上线节奏是跟产品经理、工程团队一起定的；我在 senior 这一层真正做的事，是把取舍掰开了讲清楚，让团队能围绕同一个范围往前推。',
+                'modal.signals.section2Title': '先把产品搞清楚',
+                'modal.signals.section2P1': 'Signals Notebook 是一本 AI 驱动的电子实验记录本（ELN），全球 10,000+ 科研团队在用。它通过 API 接 ChemDraw、Spotfire 和一堆实验仪器，每年跑 100 万+ 工作流。',
+                'modal.signals.insightText1': '<strong>核心客户：</strong>辉瑞、罗氏、诺华、强生、武田、Moderna、GSK、默克、阿斯利康、拜耳，等等。这些药企的关键研究，跑在我们的软件上。',
+                'modal.signals.section3Title': '挑战',
+                'modal.signals.quote': '「科学家光是追溯一个细胞系的来源，就要花 2 个多小时。」',
+                'modal.signals.section3P1': '跟几家大药企的实验台研究员聊下来，我挖出四个痛点：',
+                'modal.signals.challenge1': '<strong>数据散落一地：</strong>谱系数据散在不同的实验、工具、格式里——想拼出一段完整历史，慢，还容易出错。',
+                'modal.signals.challenge2': '<strong>关系层层套：</strong>生物材料（细胞系、蛋白、抗体、病毒载体）的亲子关系是一层套一层的，现有工具画不清楚。',
+                'modal.signals.challenge3': '<strong>规模扛不住：</strong>研究量一上来，系统在大数据集和实时协作上就顶不住。',
+                'modal.signals.challenge4': '<strong>给错了人：</strong>现有的可视化工具是给数据科学家做的——不是给实验台科学家那种「我只要一个快答案」的人做的。',
+                'modal.signals.section4Title': '竞品分析',
+                'modal.signals.section4P1': '我把生命科学领域现有的几个方案过了一遍：',
+                'modal.signals.comp1Name': 'WormWeb',
+                'modal.signals.comp1Pros': '✓ 简单、可交互，能追踪模式生物的谱系',
+                'modal.signals.comp1Cons': '✗ 顶不住复杂生物制药的工作流',
+                'modal.signals.comp2Name': 'LabKey',
+                'modal.signals.comp2Pros': '✓ 数据集成灵活，谱系网格做得不错',
+                'modal.signals.comp2Cons': '✗ 实时协作和大数据集是短板',
+                'modal.signals.comp3Name': 'IDBS',
+                'modal.signals.comp3Pros': '✓ 细胞系族谱和合规功能扎实',
+                'modal.signals.comp3Cons': '✗ 界面对非技术用户太复杂',
+                'modal.signals.insightText2': '核心洞察：科学家不是用数据库查询在思考——他们用关系在思考。「这个细胞系从哪来的？哪些实验用过它？从它身上衍生出了哪些批次？」解决方案得贴着这个心智模型走。',
+                'modal.signals.decision1Label': '设计决策',
+                'modal.signals.decision1Title': '图谱优先，不是表格优先',
+                'modal.signals.decision1Text': '竞品清一色默认表格视图。可访谈里看得很清楚——科学家是用关系在想的，不是用行和列。我把交互式地图定成主视图，表格降为辅助，贴着他们对生物谱系的心智模型走。任务型可用性测试里，追溯时间砍了 66%：用户不用再从扁平数据里脑补层级。设计贡献最显眼的地方，是发现路径、方向感、导出准备度。',
+                'modal.signals.influenceLabel': '影响与对齐',
+                'modal.signals.influenceTitle': '把一次高风险的可视化转向，变成团队能落地的企业级工作流',
+                'modal.signals.influenceText': '对齐的难点，不是让大家相信谱系重要——是在一个合规压得很重的企业产品里，让产品经理和工程团队相信「图谱优先」这事儿能做、能交付。我把方案重新定义成一次低风险的工作流调整，而不是一场可视化的实验：发现还是走 Smart Folder，图谱塞进独立的谱系 Tab，表格/导出留给审计，绝不逼用户接受一套新的信息架构。这个折中让产品经理拿到了一个清楚的范围，也让工程团队有一条能动手的路径。',
+                'modal.signals.tradeoffLabel': '关键取舍',
+                'modal.signals.tradeoff1Label': '否决：纯表格',
+                'modal.signals.tradeoff1Text': '纯表格的改法更稳——但认知负担没动。科学家还得靠手重建亲子关系。',
+                'modal.signals.tradeoff2Label': '约束：规模',
+                'modal.signals.tradeoff2Text': '材料图谱一大就读不动，渲染也贵，所以我用渐进式探索，不一次性把所有关系都摊开。',
+                'modal.signals.tradeoff3Label': 'v1 砍掉的',
+                'modal.signals.tradeoff3Text': '完整的跨产品谱系留作方向。v1 交付的是材料智能文件夹、谱系 Tab、表格支持、导出准备度。',
+                'modal.signals.section5Title': '设计流程',
+                'modal.signals.section5P1': '我设计了一套工作流，让科学家几秒钟就能追溯谱系，而不是几小时：',
+                'modal.signals.process1': '材料智能文件夹',
+                'modal.signals.process2': '选中一个材料',
+                'modal.signals.process3': '打开谱系 Tab',
+                'modal.signals.process4': '看图谱 + 表格',
+                'modal.signals.process5': '配置并导出',
+                'modal.signals.section6Title': '设计展示',
+                'modal.signals.section6P1': '谱系可视化功能的完整设计流程——从现有状态到最终高保真界面：',
+                'modal.signals.caption1': '改造前：现有实验表格——谱系数据散落在各个视图里',
+                'modal.signals.caption2': '推荐方案：带统一搜索和筛选的材料智能文件夹',
+                'modal.signals.caption3': '材料智能文件夹——一个界面看尽所有材料类型',
+                'modal.signals.caption4': '材料详情页——查看并编辑单个材料的属性',
+                'modal.signals.caption5': '谱系 Tab——交互式谱系图 + 谱系表格',
+                'modal.signals.caption6': '配置 / 导出——谱系数据管理的高级操作',
+                'modal.signals.section7Title': '方案：我设计的核心功能',
+                'modal.signals.feature1Title': '材料智能文件夹',
+                'modal.signals.feature1Desc': '一个统一视图，把所有材料类型——细胞系、蛋白、抗体、病毒载体——装进同一个可搜索、可筛选的界面。科学家现在几秒就能找到任何一个材料。',
+                'modal.signals.feature2Title': '交互式谱系图',
+                'modal.signals.feature2Desc': '一张可视化的亲子关系图，资产层级（黑节点）和批次层级（橙节点）一眼分得开。点一下展开、折叠、往下探。',
+                'modal.signals.feature3Title': '谱系表格视图',
+                'modal.signals.feature3Desc': '给习惯数据网格的用户一个表格选项。支持排序、筛选、批量导出 Excel/PDF，用于合规留档。',
+                'modal.signals.feature4Title': '跨产品集成',
+                'modal.signals.feature4Desc': '跟 Signals Inventa 和 BioDesign 接通——科学家可以跨实验、跨项目，甚至跨不同产品线追溯谱系。',
+                'modal.signals.reflectionTitle': '💭 我学到的',
+                'modal.signals.reflectionText': '企业 B2B 设计跟消费级产品根本不是一回事。用户不喜欢你的 UI，没法拍拍屁股换竞品——他们被多年合同钉死了。所以<strong>每一个摩擦点，都会在数千用户身上累积成几小时的产能流失</strong>。谱系图教会我一件事：可视化不是为了炫技——是为了隐形。我们收到的最高评价是：「它就是把我需要知道的，摆在我面前。」',
+
+            }
+        };
+
+        function detectLang() {
+            const saved = localStorage.getItem('lang');
+            if (saved) return saved;
+            const sysLang = navigator.language || navigator.userLanguage || '';
+            return sysLang.startsWith('zh') ? 'zh' : 'en';
+        }
+        let currentLang = detectLang();
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (el.getAttribute('data-i18n-html') !== null) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+            document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        }
+
+        document.getElementById('lang-zh').addEventListener('click', () => setLanguage('zh'));
+        document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+        setLanguage(currentLang);
+
+        // Case-study motion: reveal key proof, then light the process progressively.
+        (function initCaseMotion() {
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const revealItems = document.querySelectorAll('.case-reveal, .case-story-item, .modal-section, .modal-image');
+            const process = document.querySelector('.modal-process-enhanced');
+            const processSteps = process ? Array.from(process.querySelectorAll('.modal-process-item')) : [];
+
+            revealItems.forEach((el, index) => {
+                el.classList.add('case-reveal');
+                el.style.transitionDelay = reducedMotion ? '0ms' : Math.min(index * 35, 180) + 'ms';
+            });
+
+            const revealNow = el => el.classList.add('is-visible');
+            const activateProcess = () => {
+                processSteps.forEach((step, index) => {
+                    if (reducedMotion) {
+                        step.classList.add('is-active');
+                    } else {
+                        window.setTimeout(() => step.classList.add('is-active'), index * 140);
+                    }
+                });
+            };
+
+            if (reducedMotion || !('IntersectionObserver' in window)) {
+                revealItems.forEach(revealNow);
+                activateProcess();
+                return;
+            }
+
+            const revealObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        revealNow(entry.target);
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: '200px 0px 120px 0px' });
+            revealItems.forEach(el => revealObserver.observe(el));
+            window.setTimeout(() => {
+                revealItems.forEach(revealNow);
+                activateProcess();
+            }, 3000);
+
+            if (process) {
+                const processObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            activateProcess();
+                            processObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.42 });
+                processObserver.observe(process);
+            }
+        })();
+
+        // Image Lightbox
+        const imgLightbox = document.createElement('div');
+        imgLightbox.id = 'img-lightbox';
+        imgLightbox.innerHTML = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt=""><button class="img-lb-close">&times;</button>';
+        imgLightbox.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all 0.4s;cursor:zoom-out;';
+        imgLightbox.querySelector('img').style.cssText = 'max-width:95vw;max-height:95vh;object-fit:contain;border-radius:8px;transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);transform:scale(0.9);';
+        imgLightbox.querySelector('.img-lb-close').style.cssText = 'position:absolute;top:24px;right:24px;width:48px;height:48px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:50%;color:white;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;';
+        document.body.appendChild(imgLightbox);
+
+        function showImgLightbox(src) {
+            const img = imgLightbox.querySelector('img');
+            img.src = src;
+            imgLightbox.style.opacity = '1';
+            imgLightbox.style.visibility = 'visible';
+            img.style.transform = 'scale(1)';
+        }
+        function hideImgLightbox() {
+            imgLightbox.style.opacity = '0';
+            imgLightbox.style.visibility = 'hidden';
+            imgLightbox.querySelector('img').style.transform = 'scale(0.9)';
+        }
+        imgLightbox.addEventListener('click', hideImgLightbox);
+        imgLightbox.querySelector('.img-lb-close').addEventListener('click', hideImgLightbox);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') hideImgLightbox(); });
+
+        document.querySelectorAll('.modal-image').forEach(img => {
+            img.addEventListener('click', () => showImgLightbox(img.src));
+        });
+
+        // Scroll to top on load
+        window.scrollTo(0, 0);
+    </script>
 </body>
 </html>
