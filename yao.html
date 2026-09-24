@@ -237,6 +237,39 @@
         .creed { max-width: 640px; margin: 26px auto 0; text-align: center; font-size: 15px; color: var(--text-secondary); line-height: 1.85; }
         .creed strong { color: var(--silver); font-weight: 600; }
 
+        /* Album cover reveal */
+        .album-wrap { display: flex; flex-direction: column; align-items: center; }
+        .album-stage { position: relative; }
+        .album-stage::before {
+            content: ''; position: absolute; inset: -18%;
+            background: radial-gradient(circle, rgba(124,92,240,0.3), transparent 62%);
+            filter: blur(14px); z-index: 0;
+        }
+        .album-stage::after {
+            content: ''; position: absolute; left: 10%; right: 10%; bottom: -26px; height: 34px;
+            background: radial-gradient(ellipse at center, rgba(124,92,240,0.35), transparent 70%);
+            filter: blur(12px); z-index: 0;
+        }
+        .album-cover {
+            position: relative; z-index: 1; display: block;
+            width: min(400px, 76vw); aspect-ratio: 1/1; object-fit: cover;
+            border-radius: 18px; border: 1px solid rgba(201,189,253,0.28);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.6), 0 0 70px rgba(124,92,240,0.28);
+            animation: float-y 7s ease-in-out infinite;
+            transition: transform 0.6s var(--ease-out-quart), box-shadow 0.6s var(--ease-out-quart);
+        }
+        .album-wrap:hover .album-cover { transform: translateY(-8px) rotate3d(1, -1, 0, 5deg) scale(1.025); box-shadow: 0 40px 110px rgba(0,0,0,0.65), 0 0 100px rgba(124,92,240,0.4); }
+        @keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @media (prefers-reduced-motion: reduce) { .album-cover { animation: none; } }
+        .album-meta {
+            position: relative; z-index: 1; margin-top: 44px;
+            font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.24em;
+            color: var(--text-tertiary); text-transform: uppercase; text-align: center;
+            display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center;
+        }
+        .album-meta .sep { color: rgba(167,139,250,0.5); }
+        .album-meta b { color: var(--accent-light); font-weight: 600; }
+
         .xhs-feature {
             display: flex; align-items: stretch; gap: 20px; text-decoration: none;
             background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 18px;
@@ -390,8 +423,22 @@
             <div class="modal-metric"><div class="modal-metric-value">9</div><div class="modal-metric-label" data-i18n="yao.metricLabel4">Edits · 1 Day</div></div>
         </div>
 
+        <!-- Album cover reveal -->
+        <div class="strip-title"><span class="no">01</span><h2 data-i18n="yao.albumTitle">出道封面</h2><span class="tail"></span></div>
+        <div class="album-wrap">
+            <div class="album-stage">
+                <img class="album-cover" src="images/yao-cover.jpg" alt="CALL ME YAO 专辑封面：妖字印章与眼眸图形，黑银紫包装" loading="lazy">
+            </div>
+            <div class="album-meta">
+                <span>DEBUT SINGLE</span><span class="sep">·</span>
+                <b>CALL ME YAO</b><span class="sep">·</span>
+                <span>3'34"</span><span class="sep">·</span>
+                <span>2026.09</span>
+            </div>
+        </div>
+
         <!-- Lineup -->
-        <div class="strip-title"><span class="no">01</span><h2 data-i18n="yao.s2Title">The Lineup · 出场顺序</h2><span class="tail"></span></div>
+        <div class="strip-title"><span class="no">02</span><h2 data-i18n="yao.s2Title">The Lineup · 出场顺序</h2><span class="tail"></span></div>
         <div class="member-grid">
             <div class="member-card">
                 <span class="member-no">01</span>
@@ -436,7 +483,7 @@
         </div>
 
         <!-- Stills gallery · 按歌曲时间轴排序 -->
-        <div class="strip-title"><span class="no">02</span><h2 data-i18n="yao.galleryTitle">Frames</h2><span class="tail"></span></div>
+        <div class="strip-title"><span class="no">03</span><h2 data-i18n="yao.galleryTitle">Frames</h2><span class="tail"></span></div>
         <div class="gallery">
             <figure class="g-full"><img src="images/yao-moon.jpg" alt="白骨精月宫开场镜头，巨大满月" loading="lazy"><figcaption data-i18n="yao.gCap2">开场 · 0:02 · 月亮</figcaption></figure>
             <figure class="g-sm"><img src="images/yao-group.gif" alt="四人舞台群舞动态镜头，紫银配色舞台灯光" loading="lazy"><figcaption data-i18n="yao.gCap1">副歌舞台 · 1:10 · v9</figcaption></figure>
@@ -448,7 +495,7 @@
         </div>
 
         <!-- Pipeline chips -->
-        <div class="strip-title"><span class="no">03</span><h2 data-i18n="yao.pipeTitle">One Person, Full Pipeline</h2><span class="tail"></span></div>
+        <div class="strip-title"><span class="no">04</span><h2 data-i18n="yao.pipeTitle">One Person, Full Pipeline</h2><span class="tail"></span></div>
         <div class="pipe-row">
             <div class="pipe-chip"><div class="step">01</div><div class="name" data-i18n="yao.pipe1">词曲</div><div class="tool">Suno v6</div></div>
             <div class="pipe-chip"><div class="step">02</div><div class="name" data-i18n="yao.pipe2">定装</div><div class="tool">ChatGPT ×17</div></div>
@@ -460,7 +507,7 @@
         <p class="creed" data-i18n="yao.creed">做妖精，不做神仙。神仙的故事讲了一千年，妖的案卷没人翻过。这个企划想做的，就是让四个被定义了几百年的女人自己开口，唱自己的案子。2026 年，这件事一个人加一套 AI 工具就能做完，词曲、定装、生成、剪辑、发布，全流程 Suno、Kling、MiniMax、FFmpeg。</p>
 
         <!-- XHS note -->
-        <div class="strip-title"><span class="no">04</span><h2 data-i18n="yao.s5Title">过程笔记</h2><span class="tail"></span></div>
+        <div class="strip-title"><span class="no">05</span><h2 data-i18n="yao.s5Title">过程笔记</h2><span class="tail"></span></div>
         <a class="xhs-feature" href="https://xhslink.cn/o/99V7EXYJ8Wg" target="_blank" rel="noopener">
             <img class="xhs-thumb" src="images/yao-lineup.jpg" alt="小红书笔记封面：四人定装照" loading="lazy">
             <div class="xhs-body">
@@ -535,6 +582,7 @@ const translations = {
         'yao.hook': 'Beasts with masters get called <em>mounts</em>.<br>Beasts without masters get called <em>demons</em>.',
         'yao.hookAttr': '— the rule of Heaven, and the first line of the song',
         'yao.metricLabel1': 'Members', 'yao.metricLabel2': 'Music Video', 'yao.metricLabel3': 'Python Scripts', 'yao.metricLabel4': 'Edits · 1 Day',
+        'yao.albumTitle': 'The Cover',
         'yao.s2Title': 'The Lineup · in order of appearance',
         'yao.m1Pos': 'Leader · Lead Vocals', 'yao.m1Set': 'Diamond face, cool ivory skin · long straight black hair · ivory boned corset · three porcelain mask clasps', 'yao.m1Lyric': '"Dead for centuries — still can\'t quit this world."',
         'yao.m4Pos': 'Rapper · Performance', 'yao.m4Set': 'Honey-bronze skin · high ponytail · black silk with bronze segments · bronze scorpion tail', 'yao.m4Lyric': '"That hand pushed me first. I returned one needle."',
@@ -585,6 +633,7 @@ const translations = {
         'yao.hook': '有主的，叫<em>坐骑</em>。<br>无主的，叫<em>妖</em>。',
         'yao.hookAttr': '—— 天庭的规矩，也是这首歌的第一句',
         'yao.metricLabel1': '位出道成员', 'yao.metricLabel2': '分钟成片', 'yao.metricLabel3': '个脚本', 'yao.metricLabel4': '版剪辑 · 一天内',
+        'yao.albumTitle': '出道封面',
         'yao.s2Title': '出道阵容 · 按出场顺序',
         'yao.m1Pos': '队长 · 主唱', 'yao.m1Set': '钻石长脸冷白皮 · 直黑长发 · 象牙白束身骨线 · 三枚瓷面具扣', 'yao.m1Lyric': '「我死了几百年，还舍不得这个人间。」',
         'yao.m4Pos': '说唱 · 力量舞担', 'yao.m4Set': '蜜铜色肌肤 · 高马尾无刘海 · 黑丝绸青铜分节短裙 · 青铜蝎尾饰', 'yao.m4Lyric': '「那只手推我一下，我还它一针。」',
