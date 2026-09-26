@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseLocation,buildLocation,resolveLanguage} from '../explore/state.mjs';
+test('valid shared object and explicit language survive refresh',()=>assert.deepEqual(parseLocation('https://site.test/explore/?item=music&lang=zh'),{id:'music',language:'zh',invalidItem:false}));
+test('untrusted IDs cannot become a redirect or content key',()=>{for(const id of ['https://evil.test','__proto__','<script>','unknown']) assert.deepEqual(parseLocation(`https://site.test/explore/?item=${encodeURIComponent(id)}`),{id:null,language:null,invalidItem:true});});
+test('language is allowlisted and explicit URL wins preference',()=>{assert.equal(resolveLanguage('zh','en'),'zh');assert.equal(resolveLanguage(null,'zh'),'zh');assert.equal(resolveLanguage('bad','bad'),'en');});
+test('changing selection preserves unrelated parameters and hash',()=>assert.equal(buildLocation('https://site.test/explore/?campaign=friend&item=music#room','finfold','zh'),'/explore/?campaign=friend&item=finfold&lang=zh#room'));
+test('close deletes item; invalid arguments never leak to URL',()=>assert.equal(buildLocation('https://site.test/explore/?item=music', 'https://evil.test', 'xx'),'/explore/'));
+import {existsSync,readFileSync} from 'node:fs';
+import {projects,tracks,writing,writingPath,contactPath} from '../explore/content.mjs';
+const root=new URL('../',import.meta.url);
+test('every project destination exists and is retained from Classic',()=>{const classic=readFileSync(new URL('index.html',root),'utf8');assert.equal(projects.length,12);for(const [,path] of projects){const relative=path.slice(1);assert.ok(existsSync(new URL(relative.endsWith('/')?relative+'index.html':relative+'.html',root)),path);assert.ok(classic.includes(`href="${relative.replace(/\/$/,'')}"`),path)}});
+test('writing routes resolve to real articles in both languages',()=>{for(const article of writing)for(const language of ['en','zh']){const path=writingPath(article.slug,language);assert.ok(existsSync(new URL(path.slice(1)+'.html',root)),path);assert.equal(path.startsWith('/en/'),language==='en')}assert.equal(writingPath('https://evil.test','en'),'/en/writing/')});
+test('all music IDs come from the existing public player',()=>{const classic=readFileSync(new URL('index.html',root),'utf8');for(const [id] of tracks)assert.ok(classic.includes(`data-track-id="${id}"`),id)});
+test('contact intents remain distinct and use the public address',()=>{const recruiting=new URL(contactPath('recruiting','en')),project=new URL(contactPath('project','en'));assert.equal(recruiting.pathname,'super666joey@gmail.com');assert.notEqual(recruiting.searchParams.get('subject'),project.searchParams.get('subject'));assert.match(new URL(contactPath('project','zh')).searchParams.get('subject'),/项目合作/)});
