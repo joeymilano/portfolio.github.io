@@ -1,8 +1,8 @@
 import {initLightMode} from './light-mode.mjs?v=20260927-props9';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
-import {collectionShelf} from './collections.mjs?v=20260927-music1';
+import {collectionShelf} from './collections.mjs?v=20260927-icons1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
-import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath} from './content.mjs?v=20260927-curated1';
+import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath} from './content.mjs?v=20260927-icons1';
 import {photography} from './photography.mjs?v=20260927-portrait2';
 const dialog=document.querySelector('#content-panel'),content=document.querySelector('#panel-content'),status=document.querySelector('#scene-status');
 let saved;try{saved=localStorage.getItem('lang')}catch{}
@@ -34,7 +34,7 @@ function render(){dialog.dataset.collection=['books','music'].includes(selected)
  if(selected==='finfold'){content.append(image('/images/finfold-app-workbench.png','Finfold product workbench'));for(const [label,body] of [['problem','finfoldProblem'],['roleLabel','finfoldRole'],['decisions','finfoldDecisions']])content.append(el('h2',t(label),'eyebrow'),el('p',t(body)));content.append(link(t('open'),'/finfold'),link(t('product'),'https://www.finfold.app/workbench'));appendContacts();}
  if(selected==='about'){content.append(image('/explore/assets/portrait.png','Joey Zhao','portrait'),el('p',t('aboutbody')),link(t('resume'),'/resume/joey-zhao-resume.pdf'),link(t('contact'),'mailto:super666joey@gmail.com'));appendContacts();}
  if(selected==='work'){appendWork();}
- if(selected==='games'){const grid=el('div',null,'featured-work');for(const game of [{title:language==='zh'?'借一寸光':'Borrowed Light',image:'/images/bl-hero.jpg',href:'/borrowedlight',desc:language==='zh'?'用手势借来一束光。':'A gesture-driven journey through light.'},{title:'Pleasure Contract',image:'/images/pc-bg-banquet.png',href:'/pleasurecontract',desc:language==='zh'?'叙事、选择与卡牌。':'Narrative, choices and cards.'}]){const card=el('article',null,'featured-card');const visual=link('',game.href,'featured-visual');visual.setAttribute('aria-label',game.title);visual.append(image(game.image,game.title));const body=el('div',null,'featured-copy');body.append(link(game.title,game.href,'featured-title'),el('p',game.desc,'featured-summary'));card.append(visual,body);grid.append(card)}content.append(grid,link(language==='zh'?'武松打虎 · 进入游戏 ↗':'Wu Song · Play ↗','https://wusong.joeyzhao.cc','featured-title'));}
+ if(selected==='games'){const grid=el('div',null,'featured-work');for(const game of [{title:language==='zh'?'借一寸光':'Borrowed Light',image:'/images/bl-hero.jpg',href:'/borrowedlight',desc:language==='zh'?'用手势借来一束光。':'A gesture-driven journey through light.'},{title:'Pleasure Contract',image:'/images/pc-bg-banquet.png',href:'/pleasurecontract',desc:language==='zh'?'叙事、选择与卡牌。':'Narrative, choices and cards.'}]){const card=el('article',null,'featured-card');const visual=link('',game.href,'featured-visual');visual.setAttribute('aria-label',game.title);visual.append(image(game.image,game.title));const body=el('div',null,'featured-copy');body.append(link(game.title,game.href,'featured-title'),el('p',game.desc,'featured-summary'));card.append(visual,body);grid.append(card)}content.append(grid,link(language==='zh'?'武松打虎 · 进入游戏':'Wu Song · Play','https://wusong.joeyzhao.cc','featured-title ext-link'));}
  if(selected==='books'){content.append(collectionShelf('books',language));}
  if(selected==='writing'){appendWriting();}
  if(selected==='photography'){appendPhotography();}
