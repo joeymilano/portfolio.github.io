@@ -38,3 +38,11 @@
 .photo-source-link{display:inline-flex;align-items:center;min-height:44px;margin-top:12px;color:#aaa59a;font-size:11px;text-underline-offset:4px}
 @media(min-width:1000px) and (min-height:650px){.photo-wall{grid-template-columns:1.05fr 1fr 1fr 1fr;gap:22px}.photo-print:first-child{grid-row:span 2}.photo-print:nth-child(3){grid-column:3 / 5;width:calc(50% - 11px);justify-self:start}.photo-print:nth-child(4){grid-column:2;grid-row:2}.photo-print:nth-child(5){grid-column:3;grid-row:2}.photo-print:last-child{grid-column:4;grid-row:2;width:auto;align-self:end}}
 @media(max-width:700px){#content-panel:is([data-panel=work],[data-panel=writing],[data-panel=photography]){inset:0;width:100vw;max-width:none;height:100svh;max-height:100svh;margin:0;padding:calc(20px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));border:0;border-radius:0}#content-panel:is([data-panel=work],[data-panel=writing]) .panel-top{margin-bottom:28px}.featured-card{grid-template-columns:1fr}.featured-visual{aspect-ratio:16/10}.featured-copy{padding:18px 20px 22px}#content-panel .project-list{grid-template-columns:1fr}.notebook-list li{grid-template-columns:1fr;gap:6px;padding:17px 0}#content-panel[data-panel=photography]{padding-left:18px;padding-right:18px}.photo-wall{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}.photo-print:first-child{grid-row:span 2}.photo-print:last-child{grid-column:auto;width:auto}.photo-print figcaption{font-size:10px;gap:6px}}
+
+/* Joey's releases share the collected records' tactile cover treatment. */
+.own-records .collection-shelf{min-width:780px;justify-content:center;padding-right:120px}
+.own-records .collection-detail{margin-bottom:24px}
+.own-records .record-play{display:block;margin:14px auto 0;min-height:44px;min-width:100px}
+.own-records .collection-item img{object-fit:contain;pointer-events:none}
+#media-player:empty{display:none}
+@media(max-width:700px){.own-records .collection-shelf{justify-content:flex-start;min-width:720px;padding-right:120px}.own-records .collection-detail a{display:inline-block;max-width:90%;line-height:1.5}}

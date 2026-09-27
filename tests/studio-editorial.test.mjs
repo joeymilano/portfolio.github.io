@@ -1,8 +1,9 @@
+import {musicArtwork} from '../explore/music-artwork.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
 import {parseLocation,buildLocation} from '../explore/state.mjs';
-import {writing,writingPath,featuredWork} from '../explore/content.mjs';
+import {writing,writingPath,featuredWork,tracks} from '../explore/content.mjs';
 import {photography} from '../explore/photography.mjs';
 
 const root=new URL('../',import.meta.url);
@@ -40,4 +41,15 @@ test('six authorized photographs have separate local display and cover files',()
    assert.equal(bytes.subarray(8,12).toString(),'WEBP',path);
   }
  }
+});
+
+test('every personal recording has its published album artwork available locally',()=>{
+ assert.equal(Object.keys(musicArtwork).length,tracks.length);
+ for(const [id] of tracks){
+  const art=musicArtwork[id];assert.ok(art.album);
+  assert.match(art.source,/^https:\/\/p1\.music\.126\.net\//);
+  const bytes=readFileSync(new URL(art.cover.slice(1),root));
+  assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');
+ }
+ assert.equal(musicArtwork['1873346292'].cover,musicArtwork['1969608391'].cover);
 });
