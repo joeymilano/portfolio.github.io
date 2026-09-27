@@ -1,6 +1,7 @@
-import {createLighting} from './lighting.mjs?v=20260927-daynight1';
-import {createAvatarMotion} from './avatar-motion.mjs?v=20260927-life1';
-import {createDeskObjects} from './desk-objects.mjs?v=20260927-life1';
+import {createCreativeProps} from './creative-props.mjs?v=20260927-curated1';
+import {createLighting} from './lighting.mjs?v=20260927-curated1';
+import {createAvatarMotion} from './avatar-motion.mjs?v=20260927-curated1';
+import {createDeskObjects} from './desk-objects.mjs?v=20260927-curated1';
 import {applyMonitorImage} from './screen-material.mjs?v=20260927-refined2';
 import * as THREE from 'three';
 import {moveView,viewOffset} from './camera-control.mjs?v=20260927-2';
@@ -13,7 +14,7 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 const root=document.querySelector('#scene-root');
 const emit=(name,detail={})=>window.dispatchEvent(new CustomEvent(name,{detail}));
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const anchors={finfold:[-.4443,1.25,1.3311],music:[-2,1,1.6],books:[-2.4,1.9,-2.05],about:[1.61,1.14,.20],work:[-3.43,1.96,-.58],writing:[.72,.849,1.07],photography:[1.08,.849,1.36]};
+const anchors={finfold:[-.4443,1.25,1.3311],music:[-2,1,1.6],books:[-2.4,1.9,-2.05],about:[1.61,1.14,.20],photography:[-3.43,1.96,-.58],writing:[.72,.849,1.07],work:[1.08,.849,1.36],games:[-.95,1.05,-.3]};
 let renderer,scene,camera,raf=0,selected=null,disposed=false,sceneReady=false,contextLost=false,last=0,record=null,recordBaseY=0,tonearm=null,armBaseY=0,avatar=null,book=null,bookRest=null,bookRestRotation=0;
 const typingMeshes=[];let avatarMotion=null,lighting=null;
 const target=new THREE.Vector3(),desired=new THREE.Vector3(),look=new THREE.Vector3(),desiredLook=new THREE.Vector3();
@@ -62,10 +63,10 @@ try{
  canvas.addEventListener('pointermove',e=>{if(!down){if(selected||e.pointerType==='touch'||performance.now()-lastHover<45)return;lastHover=performance.now();const r=root.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(scene.children,true)[0];hovered=hit?.object.userData.item||null;canvas.style.cursor=hovered?'pointer':'';return;}if(e.pointerId!==down.id)return;if(Math.hypot(e.clientX-down.x,e.clientY-down.y)>8)down.moved=true;if(down.moved){view=moveView(view,-(e.clientX-down.lastX)/root.clientWidth*3,-(e.clientY-down.lastY)/root.clientHeight*3);cameraPose();}down.lastX=e.clientX;down.lastY=e.clientY;});
  const release=()=>{if(down&&canvas.hasPointerCapture(down.id))canvas.releasePointerCapture(down.id);down=null;canvas.classList.remove('dragging');};
  canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',()=>{down=null;canvas.classList.remove('dragging');});
- canvas.addEventListener('pointerup',e=>{if(!down||e.pointerId!==down.id)return;const moved=down.moved;release();if(moved||selected)return;const r=root.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(scene.children,true)[0];if(!hit)return;const n=hit.object.name.toLowerCase();const id=hit.object.userData.item|| (n.includes('monitor')?'finfold':n.includes('book')?'books':n.includes('record')?'music':n.includes('avatar')?'about':n.includes('artwork')?'work':null);if(id)emit('studio:pick',{id});});
+ canvas.addEventListener('pointerup',e=>{if(!down||e.pointerId!==down.id)return;const moved=down.moved;release();if(moved||selected)return;const r=root.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(scene.children,true)[0];if(!hit)return;const n=hit.object.name.toLowerCase();const id=hit.object.userData.item|| (n.includes('monitor')?'finfold':n.includes('book')?'books':n.includes('record')?'music':n.includes('avatar')?'about':n.includes('artwork')?'photography':null);if(id)emit('studio:pick',{id});});
  canvas.addEventListener('keydown',e=>{if(selected)return;const step={ArrowLeft:[-.18,0],ArrowRight:[.18,0],ArrowUp:[0,-.18],ArrowDown:[0,.18]}[e.key];if(step){e.preventDefault();view=moveView(view,...step);cameraPose();}else if(e.key==='Home'){e.preventDefault();resetView();}});
  const manager=new THREE.LoadingManager();
- const weights={room:39,avatar:40,turntable:10,screen:4,art0:3,art1:3,cover:1};
+ const weights={room:37,avatar:38,turntable:10,screen:4,art0:3,art1:3,cover:1,sleeve:2,game:2};
  const progress={};let degraded=false;
  function report(key,value){progress[key]=Math.max(progress[key]||0,value);emit('studio:progress',{percent:Object.entries(weights).reduce((sum,[k,w])=>sum+w*(progress[k]||0),0)});}
  const bytes=key=>event=>{if(event.lengthComputable&&event.total)report(key,Math.min(.9,event.loaded/event.total*.9));};
@@ -78,9 +79,12 @@ try{
  const turntableFile=tracked('turntable',loader.loadAsync('/explore/assets/turntable-packed.glb?v=turn1',bytes('turntable')));
  const avatarFile=tracked('avatar',roomFile.then(()=>loader.loadAsync(mobileHardware?'/explore/assets/avatar-v2-mobile-packed.glb?v=pose4-final':'/explore/assets/avatar-v2-packed.glb?v=pose4-final',bytes('avatar'))));
  const screenFile=tracked('screen',textures.loadAsync('/explore/assets/workbench-monitor.jpg'));
- const artFiles=[['/explore/assets/yao-artwork.jpg',-1.46],['/explore/assets/signals-artwork.jpg',-.58]].map(([url,z],i)=>tracked('art'+i,textures.loadAsync(url)).then(texture=>({texture,z})));
+ const artFiles=[['/explore/assets/photography/p12_img2-cover.webp',-1.46],['/explore/assets/photography/p05_img1-cover.webp',-.58]].map(([url,z],i)=>tracked('art'+i,textures.loadAsync(url)).then(texture=>({texture,z})));
 
- const coverFile=tracked('cover',textures.loadAsync('/explore/assets/photography/cover.webp'));
+ const coverFile=tracked('cover',textures.loadAsync('/explore/assets/signals-artwork.jpg'));
+ const sleeveFile=tracked('sleeve',textures.loadAsync('/images/yao-cover.jpg'));
+ const gameFile=tracked('game',textures.loadAsync('/images/bl-hero.jpg'));
+ Promise.all([sleeveFile,gameFile]).then(([sleeve,game])=>createCreativeProps(scene,sleeve,game));
  const room=await roomFile;
  scene.add(room.scene);const processed=new Set();room.scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;for(const m of Array.isArray(o.material)?o.material:[o.material]){if(processed.has(m))continue;processed.add(m);m.envMapIntensity=.22;if(m.name.includes("plaster"))m.color.multiplyScalar(.26);if(m.name.includes("stone"))m.color.multiplyScalar(.38);}}});
 
@@ -109,7 +113,7 @@ try{
  }).catch(error=>console.warn('Turntable unavailable',error));
  avatarFile.then(person=>{if(!person)return;avatar=person.scene;avatar.position.set(1.244,.5976,.177);avatar.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;o.userData.item='about';if(o.morphTargetDictionary?.Typing_Left!==undefined)typingMeshes.push(o);for(const m of Array.isArray(o.material)?o.material:[o.material])m.envMapIntensity=.35;}});scene.add(avatar);avatarMotion=createAvatarMotion(avatar);}).catch(error=>console.warn('Avatar unavailable',error));
  screenFile.then(texture=>{if(!texture)return;const screen=room.scene.getObjectByName('monitor_screen');if(!screen)return;texture.colorSpace=THREE.SRGBColorSpace;texture.flipY=false;applyMonitorImage(screen,texture);});
- Promise.all(artFiles).then(items=>{for(const {texture,z} of items){if(!texture)continue;texture.colorSpace=THREE.SRGBColorSpace;const ratio=texture.image.width/texture.image.height;const w=Math.min(.65,1.08*ratio),h=w/ratio;const art=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshStandardMaterial({map:texture,roughness:.85,envMapIntensity:.1}));art.name='project_artwork';art.rotation.y=Math.PI/2;art.position.set(-3.44,1.96,z);scene.add(art);}}).catch(error=>console.warn('Artwork unavailable',error));
- await Promise.all([roomFile,turntableFile,avatarFile,screenFile,coverFile,...artFiles]);
+ Promise.all(artFiles).then(items=>{for(const {texture,z} of items){if(!texture)continue;texture.colorSpace=THREE.SRGBColorSpace;const ratio=texture.image.width/texture.image.height;const w=Math.min(.65,1.08*ratio),h=w/ratio;const art=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshStandardMaterial({map:texture,roughness:.85,envMapIntensity:.1}));art.name='photography_artwork';art.userData.item='photography';art.rotation.y=Math.PI/2;art.position.set(-3.44,1.96,z);scene.add(art);}}).catch(error=>console.warn('Artwork unavailable',error));
+ await Promise.all([roomFile,turntableFile,avatarFile,screenFile,coverFile,sleeveFile,gameFile,...artFiles]);
  if(!contextLost){renderer.render(scene,camera);emit('studio:complete',{degraded});}
 }catch(error){console.error('Studio unavailable',error);dispose();emit('studio:failure');}

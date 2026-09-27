@@ -30,3 +30,6 @@ export const featuredWork=[
  {title:'Finfold',path:'/finfold',image:'/images/finfold-hero-landing.png',role:{en:'Product Lead',zh:'产品负责人'},summary:{en:'Led product definition, research, information architecture, interaction design, and the design system for an AI growth workspace.',zh:'负责 AI 增长工作台的产品定义、研究、信息架构、交互与设计系统。'}},
  {title:'ID.AURA',path:'/vw-id-aura/',image:'/vw-id-aura/assets/og-cover.jpg',role:{en:'Design & build',zh:'设计与实现'},summary:{en:'Designed and built a Volkswagen electric vehicle HMI concept with showroom, cluster, console, and autonomous modes.',zh:'设计并实现大众电动车 HMI 概念，串联展厅、仪表、控制台与自动驾驶四种模式。'}}
 ];
+
+Object.assign(copy.en,{music:'Music by Joey',games:'Games by Joey'});
+Object.assign(copy.zh,{music:'我的音乐创作',games:'我的游戏'});

@@ -13,3 +13,8 @@ test('every project destination exists and is retained from Classic',()=>{const 
 test('writing routes resolve to real articles in both languages',()=>{for(const article of writing)for(const language of ['en','zh']){const path=writingPath(article.slug,language);assert.ok(existsSync(new URL(path.slice(1)+'.html',root)),path);assert.equal(path.startsWith('/en/'),language==='en')}assert.equal(writingPath('https://evil.test','en'),'/en/writing/')});
 test('all music IDs come from the existing public player',()=>{const classic=readFileSync(new URL('index.html',root),'utf8');for(const [id] of tracks)assert.ok(classic.includes(`data-track-id="${id}"`),id)});
 test('contact intents remain distinct and use the public address',()=>{const recruiting=new URL(contactPath('recruiting','en')),project=new URL(contactPath('project','en'));assert.equal(recruiting.pathname,'super666joey@gmail.com');assert.notEqual(recruiting.searchParams.get('subject'),project.searchParams.get('subject'));assert.match(new URL(contactPath('project','zh')).searchParams.get('subject'),/项目合作/)});
+
+test('game console links round-trip through browser history state',()=>{
+ const path=buildLocation('https://portfolio.local/explore/?lang=zh','games','zh');
+ assert.equal(parseLocation(path).id,'games');
+});

@@ -151,7 +151,7 @@ test('desk covers lift above the desk, keep independent targets, and respect red
   const cover=new THREE.Texture({width:341,height:512});
   const objects=createDeskObjects(scene,room,cover);
   assert.equal(room.getObjectByName('Closed_notebook'),undefined,'old inert notebook removed');
-  for(const id of ['writing','photography']){
+  for(const id of ['writing','work']){
    const mesh=scene.getObjectByName(`${id}_cover`);
    assert.equal(mesh.userData.item,id);
    scene.updateMatrixWorld(true);const before=mesh.getWorldPosition(new THREE.Vector3()).y;
@@ -174,10 +174,10 @@ test('album opening sweep stays clear of the monitor with a safety margin',()=>{
   scene.add(room);const objects=createDeskObjects(scene,room,null);
   scene.updateMatrixWorld(true);
   const screen=new THREE.Box3().setFromObject(room.getObjectByName('monitor_screen')).expandByScalar(.02);
-  const cover=scene.getObjectByName('photography_cover');
+  const cover=scene.getObjectByName('work_cover');
   for(let step=0;step<=100;step++){
    objects.update(null,null,1,false);
-   objects.update('photography',null,step/100,false);
+   objects.update('work',null,step/100,false);
    scene.updateMatrixWorld(true);
    assert.equal(new THREE.Box3().setFromObject(cover).intersectsBox(screen),false,`opening step ${step} clears screen`);
   }

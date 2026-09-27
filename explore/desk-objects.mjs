@@ -20,14 +20,14 @@ export function createDeskObjects(scene, room, coverTexture) {
     const hinge=new THREE.Group();hinge.position.set(-width/2,.029,0);group.add(hinge);
     box(`${id}_cover`,[width,.007,depth],[width/2,0,0],fabric,hinge);
     const titleCanvas=document.createElement('canvas');titleCanvas.width=512;titleCanvas.height=128;
-    const text=titleCanvas.getContext('2d');text.fillStyle='#ddd0b3';text.font='22px Georgia';text.textAlign='center';text.fillText(id==='writing'?'W R I T I N G':'P H O T O G R A P H S',256,65);
+    const text=titleCanvas.getContext('2d');text.fillStyle='#ddd0b3';text.font='22px Georgia';text.textAlign='center';text.fillText(id==='writing'?'W R I T I N G':'S E L E C T E D  W O R K',256,65);
     const titleTexture=new THREE.CanvasTexture(titleCanvas);titleTexture.colorSpace=THREE.SRGBColorSpace;
     const title=new THREE.Mesh(new THREE.PlaneGeometry(width*.76,width*.19),new THREE.MeshBasicMaterial({map:titleTexture,transparent:true,depthWrite:false}));
     title.rotation.x=-Math.PI/2;title.position.set(width/2,.004,depth*.32);title.userData.item=id;hinge.add(title);
-    if(id==='photography'&&coverTexture){
+    if(id==='work'&&coverTexture){
       coverTexture.colorSpace=THREE.SRGBColorSpace;
-      const h=depth*.65,w=h*coverTexture.image.width/coverTexture.image.height;
-      const inset=box('photography_mount',[w+.018,.001,h+.018],[width/2,.004,-depth*.065],paper,hinge);
+      const ratio=coverTexture.image.width/coverTexture.image.height,h=Math.min(depth*.65,width*.78/ratio),w=h*ratio;
+      const inset=box('work_mount',[w+.018,.001,h+.018],[width/2,.004,-depth*.065],paper,hinge);
       const photo=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshStandardMaterial({map:coverTexture,roughness:.7,metalness:0}));photo.rotation.x=-Math.PI/2;photo.position.copy(inset.position);photo.position.y+=.001;photo.userData.item=id;hinge.add(photo);
     }
     if(id==='writing'){
@@ -36,9 +36,9 @@ export function createDeskObjects(scene, room, coverTexture) {
     }
     return {id,group,hinge,anchor:position.map((v,i)=>i===1?v+.035:v)};
   }
-  const objects=[build('writing',.27,.24,[.72,.814,1.07],-.92,0x253d3c),build('photography',.40,.28,[1.08,.814,1.36],-.92,0x93816b)];
+  const objects=[build('writing',.27,.24,[.72,.814,1.07],-.92,0x253d3c),build('work',.40,.28,[1.08,.814,1.36],-.92,0x93816b)];
   return {
     anchors:Object.fromEntries(objects.map(o=>[o.id,o.anchor])),
-    update(selected,hovered,damping,reduced){for(const o of objects){const angle=reduced?0:selected===o.id?(o.id==='photography'?.42:1.32):hovered===o.id?.12:0;o.hinge.rotation.z=THREE.MathUtils.lerp(o.hinge.rotation.z,angle,damping);}},
+    update(selected,hovered,damping,reduced){for(const o of objects){const angle=reduced?0:selected===o.id?(o.id==='work'?.42:1.32):hovered===o.id?.12:0;o.hinge.rotation.z=THREE.MathUtils.lerp(o.hinge.rotation.z,angle,damping);}},
   };
 }
