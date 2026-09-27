@@ -1,9 +1,9 @@
-import {initLightMode} from './light-mode.mjs?v=20260927-curated1';
+import {initLightMode} from './light-mode.mjs?v=20260927-release22';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260927-music1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
 import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath} from './content.mjs?v=20260927-curated1';
-import {photography} from './photography.mjs?v=20260927-curated1';
+import {photography} from './photography.mjs?v=20260927-portrait2';
 const dialog=document.querySelector('#content-panel'),content=document.querySelector('#panel-content'),status=document.querySelector('#scene-status');
 let saved;try{saved=localStorage.getItem('lang')}catch{}
 let state=parseLocation(location.href),language=resolveLanguage(state.language,saved),selected=null,returnFocus=null,sceneState='loading',revealTimer=0,revealSerial=0;

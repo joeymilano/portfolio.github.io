@@ -4,3 +4,10 @@
 vw-id-aura/qa/
 vw-id-aura/tmp/
 .vscode/
+
+# Local studio source and review output
+artifacts/
+explore/assets/source/
+node_modules/.cache/
+explore/.review-*
+.tmp-*

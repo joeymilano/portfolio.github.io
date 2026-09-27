@@ -13,3 +13,13 @@ Character asset: https://hyper3d.ai/workspace/rodin/3089d1b5-b8f1-4604-9081-76b7
 Chrome file access fixed by user; reference uploaded successfully. Gen-2.5 Extreme-High geometry, 1M triangle master; Native High material with 8K, Face Restore and De-light. Private lock verified visually. PBR GLB master downloaded (80,145,736 bytes) and preserved in internal artifacts/hyper3d/avatar-source. Separate likeness review remains required. Web adaptation and chair calibration completed for the first likeness-review candidate. Connected undeformed model retained; turn-head experiments rejected due to geometric artifacts. Packed desktop character2.92MB, mobile1.60MB. Likeness and final pose remain unapproved.
 
 Room and repaired turntable now use Meshopt compression (16-bit position quantization, original texture pixels retained). Authored mechanical pivots restored as parent groups in runtime because quantization changes mesh origins. Source uncompressed GLBs and Blender files retained.
+
+## Corner arcade — 2026-09-27
+
+Asset: https://hyper3d.ai/workspace/rodin/c3ca60d6-a0cc-4c98-97f5-c5847888ad14
+
+Gen-2.5 High geometry and Native High PBR, private generation. Prompt requested a compact walnut arcade with charcoal bezel, red joystick and ivory buttons. Original PBR GLB retained in `artifacts/portfolio-rebuild/hyper3d/arcade-source/base_basic_pbr.glb`. `scripts/studio/prepare-arcade.py` normalizes height to 1.13 m, sets the floor pivot, reduces to approximately 32k triangles and 1K textures. Meshopt packing produces `explore/assets/arcade-packed.glb`; a separate screen plane displays the existing Borrowed Light artwork. Integrated into the studio production release after local browser review.
+
+## Editable source archive — 2026-09-27
+
+Large source models, Blender files, generation records and uncompressed intermediates are preserved outside the release checkout at `/Users/joeyzhao/Documents/portfolio-studio-source-archive/2026-09-27/`, with their original relative paths. Restore the needed source paths into the checkout before rerunning the authoring scripts. Runtime packed models and release posters remain versioned; temporary review pages and caches are removed.

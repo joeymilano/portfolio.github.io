@@ -34,7 +34,7 @@ function asset(name){
 const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
 loader.register(()=>({name:'TEST_NODE_TEXTURES',loadTexture:()=>Promise.resolve(new THREE.Texture())}));
 const loaded=new Map();
-for(const name of ['room-packed','turntable-packed','avatar-v2-packed','avatar-v2-mobile-packed']){
+for(const name of ['room-packed','turntable-packed','avatar-v2-packed','avatar-v2-mobile-packed','arcade-packed']){
   const data=asset(name);
   loaded.set(name,{...data,gltf:await loader.parseAsync(data.buffer,'')});
 }
@@ -54,7 +54,7 @@ test('packed assets are self-contained and decode through the shared runtime loa
       const box=object.geometry.boundingBox;
       assert.ok([...box.min.toArray(),...box.max.toArray()].every(Number.isFinite),`${name}/${object.name}: finite bounds`);
     });
-    assert.ok(meshes>=(name.startsWith('avatar')?1:11),`${name}: scene has its authored geometry`);
+    assert.ok(meshes>=(name.startsWith('avatar')||name==='arcade-packed'?1:11),`${name}: scene has its authored geometry`);
     for(const image of json.images||[]){
       const view=json.bufferViews[image.bufferView];
       assert.equal(view.buffer,0);
@@ -74,7 +74,8 @@ test('runtime pivot restoration preserves packed geometry and matches authored p
   assert.ok(functionSource,'runtime pivot helper is available for contract verification');
   const scene=loaded.get('turntable-packed').gltf.scene.clone(true);
   scene.position.set(-1.96,.855,1.61);
-  const original=asset('turntable').json;
+  // Authored mechanical pivots from the archived Blender export, in metres.
+  const authoredPivots={record_disc:[-.075,.133,.012],tonearm:[.272,.143,-.164]};
   const pivot=runInNewContext(`(${functionSource})`,{THREE,turntable:{scene}});
   for(const name of ['record_disc','tonearm']){
     const mesh=scene.getObjectByName(name);
@@ -82,7 +83,7 @@ test('runtime pivot restoration preserves packed geometry and matches authored p
     const match=source.match(new RegExp(`pivot\\('${name}',\\[([^\\]]+)\\]\\)`));
     assert.ok(match,`${name}: runtime pivot definition`);
     const coordinates=match[1].split(',').map(Number);
-    const authored=original.nodes.find(node=>node.name===name).translation;
+    const authored=authoredPivots[name];
     coordinates.forEach((value,i)=>assert.ok(Math.abs(value-authored[i])<1e-5,`${name}: pivot axis ${i}`));
     scene.updateMatrixWorld(true);
     const before=mesh.matrixWorld.clone();
@@ -98,10 +99,11 @@ test('assembled character retains textured head and independent transparent eyew
   for(const name of ['avatar-v2-packed','avatar-v2-mobile-packed']){
     const {gltf}=loaded.get(name);
     const head=gltf.scene.getObjectByName('head_surface');
-    assert.ok(head?.isMesh,`${name}: head survives assembly`);
-    assert.ok(head.geometry.getAttribute('uv'),`${name}: facial texture coordinates retained`);
+    let headMesh;head?.traverse(o=>{if(o.isMesh)headMesh=o});
+    assert.ok(headMesh,`${name}: head survives assembly`);
+    assert.ok(headMesh.geometry.getAttribute('uv'),`${name}: facial texture coordinates retained`);
     for(const suffix of ['1','-1']){
-      const lens=gltf.scene.getObjectByName('glasses_lens_'+suffix);
+      let lens;gltf.scene.getObjectByName('glasses_lens_'+suffix)?.traverse(o=>{if(o.isMesh)lens=o});
       assert.ok(lens?.isMesh,`${name}: separate lens ${suffix}`);
       assert.ok(lens.material.transparent&&lens.material.opacity>0&&lens.material.opacity<1,`${name}: see-through lens`);
     }
@@ -111,6 +113,7 @@ test('assembled character retains textured head and independent transparent eyew
  test('typing morphs survive both compressed character exports',()=>{
   for(const name of ['avatar-v2-packed','avatar-v2-mobile-packed']){
     let hands=0;
+    const moving=new Set();
     loaded.get(name).gltf.scene.traverse(mesh=>{
       if(!mesh.morphTargetDictionary?.Typing_Left && mesh.morphTargetDictionary?.Typing_Left!==0)return;
       hands++;
@@ -119,10 +122,11 @@ test('assembled character retains textured head and independent transparent eyew
         assert.ok(Number.isInteger(index),`${name}: ${key}`);
         const positions=mesh.geometry.morphAttributes.position[index];
         assert.equal(positions.count,mesh.geometry.attributes.position.count);
-        assert.ok(Array.from(positions.array).some(value=>Math.abs(value)>0.0001),`${name}: nonempty hand movement`);
+        if(Array.from(positions.array).some(value=>Math.abs(value)>0.0001))moving.add(key);
       }
     });
     assert.ok(hands>0,`${name}: animated hand geometry`);
+    assert.deepEqual([...moving].sort(),["Typing_Left","Typing_Right"],`${name}: both hands move`);
   }
 });
 
@@ -237,4 +241,29 @@ test('daylight changes real lighting and reduced motion switches immediately wit
   for(let i=0;i<10;i++){lighting.update(true,.016,true);lighting.update(false,.016,true)}
   assert.ok(material.color.equals(originalColor),'night material is restored exactly');assert.equal(renderer.toneMappingExposure,.95);assert.equal(material.emissiveIntensity,1);
  }finally{globalThis.document=original}
+});
+
+test('replacement neck stays inside the restored shoulder assembly while turning',()=>{
+ for(const name of ['avatar-v2-packed','avatar-v2-mobile-packed']){
+  const avatar=loaded.get(name).gltf.scene.clone(true);
+  const motion=createAvatarMotion(avatar);
+  const head=avatar.getObjectByName('head_surface');
+  assert.equal(avatar.getObjectByName('neck_inner_collar'),undefined,'no detached collar patch');
+  for(const t of [0,10,24]){
+   motion.update(t,1,false);avatar.updateMatrixWorld(true);
+   const bounds=new THREE.Box3().setFromObject(head);
+   assert.ok(bounds.min.y<.66,'neck extends below the collar even when turning');
+
+  }
+ }
+});
+
+
+test('both avatar sizes contain the rebuilt hand with typing morphs',()=>{
+ for(const name of ['avatar-v2-packed','avatar-v2-mobile-packed']){
+  const hand=loaded.get(name).gltf.scene.getObjectByName('avatar_body_matched_hand');
+  assert.ok(hand,`${name}: replacement hand`);
+  let animated=false;hand.traverse(o=>{if(o.morphTargetDictionary?.Typing_Left!==undefined)animated=true});
+  assert.ok(animated,`${name}: replacement follows typing motion`);
+ }
 });

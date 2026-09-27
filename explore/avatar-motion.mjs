@@ -15,9 +15,9 @@ export function idlePose(seconds,still=false){
 }
 
 export function createAvatarMotion(avatar){
- const neck=new THREE.Group();neck.name='avatar_neck_pivot';neck.position.set(-.0763,.5893,.064);
+ const neck=new THREE.Group();neck.name='avatar_neck_pivot';neck.position.set(-.0763,.6243,.064);
  avatar.add(neck);avatar.updateMatrixWorld(true);
- const head=[];avatar.traverse(o=>{if(o.isMesh&&(o.name==='head_surface'||o.name.startsWith('glasses_')))head.push(o)});
+ const head=[];avatar.traverse(o=>{if(o.name==='head_surface'||o.name.startsWith('glasses_'))head.push(o)});
  for(const mesh of head)neck.attach(mesh);
  return {update(seconds,damping,still){const pose=idlePose(seconds,still);neck.rotation.y=THREE.MathUtils.lerp(neck.rotation.y,pose.yaw,damping);neck.rotation.x=THREE.MathUtils.lerp(neck.rotation.x,pose.pitch,damping);neck.rotation.z=THREE.MathUtils.lerp(neck.rotation.z,pose.roll,damping);return pose}};
 }
