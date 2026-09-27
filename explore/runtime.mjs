@@ -4,7 +4,7 @@ import {createAvatarMotion} from './avatar-motion.mjs?v=20260927-palm20';
 import {createDeskObjects} from './desk-objects.mjs?v=20260927-curated1';
 import {applyMonitorImage} from './screen-material.mjs?v=20260927-refined2';
 import * as THREE from 'three';
-import {moveView,viewOffset} from './camera-control.mjs?v=20260927-pan1';
+import {moveView,viewOffset,wheelTurn} from './camera-control.mjs?v=20260927-wheel1';
 let view={x:0,y:0},savedView=null,hovered=null,deskObjects=null;
 function resetView(){view={x:0,y:0};cameraPose();}
 window.addEventListener('studio:reset-view',resetView);
@@ -58,7 +58,13 @@ try{
  const ray=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null,lastHover=0;
  const canvas=renderer.domElement;
  canvas.tabIndex=0;canvas.removeAttribute('aria-hidden');canvas.setAttribute('role','region');
- const label=()=>canvas.setAttribute('aria-label',document.documentElement.lang==='zh'?'工作室视角：拖动或方向键环视，Home 键复位':'Studio view: drag or use arrow keys to look around; Home resets');label();window.addEventListener('studio:language',label);
+ const label=()=>canvas.setAttribute('aria-label',document.documentElement.lang==='zh'?'工作室视角：拖动、滚轮或方向键环视，Home 键复位':'Studio view: drag, scroll, or use arrow keys to look around; Home resets');label();window.addEventListener('studio:language',label);
+ root.closest('#studio').addEventListener('wheel',e=>{
+  if(selected||e.ctrlKey||e.target.closest('#content-panel'))return;
+  const turn=wheelTurn(e.deltaX,e.deltaY,e.deltaMode,root.clientHeight);
+  if(!turn)return;
+  e.preventDefault();view=moveView(view,turn,0);cameraPose();
+ },{passive:false});
  canvas.addEventListener('pointerdown',e=>{if(selected||e.button!==0||down)return;down={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,moved:false};canvas.setPointerCapture(e.pointerId);canvas.classList.add('dragging');});
  canvas.addEventListener('pointerleave',()=>{hovered=null;canvas.style.cursor='';});
  canvas.addEventListener('pointermove',e=>{if(!down){if(selected||e.pointerType==='touch'||performance.now()-lastHover<45)return;lastHover=performance.now();const r=root.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(scene.children,true)[0];hovered=hit?.object.userData.item||null;canvas.style.cursor=hovered?'pointer':'';return;}if(e.pointerId!==down.id)return;if(Math.hypot(e.clientX-down.x,e.clientY-down.y)>8)down.moved=true;if(down.moved){view=moveView(view,-(e.clientX-down.lastX)/root.clientWidth*3,-(e.clientY-down.lastY)/root.clientHeight*3);cameraPose();}down.lastX=e.clientX;down.lastY=e.clientY;});

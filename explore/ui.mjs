@@ -3,7 +3,7 @@ import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260927-icons1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
 import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath} from './content.mjs?v=20260927-icons1';
-import {photography} from './photography.mjs?v=20260927-portrait2';
+import {photography} from './photography.mjs?v=20260927-wall8';
 const dialog=document.querySelector('#content-panel'),content=document.querySelector('#panel-content'),status=document.querySelector('#scene-status');
 let saved;try{saved=localStorage.getItem('lang')}catch{}
 let state=parseLocation(location.href),language=resolveLanguage(state.language,saved),selected=null,returnFocus=null,sceneState='loading',revealTimer=0,revealSerial=0;
@@ -78,7 +78,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){const hadP
 syncLanguage();if(state.id)select(state.id,{historyMode:'none'});if(state.invalidItem)status.textContent=t('overview');
 
 const resetViewButton=document.querySelector('#view-reset');resetViewButton.addEventListener('click',()=>{emit('studio:reset-view',{});document.querySelector('#scene-root canvas')?.focus({preventScroll:true});});
-function viewLabels(){const zh=language==='zh';document.querySelector('#view-hint').textContent=zh?'拖动，环视工作室':'Drag to look around';const label=zh?'复位视角':'Reset view';resetViewButton.setAttribute('aria-label',label);resetViewButton.title=label;}
+function viewLabels(){const zh=language==='zh';document.querySelector('#view-hint').textContent=zh?'拖动或滚轮，环视工作室':'Drag or scroll to look around';const label=zh?'复位视角':'Reset view';resetViewButton.setAttribute('aria-label',label);resetViewButton.title=label;}
 window.addEventListener('studio:language',viewLabels);viewLabels();
 
 initLightMode();
