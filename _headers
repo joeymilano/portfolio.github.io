@@ -1,0 +1,19 @@
+# Explore studio assets are versioned through query strings, so they can be
+# cached permanently; HTML stays at the host default so edits go live at once.
+/explore/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/explore/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/explore/studio.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/explore/*.mjs
+  Cache-Control: public, max-age=31536000, immutable
+
+/vw-id-aura/vendor/*
+  Cache-Control: public, max-age=604800
+
+/images/*
+  Cache-Control: public, max-age=604800

@@ -215,9 +215,13 @@ stage(bpy.data.objects['chair'],(.8,0,.79),(1.244,0,.177),130)
 # Keyboard faces the seated person; its center matches the measured hand contact area.
 for o in list(bpy.context.scene.objects):
  if o.name.startswith(('Keyboard','keyboard_keys')):stage(o,(.324044,0,1.025940),(.825,0,.537),90)
+# Mouse belongs at the seated person's right hand: mirrored across the keyboard's
+# left-right plane (desk staging had left it on the person's left, screen-front side).
+bpy.data.objects['mouse'].location+=Vector(p((-.121,0,-.194)))
+bpy.context.view_layer.update()
 
 # Join architecture accents by material to keep exported draw calls practical while retaining named hero objects.
-keep={'desk','chair','record_console','monitor_screen','camera_prop','keyboard_keys','Desk plant','Window plant','Shelf plant','book_01'}
+keep={'desk','chair','record_console','monitor_screen','camera_prop','keyboard_keys','mouse','Desk plant','Window plant','Shelf plant','book_01'}
 for ma in list(bpy.data.materials):
  obs=[o for o in list(bpy.context.scene.objects) if o.type=='MESH' and o.name not in keep and not o.name.startswith('book_') and len(o.data.materials)==1 and o.data.materials[0]==ma]
  if len(obs)>1:group('room_detail_'+ma.name,obs)
