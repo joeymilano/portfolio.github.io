@@ -38,3 +38,9 @@
 .photo-arrow:hover{background:#e9e0d015}
 .photo-source-link{align-self:flex-start;color:#aaa59a;font-size:11px;text-underline-offset:4px}
 @media(max-width:700px){#content-panel:is([data-panel=work],[data-panel=writing],[data-panel=photography]){inset:0;width:100vw;max-width:none;height:100svh;max-height:100svh;margin:0;padding:calc(20px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));border:0;border-radius:0}#content-panel:is([data-panel=work],[data-panel=writing]) .panel-top{margin-bottom:28px}.featured-card{grid-template-columns:1fr}.featured-visual{aspect-ratio:16/10}.featured-copy{padding:18px 20px 22px}#content-panel .project-list{grid-template-columns:1fr}.notebook-list li{grid-template-columns:1fr;gap:6px;padding:17px 0}#content-panel[data-panel=photography]{padding-left:14px;padding-right:14px}#content-panel[data-panel=photography] .panel-top{margin-bottom:0}.photo-title{font-size:14px}}
+/* Give the image a definite stage so intrinsic portrait height cannot expand it. */
+#content-panel[data-panel=photography]{overflow:hidden}
+#content-panel[data-panel=photography] .panel-top{flex:0 0 auto}
+.photo-stage{position:relative;flex:1 1 0;overflow:hidden;min-height:0}
+.photo-full{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.photo-footer,.photo-source-link{flex-shrink:0}
