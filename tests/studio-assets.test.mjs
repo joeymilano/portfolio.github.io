@@ -15,6 +15,7 @@ const {GLTFLoader}=await import(new URL('vw-id-aura/vendor/addons/loaders/GLTFLo
 const {MeshoptDecoder}=await import(new URL('explore/vendor/meshopt_decoder.mjs',root));
 const {applyMonitorImage}=await import(new URL('explore/screen-material.mjs',root));
 const {createDeskObjects}=await import(new URL('explore/desk-objects.mjs',root));
+const {createAvatarMotion,idlePose}=await import(new URL('explore/avatar-motion.mjs',root));
 hooks.deregister();
 
 function asset(name){
@@ -180,4 +181,34 @@ test('album opening sweep stays clear of the monitor with a safety margin',()=>{
    assert.equal(new THREE.Box3().setFromObject(cover).intersectsBox(screen),false,`opening step ${step} clears screen`);
   }
  }finally{globalThis.document=originalDocument;}
+});
+
+
+test('head movement is gentle, pauses typing, and becomes still for reduced motion',()=>{
+ for(let t=0;t<58;t+=.05){const p=idlePose(t);assert.ok(Math.abs(p.yaw)<=.053&&Math.abs(p.pitch)<=.026&&Math.abs(p.roll)<=.013);if(p.yaw>.01)assert.ok(p.left===0&&p.right===0,'hands rest during the glance');}
+ assert.deepEqual(idlePose(10,true),{yaw:0,pitch:0,roll:0,left:0,right:0});
+ for(const name of ['avatar-v2-packed','avatar-v2-mobile-packed']){
+  const avatar=loaded.get(name).gltf.scene.clone(true);avatar.updateMatrixWorld(true);
+  const head=avatar.getObjectByName('head_surface'),before=head.matrixWorld.clone();
+  const motion=createAvatarMotion(avatar);avatar.updateMatrixWorld(true);
+  before.elements.forEach((x,i)=>assert.ok(Math.abs(x-head.matrixWorld.elements[i])<1e-7,'mount preserves rest pose'));
+  const pivot=avatar.getObjectByName('avatar_neck_pivot');
+  assert.equal(avatar.getObjectByName('glasses_bridge').parent,pivot);
+  assert.notEqual(avatar.getObjectByName('avatar_body').parent,pivot);
+  motion.update(10,1,false);assert.ok(pivot.rotation.y>.02);
+  motion.update(10,1,true);assert.equal(pivot.rotation.y,0);
+ }
+});
+
+test('desk long edge faces the seated keyboard without moving hand contact',()=>{
+ const room=loaded.get('room-packed').gltf.scene;room.updateMatrixWorld(true);
+ const keys=new THREE.Box3().setFromObject(room.getObjectByName('keyboard_keys')).getCenter(new THREE.Vector3());
+ assert.ok(keys.distanceTo(new THREE.Vector3(.825,.843,.537))<.002,'keyboard remains beneath the hands');
+ const desk=new THREE.Box3().setFromObject(room.getObjectByName('desk')).getCenter(new THREE.Vector3());
+ assert.ok(Math.abs(desk.x-.55)<.01&&Math.abs(desk.z-.77)<.01);
+ const forward=new THREE.Vector3(-.766,0,.643),longEdge=new THREE.Vector3(-.643,0,-.766);
+ const extents=[[Infinity,-Infinity],[Infinity,-Infinity]];
+ room.getObjectByName('desk').traverse(mesh=>{if(!mesh.isMesh)return;const points=mesh.geometry.getAttribute('position');for(let i=0;i<points.count;i++){const v=new THREE.Vector3().fromBufferAttribute(points,i).applyMatrix4(mesh.matrixWorld);if(v.y<.75)continue;[longEdge,forward].forEach((axis,n)=>{const d=v.dot(axis);extents[n][0]=Math.min(extents[n][0],d);extents[n][1]=Math.max(extents[n][1],d)})}});
+ assert.ok(extents[0][1]-extents[0][0]>2,'actual desktop has its long side across the working direction');
+ assert.ok(extents[1][1]-extents[1][0]<.9,'actual depth remains within comfortable reach');
 });

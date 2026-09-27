@@ -36,7 +36,7 @@ export function createDeskObjects(scene, room, coverTexture) {
     }
     return {id,group,hinge,anchor:position.map((v,i)=>i===1?v+.035:v)};
   }
-  const objects=[build('writing',.27,.24,[.55,.814,.35],.70,0x253d3c),build('photography',.40,.28,[.10,.814,1.22],.65,0x93816b)];
+  const objects=[build('writing',.27,.24,[.72,.814,1.07],-.92,0x253d3c),build('photography',.40,.28,[1.08,.814,1.36],-.92,0x93816b)];
   return {
     anchors:Object.fromEntries(objects.map(o=>[o.id,o.anchor])),
     update(selected,hovered,damping,reduced){for(const o of objects){const angle=reduced?0:selected===o.id?(o.id==='photography'?.42:1.32):hovered===o.id?.12:0;o.hinge.rotation.z=THREE.MathUtils.lerp(o.hinge.rotation.z,angle,damping);}},

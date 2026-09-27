@@ -220,6 +220,16 @@ for o in list(bpy.context.scene.objects):
 bpy.data.objects['mouse'].location+=Vector(p((-.121,0,-.194)))
 bpy.context.view_layer.update()
 
+# Seat the character at the long edge; keep the measured keyboard/hand contact fixed.
+stage(bpy.data.objects['desk'],(.1415,0,.8893),(.55,0,.77),90)
+for o in list(bpy.context.scene.objects):
+ if o.name.startswith(('Monitor','monitor_screen')):stage(o,(-.035,0,.972),(.43,0,.87),40)
+ if o.name.startswith(('Task lamp','Desk lamp')):o.location+=Vector(p((.396,0,-1.172)))
+ if o.name.startswith('Desk plant'):o.location+=Vector(p((.383,0,-1.424)))
+ if o.name.startswith(('Coffee mug','Mug handle')):o.location+=Vector(p((.801,0,-.016)))
+ if o.name.startswith('Cable management'):stage(o,(.1415,0,.8893),(.55,0,.77),90)
+bpy.context.view_layer.update()
+
 # Join architecture accents by material to keep exported draw calls practical while retaining named hero objects.
 keep={'desk','chair','record_console','monitor_screen','camera_prop','keyboard_keys','mouse','Desk plant','Window plant','Shelf plant','book_01'}
 for ma in list(bpy.data.materials):
@@ -241,10 +251,10 @@ scene=bpy.context.scene; scene.world.color=(.16,.16,.16)
 bpy.ops.object.camera_add(location=p((4.6,2.5,5.7)));cam=bpy.context.object;cam.name='Overview camera • runtime contract';cam.rotation_euler=(Vector(p((-.15,1.3,.6)))-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.type='PERSP';cam.data.lens=45;scene.camera=cam
 scene.render.engine='CYCLES';scene.cycles.samples=32;scene.render.resolution_x=1400;scene.render.resolution_y=900;scene.render.resolution_percentage=100
 scene.view_settings.view_transform='AgX';scene.render.image_settings.file_format='PNG';scene.render.filepath=ROOT+'/artifacts/portfolio-rebuild/room-inspection/room-overview.png'
-bpy.ops.wm.save_as_mainfile(filepath=ROOT+'/explore/assets/source/studio-room.blend')
+bpy.ops.wm.save_as_mainfile(filepath=ROOT+'/explore/assets/source/studio-room-ergonomic.blend')
 bpy.ops.object.select_all(action='DESELECT')
 for o in scene.objects:
  if o.type=='MESH':o.select_set(True)
-bpy.ops.export_scene.gltf(filepath=ROOT+'/explore/assets/room.glb',export_format='GLB',use_selection=True,export_apply=True,export_yup=True,export_texcoords=True,export_normals=True,export_materials='EXPORT',export_cameras=False,export_lights=False)
-tris=sum(len(o.data.polygons) for o in scene.objects if o.type=='MESH');print('ROOM_STATS',json.dumps({'polygons':tris,'mesh_objects':len([o for o in scene.objects if o.type=='MESH']),'materials':len(bpy.data.materials),'glb_bytes':os.path.getsize(ROOT+'/explore/assets/room.glb')}))
+bpy.ops.export_scene.gltf(filepath=ROOT+'/explore/assets/room-ergonomic.glb',export_format='GLB',use_selection=True,export_apply=True,export_yup=True,export_texcoords=True,export_normals=True,export_materials='EXPORT',export_cameras=False,export_lights=False)
+tris=sum(len(o.data.polygons) for o in scene.objects if o.type=='MESH');print('ROOM_STATS',json.dumps({'polygons':tris,'mesh_objects':len([o for o in scene.objects if o.type=='MESH']),'materials':len(bpy.data.materials),'glb_bytes':os.path.getsize(ROOT+'/explore/assets/room-ergonomic.glb')}))
 if os.environ.get('STUDIO_RENDER')=='1':bpy.ops.render.render(write_still=True)
