@@ -1,4 +1,4 @@
-import {createDeskObjects} from './desk-objects.mjs?v=20260927-editorial1';
+import {createDeskObjects} from './desk-objects.mjs?v=20260927-wall1';
 import {applyMonitorImage} from './screen-material.mjs?v=20260927-refined2';
 import * as THREE from 'three';
 import {moveView,viewOffset} from './camera-control.mjs?v=20260927-2';
@@ -11,7 +11,7 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 const root=document.querySelector('#scene-root');
 const emit=(name,detail={})=>window.dispatchEvent(new CustomEvent(name,{detail}));
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const anchors={finfold:[-.4443,1.25,1.3311],music:[-2,1,1.6],books:[-2.4,1.9,-2.05],about:[1.61,1.14,.20],work:[-3.43,1.96,-.58],writing:[.55,.849,.35],photography:[.045,.849,1.045]};
+const anchors={finfold:[-.4443,1.25,1.3311],music:[-2,1,1.6],books:[-2.4,1.9,-2.05],about:[1.61,1.14,.20],work:[-3.43,1.96,-.58],writing:[.55,.849,.35],photography:[.10,.849,1.22]};
 let renderer,scene,camera,raf=0,selected=null,disposed=false,sceneReady=false,contextLost=false,last=0,record=null,recordBaseY=0,tonearm=null,armBaseY=0,avatar=null,book=null,bookRest=null,bookRestRotation=0;
 const typingMeshes=[];
 const target=new THREE.Vector3(),desired=new THREE.Vector3(),look=new THREE.Vector3(),desiredLook=new THREE.Vector3();

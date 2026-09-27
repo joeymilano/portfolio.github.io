@@ -162,3 +162,22 @@ test('desk covers lift above the desk, keep independent targets, and respect red
   }
  }finally{globalThis.document=originalDocument;}
 });
+
+
+test('album opening sweep stays clear of the monitor with a safety margin',()=>{
+ const originalDocument=globalThis.document;
+ globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>({fillRect(){},fillText(){}})})};
+ try{
+  const scene=new THREE.Scene(),room=loaded.get('room-packed').gltf.scene.clone(true);
+  scene.add(room);const objects=createDeskObjects(scene,room,null);
+  scene.updateMatrixWorld(true);
+  const screen=new THREE.Box3().setFromObject(room.getObjectByName('monitor_screen')).expandByScalar(.02);
+  const cover=scene.getObjectByName('photography_cover');
+  for(let step=0;step<=100;step++){
+   objects.update(null,null,1,false);
+   objects.update('photography',null,step/100,false);
+   scene.updateMatrixWorld(true);
+   assert.equal(new THREE.Box3().setFromObject(cover).intersectsBox(screen),false,`opening step ${step} clears screen`);
+  }
+ }finally{globalThis.document=originalDocument;}
+});
