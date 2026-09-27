@@ -13,6 +13,7 @@ const hooks=registerHooks({resolve(specifier,context,nextResolve){
 const THREE=await import(threeURL);
 const {GLTFLoader}=await import(new URL('vw-id-aura/vendor/addons/loaders/GLTFLoader.js',root));
 const {MeshoptDecoder}=await import(new URL('explore/vendor/meshopt_decoder.mjs',root));
+const {applyMonitorImage}=await import(new URL('explore/screen-material.mjs',root));
 hooks.deregister();
 
 function asset(name){
@@ -120,4 +121,20 @@ test('assembled character retains textured head and independent transparent eyew
     });
     assert.ok(hands>0,`${name}: animated hand geometry`);
   }
+});
+
+
+test('monitor texture reaches optimized child meshes and restores discarded UVs',()=>{
+ const screen=loaded.get('room-packed').gltf.scene.getObjectByName('monitor_screen').clone(true);
+ const texture=new THREE.Texture();applyMonitorImage(screen,texture);
+ let meshes=0;
+ screen.traverse(mesh=>{if(!mesh.isMesh)return;meshes++;
+  assert.equal(mesh.material.map,texture);
+  assert.equal(mesh.userData.item,'finfold');
+  const uv=mesh.geometry.getAttribute('uv');
+  assert.equal(uv.count,mesh.geometry.getAttribute('position').count);
+  const points=new Set();
+  for(let i=0;i<uv.count;i++){assert.ok(Number.isFinite(uv.getX(i))&&uv.getX(i)>=0&&uv.getX(i)<=1);assert.ok(Number.isFinite(uv.getY(i))&&uv.getY(i)>=0&&uv.getY(i)<=1);points.add([uv.getX(i).toFixed(2),uv.getY(i).toFixed(2)].join(','));}
+  assert.equal(points.size,4,'screen image spans four corners');
+ });assert.ok(meshes>0);
 });
