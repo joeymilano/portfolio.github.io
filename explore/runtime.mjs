@@ -4,7 +4,7 @@ import {createAvatarMotion} from './avatar-motion.mjs?v=20260927-palm20';
 import {createDeskObjects} from './desk-objects.mjs?v=20260927-curated1';
 import {applyMonitorImage} from './screen-material.mjs?v=20260927-refined2';
 import * as THREE from 'three';
-import {moveView,viewOffset} from './camera-control.mjs?v=20260927-corner3';
+import {moveView,viewOffset} from './camera-control.mjs?v=20260927-pan1';
 let view={x:0,y:0},savedView=null,hovered=null,deskObjects=null;
 function resetView(){view={x:0,y:0};cameraPose();}
 window.addEventListener('studio:reset-view',resetView);
@@ -28,6 +28,7 @@ function cameraPose(){
  if(!root.dataset.reviewView){
   const offset=viewOffset(view,mobile),orbit=new THREE.Spherical().setFromVector3(desired.clone().sub(desiredLook));
   orbit.theta+=offset.yaw;orbit.phi+=offset.pitch;desired.copy(desiredLook).add(new THREE.Vector3().setFromSpherical(orbit));
+  desired.x+=offset.pan;desiredLook.x+=offset.pan;
   root.dataset.viewX=view.x.toFixed(2);root.dataset.viewY=view.y.toFixed(2);emit('studio:view',{moved:Math.abs(view.x)+Math.abs(view.y)>.01});
  }
  if(selected&&selected!=='work'&&anchors[selected]&&!reduced.matches){
