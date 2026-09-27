@@ -1,4 +1,4 @@
-import {applyMonitorImage} from './screen-material.mjs?v=20260927-refined1';
+import {applyMonitorImage} from './screen-material.mjs?v=20260927-refined2';
 import * as THREE from 'three';
 import {moveView,viewOffset} from './camera-control.mjs?v=20260927-2';
 let view={x:0,y:0};

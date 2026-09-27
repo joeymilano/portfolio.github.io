@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from '../vw-id-aura/vendor/three.module.js';
 
 export function applyMonitorImage(screen,texture){
  const material=new THREE.MeshBasicMaterial({map:texture});screen.traverse(mesh=>{
