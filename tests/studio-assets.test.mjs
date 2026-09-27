@@ -14,6 +14,7 @@ const THREE=await import(threeURL);
 const {GLTFLoader}=await import(new URL('vw-id-aura/vendor/addons/loaders/GLTFLoader.js',root));
 const {MeshoptDecoder}=await import(new URL('explore/vendor/meshopt_decoder.mjs',root));
 const {applyMonitorImage}=await import(new URL('explore/screen-material.mjs',root));
+const {createDeskObjects}=await import(new URL('explore/desk-objects.mjs',root));
 hooks.deregister();
 
 function asset(name){
@@ -137,4 +138,27 @@ test('monitor texture reaches optimized child meshes and restores discarded UVs'
   for(let i=0;i<uv.count;i++){assert.ok(Number.isFinite(uv.getX(i))&&uv.getX(i)>=0&&uv.getX(i)<=1);assert.ok(Number.isFinite(uv.getY(i))&&uv.getY(i)>=0&&uv.getY(i)<=1);points.add([uv.getX(i).toFixed(2),uv.getY(i).toFixed(2)].join(','));}
   assert.equal(points.size,4,'screen image spans four corners');
  });assert.ok(meshes>0);
+});
+
+
+test('desk covers lift above the desk, keep independent targets, and respect reduced motion',()=>{
+ const originalDocument=globalThis.document;
+ globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>({fillRect(){},fillText(){}})})};
+ try{
+  const scene=new THREE.Scene(),room=loaded.get('room-packed').gltf.scene.clone(true);
+  const cover=new THREE.Texture({width:341,height:512});
+  const objects=createDeskObjects(scene,room,cover);
+  assert.equal(room.getObjectByName('Closed_notebook'),undefined,'old inert notebook removed');
+  for(const id of ['writing','photography']){
+   const mesh=scene.getObjectByName(`${id}_cover`);
+   assert.equal(mesh.userData.item,id);
+   scene.updateMatrixWorld(true);const before=mesh.getWorldPosition(new THREE.Vector3()).y;
+   objects.update(id,null,1,false);scene.updateMatrixWorld(true);
+   assert.ok(mesh.getWorldPosition(new THREE.Vector3()).y>before+.08,'cover opens upward, never through pages');
+   objects.update(null,null,1,false);scene.updateMatrixWorld(true);
+   assert.ok(Math.abs(mesh.getWorldPosition(new THREE.Vector3()).y-before)<1e-7,'cover returns to rest');
+   objects.update(id,null,1,true);assert.equal(mesh.parent.rotation.z,0,'reduced motion keeps cover still');
+   assert.ok(objects.anchors[id].every(Number.isFinite));
+  }
+ }finally{globalThis.document=originalDocument;}
 });

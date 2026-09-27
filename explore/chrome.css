@@ -1,0 +1,35 @@
+/* Stable typographic planes around a tactile, cinematic room. */
+.masthead{padding:30px 40px;align-items:flex-start;gap:24px}
+.identity{font-size:25px;letter-spacing:-.045em;line-height:1.15}
+.identity span{font-size:9px;letter-spacing:.13em;line-height:16px;margin-top:8px}
+.masthead nav{gap:20px;padding:0;align-items:center}
+.masthead nav a,.masthead nav button,#language{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:44px;height:44px;min-height:44px;margin:0;padding:0 4px;font:400 14px/20px "Helvetica Neue","PingFang SC",sans-serif;letter-spacing:0;color:#e2ddd4;white-space:nowrap}
+#language{margin-left:8px;font-size:14px;color:#c5beb2}
+.masthead nav [data-open=work]{position:relative}
+.masthead nav [data-open=work]::after{content:'';position:absolute;bottom:3px;left:8px;right:8px;height:1px;background:#d7c8af;opacity:.7;transform:scaleX(.35);transition:transform .16s}
+.masthead nav [data-open=work]:hover::after{transform:scaleX(1)}
+.scene-shade{background:linear-gradient(#05070870,transparent 24%,transparent 77%,#08090770)}
+.welcome{left:40px;bottom:34px}.welcome p{font-size:13px;letter-spacing:.01em}
+#scene-poster,#scene-root canvas{transition:opacity .45s ease}
+body[data-scene-state=loading] .loading-links{display:flex;top:118px;max-width:490px;gap:4px 18px}
+body[data-scene-state=loading] .loading-links a{font-size:12px;min-height:44px;display:inline-flex;align-items:center}
+.hotspots button{isolation:isolate}
+.hotspots button[data-object=writing]::before,.hotspots button[data-object=photography]::before{inset:19px;background:#ebdfc9a0;border-color:#f6ecd990}
+.hotspots button[data-object=writing] span,.hotspots button[data-object=photography] span{top:43px;font-size:11px}
+#panel-close{width:44px;height:44px;flex:0 0 44px}
+@media(max-width:700px){
+ .masthead{padding:20px;display:block}
+ .identity{font-size:23px;display:inline-block}.identity span{font-size:8px;margin-top:5px}
+ .masthead nav{justify-content:flex-start;max-width:none;flex-wrap:nowrap;gap:12px;margin-top:13px}
+ .masthead nav a,.masthead nav button,#language{font-size:13px;padding:0 3px;line-height:20px}
+ #language{margin-left:auto}
+ .welcome,body[data-scene-state=ready] .welcome{left:20px;bottom:123px;max-width:calc(100% - 74px)}
+ .welcome p{font-size:12px}
+ body[data-scene-state=ready] .loading-links{display:flex;left:20px;right:20px;bottom:74px;gap:0;justify-content:space-between;max-width:none}
+ body[data-scene-state=ready] .loading-links a{display:inline-flex;align-items:center;min-height:44px;font-size:11px}
+ body[data-scene-state=ready] .loading-links a[data-open=about],body[data-scene-state=ready] .loading-links a[data-open=books]{display:none}
+ body[data-scene-state=ready] .loading-links a[data-open=writing]{display:inline-flex}
+ body[data-scene-state=loading] .loading-links{left:20px;right:20px;top:154px;gap:0 16px}
+ .scene-loader{left:20px;bottom:171px}.view-controls{bottom:114px}
+}
+@media(prefers-reduced-motion:reduce){#scene-poster,#scene-root canvas,.masthead nav *{transition:none!important}}

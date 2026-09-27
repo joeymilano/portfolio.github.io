@@ -1,0 +1,40 @@
+/* Editorial panels above the studio. */
+#content-panel:is([data-panel=work],[data-panel=writing],[data-panel=photography]){width:min(920px,calc(100vw - 80px));max-height:calc(100svh - 64px);margin:auto 32px auto auto;padding:32px 40px 42px;background:#191a18f7}
+#content-panel:is([data-panel=work],[data-panel=writing],[data-panel=photography]) .panel-top{margin-bottom:24px}
+#content-panel:is([data-panel=work],[data-panel=writing]) #panel-title{font:400 clamp(32px,4vw,54px)/1.05 Georgia,serif;letter-spacing:-.04em;margin-bottom:22px}
+.editorial-label{display:block;margin:30px 0 14px!important;color:#a9a398!important;font:500 10px/1.4 Arial,sans-serif!important;letter-spacing:.18em;text-transform:uppercase}
+.featured-work{display:grid;gap:1px;background:#e9e0d018;border:1px solid #e9e0d018}
+.featured-card{display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);background:#1d1e1b}
+.featured-visual{display:grid;place-items:center;aspect-ratio:16/10;min-height:0;overflow:hidden;background:#292a27}
+.featured-visual img{display:block;width:100%;height:100%;object-fit:contain;margin:0!important;border-radius:0!important}
+.featured-copy{padding:22px 28px;align-self:center}
+#content-panel .featured-role{margin:0 0 11px;color:#a9a398;font-size:10px;letter-spacing:.11em;text-transform:uppercase}
+.featured-title{display:inline-block;color:#eee9df;text-decoration:none;font:400 26px/1.2 Georgia,serif}
+.featured-title:hover{text-decoration:underline;text-underline-offset:5px}
+#content-panel .featured-summary{max-width:40ch;margin:12px 0 0;font-size:12px;line-height:1.65}
+#content-panel .project-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;margin:0}
+#content-panel .project-list a{font-size:12px;padding:12px 0}
+.notebook-list{list-style:none;padding:0;margin:8px 0 26px;border-top:1px solid #e9e0d02b}
+.notebook-list li{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:21px 0;border-bottom:1px solid #e9e0d02b;align-items:baseline}
+.notebook-date{font:11px/1.5 Arial,sans-serif;letter-spacing:.08em;color:#a9a398;font-variant-numeric:tabular-nums}
+.notebook-title{color:#eee9df;text-decoration:none;font:400 clamp(18px,2vw,24px)/1.3 Georgia,serif}
+.notebook-title:hover{text-decoration:underline;text-underline-offset:5px}
+#content-panel[data-panel=photography]{height:min(94svh,900px)}
+#content-panel[data-panel=photography][open]{display:flex;flex-direction:column}
+#content-panel:not([open]){display:none}
+#content-panel[data-panel=photography] .panel-top{margin-bottom:6px}
+#content-panel[data-panel=photography] .panel-top .eyebrow,#content-panel[data-panel=photography] .panel-classic{display:none}
+#content-panel[data-panel=photography] #panel-close{margin-left:auto;width:44px;height:44px;min-width:44px;min-height:44px}
+#content-panel[data-panel=photography] #panel-content{min-height:0;flex:1;display:flex;flex-direction:column;gap:12px}
+#content-panel[data-panel=photography] #panel-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.photo-stage{min-height:0;flex:1;display:grid;place-items:center;touch-action:pan-y}
+.photo-full{display:block;width:100%;height:100%;max-height:100%;object-fit:contain}
+.photo-full[hidden],.photo-unavailable[hidden]{display:none}
+.photo-unavailable{margin:auto;text-align:center}
+.photo-footer{display:flex;align-items:center;gap:14px;min-height:48px}
+.photo-counter{font-size:11px;letter-spacing:.12em;color:#aaa59a;white-space:nowrap}
+.photo-title{font:400 17px/1.3 Georgia,serif;margin-right:auto}
+.photo-arrow{border:1px solid #e9e0d04a;border-radius:50%;background:transparent;width:44px;height:44px;flex:0 0 44px;font-size:20px}
+.photo-arrow:hover{background:#e9e0d015}
+.photo-source-link{align-self:flex-start;color:#aaa59a;font-size:11px;text-underline-offset:4px}
+@media(max-width:700px){#content-panel:is([data-panel=work],[data-panel=writing],[data-panel=photography]){inset:0;width:100vw;max-width:none;height:100svh;max-height:100svh;margin:0;padding:calc(20px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));border:0;border-radius:0}#content-panel:is([data-panel=work],[data-panel=writing]) .panel-top{margin-bottom:28px}.featured-card{grid-template-columns:1fr}.featured-visual{aspect-ratio:16/10}.featured-copy{padding:18px 20px 22px}#content-panel .project-list{grid-template-columns:1fr}.notebook-list li{grid-template-columns:1fr;gap:6px;padding:17px 0}#content-panel[data-panel=photography]{padding-left:14px;padding-right:14px}#content-panel[data-panel=photography] .panel-top{margin-bottom:0}.photo-title{font-size:14px}}

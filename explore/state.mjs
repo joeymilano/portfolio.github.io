@@ -1,5 +1,5 @@
 /** Pure URL state. Explicit route/language always wins stored preferences. */
-export const ITEM_IDS=Object.freeze(['finfold','music','books','about','work','writing']);
+export const ITEM_IDS=Object.freeze(['finfold','music','books','about','work','writing','photography']);
 export const validId=id=>ITEM_IDS.includes(id)?id:null;
 export const validLanguage=lang=>['en','zh'].includes(lang)?lang:null;
 export function resolveLanguage(explicit,saved){return validLanguage(explicit)||validLanguage(saved)||'en';}
