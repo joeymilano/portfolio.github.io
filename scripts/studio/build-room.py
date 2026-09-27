@@ -51,11 +51,19 @@ def finish(o,name,material,bevel=0):
 def box(name,loc,dim,material,bevel=.015):
  bpy.ops.mesh.primitive_cube_add(size=1,location=p(loc)); o=bpy.context.object; o.dimensions=(dim[0],dim[2],dim[1]); bpy.ops.object.transform_apply(location=False,rotation=False,scale=True); return finish(o,name,material,bevel)
 def ball(name,loc,scale,material):
- bpy.ops.mesh.primitive_uv_sphere_add(segments=16,ring_count=8,location=p(loc)); o=bpy.context.object; o.scale=(scale[0],scale[2],scale[1]); bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
+ bpy.ops.mesh.primitive_uv_sphere_add(segments=40,ring_count=20,location=p(loc)); o=bpy.context.object; o.scale=(scale[0],scale[2],scale[1]); bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
  for f in o.data.polygons:f.use_smooth=True
  return finish(o,name,material)
 def rod(name,a,b,r,material,vertices=12):
  a,b=Vector(p(a)),Vector(p(b)); d=b-a; bpy.ops.mesh.primitive_cylinder_add(vertices=vertices,radius=r,depth=d.length,location=(a+b)/2); o=bpy.context.object; o.rotation_euler=d.to_track_quat('Z','Y').to_euler()
+ for f in o.data.polygons:f.use_smooth=True
+ return finish(o,name,material)
+def tube(name,points,r,material):
+ curve=bpy.data.curves.new(name,'CURVE');curve.dimensions='3D';curve.bevel_depth=r;curve.bevel_resolution=4;curve.use_fill_caps=True
+ spline=curve.splines.new('POLY');spline.points.add(len(points)-1)
+ for v,co in zip(spline.points,points):v.co=(*p(co),1)
+ o=bpy.data.objects.new(name,curve);bpy.context.collection.objects.link(o)
+ bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o;bpy.ops.object.convert(target='MESH')
  for f in o.data.polygons:f.use_smooth=True
  return finish(o,name,material)
 def group(name,objects):
@@ -101,21 +109,55 @@ keys=[]
 for row in range(5):
  for col in range(15):keys.append(box('Keycap',(.064+col*.034,.843,.112+row*.03),(.029,.011,.024),black,.003))
 group('keyboard_keys',keys)
-ball('mouse',(.69,.842,.19),(.035,.023,.055),black)
-# Ergonomic chair frame, fabric cushions, mesh back and headrest
-parts=[ball('chair seat',(.8,.48,.79),(.285,.065,.245),mesh),rod('Gas lift',(.8,.1,.8),(.8,.46,.8),.036,metal)]
+# Manufactured mouse: continuous domed shell, separate buttons and recessed wheel.
+rubber=mat('Soft touch graphite',(.022,.026,.030),.66)
+parts=[ball('Mouse lower shell',(.69,.829,.19),(.037,.015,.058),black),
+       ball('Mouse palm shell',(.69,.841,.213),(.036,.022,.035),rubber)]
+for x in [.672,.708]:
+ o=ball('Mouse click paddle',(x,.842,.164),(.0172,.017,.029),rubber); parts.append(o)
+parts.append(box('Mouse wheel recess',(.69,.847,.16),(.010,.006,.028),black,.003))
+parts.append(rod('Mouse scroll wheel',(.686,.853,.16),(.694,.853,.16),.010,metal,32))
+for z in [.151,.155,.159,.163,.167]:
+ parts.append(rod('Mouse wheel knurl',(.686,.859,z),(.694,.859,z),.0007,rubber,8))
+group('mouse',parts)
+# Ergonomic chair: curved upholstery shares its edge path with the supporting frame.
+# Runtime coordinates are metres. Each rail terminates inside a structural mount.
+parts=[ball('Seat upholstery',(.8,.49,.79),(.277,.062,.241),mesh),
+       box('Seat structural pan',(.8,.455,.79),(.48,.035,.40),black,.016),
+       box('Tilt mechanism',(.8,.405,.8),(.18,.075,.19),black,.02),
+       rod('Gas lift',(.8,.16,.8),(.8,.425,.8),.029,metal,32),
+       rod('Lift sleeve',(.8,.13,.8),(.8,.31,.8),.040,black,32)]
 for i in range(5):
- a=i*2*math.pi/5; end=(.8+math.sin(a)*.34,.105,.8+math.cos(a)*.34)
- parts.append(rod('Star base spoke',(.8,.16,.8),end,.022,black)); parts.append(ball('Caster wheel',(end[0],.053,end[2]),(.041,.045,.033),black))
-for x in [.53,1.07]:
- parts.append(rod('Back frame',(x,.45,1.02),(x,1.03,1.15),.023,black))
- parts.append(rod('Arm support',(x,.45,.85),(x,.69,.86),.022,black))
- parts.append(box('Arm pad',(x,.715,.77),(.082,.045,.29),black,.021))
-parts.append(box('Flexible mesh back',(.8,.86,1.115),(.43,.48,.045),mesh,.021))
-parts.append(box('Adjustable headrest',(.8,1.20,1.18),(.24,.12,.055),mesh,.026))
-parts.append(rod('Headrest support',(.8,1.00,1.15),(.8,1.22,1.18),.025,black))
-for i in range(19):
- y=.65+i*.021; parts.append(rod('Mesh weave',(.59,y,1.15), (1.01,y,1.15),.0028,black,6))
+ a=i*2*math.pi/5; end=(.8+math.sin(a)*.32,.115,.8+math.cos(a)*.32)
+ parts.append(rod('Star base spoke',(.8,.18,.8),end,.023,black,24))
+ parts.append(rod('Caster swivel',end,(end[0],.068,end[2]),.014,metal,20))
+ for dx in [-.024,.024]:
+  parts.append(rod('Twin caster tire',(end[0]+dx-.010,.048,end[2]),(end[0]+dx+.010,.048,end[2]),.044,rubber,32))
+  parts.append(rod('Caster hub',(end[0]+dx-.0105,.048,end[2]),(end[0]+dx+.0105,.048,end[2]),.019,black,24))
+# Closed curved perimeter, with lumbar bow and recline integrated in the surface.
+def backpoint(u,t):
+ width=.222+.018*math.sin(math.pi*t)
+ return (.8+u*width,.60+t*.49,1.055+.094*t-.032*math.sin(math.pi*t)+.024*u*u)
+verts=[p(backpoint(-1+2*i/24,j/24)) for j in range(25) for i in range(25)]
+faces=[(j*25+i,j*25+i+1,(j+1)*25+i+1,(j+1)*25+i) for j in range(24) for i in range(24)]
+me=bpy.data.meshes.new('Contoured woven back');me.from_pydata(verts,[],faces);me.uv_layers.new()
+for poly in me.polygons:
+ poly.use_smooth=True
+ for li in poly.loop_indices:
+  vi=me.loops[li].vertex_index;me.uv_layers.active.data[li].uv=(vi%25/24,vi//25/24)
+o=bpy.data.objects.new('Contoured back upholstery',me);bpy.context.collection.objects.link(o);finish(o,o.name,mesh)
+mod=o.modifiers.new('Upholstery thickness','SOLIDIFY');mod.thickness=.017;bpy.context.view_layer.objects.active=o;bpy.ops.object.modifier_apply(modifier=mod.name);parts.append(o)
+for u in [-1,1]:
+ parts.append(tube('Back perimeter',[backpoint(u,j/24) for j in range(25)],.015,black))
+ for a,b in [((.8+u*.19,.455,.88),(.8+u*.215,.55,1.06)),((.8+u*.215,.55,1.06),backpoint(u,.18))]:parts.append(rod('Back seat bracket',a,b,.023,black,20))
+for t in [0,1]:
+ parts.append(tube('Back perimeter',[backpoint(-1+2*i/24,t) for i in range(25)],.015,black))
+for x in [.51,1.09]:
+ parts.append(rod('Arm seat bracket',(.8+(x-.8)*.65,.445,.84),(x,.47,.84),.024,black,24))
+ parts.append(rod('Arm riser',(x,.47,.84),(x,.704,.84),.022,black,24))
+ parts.append(box('Arm pad',(x,.715,.78),(.083,.037,.27),rubber,.018))
+parts.append(rod('Headrest spine',(.8,1.055,1.17),(.8,1.21,1.19),.019,black,24))
+parts.append(ball('Headrest padded cushion',(.8,1.205,1.18),(.137,.064,.040),mesh))
 group('chair',parts)
 # Record cabinet top surface kept empty for separate interactive turntable
 parts=[box('console carcass',(-2,.48,1.6),(1.55,.70,.70),wood,.016),box('console top',(-2,.839,1.6),(1.60,.026,.74),wood,.01)]
@@ -153,7 +195,8 @@ rod('Desk lamp base',(-1.0,.814,-.18),(-1.0,.84,-.18),.10,black,32)
 rod('Task lamp lower',(-1,.84,-.18),(-1.06,1.19,-.22),.014,metal)
 rod('Task lamp arm',(-1.06,1.19,-.22),(-.90,1.42,-.18),.014,metal)
 ball('Task lamp shade',(-.90,1.40,-.18),(.125,.069,.125),black)
-ball('Task lamp diffuser',(-.90,1.378,-.18),(.107,.012,.107),warm)
+ball('Task lamp diffuser',(-.90,1.342,-.18),(.071,.008,.071),warm)
+for loc in [(-1.06,1.19,-.22),(-.90,1.42,-.18)]:ball('Task lamp hinge',loc,(.022,.022,.022),black)
 rod('Orb lamp foot',(2.67,.88,-1.9),(2.67,.92,-1.9),.085,metal,24)
 ball('Frosted warm globe',(2.67,1.02,-1.9),(.105,.105,.105),warm)
 # Camera with lens concentric rings and tactile controls

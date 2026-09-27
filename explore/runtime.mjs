@@ -75,7 +75,7 @@ try{
  // Prepare the room first; the poster remains until the full composition is ready.
  // The avatar is the heaviest asset, so it queues behind the room instead of
  // competing for bandwidth with the scene the visitor is waiting to see.
- const roomFile=tracked('room',loader.loadAsync('/explore/assets/room-packed.glb?v=lamp-clear1',bytes('room')));
+ const roomFile=tracked('room',loader.loadAsync('/explore/assets/room-packed.glb?v=props9',bytes('room')));
  const turntableFile=tracked('turntable',loader.loadAsync('/explore/assets/turntable-packed.glb?v=turn1',bytes('turntable')));
  const avatarFile=tracked('avatar',roomFile.then(()=>loader.loadAsync(mobileHardware?'/explore/assets/avatar-v2-mobile-packed.glb?v=palm20':'/explore/assets/avatar-v2-packed.glb?v=palm20',bytes('avatar'))));
  const screenFile=tracked('screen',textures.loadAsync('/explore/assets/workbench-monitor.jpg'));

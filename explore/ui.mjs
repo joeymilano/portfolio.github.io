@@ -1,4 +1,4 @@
-import {initLightMode} from './light-mode.mjs?v=20260927-release22';
+import {initLightMode} from './light-mode.mjs?v=20260927-props9';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260927-music1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
