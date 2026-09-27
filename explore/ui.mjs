@@ -1,3 +1,4 @@
+import {initLightMode} from './light-mode.mjs?v=20260927-daynight1';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260927-music1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-editorial1';
@@ -78,3 +79,5 @@ syncLanguage();if(state.id)select(state.id,{historyMode:'none'});if(state.invali
 const resetViewButton=document.querySelector('#view-reset');resetViewButton.addEventListener('click',()=>{emit('studio:reset-view',{});document.querySelector('#scene-root canvas')?.focus({preventScroll:true});});
 function viewLabels(){const zh=language==='zh';document.querySelector('#view-hint').textContent=zh?'拖动，环视工作室':'Drag to look around';const label=zh?'复位视角':'Reset view';resetViewButton.setAttribute('aria-label',label);resetViewButton.title=label;}
 window.addEventListener('studio:language',viewLabels);viewLabels();
+
+initLightMode();

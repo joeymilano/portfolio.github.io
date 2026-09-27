@@ -33,3 +33,15 @@ body[data-scene-state=loading] .loading-links a{font-size:12px;min-height:44px;d
  .scene-loader{left:20px;bottom:171px}.view-controls{bottom:114px}
 }
 @media(prefers-reduced-motion:reduce){#scene-poster,#scene-root canvas,.masthead nav *{transition:none!important}}
+
+#light-mode{position:absolute;right:40px;top:84px;display:grid;place-items:center;width:44px;height:44px;background:#16191870;border:1px solid #ffffff20;border-radius:50%;color:#eee8dc;backdrop-filter:blur(8px)}
+#light-mode svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+#light-mode:hover{background:#30342fbb}
+html[data-light-mode=day] .scene-shade{background:linear-gradient(#05070835,transparent 25%,transparent 70%,#08090765)}
+@media(max-width:700px){#light-mode{top:20px;right:20px}}
+
+html[data-light-mode=day] #view-hint{color:#242c29;text-shadow:0 1px 1px #ffffff70}
+
+html[data-light-mode=day] #scene-poster:not([data-mode=day]){visibility:hidden}
+html[data-light-mode=day] .masthead nav{background:#131c1870;border-radius:3px;padding:0 8px;backdrop-filter:blur(10px)}
+@media(max-width:700px){html[data-light-mode=day] .loading-links{background:#131c1880;border-radius:3px;padding:0 8px;backdrop-filter:blur(10px)}}

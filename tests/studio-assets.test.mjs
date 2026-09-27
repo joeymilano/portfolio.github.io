@@ -16,6 +16,7 @@ const {MeshoptDecoder}=await import(new URL('explore/vendor/meshopt_decoder.mjs'
 const {applyMonitorImage}=await import(new URL('explore/screen-material.mjs',root));
 const {createDeskObjects}=await import(new URL('explore/desk-objects.mjs',root));
 const {createAvatarMotion,idlePose}=await import(new URL('explore/avatar-motion.mjs',root));
+const {createLighting}=await import(new URL('explore/lighting.mjs',root));
 hooks.deregister();
 
 function asset(name){
@@ -211,4 +212,29 @@ test('desk long edge faces the seated keyboard without moving hand contact',()=>
  room.getObjectByName('desk').traverse(mesh=>{if(!mesh.isMesh)return;const points=mesh.geometry.getAttribute('position');for(let i=0;i<points.count;i++){const v=new THREE.Vector3().fromBufferAttribute(points,i).applyMatrix4(mesh.matrixWorld);if(v.y<.75)continue;[longEdge,forward].forEach((axis,n)=>{const d=v.dot(axis);extents[n][0]=Math.min(extents[n][0],d);extents[n][1]=Math.max(extents[n][1],d)})}});
  assert.ok(extents[0][1]-extents[0][0]>2,'actual desktop has its long side across the working direction');
  assert.ok(extents[1][1]-extents[1][0]<.9,'actual depth remains within comfortable reach');
+});
+
+
+test('the complete task lamp clears both foliage and monitor',()=>{
+ const room=loaded.get('room-packed').gltf.scene;room.updateMatrixWorld(true);
+ const lamp=new THREE.Box3().setFromObject(room.getObjectByName('task_lamp'));
+ assert.equal(lamp.isEmpty(),false);
+ for(const name of ['Desk_plant','monitor_screen']){
+  const obstacle=new THREE.Box3().setFromObject(room.getObjectByName(name)).expandByScalar(.025);
+  assert.equal(lamp.intersectsBox(obstacle),false,`lamp clears ${name} with margin`);
+ }
+});
+
+
+test('daylight changes real lighting and reduced motion switches immediately without cumulative material drift',()=>{
+ const original=globalThis.document;
+ globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>({fillRect(){},createLinearGradient:()=>({addColorStop(){}})})})};
+ try{
+  const scene=new THREE.Scene(),renderer={toneMappingExposure:.95},material=new THREE.MeshStandardMaterial({color:0x333333,emissive:0xffc080,emissiveIntensity:1});material.name='plaster';
+  const room=new THREE.Group();room.add(new THREE.Mesh(new THREE.BoxGeometry(1,1,1),material));
+  const originalColor=material.color.clone(),lighting=createLighting(scene,renderer,true,false);lighting.register(room);
+  lighting.update(true,.016,true);assert.ok(renderer.toneMappingExposure>1);assert.ok(material.color.r>originalColor.r);assert.ok(material.emissiveIntensity<.1);
+  for(let i=0;i<10;i++){lighting.update(true,.016,true);lighting.update(false,.016,true)}
+  assert.ok(material.color.equals(originalColor),'night material is restored exactly');assert.equal(renderer.toneMappingExposure,.95);assert.equal(material.emissiveIntensity,1);
+ }finally{globalThis.document=original}
 });
