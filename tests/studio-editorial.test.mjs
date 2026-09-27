@@ -30,9 +30,9 @@ test('notebook articles use their published dates and bilingual routes',()=>{
  assert.deepEqual(writing.map(article=>article.date),[...writing.map(article=>article.date)].sort().reverse());
 });
 test('curated authorized photographs have separate local display and cover files',()=>{
- assert.deepEqual(photography.map(photo=>photo.id),['p05_img1','p11_img1','p07_img1','p12_img1','p13_img1','usa_horseback','p13_img2','p18_img1']);
- // usa_horseback comes from the personal archive, the rest from the public photography site.
- const personal=new Set(['usa_horseback']);
+ assert.deepEqual(photography.map(photo=>photo.id),['p05_img1','p11_img1','p07_img1','p12_img1','p13_img1','usa_ride','p13_img2','p18_img1']);
+ // usa_ride comes from the personal archive, the rest from the public photography site.
+ const personal=new Set(['usa_ride']);
  for(const photo of photography){
   if(personal.has(photo.id))assert.match(photo.source,/^local:/);
   else assert.equal(photo.source,`https://photography-portfolio-rd5.pages.dev/images/${photo.id}.jpeg`);
