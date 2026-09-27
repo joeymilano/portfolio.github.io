@@ -48,6 +48,7 @@ function publicUrlForFile(file) {
 
 const publicPages = [
   { file: "index.html", url: `${origin}/`, lang: "en", schema: "Person" },
+  { file: "explore/index.html", url: `${origin}/explore/`, lang: "en", schema: "ProfilePage" },
   ...casePages.map((file) => ({
     file,
     url: publicUrlForFile(file),
@@ -199,6 +200,15 @@ for (const url of sitemapUrls) {
 for (const page of publicPages) {
   const html = read(page.file);
   if (!html) continue;
+  if (/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*\b(?:noindex|nofollow|none)\b/i.test(html)) {
+    failures.push(`${page.file}: public page blocks indexing or link discovery`);
+  }
+  if (page.file === "explore/index.html") {
+    requirePattern(html, /<h1[ >][\s\S]*?Joey Zhao[\s\S]*?<\/h1>/i, "crawlable identity heading", page.file);
+    for (const target of ["/finfold", "/signals", "/collov", "/unifyux", "/writing/", "/en/writing/"]) {
+      requirePattern(html, new RegExp(`<a[^>]+href=["']${escapeRegex(target)}["']`, "i"), `static discovery link ${target}`, page.file);
+    }
+  }
 
   requirePattern(
     html,

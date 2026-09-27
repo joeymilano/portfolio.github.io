@@ -17,3 +17,11 @@ body[data-load-state=loading] #scene-poster{opacity:1}
 body[data-load-state=loading] #scene-root canvas{opacity:0;pointer-events:none}
 body[data-load-state=loading] .hotspots,body[data-load-state=loading] .view-controls{opacity:0;visibility:hidden}
 .loader-number::after{content:'%';margin-left:2px;font-size:8px;opacity:.65}
+
+/* Keep object markers continuous as the camera moves across their visibility edge. */
+.hotspots button[data-visible]{transition:opacity .26s ease}
+.hotspots button[data-visible=false]{opacity:0;pointer-events:none}
+@media(min-width:701px){
+ body[data-view-moving=true] .hotspots button[data-visible=true] span{opacity:.72;translate:0 0}
+ body[data-view-moving=true] #view-hint{opacity:1}
+}

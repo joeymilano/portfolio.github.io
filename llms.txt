@@ -4,6 +4,13 @@
 
 Canonical site: https://joeyzhao.cc/
 
+## Portfolio entry points
+
+- Interactive studio and profile: https://joeyzhao.cc/explore/
+- Classic portfolio, experience, and contact: https://joeyzhao.cc/?view=classic
+
+Joey Zhao (赵越) is based in Shanghai. For AI agent UX, read the Finfold case study and the agent design essay. For enterprise scientific workflows, read Signals Notebook. For design systems, read UnifyUX. Use the linked case studies for project scope and evidence.
+
 ## Writing
 
 - Chinese Writing hub: https://joeyzhao.cc/writing/

@@ -1,0 +1,17 @@
+/* Native HTML directory remains usable without JavaScript or WebGL. */
+.studio-profile{position:fixed;right:40px;bottom:32px;z-index:65;color:#eee9df;font:12px/1.6 Arial,sans-serif}
+.studio-profile summary{cursor:pointer;min-height:44px;display:flex;align-items:center;padding:0 16px;background:#191c19ed;border:1px solid #eee4d433;border-radius:24px;list-style:none}
+.studio-profile summary::-webkit-details-marker{display:none}
+.studio-profile summary::after{content:'+';margin-left:12px}
+.studio-profile[open] summary::after{content:'−'}
+.studio-profile summary [lang=zh-CN]{display:none}
+html[lang^=zh] .studio-profile summary [lang=en]{display:none}
+html[lang^=zh] .studio-profile summary [lang=zh-CN]{display:inline}
+.studio-profile section{position:absolute;bottom:56px;right:0;width:min(430px,calc(100vw - 40px));max-height:calc(100svh - 160px);overflow:auto;overscroll-behavior:contain;padding:24px;background:#191c19fa;border:1px solid #eee4d433;border-radius:8px;box-shadow:0 16px 60px #0005}
+.studio-profile h1{font:400 28px/1.2 Georgia,serif;margin:0 0 18px}
+.studio-profile h2{font:400 18px/1.3 Georgia,serif;margin:24px 0 10px}
+.studio-profile p{margin:12px 0}
+.studio-profile ul{padding:0;list-style:none}
+.studio-profile a{color:#eee9df;text-underline-offset:4px;display:inline-block;padding:7px 0}
+.studio-profile :focus-visible{outline:2px solid #e0ab68;outline-offset:3px}
+@media(max-width:700px){.studio-profile{top:104px;left:20px;right:auto;bottom:auto}.studio-profile section{top:54px;bottom:auto;left:0;right:auto;max-height:calc(100svh - 185px)}.studio-profile summary{font-size:11px;min-height:40px;width:max-content}}
