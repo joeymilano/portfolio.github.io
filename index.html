@@ -1190,7 +1190,7 @@
                 <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
                 <li><a href="writing/" data-i18n="nav.writing">Writing</a></li>
                 <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-                <li><a href="resume/joey-zhao-resume.pdf" class="resume-btn" id="resume-trigger" target="_blank" rel="noopener noreferrer" data-i18n="nav.resume">Resume</a></li>
+                <li><a href="resume/Yue-Zhao-Senior-AI-Product-Designer-Resume.pdf" class="resume-btn" id="resume-trigger" target="_blank" rel="noopener noreferrer" data-i18n="nav.resume">Resume</a></li>
             </ul>
             <div class="lang-toggle">
                 <button id="lang-en" class="active">EN</button>
@@ -1208,7 +1208,7 @@
         <a href="#skills" data-i18n="nav.skills">Skills</a>
         <a href="writing/" data-i18n="nav.writing">Writing</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
-        <a href="resume/joey-zhao-resume.pdf" class="resume-btn" id="mobile-resume-trigger" target="_blank" rel="noopener noreferrer" data-i18n="nav.resume">Resume</a>
+        <a href="resume/Yue-Zhao-Senior-AI-Product-Designer-Resume.pdf" class="resume-btn" id="mobile-resume-trigger" target="_blank" rel="noopener noreferrer" data-i18n="nav.resume">Resume</a>
     </div>
 
     <section class="hero" aria-label="Hero introduction">
@@ -1697,8 +1697,8 @@
 
     <script>
         // Set background images
-        document.document.getElementById('hero-photo').style.backgroundImage = "url('images/hero-photo.png?v=20260927')";
-        document.document.getElementById('resume-photo').style.backgroundImage = "url('images/hero-photo.png?v=20260927')";
+        document.getElementById('hero-photo').style.backgroundImage = "url('images/hero-photo.png?v=20260927')";
+        document.getElementById('resume-photo').style.backgroundImage = "url('images/hero-photo.png?v=20260927')";
         document.getElementById('collov-bg').style.cssText = "background: url('images/collov-cover.jpg?v=20260613') center/cover;";
         document.getElementById('signals-bg').style.cssText = "background: url('images/signals-cover.jpg?v=20260613') center/cover;";
         document.getElementById('unifyux-bg').style.backgroundImage = "url('31.png')";
@@ -2957,6 +2957,12 @@
             // Update button states
             document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
             document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+
+            // Resume PDF follows the site language: that language's page first
+            const resumeHref = lang === 'zh'
+                ? 'resume/赵越-高级AI产品设计师-简历.pdf'
+                : 'resume/Yue-Zhao-Senior-AI-Product-Designer-Resume.pdf';
+            document.querySelectorAll('#resume-trigger, #mobile-resume-trigger').forEach(a => { a.href = resumeHref; });
         }
 
         // Language toggle event listeners
