@@ -16,6 +16,14 @@ body[data-scene-state=loading] .loading-links a{font-size:12px;min-height:44px;d
 .hotspots button{isolation:isolate}
 .hotspots button[data-object=writing]::before,.hotspots button[data-object=photography]::before{inset:19px;background:#ebdfc9a0;border-color:#f6ecd990}
 .hotspots button[data-object=writing] span,.hotspots button[data-object=photography] span{top:43px;font-size:11px}
+/* The avatar is the front door of the studio: its marker stays labeled and
+   carries the only warm accent, so first-time visitors click the person first. */
+.hotspots button[data-object=about]{z-index:2}
+.hotspots button[data-object=about]::before{inset:13px;border-color:#f4e2b8;background:#e4d1ac;box-shadow:0 0 0 6px #e4d1ac26;animation:about-halo 2.8s ease-in-out infinite}
+.hotspots button[data-object=about]:hover::before,.hotspots button[data-object=about]:focus-visible::before{background:#f4e2b8;transform:scale(.85)}
+.hotspots button[data-object=about] span{top:47px;opacity:1;translate:0 0;background:#221d14e6;border-color:#e4d1ac52;color:#f2e6cc;padding:7px 12px;border-radius:var(--radius-chip)}
+@keyframes about-halo{0%,100%{box-shadow:0 0 0 5px #e4d1ac29}50%{box-shadow:0 0 0 11px #e4d1ac0f}}
+@media(prefers-reduced-motion:reduce){.hotspots button[data-object=about]::before{animation:none}}
 #panel-close{width:44px;height:44px;flex:0 0 44px}
 @media(max-width:700px){
  .masthead{padding:20px;display:block}
@@ -43,5 +51,5 @@ html[data-light-mode=day] .scene-shade{background:linear-gradient(#05070835,tran
 html[data-light-mode=day] #view-hint{color:#242c29;text-shadow:0 1px 1px #ffffff70}
 
 html[data-light-mode=day] #scene-poster:not([data-mode=day]){visibility:hidden}
-html[data-light-mode=day] .masthead nav{background:#131c1870;border-radius:3px;padding:0 8px;backdrop-filter:blur(10px)}
-@media(max-width:700px){html[data-light-mode=day] .loading-links{background:#131c1880;border-radius:3px;padding:0 8px;backdrop-filter:blur(10px)}}
+html[data-light-mode=day] .masthead nav{background:#131c1870;border-radius:var(--radius-chip);padding:0 8px;backdrop-filter:blur(10px)}
+@media(max-width:700px){html[data-light-mode=day] .loading-links{background:#131c1880;border-radius:var(--radius-chip);padding:0 8px;backdrop-filter:blur(10px)}}

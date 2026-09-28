@@ -32,7 +32,7 @@
 .photo-print figcaption{display:flex;gap:12px;padding-top:9px;font:11px/1.5 Arial,sans-serif;color:#b7b2a8;letter-spacing:.025em}
 .photo-number{color:#77786f;font-size:9px;font-variant-numeric:tabular-nums}
 .photo-wall-image[hidden],.photo-unavailable[hidden]{display:none!important}
-.photo-unavailable{padding:40px 12px;text-align:center;background:#252622}
+.photo-unavailable{padding:40px 12px;text-align:center;background:#252622;border-radius:var(--radius-inner)}
 .photo-source-link{display:inline-flex;align-items:center;min-height:44px;margin-top:12px;color:#aaa59a;font-size:11px;text-underline-offset:4px}
 @media(max-width:1000px){.photo-wall{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){#content-panel:is([data-panel=work],[data-panel=writing],[data-panel=photography]){inset:0;width:100vw;max-width:none;height:100svh;max-height:100svh;margin:0;padding:calc(20px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));border:0;border-radius:0}#content-panel:is([data-panel=work],[data-panel=writing]) .panel-top{margin-bottom:28px}.featured-card{grid-template-columns:1fr}.featured-visual{aspect-ratio:16/10}.featured-copy{padding:18px 20px 22px}#content-panel .project-list{grid-template-columns:1fr}.notebook-list li{grid-template-columns:1fr;gap:6px;padding:17px 0}#content-panel[data-panel=photography]{padding-left:18px;padding-right:18px}.photo-wall{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px}.photo-print{margin-bottom:18px}.photo-print figcaption{font-size:10px;gap:6px}}
@@ -46,5 +46,5 @@
 @media(max-width:700px){.own-records .collection-shelf{justify-content:flex-start;min-width:720px;padding-right:120px}.own-records .collection-detail a{display:inline-block;max-width:90%;line-height:1.5}}
 
 /* Keep a quiet but visible keyboard focus cue on the close control. */
-#content-panel #panel-close{border-radius:4px}
+#content-panel #panel-close{border-radius:50%}
 #content-panel #panel-close:focus-visible{outline:1px solid #d6d0c3;outline-offset:-5px;background:#ffffff08}
