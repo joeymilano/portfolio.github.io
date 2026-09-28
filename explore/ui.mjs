@@ -1,6 +1,6 @@
 import {initLightMode} from './light-mode.mjs?v=20260927-props9';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
-import {collectionShelf} from './collections.mjs?v=20260927-icons1';
+import {collectionShelf} from './collections.mjs?v=20260928-turntable1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
 import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath} from './content.mjs?v=20260927-seo1';
 import {photography} from './photography.mjs?v=20260928-wall12';

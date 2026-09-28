@@ -1,4 +1,5 @@
-// User-selected collection from https://cali.so/ ; metadata verified 2026-09-27.
+// Bookshelf from https://cali.so/ ; turntable curated 2026-09-28, covers served
+// locally from official Apple Music artwork (verified against the iTunes catalog).
 export const collections={
   "books": [
     {
@@ -139,130 +140,112 @@ export const collections={
   ],
   "albums": [
     {
-      "title": "TIM",
-      "author": "Avicii",
-      "short": "TIM",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/tim.jpg",
-      "href": "https://music.apple.com/us/album/tim/1462628887"
+      "title": "Kind of Blue",
+      "author": "Miles Davis",
+      "short": "Kind of Blue",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/miles-davis-kind-of-blue.jpg",
+      "href": "https://music.apple.com/us/album/kind-of-blue/268443092"
     },
     {
-      "title": "The Fall-Off",
-      "author": "J. Cole",
-      "short": "The Fall-Off",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/the-fall-off.jpg",
-      "href": "https://music.apple.com/us/album/the-fall-off/1875080726"
+      "title": "Zombie",
+      "author": "Fela Kuti & Afrika 70",
+      "short": "Zombie",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/fela-kuti-zombie.jpg",
+      "href": "https://music.apple.com/us/album/zombie/559710299"
     },
     {
-      "title": "HOPE",
-      "author": "NF",
-      "short": "HOPE",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/hope.jpg",
-      "href": "https://music.apple.com/us/album/hope/1670412644"
+      "title": "The Man-Machine",
+      "author": "Kraftwerk",
+      "short": "Man-Machine",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/kraftwerk-man-machine.jpg",
+      "href": "https://music.apple.com/us/album/the-man-machine-remastered/726157248"
     },
     {
-      "title": "Melodie",
-      "author": "CRO",
-      "short": "Melodie",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/melodie.jpg",
-      "href": "https://music.apple.com/us/album/melodie/1806154705"
+      "title": "Unknown Pleasures",
+      "author": "Joy Division",
+      "short": "Unknown Pleasures",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/joy-division-unknown-pleasures.jpg",
+      "href": "https://music.apple.com/us/album/unknown-pleasures-2019-digital-master/1476702180"
     },
     {
-      "title": "2001",
-      "author": "Dr. Dre",
-      "short": "2001",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/2001.jpg",
-      "href": "https://music.apple.com/us/album/2001/1440782221"
+      "title": "Remain in Light",
+      "author": "Talking Heads",
+      "short": "Remain in Light",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/talking-heads-remain-in-light.jpg",
+      "href": "https://music.apple.com/us/album/remain-in-light/300948043"
     },
     {
-      "title": "Trench",
-      "author": "twenty one pilots",
-      "short": "Trench",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/trench.jpg",
-      "href": "https://music.apple.com/us/album/trench/1422828208"
+      "title": "Love Deluxe",
+      "author": "Sade",
+      "short": "Love Deluxe",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/sade-love-deluxe.jpg",
+      "href": "https://music.apple.com/us/album/love-deluxe/158796559"
     },
     {
-      "title": "Clancy",
-      "author": "twenty one pilots",
-      "short": "Clancy",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/clancy.jpg",
-      "href": "https://music.apple.com/us/album/clancy/1733370881"
+      "title": "浮躁 Impatience",
+      "author": "王菲 Faye Wong",
+      "short": "浮躁",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/faye-wong-fuzao.jpg",
+      "href": "https://music.apple.com/us/album/%E6%B5%AE%E8%BA%81/1443287350"
     },
     {
-      "title": "Breach",
-      "author": "twenty one pilots",
-      "short": "Breach",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/breach.jpg",
-      "href": "https://music.apple.com/us/album/breach/1827507396"
+      "title": "Music Has the Right to Children",
+      "author": "Boards of Canada",
+      "short": "MHTRTC",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/boards-of-canada-mhtrtc.jpg",
+      "href": "https://music.apple.com/us/album/music-has-the-right-to-children/281116024"
     },
     {
-      "title": "Starboy",
-      "author": "The Weeknd",
-      "short": "Starboy",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/starboy.jpg",
-      "href": "https://music.apple.com/us/album/starboy/1440870373"
+      "title": "Donuts",
+      "author": "J Dilla",
+      "short": "Donuts",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/j-dilla-donuts.jpg",
+      "href": "https://music.apple.com/us/album/donuts/108233171"
     },
     {
-      "title": "After Hours",
-      "author": "The Weeknd",
-      "short": "After Hours",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/after-hours.jpg",
-      "href": "https://music.apple.com/us/album/after-hours/1499378108"
+      "title": "In Rainbows",
+      "author": "Radiohead",
+      "short": "In Rainbows",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/radiohead-in-rainbows.jpg",
+      "href": "https://music.apple.com/us/album/in-rainbows/1109714933"
     },
     {
-      "title": "Hurry Up Tomorrow",
-      "author": "The Weeknd",
-      "short": "Hurry Up Tomorrow",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/hurry-up-tomorrow.jpg",
-      "href": "https://music.apple.com/us/album/hurry-up-tomorrow/1793702595"
+      "title": "async",
+      "author": "Ryuichi Sakamoto 坂本龍一",
+      "short": "async",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/sakamoto-async.jpg",
+      "href": "https://music.apple.com/us/album/async/1507014129"
     },
     {
-      "title": "The Death of Slim Shady (Coup De Grâce)",
-      "author": "Eminem",
-      "short": "The Death of Slim Shady (Coup De Grâce)",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/death-of-slim-shady.jpg",
-      "href": "https://music.apple.com/us/album/the-death-of-slim-shady-coup-de-gr%C3%A2ce/1755022177"
-    },
-    {
-      "title": "Random Access Memories",
-      "author": "Daft Punk",
-      "short": "Random Access Memories",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/random-access-memories.jpg",
-      "href": "https://music.apple.com/us/album/random-access-memories/617154241"
-    },
-    {
-      "title": "Urban Flora",
-      "author": "Alina Baraz & Galimatias",
-      "short": "Urban Flora",
-      "color": "#282523",
-      "ink": "#eee",
-      "cover": "https://cali.so/images/records/urban-flora.jpg",
-      "href": "https://music.apple.com/us/album/urban-flora/982629045"
+      "title": "All Melody",
+      "author": "Nils Frahm",
+      "short": "All Melody",
+      "color": "#393934",
+      "ink": "#eee9df",
+      "cover": "/explore/assets/records/nils-frahm-all-melody.jpg",
+      "href": "https://music.apple.com/us/album/all-melody/1451143439"
     }
   ]
 };

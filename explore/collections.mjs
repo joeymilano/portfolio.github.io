@@ -1,4 +1,4 @@
-import {collections} from './collections-data.mjs?v=links-v2';
+import {collections} from './collections-data.mjs?v=turntable1';
 export function collectionShelf(kind,language,options={}){
  const zh=language==='zh',items=options.items||collections[kind],section=document.createElement('section');section.className='collection '+kind+(options.items?' own-records':'');
  const hint=document.createElement('p');hint.className='collection-hint';hint.textContent=zh?'点击挑选 · 左右键切换':'Choose a cover · use arrow keys';
@@ -6,7 +6,7 @@ export function collectionShelf(kind,language,options={}){
  const shelf=document.createElement('div');shelf.className='collection-shelf';shelf.setAttribute('role','group');shelf.setAttribute('aria-label',zh?(kind==='books'?'书架':'唱片架'):(kind==='books'?'Bookshelf':'Record collection'));
  const detail=document.createElement('div');detail.className='collection-detail';detail.setAttribute('aria-live','polite');
  const title=document.createElement('a');title.target='_blank';title.rel='noopener noreferrer';const author=document.createElement('p');detail.append(title,author);
- let active=options.items?0:kind==='books'?2:7;
+ let active=options.items?0:kind==='books'?2:6;
  const action=options.onAction?document.createElement('button'):null;
  if(action){action.type='button';action.className='small-button record-play';action.textContent=options.actionLabel;action.addEventListener('click',()=>options.onAction(items[active]));detail.append(action);}
  const buttons=items.map((item,i)=>{const b=document.createElement('button');b.type='button';b.className='collection-item';b.style.setProperty('--spine',item.color);b.style.setProperty('--ink',item.ink);b.setAttribute('aria-label',`${item.title} — ${item.author}`);
