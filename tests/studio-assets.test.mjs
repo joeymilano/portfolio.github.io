@@ -17,6 +17,7 @@ const {applyMonitorImage}=await import(new URL('explore/screen-material.mjs',roo
 const {createDeskObjects}=await import(new URL('explore/desk-objects.mjs',root));
 const {createAvatarMotion,idlePose}=await import(new URL('explore/avatar-motion.mjs',root));
 const {createLighting}=await import(new URL('explore/lighting.mjs',root));
+const {bakedScales,lightmapUrls,patchLightChunks}=await import(new URL('explore/baked-light.mjs',root));
 hooks.deregister();
 
 function asset(name){
@@ -34,7 +35,7 @@ function asset(name){
 const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
 loader.register(()=>({name:'TEST_NODE_TEXTURES',loadTexture:()=>Promise.resolve(new THREE.Texture())}));
 const loaded=new Map();
-for(const name of ['room-packed','turntable-packed','avatar-v2-packed','avatar-v2-mobile-packed','arcade-packed']){
+for(const name of ['room-lit-packed','turntable-packed','avatar-v2-packed','avatar-v2-mobile-packed','arcade-packed']){
   const data=asset(name);
   loaded.set(name,{...data,gltf:await loader.parseAsync(data.buffer,'')});
 }
@@ -64,8 +65,31 @@ test('packed assets are self-contained and decode through the shared runtime loa
 });
 
 test('named room interaction targets survive asset compression',()=>{
-  const scene=loaded.get('room-packed').gltf.scene;
+  const scene=loaded.get('room-lit-packed').gltf.scene;
   for(const name of ['book_01','monitor_screen'])assert.ok(scene.getObjectByName(name),name);
+});
+
+test('lightmapped room keeps its shell, atlas coordinates and moving parts outside the bake',()=>{
+  const scene=loaded.get('room-lit-packed').gltf.scene;let baked=0;
+  for(const name of ['Continuous_floor','Left_wall_continuation','Upper_rear_wall']){const shell=scene.getObjectByName(name);assert.ok(shell,name);assert.equal(shell.userData.castShadow,false,name)}
+  assert.equal(scene.getObjectByName('Closed_notebook'),undefined,'runtime notebook replaces the modelled one');
+  scene.traverse(o=>{if(!o.isMesh)return;const uv=o.geometry.getAttribute('uv1');if(!uv)return;baked++;
+    for(let i=0;i<uv.count;i++){const u=uv.getX(i),v=uv.getY(i);assert.ok(u>=0&&u<=1&&v>=0&&v<=1,`${o.name} atlas uv in range`)}});
+  assert.ok(baked>=40,'static room surfaces share the lightmap atlas');
+  scene.getObjectByName('book_01').traverse(o=>{if(o.isMesh)assert.equal(o.geometry.getAttribute('uv1'),undefined,'the pull-out book keeps realtime light')});
+  for(const mode of ['night','day']){assert.ok(bakedScales[mode]>0,mode);for(const mobile of [false,true])readFileSync(new URL('.'+lightmapUrls(mobile)[mode],root))}
+});
+
+test('baked light patch leaves specular and the key light intact and fails closed on unknown chunks',()=>{
+  const {lights_fragment_begin:begin,lights_fragment_maps:maps}=THREE.ShaderChunk,patched=patchLightChunks(begin,maps);
+  assert.ok(patched,'patch matches the vendored three.js chunks');
+  const directional=patched.begin.slice(patched.begin.indexOf('#if ( NUM_DIR_LIGHTS > 0 )'));
+  assert.equal(patched.begin.split('reflectedLight.directDiffuse = bakedDiffuse').length,3,'point and spot lights drop their diffuse term');
+  assert.ok(directional.includes('RE_Direct( directLight')&&!directional.includes('bakedDiffuse'),'key light stays fully realtime');
+  assert.ok(!patched.begin.includes('getHemisphereLightIrradiance'),'hemisphere fill comes from the bake');
+  assert.ok(patched.maps.includes('bakedDayMap')&&patched.maps.includes('bakedMix'));
+  assert.equal(patchLightChunks(begin.replace('RE_Direct(','RE_Direct2('),maps),null);
+  assert.equal(patchLightChunks(begin,'irradiance += x;'),null);
 });
 
 test('runtime pivot restoration preserves packed geometry and matches authored pivots',()=>{
@@ -132,7 +156,7 @@ test('assembled character retains textured head and independent transparent eyew
 
 
 test('monitor texture reaches optimized child meshes and restores discarded UVs',()=>{
- const screen=loaded.get('room-packed').gltf.scene.getObjectByName('monitor_screen').clone(true);
+ const screen=loaded.get('room-lit-packed').gltf.scene.getObjectByName('monitor_screen').clone(true);
  const texture=new THREE.Texture();applyMonitorImage(screen,texture);
  let meshes=0;
  screen.traverse(mesh=>{if(!mesh.isMesh)return;meshes++;
@@ -151,7 +175,7 @@ test('desk covers lift above the desk, keep independent targets, and respect red
  const originalDocument=globalThis.document;
  globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>({fillRect(){},fillText(){}})})};
  try{
-  const scene=new THREE.Scene(),room=loaded.get('room-packed').gltf.scene.clone(true);
+  const scene=new THREE.Scene(),room=loaded.get('room-lit-packed').gltf.scene.clone(true);
   const cover=new THREE.Texture({width:341,height:512});
   const objects=createDeskObjects(scene,room,cover);
   assert.equal(room.getObjectByName('Closed_notebook'),undefined,'old inert notebook removed');
@@ -174,7 +198,7 @@ test('album opening sweep stays clear of the monitor with a safety margin',()=>{
  const originalDocument=globalThis.document;
  globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>({fillRect(){},fillText(){}})})};
  try{
-  const scene=new THREE.Scene(),room=loaded.get('room-packed').gltf.scene.clone(true);
+  const scene=new THREE.Scene(),room=loaded.get('room-lit-packed').gltf.scene.clone(true);
   scene.add(room);const objects=createDeskObjects(scene,room,null);
   scene.updateMatrixWorld(true);
   const screen=new THREE.Box3().setFromObject(room.getObjectByName('monitor_screen')).expandByScalar(.02);
@@ -206,7 +230,7 @@ test('head movement is gentle, pauses typing, and becomes still for reduced moti
 });
 
 test('desk long edge faces the seated keyboard without moving hand contact',()=>{
- const room=loaded.get('room-packed').gltf.scene;room.updateMatrixWorld(true);
+ const room=loaded.get('room-lit-packed').gltf.scene;room.updateMatrixWorld(true);
  const keys=new THREE.Box3().setFromObject(room.getObjectByName('keyboard_keys')).getCenter(new THREE.Vector3());
  assert.ok(keys.distanceTo(new THREE.Vector3(.825,.843,.537))<.002,'keyboard remains beneath the hands');
  const desk=new THREE.Box3().setFromObject(room.getObjectByName('desk')).getCenter(new THREE.Vector3());
@@ -220,7 +244,7 @@ test('desk long edge faces the seated keyboard without moving hand contact',()=>
 
 
 test('the complete task lamp clears both foliage and monitor',()=>{
- const room=loaded.get('room-packed').gltf.scene;room.updateMatrixWorld(true);
+ const room=loaded.get('room-lit-packed').gltf.scene;room.updateMatrixWorld(true);
  const lamp=new THREE.Box3().setFromObject(room.getObjectByName('task_lamp'));
  assert.equal(lamp.isEmpty(),false);
  for(const name of ['Desk_plant','monitor_screen']){

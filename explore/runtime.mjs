@@ -1,5 +1,7 @@
 import {createCreativeProps} from './creative-props.mjs?v=20260927-shelf7';
-import {createLighting} from './lighting.mjs?v=20260927-curated1';
+import {createLighting} from './lighting.mjs?v=20260929-baked1';
+import {bakedScales,lightmapUrls,patchLightChunks} from './baked-light.mjs?v=20260929-baked1';
+import {createSkyline} from './skyline.mjs?v=20260929-skyline1';
 import {createAvatarMotion} from './avatar-motion.mjs?v=20260927-palm20';
 import {createDeskObjects} from './desk-objects.mjs?v=20260927-curated1';
 import {applyMonitorImage} from './screen-material.mjs?v=20260927-refined2';
@@ -16,14 +18,19 @@ const emit=(name,detail={})=>window.dispatchEvent(new CustomEvent(name,{detail})
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const anchors={finfold:[-.4443,1.25,1.3311],music:[-2,1,1.6],books:[-2.4,1.9,-2.05],about:[1.61,1.14,.20],photography:[-3.43,1.96,-.30],writing:[.72,.849,1.07],work:[1.08,.849,1.36],games:[-2.65,.84,-1.40]};
 let renderer,scene,camera,raf=0,selected=null,disposed=false,sceneReady=false,contextLost=false,last=0,record=null,recordBaseY=0,tonearm=null,armBaseY=0,avatar=null,book=null,bookRest=null,bookRestRotation=0;
-const typingMeshes=[];let avatarMotion=null,lighting=null;
+const typingMeshes=[];let avatarMotion=null,lighting=null,skyline=null;
 const target=new THREE.Vector3(),desired=new THREE.Vector3(),look=new THREE.Vector3(),desiredLook=new THREE.Vector3();
 const clock=new THREE.Clock();
+// A close three-quarter shot of Joey at the desk, clear of the monitor and lamp.
+const focusShots={about:{eye:[.5,1.62,2.8],look:[1.22,1.16,.3]}};
+// Right-docked panels: shift the lens so the chosen object sits centred in the space left of the panel.
+const framedItems=new Set(['about','finfold','games']);let panelLeft=null,lensShift=0;
+window.addEventListener('studio:frame',e=>{panelLeft=e.detail?.left??null});
 let sampleStart=0,sampleFrames=0;
 function cameraPose(){
  const mobile=root.clientWidth<700;
- desired.set(...(mobile?[.5,2,5.8]:[.44,1.78,4.48]));
- desiredLook.set(...(mobile?[.55,1.12,.6]:[-.04,1.16,.7]));
+ desired.set(...(mobile?[.78,2,5.8]:[.44,1.78,4.48]));
+ desiredLook.set(...(mobile?[.83,1.12,.6]:[-.04,1.16,.7]));
  if(root.dataset.reviewView){const views={side:[[3.8,1.6,.3],[.6,1,.65]],top:[[.6,5,.701],[.6,.8,.7]],hands:[[2.0,1.5,2.3],[.85,.86,.52]]};const v=views[root.dataset.reviewView];if(v){desired.set(...v[0]);desiredLook.set(...v[1]);}}
  if(!root.dataset.reviewView){
   const offset=viewOffset(view,mobile),orbit=new THREE.Spherical().setFromVector3(desired.clone().sub(desiredLook));
@@ -33,12 +40,19 @@ function cameraPose(){
  }
  if(selected&&selected!=='work'&&anchors[selected]&&!reduced.matches){
   const a=new THREE.Vector3(...anchors[selected]);
-  if(['writing','photography'].includes(selected)){desired.lerp(a.clone().add(new THREE.Vector3(.15,1.35,2.25)),.28);desiredLook.lerp(a,.22);}
+  if(selected==='about'){desired.set(...focusShots.about.eye);desiredLook.set(...focusShots.about.look);}
+  else if(['writing','photography'].includes(selected)){desired.lerp(a.clone().add(new THREE.Vector3(.15,1.35,2.25)),.28);desiredLook.lerp(a,.22);}
   else{desired.lerp(a.clone().add(new THREE.Vector3(3,1.6,4)),.35);desiredLook.lerp(a,.32);}
  }
 }
 function resize(){if(!renderer)return;const w=root.clientWidth,h=root.clientHeight;camera.aspect=w/h;camera.fov=w<700?47:43;camera.updateProjectionMatrix();renderer.setSize(w,h,false);renderer.setPixelRatio(Math.min(devicePixelRatio,w<700?1.5:2));cameraPose();}
-function frame(ms=0){raf=0;if(disposed||contextLost||document.hidden)return;const dt=Math.min((ms-last)/1000||.016,.05);last=ms;lighting?.update(document.documentElement.dataset.lightMode==='day',dt,reduced.matches);const damping=reduced.matches?1:1-Math.exp(-dt*5);camera.position.lerp(desired,damping);look.lerp(desiredLook,damping);camera.lookAt(look);if(tonearm){const armOpen=selected==='music'||(record&&record.position.y-recordBaseY>.006);tonearm.rotation.y=THREE.MathUtils.lerp(tonearm.rotation.y,armOpen?.58:0,damping);tonearm.position.y=THREE.MathUtils.lerp(tonearm.position.y,armBaseY+(armOpen||tonearm.rotation.y>.02?.02:0),damping);}if(record){const lift=selected==='music'&&(!tonearm||tonearm.rotation.y>.3)?.12:0;record.position.y=THREE.MathUtils.lerp(record.position.y,recordBaseY+lift,damping);}if(book){book.position.z=THREE.MathUtils.lerp(book.position.z,bookRest.z+(selected==='books'?.22:0),damping);book.rotation.y=THREE.MathUtils.lerp(book.rotation.y,bookRestRotation+(selected==='books'?-.14:0),damping);}deskObjects?.update(selected,hovered,damping,reduced.matches);if(avatar){const t=clock.getElapsedTime();avatar.scale.y=reduced.matches?1:1+Math.sin(t*1.4)*.001;const pose=avatarMotion.update(t,damping,reduced.matches||!!selected);for(const hand of typingMeshes){hand.morphTargetInfluences[hand.morphTargetDictionary.Typing_Left]=pose.left;hand.morphTargetInfluences[hand.morphTargetDictionary.Typing_Right]=pose.right;root.dataset.typingLeft=hand.morphTargetInfluences[hand.morphTargetDictionary.Typing_Left].toFixed(3);root.dataset.typingRight=hand.morphTargetInfluences[hand.morphTargetDictionary.Typing_Right].toFixed(3);}}renderer.render(scene,camera);if(!root.dataset.firstFrameMs)root.dataset.firstFrameMs=Math.round(performance.now());if(!sampleStart)sampleStart=ms;sampleFrames++;if(ms-sampleStart>2000){root.dataset.sampleFps=(sampleFrames*1000/(ms-sampleStart)).toFixed(1);root.dataset.drawCalls=renderer.info.render.calls;root.dataset.triangles=renderer.info.render.triangles;sampleStart=ms;sampleFrames=0;}for(const [id,p] of Object.entries(anchors)){const button=document.querySelector(`[data-object="${id}"]`);if(!button)continue;target.set(...p).project(camera);const visible=target.z<=1&&Math.abs(target.x)<=.96&&Math.abs(target.y)<=.86;if(button.hidden)button.hidden=false;if(button.dataset.visible!==String(visible)){button.dataset.visible=String(visible);button.tabIndex=visible?0:-1;button.setAttribute('aria-hidden',String(!visible));if(!visible&&document.activeElement===button)button.blur();}button.style.left=`${(target.x*.5+.5)*root.clientWidth}px`;button.style.top=`${(-target.y*.5+.5)*root.clientHeight}px`;}raf=requestAnimationFrame(frame);}
+function frame(ms=0){raf=0;if(disposed||contextLost||document.hidden)return;const dt=Math.min((ms-last)/1000||.016,.05);last=ms;lighting?.update(document.documentElement.dataset.lightMode==='day',dt,reduced.matches);skyline?.update(lighting?.mix??1,ms/1000,reduced.matches);const damping=reduced.matches?1:1-Math.exp(-dt*5);camera.position.lerp(desired,damping);look.lerp(desiredLook,damping);camera.lookAt(look);frameSelection(damping);if(tonearm){const armOpen=selected==='music'||(record&&record.position.y-recordBaseY>.006);tonearm.rotation.y=THREE.MathUtils.lerp(tonearm.rotation.y,armOpen?.58:0,damping);tonearm.position.y=THREE.MathUtils.lerp(tonearm.position.y,armBaseY+(armOpen||tonearm.rotation.y>.02?.02:0),damping);}if(record){const lift=selected==='music'&&(!tonearm||tonearm.rotation.y>.3)?.12:0;record.position.y=THREE.MathUtils.lerp(record.position.y,recordBaseY+lift,damping);}if(book){book.position.z=THREE.MathUtils.lerp(book.position.z,bookRest.z+(selected==='books'?.22:0),damping);book.rotation.y=THREE.MathUtils.lerp(book.rotation.y,bookRestRotation+(selected==='books'?-.14:0),damping);}deskObjects?.update(selected,hovered,damping,reduced.matches);if(avatar){const t=clock.getElapsedTime();avatar.scale.y=reduced.matches?1:1+Math.sin(t*1.4)*.001;const pose=avatarMotion.update(t,damping,reduced.matches||!!selected);for(const hand of typingMeshes){hand.morphTargetInfluences[hand.morphTargetDictionary.Typing_Left]=pose.left;hand.morphTargetInfluences[hand.morphTargetDictionary.Typing_Right]=pose.right;root.dataset.typingLeft=hand.morphTargetInfluences[hand.morphTargetDictionary.Typing_Left].toFixed(3);root.dataset.typingRight=hand.morphTargetInfluences[hand.morphTargetDictionary.Typing_Right].toFixed(3);}}renderer.render(scene,camera);if(!root.dataset.firstFrameMs)root.dataset.firstFrameMs=Math.round(performance.now());if(!sampleStart)sampleStart=ms;sampleFrames++;if(ms-sampleStart>2000){root.dataset.sampleFps=(sampleFrames*1000/(ms-sampleStart)).toFixed(1);root.dataset.drawCalls=renderer.info.render.calls;root.dataset.triangles=renderer.info.render.triangles;sampleStart=ms;sampleFrames=0;}for(const [id,p] of Object.entries(anchors)){const button=document.querySelector(`[data-object="${id}"]`);if(!button)continue;target.set(...p).project(camera);const visible=target.z<=1&&Math.abs(target.x)<=.96&&Math.abs(target.y)<=.86;if(button.hidden)button.hidden=false;if(button.dataset.visible!==String(visible)){button.dataset.visible=String(visible);button.tabIndex=visible?0:-1;button.setAttribute('aria-hidden',String(!visible));if(!visible&&document.activeElement===button)button.blur();}button.style.left=`${(target.x*.5+.5)*root.clientWidth}px`;button.style.top=`${(-target.y*.5+.5)*root.clientHeight}px`;}raf=requestAnimationFrame(frame);}
+function frameSelection(damping){
+ const w=root.clientWidth,h=root.clientHeight;let goal=0;
+ if(panelLeft&&w>=700&&framedItems.has(selected)&&anchors[selected]){camera.updateMatrixWorld();target.set(...(focusShots[selected]?.look||anchors[selected])).project(camera);goal=Math.max(0,Math.min(w*.35,(target.x*.5+.5)*w+lensShift-panelLeft/2));}
+ lensShift+=(goal-lensShift)*damping;if(!goal&&lensShift<.5)lensShift=0;
+ if(lensShift)camera.setViewOffset(w,h,lensShift,0,w,h);else if(camera.view?.enabled)camera.clearViewOffset();
+}
 function resume(){if(!raf&&!disposed&&!contextLost&&sceneReady){last=performance.now();raf=requestAnimationFrame(frame)}}
 function stop(){cancelAnimationFrame(raf);raf=0;}
 function dispose(){disposed=true;stop();scene?.traverse(o=>{o.geometry?.dispose();for(const m of Array.isArray(o.material)?o.material:o.material?[o.material]:[]){for(const v of Object.values(m))if(v?.isTexture)v.dispose();m.dispose()}});renderer?.dispose();}
@@ -53,7 +67,7 @@ try{
  // High-DPR mobile screens are self-antialiasing; MSAA there only costs fill rate.
  renderer=new THREE.WebGLRenderer({antialias:mobileHardware?devicePixelRatio<1.75:true,alpha:false,powerPreference:'high-performance'});renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;root.append(renderer.domElement);renderer.domElement.setAttribute('aria-hidden','true');
  scene=new THREE.Scene();scene.background=new THREE.Color(0x171b20);camera=new THREE.PerspectiveCamera(43,1,.05,50);
- const pmrem=new THREE.PMREMGenerator(renderer);const env=new RoomEnvironment();scene.environment=pmrem.fromScene(env,.04).texture;env.dispose();pmrem.dispose();lighting=createLighting(scene,renderer,mobileHardware,document.documentElement.dataset.lightMode==='day');resize();camera.position.copy(desired);look.copy(desiredLook);
+ const pmrem=new THREE.PMREMGenerator(renderer);const env=new RoomEnvironment();scene.environment=pmrem.fromScene(env,.04).texture;env.dispose();pmrem.dispose();lighting=createLighting(scene,renderer,mobileHardware,document.documentElement.dataset.lightMode==='day');skyline=createSkyline(scene,{mobile:mobileHardware,day:lighting.mix});resize();camera.position.copy(desired);look.copy(desiredLook);
  renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();contextLost=true;stop();emit('studio:failure')});renderer.domElement.addEventListener('webglcontextrestored',()=>location.reload());
  const ray=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null,lastHover=0;
  const canvas=renderer.domElement;
@@ -74,7 +88,7 @@ try{
  canvas.addEventListener('pointerup',e=>{if(!down||e.pointerId!==down.id)return;const moved=down.moved;release();if(moved||selected)return;const r=root.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);const hit=ray.intersectObjects(scene.children,true)[0];if(!hit)return;const n=hit.object.name.toLowerCase();const id=hit.object.userData.item|| (n.includes('monitor')?'finfold':n.includes('book')?'books':n.includes('record')?'music':n.includes('avatar')?'about':n.includes('artwork')?'photography':null);if(id)emit('studio:pick',{id});});
  canvas.addEventListener('keydown',e=>{if(selected)return;const step={ArrowLeft:[-.18,0],ArrowRight:[.18,0],ArrowUp:[0,-.18],ArrowDown:[0,.18]}[e.key];if(step){e.preventDefault();view=moveView(view,...step);cameraPose();}else if(e.key==='Home'){e.preventDefault();resetView();}});
  const manager=new THREE.LoadingManager();
- const weights={room:37,avatar:38,turntable:10,screen:4,art0:3,art1:3,cover:1,sleeve:1,game:2,gameScreen:1};
+ const weights={room:33,'lightmap-night':2,'lightmap-day':2,avatar:38,turntable:10,screen:4,art0:3,art1:3,cover:1,sleeve:1,game:2,gameScreen:1};
  const progress={};let degraded=false;
  function report(key,value){progress[key]=Math.max(progress[key]||0,value);emit('studio:progress',{percent:Object.entries(weights).reduce((sum,[k,w])=>sum+w*(progress[k]||0),0)});}
  const bytes=key=>event=>{if(event.lengthComputable&&event.total)report(key,Math.min(.9,event.loaded/event.total*.9));};
@@ -83,7 +97,9 @@ try{
  // Prepare the room first; the poster remains until the full composition is ready.
  // The avatar is the heaviest asset, so it queues behind the room instead of
  // competing for bandwidth with the scene the visitor is waiting to see.
- const roomFile=tracked('room',loader.loadAsync('/explore/assets/room-packed.glb?v=props9',bytes('room')));
+ const roomFile=tracked('room',loader.loadAsync('/explore/assets/room-lit-packed.glb?v=lit1',bytes('room')));
+ // Without both lightmaps the room simply keeps the realtime rig.
+ const lightmapPaths=lightmapUrls(mobileHardware),lightmapFiles=Promise.all(['night','day'].map(mode=>tracked('lightmap-'+mode,textures.loadAsync(lightmapPaths[mode]))));
  const turntableFile=tracked('turntable',loader.loadAsync('/explore/assets/turntable-packed.glb?v=turn1',bytes('turntable')));
  const avatarFile=tracked('avatar',roomFile.then(()=>loader.loadAsync(mobileHardware?'/explore/assets/avatar-v2-mobile-packed.glb?v=palm20':'/explore/assets/avatar-v2-packed.glb?v=palm20',bytes('avatar'))));
  const screenFile=tracked('screen',textures.loadAsync('/explore/assets/workbench-monitor.jpg'));
@@ -95,30 +111,8 @@ try{
  const gameScreenFile=tracked('gameScreen',textures.loadAsync('/images/bl-hero.jpg'));
  const creativePropsFile=Promise.all([sleeveFile,gameFile,gameScreenFile]).then(([sleeve,game,screen])=>createCreativeProps(scene,sleeve,game?.scene,screen));
  const room=await roomFile;
- scene.add(room.scene);const processed=new Set();room.scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;for(const m of Array.isArray(o.material)?o.material:[o.material]){if(processed.has(m))continue;processed.add(m);m.envMapIntensity=.22;if(m.name.includes("plaster"))m.color.multiplyScalar(.26);if(m.name.includes("stone"))m.color.multiplyScalar(.38);}}});
+ scene.add(room.scene);const processed=new Set();room.scene.traverse(o=>{if(o.isMesh){o.castShadow=o.userData.castShadow!==false;o.receiveShadow=true;for(const m of Array.isArray(o.material)?o.material:[o.material]){if(processed.has(m))continue;processed.add(m);m.envMapIntensity=.22;if(m.name.includes("plaster"))m.color.multiplyScalar(.26);if(m.name.includes("stone"))m.color.multiplyScalar(.38);}}});
 
- // Move both baked gallery frames and their inserts along the left wall.
- room.scene.updateMatrixWorld(true);
- room.scene.traverse(o=>{if(!o.isMesh)return;const material=o.material?.name||'';
-  if(!/aluminum|graphite/i.test(material))return;
-  const positions=o.geometry.attributes.position;if(!positions)return;
-  const inverse=o.matrixWorld.clone().invert(),point=new THREE.Vector3();
-  for(let i=0;i<positions.count;i++){point.fromBufferAttribute(positions,i).applyMatrix4(o.matrixWorld);
-   if(point.x> -3.50&&point.x< -3.43&&point.y>1.37&&point.y<2.55&&point.z> -1.83&&point.z< -.21){point.z+=.28;point.applyMatrix4(inverse);positions.setXYZ(i,point.x,point.y,point.z);}
-  }
-  positions.needsUpdate=true;o.geometry.computeBoundingBox();o.geometry.computeBoundingSphere();
- });
-
- // Extend the actual architectural shell beyond the authored furniture area.
- // The original room remains editable; these boxes avoid a cutaway silhouette.
- const plaster=[...processed].find(m=>m.name.includes('plaster'));
- const stone=[...processed].find(m=>m.name.includes('stone'));
- function shell(name,size,position,material){const mesh=new THREE.Mesh(new THREE.BoxGeometry(...size),material);mesh.name=name;mesh.position.set(...position);mesh.receiveShadow=true;scene.add(mesh);}
- shell('Continuous floor',[18,.16,18],[0,-.091,1],stone);
- shell('Left wall continuation',[.15,7,7.45],[-3.58,3.5,5.275],plaster);
- shell('Left upper wall',[.15,3.4,4.1],[-3.58,5.3,-.5],plaster);
- shell('Upper rear wall',[7.2,3.4,.15],[0,5.3,-2.5],plaster);
- shell('Rear right continuation',[5.5,7,.15],[6.25,3.5,-2.5],plaster);
  // A short tilt hinge connects the stand column to the display back plate.
  const mountMaterial=new THREE.MeshStandardMaterial({color:0x202629,roughness:.68,metalness:.18});
  const mount=new THREE.Group();mount.name='monitor_mount';
@@ -127,7 +121,11 @@ try{
  brace.position.copy(columnTop).add(backPlate).multiplyScalar(.5);brace.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),backPlate.clone().sub(columnTop).normalize());mount.add(brace);
  const plate=new THREE.Mesh(new THREE.BoxGeometry(.105,.100,.018),mountMaterial);plate.position.copy(backPlate);plate.rotation.y=110*Math.PI/180;mount.add(plate);
  mount.traverse(o=>{if(o.isMesh){o.castShadow=o.receiveShadow=true;o.userData.item='finfold';}});scene.add(mount);
+ const [lightmapNight,lightmapDay]=await lightmapFiles;
+ if(lighting.bake(room.scene,{night:lightmapNight,day:lightmapDay},bakedScales,patchLightChunks(THREE.ShaderChunk.lights_fragment_begin,THREE.ShaderChunk.lights_fragment_maps)))root.dataset.lighting='baked';
  lighting.register(room.scene);
+ // The fluted glazing was modelled opaque; let the skyline read through it with only a smoked tint on the ribs.
+ room.scene.traverse(o=>{if(o.material?.name==='Blue smoked fluted glazing')Object.assign(o.material,{transparent:true,opacity:.08,depthWrite:false,side:THREE.FrontSide})});
  book=room.scene.getObjectByName('book_01');if(book){bookRest=book.position.clone();bookRestRotation=book.rotation.y;const center=new THREE.Box3().setFromObject(book).getCenter(new THREE.Vector3());anchors.books=center.toArray();}
  deskObjects=createDeskObjects(scene,room.scene,await coverFile);Object.assign(anchors,deskObjects.anchors);
  const screenMesh=room.scene.getObjectByName('monitor_screen');if(screenMesh)anchors.finfold=new THREE.Box3().setFromObject(screenMesh).getCenter(new THREE.Vector3()).toArray();

@@ -42,14 +42,23 @@ body[data-scene-state=loading] .loading-links a{font-size:12px;min-height:44px;d
 }
 @media(prefers-reduced-motion:reduce){#scene-poster,#scene-root canvas,.masthead nav *{transition:none!important}}
 
-#light-mode{position:absolute;right:40px;top:84px;display:grid;place-items:center;width:44px;height:44px;background:#16191870;border:1px solid #ffffff20;border-radius:50%;color:#eee8dc;backdrop-filter:blur(8px)}
-#light-mode svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
-#light-mode:hover{background:#30342fbb}
+#light-mode,#sound{position:absolute;right:40px;top:84px;display:grid;place-items:center;width:44px;height:44px;background:#16191870;border:1px solid #ffffff20;border-radius:50%;color:#eee8dc;backdrop-filter:blur(8px)}
+#sound{top:136px}
+#light-mode svg,#sound svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+#light-mode:hover,#sound:hover{background:#30342fbb}
 html[data-light-mode=day] .scene-shade{background:linear-gradient(#05070835,transparent 25%,transparent 70%,#08090765)}
-@media(max-width:700px){#light-mode{top:20px;right:20px}}
+@media(max-width:700px){#light-mode{top:20px;right:20px}#sound{top:20px;right:72px}}
 
 html[data-light-mode=day] #view-hint{color:#242c29;text-shadow:0 1px 1px #ffffff70}
 
 html[data-light-mode=day] #scene-poster:not([data-mode=day]){visibility:hidden}
 html[data-light-mode=day] .masthead nav{background:#131c1870;border-radius:var(--radius-chip);padding:0 8px;backdrop-filter:blur(10px)}
 @media(max-width:700px){html[data-light-mode=day] .loading-links{background:#131c1880;border-radius:var(--radius-chip);padding:0 8px;backdrop-filter:blur(10px)}}
+/* Once the scene is live on phones, keep one top row and one bottom row: the room is the interface.
+   The native profile directory stays for loading, failure and no-JS states. */
+@media(max-width:700px){
+ body[data-scene-state=ready] .studio-profile{display:none}
+ body[data-scene-state=ready] .welcome p[data-copy=welcome]{display:none}
+ body[data-scene-state=ready] .loading-links a[data-open=work]{display:none}
+ body[data-scene-state=ready] .loading-links a[data-open=about]{display:inline-flex}
+}
