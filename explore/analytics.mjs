@@ -42,6 +42,8 @@ export function initAnalytics(){
  window.addEventListener('studio:select',({detail})=>tracker.select(detail?.id||null));
  window.addEventListener('studio:view',({detail})=>{if(detail?.moved)tracker.look()});
  window.addEventListener('studio:sound',({detail})=>send('studio_sound',{on:!!detail?.on}));
+ window.addEventListener('studio:game',({detail})=>{if(detail?.phase==='start')send('studio_game_start',{game:'pixel_framing'});if(detail?.phase==='end')send('studio_game_end',{score:detail.score||0})});
+ window.addEventListener('studio:discovery',({detail})=>send('studio_discovery',{item:detail?.id,count:detail?.count||0,complete:!!detail?.complete}));
  window.addEventListener('studio:lighting',({detail})=>send('studio_light_mode',{mode:detail?.mode}));
  document.querySelector('#language')?.addEventListener('click',()=>setTimeout(()=>send('studio_language',{language:document.documentElement.lang})));
  window.addEventListener('studio:ready',()=>send('studio_ready',{interactive_ms:Math.round(performance.now())}),{once:true});

@@ -1,0 +1,16 @@
+/* Classic shares the studio materials while keeping its editorial structure. */
+nav{background:#191a18ed;border-color:var(--border)}
+.hero{background:var(--bg)}.hero-glow{background:radial-gradient(ellipse at 50% 40%,#d9c6a412,transparent 55%)}
+.hero-video-wrapper{filter:saturate(.22)}.hero-photo{box-shadow:0 0 60px #d9c6a419}.hero-photo::after{border-color:var(--border);box-shadow:none}
+.hero h1{font-weight:500;letter-spacing:-.055em}.hero-role,.hero-subtitle{color:var(--text-secondary)}
+.btn,.lang-toggle button,.nav-links a,.project-tag,.skill-tag,.exp-date,.edu-badge{border-radius:var(--radius-chip)}
+.project-card,.modal-container,.edu-card,.skill-resume-category,.skill-category{border-radius:var(--radius-panel)}
+.proof-item,.modal-image,.modal-image-grid img,.modal-metric,.modal-insight,.modal-role-item{border-radius:var(--radius-inner)}
+.nav-links a.resume-btn,.btn-primary,.edu-badge{color:#191a18;background:var(--accent)}
+.studio-mode{font-family:var(--font);border-radius:var(--radius-chip);background:#191a18ed;border-color:var(--border)}
+.studio-mode a{border-radius:var(--radius-inner);color:var(--text-secondary);font-weight:600;letter-spacing:.1em}
+.studio-mode a[aria-current=page]{background:#ece6db0f;color:var(--text-primary)}
+.studio-mode a[aria-current=page]::before{content:"•";margin-right:8px;color:#d9c6a4}
+.studio-mode a:focus-visible{outline-color:var(--accent)}
+.mobile-menu-overlay a.resume-btn,.music-track-number,.modal-process-step.highlight,.modal-process-number,.modal-section-number{color:#191a18}
+::selection{background:#d9c6a4;color:#191a18}

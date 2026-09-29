@@ -6,7 +6,7 @@ import {runInNewContext} from 'node:vm';
 
 // Resolve the browser import map without installing a second Three.js version.
 const root=new URL('../',import.meta.url);
-const threeURL=new URL('vw-id-aura/vendor/three.module.js',root).href;
+const threeURL=new URL('explore/vendor/three-r160.module.min.js',root).href;
 const hooks=registerHooks({resolve(specifier,context,nextResolve){
   return specifier==='three'?{url:threeURL,shortCircuit:true}:nextResolve(specifier,context);
 }});
@@ -21,7 +21,7 @@ const {bakedScales,lightmapUrls,patchLightChunks}=await import(new URL('explore/
 hooks.deregister();
 
 function asset(name){
-  const bytes=readFileSync(new URL(`explore/assets/${name}.glb`,root));
+  const bytes=readFileSync(new URL(`explore/assets/${name}-ktx2.glb`,root));
   assert.equal(bytes.readUInt32LE(0),0x46546c67,'valid GLB magic');
   assert.equal(bytes.readUInt32LE(4),2,'GLB version 2');
   assert.equal(bytes.readUInt32LE(8),bytes.length,'complete GLB');
@@ -32,8 +32,8 @@ function asset(name){
 
 // Geometry and compression are loaded normally. Browser image decoding is the
 // only stub; embedded image ranges are checked separately below.
-const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-loader.register(()=>({name:'TEST_NODE_TEXTURES',loadTexture:()=>Promise.resolve(new THREE.Texture())}));
+const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).setKTX2Loader({load(_url,onLoad){onLoad(new THREE.Texture())}});
+globalThis.self=globalThis;
 const loaded=new Map();
 for(const name of ['room-lit-packed','turntable-packed','avatar-v2-packed','avatar-v2-mobile-packed','arcade-packed']){
   const data=asset(name);
@@ -44,7 +44,9 @@ test('packed assets are self-contained and decode through the shared runtime loa
   for(const [name,{json,gltf}] of loaded){
     assert.ok(json.extensionsRequired.includes('EXT_meshopt_compression'),name);
     assert.ok(json.buffers.every(buffer=>!buffer.uri),`${name}: no external buffers`);
-    assert.ok((json.images||[]).every(image=>!image.uri&&Number.isInteger(image.bufferView)),`${name}: embedded images`);
+    assert.ok(json.extensionsRequired.includes('KHR_texture_basisu'),`${name}: KTX2 required`);
+    assert.ok((json.images||[]).every(image=>!image.uri&&Number.isInteger(image.bufferView)&&image.mimeType==='image/ktx2'),`${name}: embedded KTX2 images`);
+    assert.ok(json.textures.every(texture=>texture.extensions?.KHR_texture_basisu&&!('source' in texture)),`${name}: KTX2 texture references`);
     let meshes=0;
     gltf.scene.traverse(object=>{
       if(!object.isMesh)return;
@@ -60,8 +62,26 @@ test('packed assets are self-contained and decode through the shared runtime loa
       const view=json.bufferViews[image.bufferView];
       assert.equal(view.buffer,0);
       assert.ok(view.byteLength>0&&(view.byteOffset||0)+view.byteLength<=json.buffers[0].byteLength);
+      const binStart=28+loaded.get(name).bytes.readUInt32LE(12),magic=loaded.get(name).bytes.subarray(binStart+view.byteOffset,binStart+view.byteOffset+12);
+      assert.deepEqual([...magic],[0xab,0x4b,0x54,0x58,0x20,0x32,0x30,0xbb,0x0d,0x0a,0x1a,0x0a],`${name}: KTX2 magic`);
     }
   }
+});
+
+test('KTX2 conversion preserves authored geometry, UV accessors and meshopt bytes',()=>{
+ for(const [name,{json,bytes}] of loaded){
+  const oldBytes=readFileSync(new URL(`explore/assets/${name}.glb`,root));
+  const oldJson=JSON.parse(oldBytes.subarray(20,20+oldBytes.readUInt32LE(12)).toString());
+  assert.deepEqual(json.accessors,oldJson.accessors,`${name}: accessors`);
+  assert.deepEqual(json.meshes,oldJson.meshes,`${name}: mesh primitives`);
+  const oldBin=28+oldBytes.readUInt32LE(12),bin=28+bytes.readUInt32LE(12);
+  for(let i=0;i<json.bufferViews.length;i++){
+   const prior=oldJson.bufferViews[i],current=json.bufferViews[i],before=prior.extensions?.EXT_meshopt_compression,after=current.extensions?.EXT_meshopt_compression;
+   if(!before)continue;
+   assert.deepEqual({...after,byteOffset:before.byteOffset},before,`${name}: compressed view ${i} metadata`);
+   assert.deepEqual(bytes.subarray(bin+after.byteOffset,bin+after.byteOffset+after.byteLength),oldBytes.subarray(oldBin+before.byteOffset,oldBin+before.byteOffset+before.byteLength),`${name}: compressed view ${i} bytes`);
+  }
+ }
 });
 
 test('named room interaction targets survive asset compression',()=>{
@@ -161,7 +181,7 @@ test('monitor texture reaches optimized child meshes and restores discarded UVs'
  let meshes=0;
  screen.traverse(mesh=>{if(!mesh.isMesh)return;meshes++;
   assert.equal(mesh.material.map,texture);
-  assert.equal(mesh.userData.item,'finfold');
+  assert.equal(mesh.userData.item,'work');
   const uv=mesh.geometry.getAttribute('uv');
   assert.equal(uv.count,mesh.geometry.getAttribute('position').count);
   const points=new Set();
@@ -290,4 +310,18 @@ test('both avatar sizes contain the rebuilt hand with typing morphs',()=>{
   let animated=false;hand.traverse(o=>{if(o.morphTargetDictionary?.Typing_Left!==undefined)animated=true});
   assert.ok(animated,`${name}: replacement follows typing motion`);
  }
+});
+
+test('frozen shadows refresh through day-night transition and stop once settled',()=>{
+ const renderer={shadowMap:{autoUpdate:false,needsUpdate:false}},scene=new THREE.Scene(),lighting=createLighting(scene,renderer,false,false);
+ lighting.setShadowQuality(1024,false);
+ for(let i=0;i<240;i++){renderer.shadowMap.needsUpdate=false;const before=lighting.mix;lighting.update(true,1/30,false);assert.equal(renderer.shadowMap.needsUpdate,lighting.mix!==before);}
+ assert.equal(lighting.mix,1);renderer.shadowMap.needsUpdate=false;lighting.update(true,1/30,false);assert.equal(renderer.shadowMap.needsUpdate,false);
+ lighting.update(false,1/30,true);assert.equal(renderer.shadowMap.needsUpdate,true);assert.equal(lighting.mix,0);
+ });
+
+test('frozen mobile shadows request an initial and final composition snapshot',()=>{
+ const renderer={shadowMap:{autoUpdate:true,needsUpdate:false}},scene=new THREE.Scene(),lighting=createLighting(scene,renderer,true,false);
+ lighting.setShadowQuality(1024,false);assert.equal(renderer.shadowMap.autoUpdate,false);assert.equal(renderer.shadowMap.needsUpdate,true,'unchanged mobile map size still needs first render');
+ renderer.shadowMap.needsUpdate=false;lighting.refreshShadows();assert.equal(renderer.shadowMap.needsUpdate,true,'late avatar and props request a final render');
 });

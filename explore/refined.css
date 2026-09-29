@@ -28,3 +28,5 @@ body[data-load-state=loading] .hotspots,body[data-load-state=loading] .view-cont
 
 @media(min-width:701px){#content-panel:is([data-panel=about],[data-panel=finfold],[data-panel=games])::backdrop{backdrop-filter:none;background:linear-gradient(90deg,#080a0900 30%,#080a0970)}}
 body:has(#content-panel[open]) .hotspots{opacity:0;visibility:hidden}
+
+.hotspots button{left:0;top:0;will-change:transform}

@@ -1,4 +1,4 @@
-import * as THREE from '../vw-id-aura/vendor/three.module.js';
+import * as THREE from 'three';
 
 export function applyMonitorImage(screen,texture){
  const material=new THREE.MeshBasicMaterial({map:texture});screen.traverse(mesh=>{
@@ -12,6 +12,6 @@ export function applyMonitorImage(screen,texture){
    const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]),x0=Math.min(...xs),y0=Math.min(...ys),w=Math.max(...xs)-x0,h=Math.max(...ys)-y0;
    mesh.geometry.setAttribute('uv',new THREE.Float32BufferAttribute(points.flatMap(([x,y])=>[(x-x0)/w,1-(y-y0)/h]),2));
   }
-  mesh.material=material;mesh.userData.item='finfold';
+  mesh.material=material;mesh.userData.item='work';
  });
 }
