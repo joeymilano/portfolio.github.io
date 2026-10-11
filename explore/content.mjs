@@ -24,8 +24,8 @@ Object.assign(copy.zh,{classicExit:"经典版"});
 
 Object.assign(copy.en,{modeExplore:"EXPLORE",modeClassic:"CLASSIC",browseClassic:"Browse Classic",skip:"Skip to navigation",title:"Joey Zhao | AI Product Designer — Interactive Studio",viewToggle:"Portfolio view",loadingNav:"Explore studio content",hotspotsLabel:"Objects in the studio"});
 Object.assign(copy.zh,{modeExplore:"探索",modeClassic:"经典",browseClassic:"浏览经典版",skip:"跳到导航",title:"Joey Zhao 赵越 | AI 产品设计师 — 互动工作室",viewToggle:"作品集视图",loadingNav:"探索工作室内容",hotspotsLabel:"工作室里的物件"});
-Object.assign(copy.en,{photography:'Photography',photographyFull:'View the photography portfolio',photoUnavailable:'This photograph could not load.',previous:'Previous photograph',next:'Next photograph',writingFull:'All writing',featured:'FEATURED WORK',otherWork:'MORE PROJECTS'});
-Object.assign(copy.zh,{photography:'摄影',photographyFull:'浏览完整摄影作品',photoUnavailable:'照片暂时无法载入。',previous:'上一张照片',next:'下一张照片',writingFull:'全部文章',featured:'精选作品',otherWork:'更多项目'});
+Object.assign(copy.en,{photography:'Photography',photoUnavailable:'This photograph could not load.',previous:'Previous photograph',next:'Next photograph',writingFull:'All writing',featured:'FEATURED WORK',otherWork:'MORE PROJECTS'});
+Object.assign(copy.zh,{photography:'摄影',photoUnavailable:'照片暂时无法载入。',previous:'上一张照片',next:'下一张照片',writingFull:'全部文章',featured:'精选作品',otherWork:'更多项目'});
 export const featuredWork=[
  {title:'Signals Notebook',path:'/signals',image:'/images/signals-cover.jpg',role:{en:'Senior Product Designer',zh:'高级产品设计师'},summary:{en:'Designed the scientific data lineage workflow, from research synthesis and interaction model through usability checks and engineering handoff.',zh:'负责科研数据脉络流程的设计，从研究整理与交互模型，到可用性检验和研发交付。'}},
  {title:'Finfold',path:'/finfold',image:'/images/finfold-hero-landing.png',role:{en:'Product Lead',zh:'产品负责人'},summary:{en:'Led product definition, research, information architecture, interaction design, and the design system for an AI growth workspace.',zh:'负责 AI 增长工作台的产品定义、研究、信息架构、交互与设计系统。'}},

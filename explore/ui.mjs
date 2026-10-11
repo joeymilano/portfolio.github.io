@@ -3,7 +3,7 @@ import {initAmbient} from './ambient.mjs?v=20260929-sound1';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260928-turntable1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
-import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20260929-p2fix1';
+import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261011-photo-entry';
 import {photography} from './photography.mjs?v=20260928-wall12';
 import {DISCOVERIES,readDiscoveries,saveDiscovery,localNote,saveLocalNote} from './discoveries.mjs?v=20260929-p2';
 const dialog=document.querySelector('#content-panel'),content=document.querySelector('#panel-content'),status=document.querySelector('#scene-status');
@@ -34,7 +34,7 @@ function appendPhotography(){
   img.addEventListener('error',()=>{img.hidden=true;unavailable.hidden=false});
   figure.append(img,unavailable,caption);wall.append(figure);
  }
- content.append(wall,link(t('photographyFull'),'https://photography-portfolio-rd5.pages.dev/','photo-source-link'));
+ content.append(wall);
 }
 function discoverySection(){const found=readDiscoveries(privateStorage),box=el('section',null,'studio-discovery');box.append(el('h2',t('discoveryTitle'),'editorial-label'),el('p',`${found.length} / ${DISCOVERIES.length} · ${t('discoveryHint')}`));const list=el('ol',null,'discovery-list');for(const id of DISCOVERIES)list.append(el('li',found.includes(id)?t(`discovery_${id}`):t('discoveryHidden'),found.includes(id)?'found':''));box.append(list);if(found.length===DISCOVERIES.length){const art=el('div',null,'studio-reward');art.innerHTML='<div class="reward-sun"></div><div class="reward-window"><i></i><i></i><i></i></div><div class="reward-desk"></div><strong>AFTER HOURS / 2026</strong>';box.append(el('p',t('rewardIntro')),art)}return box}function appendDiscovery(){content.append(discoverySection())}
 function discoveryButton(id,label,threshold=1){const button=el('button',t(label),'detail-trigger'),status=el('span','','detail-response');let taps=0,done=false;button.type='button';status.setAttribute('role','status');button.addEventListener('click',()=>{if(done)return;if(++taps<threshold){status.textContent=t('detailAgain');return}done=true;button.setAttribute('aria-disabled','true');status.textContent=t(`discovery_${id}`);emit('studio:discover',{id})});const row=el('div',null,'detail-row');row.append(button,status);return row}
