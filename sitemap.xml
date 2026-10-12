@@ -11,7 +11,12 @@
   </url>
   <url>
     <loc>https://joeyzhao.cc/finfold</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://joeyzhao.cc/en/finfold</loc>
+    <lastmod>2026-10-12</lastmod>
     <priority>0.8</priority>
   </url>
   <url>

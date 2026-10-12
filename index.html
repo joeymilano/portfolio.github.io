@@ -1263,20 +1263,20 @@
             <h2 class="section-title" data-i18n="projects.title">Make the complex feel obvious.</h2>
         </div>
         <div class="projects-grid">
-            <a href="finfold" class="project-card" data-project="finfold">
+            <a href="/en/finfold" class="project-card" data-project="finfold">
                 <div class="project-card-bg" id="finfold-bg"></div>
                 <div class="project-card-overlay"></div>
                 <div class="project-card-content">
-                    <span class="project-tag" data-i18n="project.finfold.tag">Product Lead · 2026</span>
+                    <span class="project-tag" data-i18n="project.finfold.tag">AI Product Designer · 2026</span>
                     <h3 class="project-title" data-i18n="project.finfold.title">Finfold</h3>
-                    <p class="project-subtitle" data-i18n="project.finfold.subtitle">AI made content cheap and attention scarce. Finfold is the growth digital employee that keeps small teams seen — researched, built, and demonstrated live.</p>
+                    <p class="project-subtitle" data-i18n="project.finfold.subtitle">Designing an AI content workflow for small teams, from source material to channel drafts and human review.</p>
                     <span class="project-metric">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                             <line x1="8" y1="9" x2="16" y2="9"/>
                             <line x1="8" y1="13" x2="13" y2="13"/>
                         </svg>
-                        <span data-i18n="project.finfold.metric">AI Content Growth Expert · 0→1</span>
+                        <span data-i18n="project.finfold.metric">3 hackathon honors</span>
                     </span>
                     <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
                 </div>
@@ -1713,7 +1713,7 @@
         document.getElementById('pleasurecontract-bg').style.cssText = "background: url('images/pc-cg-rooftop.png') center/cover;";
         document.getElementById('borrowedlight-bg').style.cssText = "background: url('images/bl-film-deer.jpg') center/cover;";
         document.getElementById('finfold-bg').style.cssText = "background: linear-gradient(115deg, #0d0800 0%, #1a1100 45%, #100a00 100%); position: absolute; inset: 0; overflow: hidden;";
-        document.getElementById('finfold-bg').innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(115deg,rgba(5,7,13,.96) 0%,rgba(5,7,13,.55) 55%,rgba(5,7,13,.12) 100%);pointer-events:none;z-index:1;"></div><img src="images/finfold-app-workbench.png" alt="Finfold workbench: one signal to fourteen platform-native assets" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;" />';
+        document.getElementById('finfold-bg').innerHTML = '<div style="position:absolute;inset:0;background:linear-gradient(115deg,rgba(5,7,13,.96) 0%,rgba(5,7,13,.55) 55%,rgba(5,7,13,.12) 100%);pointer-events:none;z-index:1;"></div><img src="assets/finfold/images/agent-en-dark.webp" alt="Finfold Agent: a focused starting point for content work" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;" />';
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1987,10 +1987,10 @@
                 'project.borrowedlight.title': 'Borrowed Light',
                 'project.borrowedlight.subtitle': 'Pinch to borrow light, open your palm to return it — plus a 3-minute AI film of the ending.',
                 'project.borrowedlight.metric': 'On-Device Hand Tracking',
-                'project.finfold.tag': 'Product Lead · 2026',
+                'project.finfold.tag': 'AI Product Designer · 2026',
                 'project.finfold.title': 'Finfold',
-                'project.finfold.subtitle': 'AI made content cheap and attention scarce. Finfold is the growth digital employee that keeps small teams seen — researched, built, and demonstrated live.',
-                'project.finfold.metric': 'AI Growth Digital Employee · 0→1',
+                'project.finfold.subtitle': 'Designing an AI content workflow for small teams, from source material to channel drafts and human review.',
+                'project.finfold.metric': '3 hackathon honors',
                 'project.viewCase': 'View case',
                 'skills.eyebrow': 'Expertise',
                 'skills.title': 'My design operating system.',
@@ -2481,10 +2481,10 @@
                 'project.borrowedlight.subtitle': '伸手借光，张手还林——还把结局拍成了三分钟 AI 短片',
                 'project.borrowedlight.metric': '本机手势识别 · 零帧上传',
                 'project.pleasurecontract.metric': '10K+ 行 GDScript',
-                'project.finfold.tag': '产品负责人 · 2026',
-                'project.finfold.title': 'Finfold · 增长数字员工',
-                'project.finfold.subtitle': 'AI 让内容变便宜、注意力变稀缺——Finfold 是替小团队天天琢磨「被看见」的增长数字员工：给目标，自主拆解、创作、发布、复盘。',
-                'project.finfold.metric': 'AI 增长数字员工 · 0→1',
+                'project.finfold.tag': 'AI 产品设计师 · 2026',
+                'project.finfold.title': 'Finfold',
+                'project.finfold.subtitle': '为小团队设计 AI 内容工作流，连接原始素材、平台草稿与人工确认。',
+                'project.finfold.metric': '三项黑客松荣誉',
                 'project.viewCase': '查看案例',
                 'skills.eyebrow': '专业优势',
                 'skills.title': '我的设计操作系统',
@@ -2952,6 +2952,16 @@
                     }
                 }
             });
+
+            const finfoldCard = document.querySelector('[data-project="finfold"]');
+            if (finfoldCard) {
+                finfoldCard.href = lang === 'zh' ? '/finfold' : '/en/finfold';
+                const shot = finfoldCard.querySelector('img');
+                if (shot) {
+                    shot.src = lang === 'zh' ? '/assets/finfold/images/landing-zh-dark.webp' : '/assets/finfold/images/agent-en-dark.webp';
+                    shot.alt = lang === 'zh' ? 'Finfold 官网首页 · 品牌与增长工作流' : 'Finfold Agent redesigned interface';
+                }
+            }
 
             // Update button states
             document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');

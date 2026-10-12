@@ -16,7 +16,6 @@ const casePages = [
   "signals.html",
   "unifyux.html",
   "weneed.html",
-  "finfold.html",
 ];
 
 const articleSlugs = [
@@ -55,6 +54,8 @@ const publicPages = [
     lang: "en",
     schema: "CreativeWork",
   })),
+  { file: "finfold.html", url: `${origin}/finfold`, lang: "zh-CN", schema: "CreativeWork", alternate: `${origin}/en/finfold`, defaultAlternate: `${origin}/finfold` },
+  { file: "en/finfold.html", url: `${origin}/en/finfold`, lang: "en", schema: "CreativeWork", alternate: `${origin}/finfold`, defaultAlternate: `${origin}/finfold` },
   {
     file: "vw-id-aura/index.html",
     url: `${origin}/vw-id-aura/`,
@@ -307,7 +308,7 @@ for (const page of publicPages) {
     requirePattern(
       html,
       new RegExp(
-        `<link[^>]+rel=["']alternate["'][^>]+hreflang=["']x-default["'][^>]+href=["']${escapeRegex(ownEnglish)}["']`,
+        `<link[^>]+rel=["']alternate["'][^>]+hreflang=["']x-default["'][^>]+href=["']${escapeRegex(page.defaultAlternate || ownEnglish)}["']`,
         "i",
       ),
       "x-default hreflang",
@@ -317,13 +318,7 @@ for (const page of publicPages) {
       html,
       new RegExp(
         `<a[^>]+href=["'][^"']*${escapeRegex(
-          page.lang === "zh-CN"
-            ? page.file.endsWith("index.html")
-              ? `/en/writing/`
-              : `/en/writing/${path.basename(page.file, ".html")}`
-            : page.file.endsWith("index.html")
-              ? `../../writing/`
-              : `../../writing/${path.basename(page.file, ".html")}`,
+          new URL(page.alternate).pathname,
         )}["'][^>]*>`,
         "i",
       ),
