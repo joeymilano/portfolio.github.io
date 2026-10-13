@@ -4,10 +4,20 @@
   syncLanguageLink(); window.addEventListener('hashchange', syncLanguageLink);
   const navLinks = [...document.querySelectorAll('.chapter-nav a')];
   const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const navTrack = document.querySelector('.nav-inner');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       for (const entry of entries) if (entry.isIntersecting) {
         navLinks.forEach(a => { const active = a.hash === '#' + entry.target.id; a.classList.toggle('active', active); if(active) a.setAttribute('aria-current','location'); else a.removeAttribute('aria-current'); });
+        const current = navLinks.find(a => a.hash === '#' + entry.target.id);
+        if (current && navTrack) {
+          const item = current.getBoundingClientRect();
+          const track = navTrack.getBoundingClientRect();
+          if (item.left < track.left + 16 || item.right > track.right - 16) {
+            navTrack.scrollTo({left: navTrack.scrollLeft + item.left - track.left - (track.width - item.width) / 2, behavior: reducedMotion.matches ? 'auto' : 'smooth'});
+          }
+        }
       }
     }, {rootMargin:'-15% 0px -55% 0px',threshold:0});
     sections.forEach(section => observer.observe(section));
@@ -34,11 +44,21 @@
   });
   const dialog = document.querySelector('.lightbox');
   const preview = dialog.querySelector('img');
+  const scaleButton = dialog.querySelector('.lightbox-scale');
+  const canvas = dialog.querySelector('.lightbox-canvas');
+  const setScale = full => {
+    dialog.classList.toggle('full-size', full);
+    scaleButton.setAttribute('aria-pressed', String(full));
+    scaleButton.textContent = full ? scaleButton.dataset.fit : scaleButton.dataset.full;
+    canvas.scrollTo(0, 0);
+  };
+  scaleButton.addEventListener('click', () => setScale(!dialog.classList.contains('full-size')));
   let opener;
   document.querySelectorAll('.zoom').forEach(button => button.addEventListener('click', () => {
     opener = button; const source = button.querySelector('img');
     preview.src = button.dataset.full || source.currentSrc; preview.alt = source.alt;
     dialog.querySelector('[data-caption]').textContent = source.alt;
+    setScale(false);
     dialog.showModal(); document.body.style.overflow = 'hidden';
   }));
   dialog.querySelector('.lightbox-close').addEventListener('click', () => dialog.close());

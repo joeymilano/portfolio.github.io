@@ -89,3 +89,12 @@ images/ 下两张既有现场照片被压缩为 WebP 用于“项目展示与交
 - X / LinkedIn 文案节选来自实际已保存内容包，2026-09-22 创建。源文案以 “Finfold helps solo founders...” 开始；两份草稿分别以 “Solo founders don’t hate writing...” 与 “Most solo founders publish one platform...” 开始
 - 文案以案例图解重新排版，标记“草稿节选”，没有使用社交预览中的示意互动数据作为实际结果
 - 采集过程中没有创建、编辑或发布内容，没有修改品牌资料；语言恢复中文，主题保持原有浅色
+
+## 2026-10-13 手机与英文精修
+
+- 蓝色团队人物直接提取自 BP 第 17–20 页的嵌入图片，压缩为 `team-design-product.webp`、`team-engineering.webp`、`team-business.webp`、`team-ai.webp`，未重新生成或修改人物
+- 页面使用 CSS 裁去原图左侧空白，不显示姓名、履历或学历，仅按 BP 分工呈现 Design & Product、Engineering、Business & Growth、AI Research
+- 修正概览数据容器缺少结束标签的问题，截图和个人贡献恢复独立全宽布局
+- 英文标题改为具体任务与设计选择；移动端正文、指标说明、图片说明与奖项字级提高
+- 章节栏自动横向跟随当前章节；图片查看增加原尺寸模式，手机可滑动查看界面细节
+- 删除布局示意图下重复说明，来源与重构方式保留在本记录
