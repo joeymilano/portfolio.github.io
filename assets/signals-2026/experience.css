@@ -264,7 +264,9 @@ html[lang=zh-CN] .people-headline h2{line-height:1.1;letter-spacing:-.065em;font
 .ecosystem-proof img{display:block;width:100%;height:auto}
 .ecosystem-proof figcaption{font-size:13px;color:#b2baaa;padding:24px 0;max-width:740px}
 .ecosystem-sources{display:flex;flex-wrap:wrap;gap:25px 40px;margin-top:12px;font-size:12px;color:#d3ddc5}
-.ecosystem-sources a{border-bottom:1px solid #777f70;padding-bottom:8px}
+.ecosystem-sources a[target="_blank"]{border-bottom:1px solid transparent;padding-bottom:8px;text-decoration:none;transition:border-color .2s ease,color .2s ease}
+main .ecosystem-sources a[target="_blank"]{text-decoration:none}
+.ecosystem-sources a:hover,.ecosystem-sources a:focus-visible{border-bottom-color:currentColor;color:#fff}
 .signals-recognition{background:#ece6da;color:#24362e}
 .recognition-top{color:#747962}
 .recognition-heading{display:grid;grid-template-columns:1.4fr 1fr;gap:70px;align-items:end}
