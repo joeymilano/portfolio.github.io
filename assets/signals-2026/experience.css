@@ -292,8 +292,8 @@ html[lang="zh-CN"] button.zoom::after{content:"查看大图"}
 button.zoom:focus-visible{outline:2px solid #56776b;outline-offset:5px}
 button.zoom:focus-visible::after{opacity:1;transform:none}
 @media(hover:hover) and (pointer:fine){button.zoom:hover::after{opacity:1;transform:none}}
-main a[target="_blank"]{text-decoration-line:underline;text-decoration-color:currentColor;text-decoration-thickness:1px;text-underline-offset:5px}
-main a[target="_blank"]:hover{ text-decoration-thickness:2px }
+main a[target="_blank"]{border-bottom:0;text-decoration-line:underline;text-decoration-color:currentColor;text-decoration-thickness:1px;text-underline-offset:5px}
+main a[target="_blank"]:hover{ text-decoration-thickness:1px }
 .market-player:focus-visible{outline:2px solid #536949;outline-offset:-3px}
 .next-project:hover .next-arrow{transform:translateX(8px)}
 @media(prefers-reduced-motion:reduce){button.zoom::after{transition:none;transform:none}}
@@ -323,3 +323,6 @@ main a[target="_blank"]:hover{ text-decoration-thickness:2px }
 @media(max-width:800px){.lineage-choice{padding:65px 0}.lineage-choice>.wrap{grid-template-columns:1fr;gap:38px}.choice-copy h2{font-size:clamp(35px,7vw,52px)}.choice-copy p{font-size:14px;max-width:600px}.choice-conclusion{font-size:16px}.choice-evidence{max-width:430px;transform:none}.choice-evidence .zoom{padding:20px}}
 @media(max-width:1050px){.ai-hero.studio-cover{flex-direction:column}}
 @media(max-width:1050px){.studio-cover .hero-copy{order:0}.studio-cover .hero-studio{order:1}}
+
+.market-title-tail{display:block}
+.market-title-tail>span{display:inline-block;white-space:nowrap}
