@@ -372,6 +372,21 @@
         .project-view svg { width: 14px; height: 14px; }
         .project-card:hover .project-view, .project-card:focus-visible .project-view { opacity: 1; transform: translateY(0); }
 
+
+        .project-card[data-project="signals"] { background: #10201d; width: 100%; min-width: 0; min-height: 380px; }
+        #signals-bg { opacity: 1; }
+        #signals-bg img { position: absolute; width: 92%; height: auto; max-width: none; top: 18px; right: -2%; border: 5px solid #2b3431; border-radius: 9px; box-shadow: 0 20px 40px #0008; transform: perspective(900px) rotateY(-9deg) rotateZ(2deg); }
+        .project-card[data-project="signals"] .project-card-overlay { background: linear-gradient(180deg, transparent 0%, #10201d22 22%, #10201df2 49%, #10201d 70%); }
+        .project-card[data-project="signals"] .project-title { max-width: 470px; font-size: clamp(26px,2.35vw,34px); line-height: 1.2; text-wrap: balance; }
+        .project-card[data-project="signals"] .project-subtitle { max-width: 460px; font-size: 14px; line-height: 1.6; margin: 8px 0 0; }
+        .project-card[data-project="signals"] .project-tag { background: transparent; backdrop-filter: none; padding: 0; color: #b5d3c5; }
+        .project-card[data-project="signals"] .project-view { opacity: 1; transform: none; margin-top: 14px; }
+        @media(max-width: 600px) {
+            .project-card[data-project="signals"] { min-height: 410px; }
+            .project-card[data-project="signals"] .project-card-content { padding: 24px; }
+            .project-card[data-project="signals"] .project-card-overlay { background: linear-gradient(180deg, transparent, #10201d44 28%, #10201d 50%); }
+        }
+
         /* Skills */
         #skills { padding: 120px 24px; background: var(--bg-secondary); }
         .skill-system-lede { max-width: 760px; margin: -44px auto 44px; color: var(--text-secondary); font-size: 17px; line-height: 1.7; text-align: center; }
@@ -1282,13 +1297,13 @@
                 </div>
             </a>
             <a href="signals" class="project-card" data-project="signals">
-                <div class="project-card-bg" id="signals-bg"></div>
+                <div class="project-card-bg" id="signals-bg"><img src="/assets/signals-2026/official/ai-chemistry-explorer.png" alt="" loading="lazy" width="1870" height="895"></div>
                 <div class="project-card-overlay"></div>
                 <div class="project-card-content">
-                    <span class="project-tag" data-i18n="project.signals.tag">Enterprise B2B · 2021-Present</span>
-                    <h3 class="project-title" data-i18n="project.signals.title">Signals Notebook</h3>
-                    <p class="project-subtitle" data-i18n="project.signals.subtitle">The lab notebook pharma giants run their research on.</p>
-                    <span class="project-metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> $100M+ Revenue</span>
+                    <span class="project-tag" data-i18n="project.signals.tag">Signals AI · Life sciences</span>
+                    <h3 class="project-title" data-i18n="project.signals.title">Designing AI for drug discovery</h3>
+                    <p class="project-subtitle" data-i18n="project.signals.subtitle">I bring AI into scientists’ daily work: finding experiments, comparing candidates and tracing the data.</p>
+
                     <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
                 </div>
             </a>
@@ -1699,7 +1714,7 @@
         document.getElementById('hero-photo').style.backgroundImage = "url('images/hero-photo.png?v=20260927')";
         document.getElementById('resume-photo').style.backgroundImage = "url('images/hero-photo.png?v=20260927')";
         document.getElementById('collov-bg').style.cssText = "background: url('images/collov-cover.jpg?v=20260613') center/cover;";
-        document.getElementById('signals-bg').style.cssText = "background: url('images/signals-cover.jpg?v=20260613') center/cover;";
+
         document.getElementById('unifyux-bg').style.backgroundImage = "url('31.png')";
         document.getElementById('ctrip-bg').style.backgroundImage = "url('39.png')";
         document.getElementById('yao-bg').style.cssText = "background: url('images/yao-group.jpg') center/cover;";
@@ -1953,9 +1968,9 @@
                 'project.collov.tag': 'AI Product · 2024',
                 'project.collov.title': 'CollovGPT',
                 'project.collov.subtitle': 'Turn a photo of a room into a redesigned one.',
-                'project.signals.tag': 'Enterprise B2B · 2021-Present',
-                'project.signals.title': 'Signals Notebook',
-                'project.signals.subtitle': 'The lab notebook pharma giants run their research on.',
+                'project.signals.tag': 'Signals AI · Life sciences',
+                'project.signals.title': 'Designing AI for drug discovery',
+                'project.signals.subtitle': 'I bring AI into scientists’ daily work: finding experiments, comparing candidates and tracing the data.',
                 'project.unifyux.tag': 'Design System · 2024',
                 'project.unifyux.title': 'UnifyUX',
                 'project.unifyux.subtitle': 'One design language for three products that used to reinvent the wheel.',
@@ -2450,9 +2465,9 @@
                 'project.collov.tag': 'AI产品 · 2024',
                 'project.collov.title': 'CollovGPT',
                 'project.collov.subtitle': '拍一张房间的照片，还你一个重新设计过的房间。',
-                'project.signals.tag': '企业级B2B · 2021至今',
-                'project.signals.title': 'Signals Notebook',
-                'project.signals.subtitle': '药企巨头跑研发、赖以记录实验的那本电子实验本。',
+                'project.signals.tag': 'Signals AI · 生命科学',
+                'project.signals.title': 'AI 辅助药物研发，设计师怎么做？',
+                'project.signals.subtitle': '让大模型用上实验数据，帮科学家查实验、筛候选、找依据。',
                 'project.unifyux.tag': '设计系统 · 2024',
                 'project.unifyux.title': 'UnifyUX',
                 'project.unifyux.subtitle': '三个曾经各搞各的产品，共用一套设计语言。',
