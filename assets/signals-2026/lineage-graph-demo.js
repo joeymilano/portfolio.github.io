@@ -92,7 +92,7 @@ if(host){
     if(event.key==='Tab')setTimeout(()=>closeMenu(),0);
   });
   document.addEventListener('pointerdown',event=>{if(!menu.contains(event.target)&&!event.target.closest('[data-node]'))closeMenu();});
-  viewport.addEventListener('scroll',()=>closeMenu(),{passive:true});
+  viewport.addEventListener('scroll',()=>{preview.hidden=true;const button=active&&$(`[data-node="${active}"]`);if(button&&!menu.hidden)positionPopup(menu,button);},{passive:true});
   viewport.addEventListener('pointerdown',event=>{
     dragged=false;if(event.pointerType==='touch'||event.target.closest('button,a,.lg-menu'))return;
     drag={x:event.clientX,y:event.clientY,left:viewport.scrollLeft,top:viewport.scrollTop};viewport.setPointerCapture(event.pointerId);viewport.classList.add('is-dragging');closeMenu();
