@@ -1,0 +1,35 @@
+/* Keep the original cover intact; replace only its baked-in placeholder brand. */
+.collov-brand-cover {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.collov-brand-cover > .collov-cover-original {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.collov-brand-cover > .collov-cover-logo {
+  position: absolute;
+  left: 3.125%;
+  top: 34%;
+  width: 20%;
+  height: 11%;
+  box-sizing: border-box;
+  padding: 0.5%;
+  background: #222;
+  object-fit: contain;
+}
+#collov-bg {
+  container-type: size;
+  overflow: hidden;
+}
+#collov-bg > .collov-brand-cover {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100cqw, 177.777778cqh);
+  transform: translate(-50%, -50%);
+}
