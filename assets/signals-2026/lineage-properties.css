@@ -1,0 +1,15 @@
+/* Scoped to the real product evidence beneath the historical design discussion. */
+.lineage-choice>.wrap.properties-implementation{display:block;margin-top:90px;padding-top:55px;border-top:1px solid #26372e26}
+.properties-heading{max-width:940px;margin-bottom:36px}
+.properties-heading h3{font-size:clamp(28px,3.1vw,48px);line-height:1.22;letter-spacing:-.035em;text-wrap:balance;margin:20px 0 0;font-weight:600}
+.properties-screens{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,3vw,48px);align-items:start}
+.properties-screens figure{margin:0;min-width:0}
+.properties-screens figcaption{font-size:15px;line-height:1.65;margin-bottom:18px;color:#606b5c;min-height:3.3em}
+.properties-screens .zoom{display:block;width:100%;padding:0;background:#fff;border:1px solid #26372e20;border-radius:5px;overflow:hidden;box-shadow:0 16px 45px #2938260d}
+.properties-screens img{display:block;width:100%;height:auto}
+.properties-payoff{font-size:clamp(24px,2.3vw,36px);line-height:1.5;letter-spacing:-.025em;margin:32px 0 12px}
+.properties-payoff em{font-style:normal;color:#7b8a6b}
+.properties-detail{font-size:14px;line-height:1.8;color:#606b5c;max-width:34em;margin:0}
+@media(max-width:800px){.lineage-choice>.wrap.properties-implementation{margin-top:52px;padding-top:38px}.properties-heading{margin-bottom:28px}.properties-screens{grid-template-columns:1fr;gap:36px}.properties-screens figcaption{min-height:0;font-size:14px;margin-bottom:12px}.properties-payoff{margin-top:24px}.properties-detail{font-size:13px}}
+
+.properties-heading .properties-phrase{display:inline-block}
