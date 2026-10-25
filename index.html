@@ -1179,6 +1179,22 @@
                 background-position: center center;
             }
         }
+
+        /* Keep live card copy in the render's empty left half. */
+        .project-card[data-project="elf-echo"] .project-card-bg { opacity: 1; }
+        .project-card[data-project="elf-echo"]:hover .project-card-bg { transform: scale(1.025); }
+        .project-card[data-project="elf-echo"] .project-card-overlay { display: none; }
+        .project-card[data-project="elf-echo"] .project-card-content { right: 52%; padding: 28px 0 28px 28px; justify-content: center; }
+        .project-card[data-project="elf-echo"] .project-subtitle { line-height: 1.55; }
+        .project-card[data-project="elf-echo"] .project-metric { font-size: 11px; line-height: 1.6; }
+        .project-card[data-project="elf-echo"] .project-tag { font-size: 9px; padding: 6px 9px; white-space: nowrap; }
+        @media(max-width: 1000px) {
+            .project-card[data-project="elf-echo"] .project-card-content { padding: 20px 0 20px 20px; }
+            .project-card[data-project="elf-echo"] .project-title { font-size: 23px; }
+            .project-card[data-project="elf-echo"] .project-subtitle { font-size: 12px; margin-bottom: 0; }
+            .project-card[data-project="elf-echo"] .project-metric, .project-card[data-project="elf-echo"] .project-view { display: none; }
+        }
+
     </style>
     <link rel="stylesheet" href="cursor.css">
     <script src="cursor.js" defer></script>
@@ -1349,12 +1365,12 @@
         </div>
         <div class="projects-grid side-projects-grid">
             <a href="elf-echo/" class="project-card" data-project="elf-echo">
-                <div class="project-card-bg" style="background: #071017 url('elf-echo/assets/echo-cover.png') center / cover no-repeat;"></div>
+                <div class="project-card-bg" style="background: #071017 url('elf-echo/assets/elf-card-clean.jpg') center / cover no-repeat;"></div>
                 <div class="project-card-overlay"></div>
                 <div class="project-card-content">
                     <span class="project-tag" data-i18n="project.elfecho.tag">Robot Interaction 2026</span>
                     <h3 class="project-title" data-i18n="project.elfecho.title">Elf Robot</h3>
-                    <p class="project-subtitle" data-i18n="project.elfecho.subtitle">A Little More Human. Six feelings, one old friend — an interactive expression system for a campus companion.</p>
+                    <p class="project-subtitle" data-i18n="project.elfecho.subtitle">A campus companion with six expressions.</p>
                     <span class="project-metric" data-i18n="project.elfecho.metric">Industrial Design × HRI × Real-time Motion</span>
                     <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
                 </div>
@@ -1997,7 +2013,7 @@
                 'project.pleasurecontract.metric': '10K+ Lines GDScript',
                 'project.elfecho.tag': 'Robot Interaction 2026',
                 'project.elfecho.title': 'Elf Robot',
-                'project.elfecho.subtitle': 'A Little More Human. Six feelings, one old friend — an interactive expression system for a campus companion.',
+                'project.elfecho.subtitle': 'A campus companion with six expressions.',
                 'project.elfecho.metric': 'Industrial Design × HRI × Real-time Motion',
                 'project.yao.tag': 'AI Music Project · 2026',
                 'project.yao.title': 'CALL ME YAO 妖',
@@ -2494,7 +2510,7 @@
                 'project.pleasurecontract.subtitle': 'Agentic Engineering 思维开发的卡牌肉鸽游戏',
                 'project.elfecho.tag': '机器人交互 2026',
                 'project.elfecho.title': 'Elf机器人',
-                'project.elfecho.subtitle': 'A Little More Human. 六种情绪，一位老朋友——ELF 校园陪伴机器人的实时表情系统。',
+                'project.elfecho.subtitle': '校园陪伴机器人与六种动态表情。',
                 'project.elfecho.metric': '工业设计 × 人机交互 × 实时动效',
                 'project.yao.tag': 'AI 音乐企划 · 2026',
                 'project.yao.title': 'CALL ME YAO 妖',
