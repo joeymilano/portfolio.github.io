@@ -3,7 +3,7 @@ import {initAmbient} from './ambient.mjs?v=20260929-sound1';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260928-turntable1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
-import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261025-elf-echo-v03';
+import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261025-elf-name';
 import {photography} from './photography.mjs?v=20260928-wall12';
 import {DISCOVERIES,readDiscoveries,saveDiscovery,localNote,saveLocalNote} from './discoveries.mjs?v=20260929-p2';
 const dialog=document.querySelector('#content-panel'),content=document.querySelector('#panel-content'),status=document.querySelector('#scene-status');
