@@ -1,0 +1,5 @@
+GSAP 3.15.0 by GreenSock / Webflow.
+Distributed subject to the GSAP Standard License, not the MIT license.
+Official terms: https://gsap.com/standard-license/
+Product terms: https://webflow.com/legal/product-terms
+Package source and copyright notices are retained in the JavaScript distribution.

@@ -1,0 +1,77 @@
+{
+  "title": "First day. Old friend.",
+  "duration": 29.371,
+  "cues": [
+    {
+      "start": 0,
+      "state": 0,
+      "speaker": "",
+      "text": "A familiar hello."
+    },
+    {
+      "start": 1.1,
+      "end": 5.384,
+      "state": 2,
+      "speaker": "YOU",
+      "text": "Hey, ELF. First day here. I don't know anyone."
+    },
+    {
+      "start": 6.384,
+      "end": 11.267,
+      "state": 1,
+      "speaker": "ELF",
+      "text": "Hey. New places can feel big. Want a little company?"
+    },
+    {
+      "start": 11.917,
+      "end": 14.503,
+      "state": 2,
+      "speaker": "YOU",
+      "text": "Could you help me find the design studio?"
+    },
+    {
+      "start": 14.623,
+      "state": 3,
+      "speaker": "",
+      "text": "A moment to think."
+    },
+    {
+      "start": 15.503,
+      "end": 19.749,
+      "state": 3,
+      "speaker": "ELF",
+      "text": "Let me think... Found it. We can go together."
+    },
+    {
+      "start": 17.053,
+      "state": 4,
+      "speaker": "ELF",
+      "text": "Let me think... Found it. We can go together."
+    },
+    {
+      "start": 20.399,
+      "end": 24.102,
+      "state": 2,
+      "speaker": "YOU",
+      "text": "Thanks. That makes this place feel a little less strange."
+    },
+    {
+      "start": 25.102,
+      "end": 26.721,
+      "state": 4,
+      "speaker": "ELF",
+      "text": "That's what old friends are for."
+    },
+    {
+      "start": 27.371,
+      "state": 5,
+      "speaker": "",
+      "text": "A little more human."
+    }
+  ],
+  "voices": {
+    "YOU": "Macy \u2014 Calm, Warm and Clear",
+    "ELF": "Mark \u2014 Natural Conversations"
+  },
+  "provider": "ElevenLabs / Eleven v3"
+}

@@ -48,6 +48,7 @@ function publicUrlForFile(file) {
 }
 
 const publicPages = [
+  { file: "elf-echo/index.html", url: `${origin}/elf-echo/`, lang: "en", schema: "CreativeWork" },
   { file: "index.html", url: `${origin}/`, lang: "en", schema: "Person" },
   { file: "explore/index.html", url: `${origin}/explore/`, lang: "en", schema: "ProfilePage" },
   ...casePages.map((file) => ({
