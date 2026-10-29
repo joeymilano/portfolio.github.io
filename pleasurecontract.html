@@ -14,13 +14,13 @@
   </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pleasure Contract | Joey Zhao</title>
-    <meta name="description" content="Pleasure Contract — a dark-fantasy card roguelike set in supernatural Seoul. 153 cards, 6 characters, 8 endings. Designed and shipped solo via an agentic engineering pipeline.">
+    <title>Survive Three Nights: A Narrative Card Roguelike Built with AI Agents | Joey Zhao</title>
+    <meta name="description" content="A narrative card roguelike set in midnight Seoul, designed solo and built with AI agents in four weeks: 156 cards, six characters, eight endings, and the checks that caught what the agents got wrong.">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Pleasure Contract | Joey Zhao">
-    <meta property="og:description" content="A solo-built dark-fantasy card roguelike: 153 cards, 6 characters, 8 endings — shipped in four weeks through an agentic engineering pipeline.">
+    <meta property="og:title" content="Survive Three Nights: A Narrative Card Roguelike Built with AI Agents | Joey Zhao">
+    <meta property="og:description" content="A narrative card roguelike set in midnight Seoul, designed solo and built with AI agents in four weeks: 156 cards, six characters, eight endings, and the checks that caught what the agents got wrong.">
     <meta property="og:url" content="https://joeyzhao.cc/pleasurecontract">
-    <meta property="og:image" content="https://joeyzhao.cc/images/pc-bg-banquet.png">
+    <meta property="og:image" content="https://joeyzhao.cc/images/pc-game/boss-ch3-en.webp">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://joeyzhao.cc/pleasurecontract">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -147,7 +147,11 @@
         .modal-image { width: 100%; border-radius: 12px; margin: 20px 0; border: 1px solid var(--border); }
         .modal-image-caption { font-size: 13px; color: var(--text-tertiary); text-align: center; margin-top: 8px; margin-bottom: 16px; }
 
-        .pc-hero-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+        .pc-pull { margin: 28px 0; padding: 6px 0 6px 22px; border-left: 2px solid #22d3ee; font-size: 22px; line-height: 1.55; font-weight: 600; color: var(--text-primary); }
+        @media (max-width: 600px) { .pc-pull { font-size: 18px; } }
+        .pc-hero-caption { margin: 10px 24px 0; font-size: 12px; color: var(--text-tertiary); text-align: right; }
+        .pc-shot { margin-top: 20px; border-radius: 12px; border: 1px solid var(--border); aspect-ratio: 16/9; width: 100%; height: auto; display: block; }
+        .pc-hero-image { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; display: block; }
 
         .pc-art-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
         .pc-art-grid img { width: 100%; border-radius: 12px; aspect-ratio: 3/4; object-fit: cover; border: 1px solid var(--border); transition: transform 0.3s var(--ease-out-quart), border-color 0.3s; }
@@ -203,7 +207,7 @@
             .pc-process-item:not(:last-child)::after { content: '\2193'; position: static; transform: none; margin: 6px 0; }
         }
     </style>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Pleasure Contract","description":"Pleasure Contract — a dark-fantasy card roguelike set in supernatural Seoul. 153 cards, 6 characters, 8 endings. Designed and shipped solo via an agentic engineering pipeline.","url":"https://joeyzhao.cc/pleasurecontract","image":"https://joeyzhao.cc/images/pc-bg-banquet.png","inLanguage":"en","creator":{"@type":"Person","name":"Joey Zhao","url":"https://joeyzhao.cc/","sameAs":["https://www.linkedin.com/in/joey-zhao-b8576b91/","https://x.com/JoeyKonad","https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"]}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Survive Three Nights: A Narrative Card Roguelike","description":"A narrative card roguelike set in midnight Seoul, designed solo and built with AI agents in four weeks: 156 cards, six characters, eight endings, and the checks that caught what the agents got wrong.","url":"https://joeyzhao.cc/pleasurecontract","image":"https://joeyzhao.cc/images/pc-game/boss-ch3-en.webp","inLanguage":"en","creator":{"@type":"Person","name":"Joey Zhao","url":"https://joeyzhao.cc/","sameAs":["https://www.linkedin.com/in/joey-zhao-b8576b91/","https://x.com/JoeyKonad","https://www.xiaohongshu.com/user/profile/6279c0b50000000021021021"]}}</script>
 </head>
 <body>
 
@@ -222,23 +226,22 @@
 </nav>
 
 <div class="modal-container">
-
     <!-- Hero Image -->
-    <img src="images/pc-cg-rooftop.png" alt="Pleasure Contract key visual" class="pc-hero-image">
-
+    <img src="images/pc-game/boss-ch3-en.webp" data-src-en="images/pc-game/boss-ch3-en.webp" data-src-zh="images/pc-game/boss-ch3-zh.webp" width="1920" height="1080" alt="In-game capture of the Chapter 3 final boss fight" class="pc-hero-image" fetchpriority="high" decoding="async">
+    <p class="pc-hero-caption" data-i18n="modal.pc.heroCap">In-game capture · Chapter 3 final boss, the Chairwoman of Night</p>
     <!-- Header -->
     <div class="modal-header">
-        <p class="modal-eyebrow" data-i18n="modal.pc.eyebrow">Card Roguelike &middot; 2026 &middot; Godot 4</p>
-        <h1 class="modal-title">Pleasure Contract</h1>
-        <p class="modal-subtitle" data-i18n="modal.pc.subtitle">A dark-fantasy card roguelike set in supernatural Seoul — deck-building, relationship networks, and 8 diverging endings</p>
+        <p class="modal-eyebrow" data-i18n="modal.pc.eyebrow">Narrative Card Roguelike · 2026 · Godot 4</p>
+        <h1 class="modal-title" data-i18n="modal.pc.title">Survive Three Nights</h1>
+        <p class="modal-subtitle" data-i18n="modal.pc.subtitle">A card roguelike set in midnight Seoul. I designed it alone and built it with a crew of AI agents: three chapters, six characters and eight endings in four weeks.</p>
         <div class="modal-meta">
             <div class="modal-meta-item">
                 <div class="modal-meta-label" data-i18n="modal.pc.metaLabel1">Role</div>
-                <div class="modal-meta-value" data-i18n="modal.pc.metaValue1">Solo · Design + Agentic Eng</div>
+                <div class="modal-meta-value" data-i18n="modal.pc.metaValue1">Solo · Design + Agentic Engineering</div>
             </div>
             <div class="modal-meta-item">
                 <div class="modal-meta-label" data-i18n="modal.pc.metaLabel2">Genre</div>
-                <div class="modal-meta-value" data-i18n="modal.pc.metaValue2">Card Roguelike + VN</div>
+                <div class="modal-meta-value" data-i18n="modal.pc.metaValue2">Card Roguelike + Visual Novel</div>
             </div>
             <div class="modal-meta-item">
                 <div class="modal-meta-label" data-i18n="modal.pc.metaLabel3">Engine</div>
@@ -250,19 +253,14 @@
             </div>
         </div>
     </div>
-
     <div class="modal-body">
-
-        <!-- TL;DR -->
         <div class="modal-tldr">
-            <div class="modal-tldr-label">TL;DR</div>
-            <div class="modal-tldr-text" data-i18n="modal.pc.tldr">Slay the Spire meets supernatural K-drama. Build card decks, manage dangerous alliances with 6 characters, and survive three chapters of escalating contracts in neon Seoul.</div>
+            <div class="modal-tldr-label" data-i18n="modal.pc.tldrLabel">In one breath</div>
+            <div class="modal-tldr-text" data-i18n="modal.pc.tldr">Slay the Spire-style card combat, plus a web of relationships that bites back. Every time you get stronger, you pay with trust or with health. The part I most want to tell is near the end: the build that looked finished, and how I proved it wasn’t.</div>
         </div>
-
-        <!-- Metrics -->
         <div class="modal-metrics">
             <div class="modal-metric">
-                <div class="modal-metric-value">153</div>
+                <div class="modal-metric-value">156</div>
                 <div class="modal-metric-label" data-i18n="modal.pc.metricLabel1">Cards</div>
             </div>
             <div class="modal-metric">
@@ -274,213 +272,219 @@
                 <div class="modal-metric-label" data-i18n="modal.pc.metricLabel3">Endings</div>
             </div>
             <div class="modal-metric">
-                <div class="modal-metric-value">3</div>
-                <div class="modal-metric-label" data-i18n="modal.pc.metricLabel4">Chapters</div>
+                <div class="modal-metric-value">15K+</div>
+                <div class="modal-metric-label" data-i18n="modal.pc.metricLabel4">Lines of GDScript</div>
             </div>
         </div>
-
         <div class="modal-divider"></div>
-
-        <!-- Section 1: World Setting -->
+        <!-- 1: Why -->
         <div class="modal-section">
-            <h3 class="modal-section-title"><span class="modal-section-number">1</span> <span data-i18n="modal.pc.s1Title">World Setting</span></h3>
-            <p data-i18n="modal.pc.s1P1">After midnight, Seoul reveals a second city visible only to those bound by invisible debts. VIP booths become altars, corporate contracts bind souls, and idol agency agreements imprison spirits. You're a young man dragged into supernatural debt — survive three nights and find out who wrote your name in the Night Board's ledger.</p>
+            <h3 class="modal-section-title"><span class="modal-section-number">1</span> <span data-i18n="modal.pc.s1Title">The question I wanted to answer</span></h3>
+            <p data-i18n="modal.pc.s1P1">By 2026, getting AI to write some code was nothing special. I wanted to try something harder. Could one designer, working with AI agents, take a whole game to the point where it plays, gets tested and is ready to hand over? A card roguelike is a strict exam. It is full of rules, numbers and content, and when any of them is wrong, players feel it in the first fight.</p>
+            <p data-i18n="modal.pc.s1P2">The story is set in Seoul after midnight, when a second city appears to people carrying invisible debts. VIP booths turn into altars, corporate contracts bind souls, and idol agency deals trap spirits. You play a young man pulled into one of those debts. Survive three nights, and find out who wrote your name in the Night Board’s ledger.</p>
             <div class="pc-art-grid two-col wide">
-                <img src="images/pc-bg-banquet.png" alt="Chaebol banquet hall">
-                <img src="images/pc-bg-cathedral.png" alt="Moonlit cathedral">
+                <img src="images/pc-bg-banquet.png" alt="Chaebol penthouse banquet hall" loading="lazy">
+                <img src="images/pc-bg-cathedral.png" alt="Moonlit cathedral boardroom" loading="lazy">
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s1Cap1">Key environments: Chaebol Penthouse Banquet / Moonlit Cathedral Boardroom</p>
+            <p class="modal-image-caption" data-i18n="modal.pc.s1Cap1">Key locations · the chaebol penthouse banquet / the moonlit cathedral boardroom</p>
             <div class="pc-art-grid wide">
-                <img src="images/pc-bg-nightclub.png" alt="Nightclub ritual room">
-                <img src="images/pc-environments.png" alt="Environment sheet" style="aspect-ratio:16/9; grid-column: span 2;">
+                <img src="images/pc-bg-nightclub.png" alt="Nightclub ritual room" loading="lazy">
+                <img src="images/pc-environments.png" alt="Environment concept sheet" style="aspect-ratio:16/9; grid-column: span 2;" loading="lazy">
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s1Cap2">Nightclub ritual chamber and environment concept sheet (Mirror Backstage, Rooftop, Apartment, Cathedral)</p>
+            <p class="modal-image-caption" data-i18n="modal.pc.s1Cap2">Nightclub ritual room and environment sheet · mirror backstage, rooftop, apartment, cathedral</p>
         </div>
-
         <div class="modal-divider"></div>
-
-        <!-- Section 2: Card & Combat -->
+        <!-- 2: Cards -->
         <div class="modal-section">
-            <h3 class="modal-section-title"><span class="modal-section-number">2</span> <span data-i18n="modal.pc.s2Title">Card & Combat System</span></h3>
-            <p data-i18n="modal.pc.s2P1">Slay the Spire-inspired combat: draw cards each turn, spend energy to play attacks/blocks/skills, manage deck through rewards and shops. Two core resources drive risk: Affection scales your power but triggers jealousy across allies; Contract gives explosive cards but drains your life.</p>
+            <h3 class="modal-section-title"><span class="modal-section-number">2</span> <span data-i18n="modal.pc.s2Title">Every card should make you hesitate</span></h3>
+            <p data-i18n="modal.pc.s2P1">Combat follows the Slay the Spire rhythm players already know: draw, spend energy, attack, block, pick a reward. I kept that part familiar on purpose, so all the tension could come from two resources I added. Affection makes your cards hit harder, but every ally you favor makes the others jealous. Contract hands you the strongest cards in the game and drains your health every turn you carry it. Power always arrives with a bill.</p>
+            <img src="images/pc-game/combat-ch1-en.webp" data-src-en="images/pc-game/combat-ch1-en.webp" data-src-zh="images/pc-game/combat-ch1-zh.webp" width="1920" height="1080" alt="In-game capture · a Chapter 1 fight. Hand, energy, both resources and the whole route sit on one screen." class="modal-image pc-shot" loading="lazy" decoding="async">
+            <p class="modal-image-caption" data-i18n="modal.pc.shotCombat">In-game capture · a Chapter 1 fight. Hand, energy, both resources and the whole route sit on one screen.</p>
             <div class="pc-art-grid">
-                <img src="images/pc-card-neon-cut.png" alt="Neon Cut — attack card">
-                <img src="images/pc-card-red-room.png" alt="Red Room Feint — mirror dodge">
-                <img src="images/pc-card-exorcism.png" alt="Exorcism Live — ritual card">
+                <img src="images/pc-card-neon-cut.png" alt="Neon Cut attack card" loading="lazy">
+                <img src="images/pc-card-red-room.png" alt="Red Room Feint evasion card" loading="lazy">
+                <img src="images/pc-card-exorcism.png" alt="Exorcism Live purification card" loading="lazy">
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s2Cap1">Card art — Neon Cut (attack), Red Room Feint (evasion), Exorcism Live (purification)</p>
-
+            <p class="modal-image-caption" data-i18n="modal.pc.s2Cap1">Card art · Neon Cut (attack), Red Room Feint (evasion), Exorcism Live (purification)</p>
             <div class="modal-feature-grid">
                 <div class="modal-feature-card">
                     <div class="modal-feature-title" data-i18n="modal.pc.s2F1">Neon Blade</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F1D">Low-cost attacks, multi-hit combos, energy refund on kill. Rush down enemies before they scale.</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F1D">Cheap attacks, multi-hit combos, energy back on a kill. Win before the enemy scales.</div>
                 </div>
                 <div class="modal-feature-card">
                     <div class="modal-feature-title" data-i18n="modal.pc.s2F2">Silk Guard</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F2D">High block, counterattack triggers, sustained defense. Outlast and punish.</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F2D">Heavy block, counter triggers, steady defense. Outlast them, then punish.</div>
                 </div>
                 <div class="modal-feature-card">
                     <div class="modal-feature-title" data-i18n="modal.pc.s2F3">Contract Burst</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F3D">Stack contract debt for explosive damage. High ceiling, high floor — one bad draw and you bleed out.</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F3D">Stack contract debt for explosive damage. Huge ceiling, brutal floor. One bad draw and you bleed out.</div>
                 </div>
                 <div class="modal-feature-card">
                     <div class="modal-feature-title" data-i18n="modal.pc.s2F4">Affection Engine</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F4D">Scale damage through relationship depth. Slow start, snowball finish — if jealousy doesn't destroy you first.</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s2F4D">Damage grows with how close your allies are. Slow start, big finish, if jealousy doesn’t get you first.</div>
                 </div>
             </div>
-
+            <img src="images/pc-game/reward-en.webp" data-src-en="images/pc-game/reward-en.webp" data-src-zh="images/pc-game/reward-zh.webp" width="1920" height="1080" alt="In-game capture · after a win you pick one of several cards, and every pick reshapes the deck" class="modal-image pc-shot" loading="lazy" decoding="async">
+            <p class="modal-image-caption" data-i18n="modal.pc.shotReward">In-game capture · after a win you pick one of several cards, and every pick reshapes the deck</p>
             <div class="pc-art-grid four-col">
-                <img src="images/pc-card-talisman.png" alt="Paper Talisman">
-                <img src="images/pc-card-black-card.png" alt="Black Card">
-                <img src="images/pc-card-backstage.png" alt="Backstage Pass">
-                <img src="images/pc-card-oracle.png" alt="Oracle Reversal">
+                <img src="images/pc-card-talisman.png" alt="Paper Talisman card" loading="lazy">
+                <img src="images/pc-card-black-card.png" alt="Black Card card" loading="lazy">
+                <img src="images/pc-card-backstage.png" alt="Backstage Pass card" loading="lazy">
+                <img src="images/pc-card-oracle.png" alt="Oracle Reversal card" loading="lazy">
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s2Cap2">More card art — Paper Talisman, Black Card, Backstage Pass, Oracle Reversal</p>
-
-            <img src="images/pc-shop-ui.png" alt="Card shop UI" class="modal-image" style="margin-top:8px">
-            <p class="modal-image-caption" data-i18n="modal.pc.s2Cap3">Card shop interface: purchase cards, relics, and services between encounters</p>
+            <p class="modal-image-caption" data-i18n="modal.pc.s2Cap2">More card art · Paper Talisman, Black Card, Backstage Pass, Oracle Reversal</p>
         </div>
-
         <div class="modal-divider"></div>
-
-        <!-- Section 3: Enemies & Chapters -->
+        <!-- 3: Enemies -->
         <div class="modal-section">
-            <h3 class="modal-section-title"><span class="modal-section-number">3</span> <span data-i18n="modal.pc.s3Title">Enemies & Chapter Design</span></h3>
-            <p data-i18n="modal.pc.s3P1">Three chapters, each with unique thematic enemies, elite bosses, and corruption modifiers. The roguelike map includes combat nodes, character events, confession rooms, shops, contract altars, and multi-phase bosses.</p>
-
+            <h3 class="modal-section-title"><span class="modal-section-number">3</span> <span data-i18n="modal.pc.s3Title">Let the enemies tell the story</span></h3>
+            <p data-i18n="modal.pc.s3P1">Each chapter has its own enemies, elite fights and corruption modifiers that bend the rules. I wanted every boss to tell the story through its mechanics, so players feel the theme in their hands before they read it in dialogue.</p>
             <div class="modal-feature-grid">
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch1">Ch.1 — Mirror Stage</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch1D">Idol industry. Enemies copy your cards, shred your defenses, and feed you debt. Boss: Mirror Host — duplicates your last played card.</div>
+                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch1">Chapter 1 · Mirror Backstage</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch1D">The idol industry, where people are packaged and priced. The boss, Mirror Host, copies the last card you played. The harder you fight the system, the faster it learns you.</div>
                 </div>
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch2">Ch.2 — Chaebol Banquet</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch2D">Corporate underworld. Enemies stack contract, steal rewards, and shield each other. Boss: VP Han — a walking contract that shreds HP per stack.</div>
+                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch2">Chapter 2 · Chaebol Banquet</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch2D">Money and debt, where people become collateral. VP Han is a contract that walks. He turns your high affection into new contract and forces a choice: keep borrowing your allies’ power, or give up strength now to protect them.</div>
                 </div>
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch3">Ch.3 — Moonlit Cathedral</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch3D">Supernatural judgment. Enemies counter purification, rewrite your draws, and demand sacrifice. Final Boss: Chairwoman of Night — form-shifts based on your highest resource.</div>
+                    <div class="modal-feature-title" data-i18n="modal.pc.s3Ch3">Chapter 3 · Moonlit Boardroom</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s3Ch3D">The final judgment. The Chairwoman of Night attacks whatever you leaned on most: your allies if affection is high, you if contract is high, your hand if your deck got greedy.</div>
                 </div>
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title" data-i18n="modal.pc.s3Mod">Corruption Modifiers</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s3ModD">Per-run affixes that alter rules: Torn Night (lower thresholds), Expensive Desire (stronger cards cost double), Mirror Tax (skip penalty), Confession Hour (purify bonus).</div>
+                    <div class="modal-feature-title" data-i18n="modal.pc.s3Mod">Corruption modifiers</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s3ModD">Random rules for each run. Torn Night lowers thresholds, Expensive Desire doubles the cost of strong cards, Mirror Tax punishes skipping, Confession Hour rewards purifying.</div>
                 </div>
             </div>
-
+            <img src="images/pc-game/boss-ch2.webp" width="1920" height="1080" alt="In-game capture of the Chapter 2 boss fight" class="modal-image pc-shot" loading="lazy" decoding="async">
+            <p class="modal-image-caption" data-i18n="modal.pc.shotBoss2">In-game capture · Chapter 2 boss, VP Han, under the moon above Gangnam</p>
             <div class="pc-art-grid two-col" style="margin-top:16px">
-                <img src="images/pc-protagonist-anim.png" alt="Protagonist combat animation" style="aspect-ratio:auto; object-fit:contain; background:#000">
-                <img src="images/pc-enemy-wraith.png" alt="Neon Wraith boss" style="aspect-ratio:auto; object-fit:contain; background:#111">
+                <img src="images/pc-protagonist-anim.png" alt="Protagonist combat sprite sheet" style="aspect-ratio:auto; object-fit:contain; background:#000" loading="lazy">
+                <img src="images/pc-enemy-wraith.png" alt="Neon Wraith elite enemy" style="aspect-ratio:auto; object-fit:contain; background:#111" loading="lazy">
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s3Cap">Protagonist combat sprite sheet (16 frames) / Neon Wraith — Chapter 1 elite boss</p>
+            <p class="modal-image-caption" data-i18n="modal.pc.s3Cap">Protagonist combat sprite sheet (16 frames) / Neon Wraith, Chapter 1 elite</p>
         </div>
-
         <div class="modal-divider"></div>
-
-        <!-- Section 4: Relationship Network -->
+        <!-- 4: Relationships -->
         <div class="modal-section">
-            <h3 class="modal-section-title"><span class="modal-section-number">4</span> <span data-i18n="modal.pc.s4Title">Relationship Network</span></h3>
-            <p data-i18n="modal.pc.s4P1">6 characters, each tracked across 7 dimensions: affection, jealousy, trust, secret progress, route stage, betrayal risk, and flags. Favor one ally and others grow jealous — above threshold, they confront you in combat. The party system uses 3 slots: Main Partner, Side Partner, and Support.</p>
-
-
+            <h3 class="modal-section-title"><span class="modal-section-number">4</span> <span data-i18n="modal.pc.s4Title">A relationship web that bites back</span></h3>
+            <p data-i18n="modal.pc.s4P1">Six characters, each tracked across seven values: affection, jealousy, trust, secret progress, route stage, betrayal risk and story flags. Lean on one ally for too long and the others notice. Push jealousy past its threshold and they confront you, in combat. Your party has three slots, a main partner, a side partner and support, so every lineup is also a statement about who you trust.</p>
+            <img src="images/pc-game/partners-en.webp" data-src-en="images/pc-game/partners-en.webp" data-src-zh="images/pc-game/partners-zh.webp" width="1920" height="1080" alt="In-game capture · choosing a partner. Each of the six brings her own cards, passive and story route." class="modal-image pc-shot" loading="lazy" decoding="async">
+            <p class="modal-image-caption" data-i18n="modal.pc.shotPartners">In-game capture · choosing a partner. Each of the six brings her own cards, passive and story route.</p>
             <div class="pc-art-grid two-col">
-                <img src="images/pc-card-red-thread.png" alt="Red Thread — relationship card">
-                <img src="images/pc-relic-rosary.png" alt="Neon Rosary relic">
+                <img src="images/pc-card-red-thread.png" alt="Red Thread relationship card" loading="lazy">
+                <img src="images/pc-relic-rosary.png" alt="Neon Rosary relic" loading="lazy">
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s4Cap1">Red Thread (relationship binding card) / Neon Rosary (hidden character unlock relic)</p>
-
-            <p data-i18n="modal.pc.s4P2">The ending resolver checks 8 conditions in strict priority: betrayal ending, harem collapse, single-route true end, contract overload, purification path, hidden character route, neutral escape, and bad end. Each requires a unique state combination — no two playthroughs end the same way.</p>
-
+            <p class="modal-image-caption" data-i18n="modal.pc.s4Cap1">Red Thread (binds a relationship) / Neon Rosary (unlocks the hidden character)</p>
+            <img src="images/pc-game/event-en.webp" data-src-en="images/pc-game/event-en.webp" data-src-zh="images/pc-game/event-zh.webp" width="1920" height="1080" alt="In-game capture · a character event. Each choice spells out what it does to affection, contract and trust." class="modal-image pc-shot" loading="lazy" decoding="async">
+            <p class="modal-image-caption" data-i18n="modal.pc.shotEvent">In-game capture · a character event. Each choice spells out what it does to affection, contract and trust.</p>
+            <p data-i18n="modal.pc.s4P2">The ending resolver checks eight endings in a fixed order of priority: Betrayal, Beautiful Collateral, Solo Devotion, Dual Flame, Miriam’s Judgment, A New Board, Debt Cleared and the true ending, Contract’s End. Each one needs its own combination of state, so the ending a player sees is the final tally of how that run was played.</p>
             <div class="pc-art-grid two-col wide">
-                <img src="images/pc-card-moon-contract.png" alt="Moon Contract" style="aspect-ratio:3/4">
-                <img src="images/pc-card-covenant.png" alt="Covenant Reset" style="aspect-ratio:3/4">
+                <img src="images/pc-card-moon-contract.png" alt="Moon Contract card" style="aspect-ratio:3/4" loading="lazy">
+                <img src="images/pc-card-covenant.png" alt="Covenant Reset card" style="aspect-ratio:3/4" loading="lazy">
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s4Cap2">Moon Contract (seal relationship permanently) / Covenant Reset (break all bonds, restart path)</p>
+            <p class="modal-image-caption" data-i18n="modal.pc.s4Cap2">Moon Contract (seals a bond for good) / Covenant Reset (breaks every bond and starts over)</p>
         </div>
-
         <div class="modal-divider"></div>
-
-        <!-- Section 5: Roguelike Systems -->
+        <!-- 5: Data -->
         <div class="modal-section">
-            <h3 class="modal-section-title"><span class="modal-section-number">5</span> <span data-i18n="modal.pc.s5Title">Roguelike Systems</span></h3>
-            <p data-i18n="modal.pc.s5P1">Each run generates a unique path through combat, events, and shops. Character events, recruitment moments, and confrontation scenes are all data-driven — no hardcoded content. The game ships with 31 JSON data files totaling 31,588 lines.</p>
-
+            <h3 class="modal-section-title"><span class="modal-section-number">5</span> <span data-i18n="modal.pc.s5Title">Content lives in data</span></h3>
+            <p data-i18n="modal.pc.s5P1">None of the story is hard-coded. Cards, relics, enemies, character events, recruitment scenes and confrontations all live in JSON. I could change a number or rewrite a scene without touching logic, and agents had clear slots to fill when they added content.</p>
             <ul class="modal-challenge-list">
-                <li data-i18n="modal.pc.s5L1">153 cards across 5 archetypes + 12 synergy cards (activate when specific character pairs are together)</li>
-                <li data-i18n="modal.pc.s5L2">Roguelike map: combat, elite, event, confession, shop, altar, boss nodes per chapter</li>
-                <li data-i18n="modal.pc.s5L3">13,310 lines of branching visual novel dialogue (Chinese + English)</li>
-                <li data-i18n="modal.pc.s5L4">Per-run corruption affixes create unique rule variations every playthrough</li>
-                <li data-i18n="modal.pc.s5L5">Dual currency tension: Affection (power) vs Contract (risk) — every card choice is a trade-off</li>
+                <li data-i18n="modal.pc.s5L1">144 cards, plus 12 synergy cards that trigger when specific pairs of characters fight together</li>
+                <li data-i18n="modal.pc.s5L2">One map per chapter, with fights, elites, events, confession rooms, shops, contract altars and a boss</li>
+                <li data-i18n="modal.pc.s5L3">22 relics, 19 enemies, and branching visual-novel scenes in English and Chinese</li>
+                <li data-i18n="modal.pc.s5L4">Corruption modifiers change the rules on every run</li>
+                <li data-i18n="modal.pc.s5L5">Affection buys power and Contract buys risk, so every card pick is a trade</li>
             </ul>
-
+            <img src="images/pc-game/route-en.webp" data-src-en="images/pc-game/route-en.webp" data-src-zh="images/pc-game/route-zh.webp" width="1920" height="1080" alt="In-game capture · choosing the next path. Each route warns what kind of fight or detour waits ahead." class="modal-image pc-shot" loading="lazy" decoding="async">
+            <p class="modal-image-caption" data-i18n="modal.pc.shotRoute">In-game capture · choosing the next path. Each route warns what kind of fight or detour waits ahead.</p>
+            <img src="images/pc-game/shop-en.webp" data-src-en="images/pc-game/shop-en.webp" data-src-zh="images/pc-game/shop-zh.webp" width="1920" height="1080" alt="In-game capture · the nightclub shop between fights, with cards, relics and services" class="modal-image pc-shot" loading="lazy" decoding="async">
+            <p class="modal-image-caption" data-i18n="modal.pc.shotShop">In-game capture · the nightclub shop between fights, with cards, relics and services</p>
             <div class="pc-art-grid">
-                <img src="images/pc-relic-case.png" alt="Red Lacquer Case relic">
-                <img src="images/pc-card-velvet-finale.png" alt="Velvet Finale">
-                <img src="images/pc-card-invitation.png" alt="Final Invitation">
+                <img src="images/pc-relic-case.png" alt="Red Lacquer Case relic" loading="lazy">
+                <img src="images/pc-card-velvet-finale.png" alt="Velvet Finale card" loading="lazy">
+                <img src="images/pc-card-invitation.png" alt="Final Invitation card" loading="lazy">
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s5Cap">Relics & late-game cards: Red Lacquer Case, Velvet Finale, Final Invitation</p>
+            <p class="modal-image-caption" data-i18n="modal.pc.s5Cap">Relics and late-game cards · Red Lacquer Case, Velvet Finale, Final Invitation</p>
         </div>
-
         <div class="modal-divider"></div>
-
-        <!-- Section 6: AI Development (Condensed) -->
+        <!-- 6: The turn -->
+        <div class="modal-section pc-turn">
+            <h3 class="modal-section-title"><span class="modal-section-number">6</span> <span data-i18n="modal.pc.s6Title">It looked finished</span></h3>
+            <p data-i18n="modal.pc.s6P1">Late in the project the game ran. Cards, enemies and story were all in place, in two languages. Before preparing a Steam release I gave it one full check-up, and found several places where “looks finished” and “is finished” had quietly drifted apart.</p>
+            <blockquote class="pc-pull" data-i18n="modal.pc.s6Pull">19 of 22 relics told Chinese players something different from what the code actually did.</blockquote>
+            <p data-i18n="modal.pc.s6P2">Silver Room Key is a good example. In English and in code, it gives every block card +1 block. The Chinese text promised 2 armor at the start of each turn. Each file looked fine on its own; the error only showed when you put them side by side. Agents had written them in separate passes, and nothing was checking whether they described the same thing.</p>
+            <ul class="modal-challenge-list">
+                <li data-i18n="modal.pc.s6L1">The story file was missing its opening brace. Worse, the data loader never complained about broken files. It logged a warning, returned an empty list and let the game boot, so bad data looked like a design bug.</li>
+                <li data-i18n="modal.pc.s6L2">Some interface text used the Chinese sentence itself as its lookup key. Edit one character of copy and the lookup would silently break.</li>
+                <li data-i18n="modal.pc.s6L3">The refactor plan said Main.gd would end up under 500 lines. It is still over 12,000. Agents are very good at adding code and almost never take it out on their own.</li>
+            </ul>
+        </div>
+        <div class="modal-divider"></div>
+        <!-- 7: Checks -->
         <div class="modal-section">
-            <h3 class="modal-section-title"><span class="modal-section-number">6</span> <span data-i18n="modal.pc.s6Title">Shipped via Agentic Engineering</span></h3>
-            <p data-i18n="modal.pc.s6P1">I didn't hand-write the 10,551 lines of GDScript. I designed the system that did. Eight design docs nailed down the boundaries first — world rules, card math, relationship logic, the roguelike economy — and an agentic pipeline I orchestrated filled them in: modules, balance passes, cross-file QA. My job was setting the edges, then catching every place the agents drifted.</p>
-
+            <h3 class="modal-section-title"><span class="modal-section-number">7</span> <span data-i18n="modal.pc.s7Title">The checks I added</span></h3>
+            <p data-i18n="modal.pc.s7P1">Asking agents to “be more careful” doesn’t scale. So I made mistakes loud instead.</p>
             <div class="pc-process-flow">
                 <div class="pc-process-item">
                     <div class="pc-process-number">1</div>
-                    <div class="pc-process-label" data-i18n="modal.pc.proc1">Design Docs</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc1">Write the edges</div>
                 </div>
                 <div class="pc-process-item">
                     <div class="pc-process-number">2</div>
-                    <div class="pc-process-label" data-i18n="modal.pc.proc2">Architecture</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc2">Agents build</div>
                 </div>
                 <div class="pc-process-item">
                     <div class="pc-process-number">3</div>
-                    <div class="pc-process-label" data-i18n="modal.pc.proc3">Modules</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc3">Pin with tests</div>
                 </div>
                 <div class="pc-process-item">
                     <div class="pc-process-number">4</div>
-                    <div class="pc-process-label" data-i18n="modal.pc.proc4">Integration</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc4">Cross-check</div>
                 </div>
                 <div class="pc-process-item">
                     <div class="pc-process-number">5</div>
-                    <div class="pc-process-label" data-i18n="modal.pc.proc5">QA Audit</div>
+                    <div class="pc-process-label" data-i18n="modal.pc.proc5">Human review</div>
                 </div>
             </div>
-
             <div class="modal-feature-grid">
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title" data-i18n="modal.pc.s6F1">Safe Refactoring</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s6F1D">8,957-line monolith decomposed into 12 modules using const-delegation. 88 constant references migrated with zero breakage.</div>
+                    <div class="modal-feature-title" data-i18n="modal.pc.s7F1">Pin the numbers first</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s7F1D">Before moving any combat math, I wrote 11 golden-sample checks covering attacks, block, armor, vulnerable and frail, poison and bleed ticks, and contract pressure. Only then did the pure math move into CombatSystem. If a number changes, a test fails.</div>
                 </div>
                 <div class="modal-feature-card">
-                    <div class="modal-feature-title" data-i18n="modal.pc.s6F2">Cross-File Bug Detection</div>
-                    <div class="modal-feature-desc" data-i18n="modal.pc.s6F2D">4 bugs auto-detected and fixed: nested effects ignored, infinite confrontation loop, missing card IDs, locked character selectable.</div>
+                    <div class="modal-feature-title" data-i18n="modal.pc.s7F2">Fail loudly</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s7F2D">Loaders now stop with the exact file and reason instead of returning an empty list. I broke a data file on purpose to make sure it really does.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s7F3">Reconcile the languages</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s7F3D">Every relic description was rewritten with the code as the source of truth. A script then checked that each Chinese description names the stats the relic really carries. Zero mismatches across all 22.</div>
+                </div>
+                <div class="modal-feature-card">
+                    <div class="modal-feature-title" data-i18n="modal.pc.s7F4">Stable keys, safe saves</div>
+                    <div class="modal-feature-desc" data-i18n="modal.pc.s7F4D">Interface text moved to stable English keys. Save files are versioned and written atomically, so a crash can’t leave half a save behind.</div>
                 </div>
             </div>
-
             <div class="pc-module-grid">
-                <div class="pc-module-item"><span class="pc-module-name">Main.gd</span><span class="pc-module-lines">8,957 lines</span></div>
-                <div class="pc-module-item"><span class="pc-module-name">AudioBus.gd</span><span class="pc-module-lines">252 lines</span></div>
+                <div class="pc-module-item"><span class="pc-module-name">Main.gd</span><span class="pc-module-lines">12,711 lines</span></div>
+                <div class="pc-module-item new"><span class="pc-module-name">VNSystem.gd</span><span class="pc-module-lines">498 lines</span></div>
+                <div class="pc-module-item new"><span class="pc-module-name">AudioBus.gd</span><span class="pc-module-lines">281 lines</span></div>
+                <div class="pc-module-item new"><span class="pc-module-name">SaveSystem.gd</span><span class="pc-module-lines">222 lines</span></div>
                 <div class="pc-module-item new"><span class="pc-module-name">RelationshipManager.gd</span><span class="pc-module-lines">219 lines</span></div>
-                <div class="pc-module-item new"><span class="pc-module-name">MiriamSystem.gd</span><span class="pc-module-lines">153 lines</span></div>
                 <div class="pc-module-item new"><span class="pc-module-name">EndingResolver.gd</span><span class="pc-module-lines">126 lines</span></div>
                 <div class="pc-module-item new"><span class="pc-module-name">JealousySystem.gd</span><span class="pc-module-lines">108 lines</span></div>
+                <div class="pc-module-item new"><span class="pc-module-name">CombatSystem.gd</span><span class="pc-module-lines">46 lines</span></div>
             </div>
-            <p class="modal-image-caption" data-i18n="modal.pc.s6ModCap">Cyan = relationship modules the pipeline generated inside the boundaries I set.</p>
+            <p class="modal-image-caption" data-i18n="modal.pc.modCap">Main.gd is still by far the biggest piece. Cyan marks systems already split out of it, starting with the ones that most needed tests.</p>
         </div>
-
-        <!-- Reflection -->
         <div class="modal-reflection">
-            <div class="modal-reflection-title" data-i18n="modal.pc.reflTitle">Reflection</div>
-            <div class="modal-reflection-text" data-i18n="modal.pc.reflText">What this proves isn't 'AI can make a game' — anyone can hit enter on a prompt. The real lever is agentic engineering: the boundaries, the module contracts, the verification loops that turn an AI from a parlor trick into a shipping team. The scarce skill isn't writing code anymore. It's knowing what to build, setting edges tight enough that agents can't drift, and catching the drift when they do. That's the whole job now.</div>
+            <div class="modal-reflection-title" data-i18n="modal.pc.reflTitle">What I took from it</div>
+            <div class="modal-reflection-text" data-i18n="modal.pc.reflText">Agents wrote most of these fifteen thousand lines. Not once did they tell me the Chinese relic text was wrong. That part of the job stayed mine: deciding what to build, writing the edges tightly enough to check, and then playing the pickiest player I can imagine. If I started over, the checks would come before the content.</div>
         </div>
-
     </div>
 </div>
-
 <div class="page-bottom-nav">
     <a href="/" data-i18n="nav.backAll">&larr; Back to All Work</a>
 </div>
@@ -488,154 +492,196 @@
 <script>
 const translations = {
     en: {
-        'nav.back': 'All Work',
-        'nav.backAll': '← Back to All Work',
-        'modal.pc.eyebrow': 'Card Roguelike · 2026 · Godot 4',
-        'modal.pc.subtitle': 'A dark-fantasy card roguelike set in supernatural Seoul — deck-building, relationship networks, 8 endings that actually fork.',
-        'modal.pc.metaLabel1': 'Role',
-        'modal.pc.metaValue1': 'Solo · Design + Agentic Eng',
-        'modal.pc.metaLabel2': 'Genre',
-        'modal.pc.metaValue2': 'Card Roguelike + VN',
-        'modal.pc.metaLabel3': 'Engine',
-        'modal.pc.metaValue3': 'Godot 4 + GDScript',
-        'modal.pc.metaLabel4': 'Timeline',
-        'modal.pc.metaValue4': '4 Weeks',
-        'modal.pc.tldr': 'Slay the Spire meets a supernatural K-drama. Build decks, juggle six dangerous alliances, and survive three nights of escalating contracts in neon Seoul.',
-        'modal.pc.metricLabel1': 'Cards',
-        'modal.pc.metricLabel2': 'Characters',
-        'modal.pc.metricLabel3': 'Endings',
-        'modal.pc.metricLabel4': 'Chapters',
-        'modal.pc.s1Title': 'World Setting',
-        'modal.pc.s1P1': 'After midnight, Seoul shows its second city — visible only to people drowning in invisible debt. VIP booths become altars, corporate contracts bind souls, idol deals imprison spirits. You\'re a kid dragged into supernatural debt. Survive three nights. Find out who wrote your name in the Night Board\'s ledger.',
-        'modal.pc.s1Cap1': 'Key environments: Chaebol Penthouse Banquet / Moonlit Cathedral Boardroom',
-        'modal.pc.s1Cap2': 'Nightclub ritual chamber + environment concept sheet (Mirror Backstage, Rooftop, Apartment, Cathedral)',
-        'modal.pc.s2Title': 'Cards & Combat',
-        'modal.pc.s2P1': 'Combat follows Slay the Spire: draw each turn, spend energy on attacks, blocks, skills; manage the deck through rewards and shops. Two resources drive the risk — Affection scales your power but trips jealousy across allies; Contract hands you explosive cards but drains your life.',
-        'modal.pc.s2Cap1': 'Card art — Neon Cut (attack), Red Room Feint (evasion), Exorcism Live (purification)',
-        'modal.pc.s2F1': 'Neon Blade',
-        'modal.pc.s2F1D': 'Low-cost attacks, multi-hit combos, energy refund on kill. Rush enemies down before they scale.',
-        'modal.pc.s2F2': 'Silk Guard',
-        'modal.pc.s2F2D': 'High block, counter triggers, sustained defense. Outlast them, then punish.',
-        'modal.pc.s2F3': 'Contract Burst',
-        'modal.pc.s2F3D': 'Stack contract debt for explosive damage. High ceiling, hard floor — one bad draw and you bleed out.',
-        'modal.pc.s2F4': 'Affection Engine',
-        'modal.pc.s2F4D': 'Damage scales with relationship depth. Slow start, snowball finish — if jealousy doesn\'t eat you first.',
-        'modal.pc.s2Cap2': 'More card art — Paper Talisman, Black Card, Backstage Pass, Oracle Reversal',
-        'modal.pc.s2Cap3': 'Card shop interface: buy cards, relics, and services between encounters',
-        'modal.pc.s3Title': 'Enemies & Chapters',
-        'modal.pc.s3P1': 'Three chapters, each with themed enemies, elite bosses, and corruption modifiers. The roguelike map stitches together combat nodes, character events, confession rooms, shops, contract altars, and multi-phase bosses.',
-        'modal.pc.s3Ch1': 'Ch.1 — Mirror Stage',
-        'modal.pc.s3Ch1D': 'Idol industry. Enemies copy your cards, shred your defense, stuff you with debt. Boss: Mirror Host — duplicates your last played card.',
-        'modal.pc.s3Ch2': 'Ch.2 — Chaebol Banquet',
-        'modal.pc.s3Ch2D': 'Corporate underworld. Enemies stack contract, steal rewards, shield each other. Boss: VP Han — a walking contract that shreds HP per stack.',
-        'modal.pc.s3Ch3': 'Ch.3 — Moonlit Cathedral',
-        'modal.pc.s3Ch3D': 'Supernatural judgment. Enemies counter purification, rewrite your draws, demand sacrifice. Final Boss: Chairwoman of Night — shifts form to match your highest resource.',
-        'modal.pc.s3Mod': 'Corruption Modifiers',
-        'modal.pc.s3ModD': 'Per-run affixes that bend the rules: Torn Night (lower thresholds), Expensive Desire (strong cards cost double), Mirror Tax (skip penalty), Confession Hour (purify bonus).',
-        'modal.pc.s3Cap': 'Protagonist combat sprite sheet (16 frames) / Neon Wraith — Chapter 1 elite boss',
-        'modal.pc.s4Title': 'Relationship Network',
-        'modal.pc.s4P1': 'Six characters, each tracked across seven dimensions: affection, jealousy, trust, secret progress, route stage, betrayal risk, flags. Favor one ally and the rest get jealous — push past the threshold and they confront you in combat. The party runs three slots: Main Partner, Side Partner, Support.',
-        'modal.pc.s4Cap1': 'Red Thread (relationship binding card) / Neon Rosary (hidden character unlock relic)',
-        'modal.pc.s4P2': 'The ending resolver checks eight conditions in strict priority: betrayal, harem collapse, single-route true end, contract overload, purification path, hidden character route, neutral escape, bad end. Each needs a unique state combination — no two runs end the same way.',
-        'modal.pc.s4Cap2': 'Moon Contract (seal a relationship permanently) / Covenant Reset (break all bonds, restart the path)',
-        'modal.pc.s5Title': 'Roguelike Systems',
-        'modal.pc.s5P1': 'Each run carves a unique path through combat, events, and shops. Character events, recruitment, and confrontation scenes are all data-driven — zero hardcoded content. The game ships with 31 JSON files, 31,588 lines total.',
-        'modal.pc.s5L1': '153 cards across 5 archetypes + 12 synergy cards (trigger when specific character pairs are fielded together)',
-        'modal.pc.s5L2': 'Roguelike map: combat, elite, event, confession, shop, altar, boss nodes per chapter',
-        'modal.pc.s5L3': '13,310 lines of branching VN dialogue (Chinese + English)',
-        'modal.pc.s5L4': 'Per-run corruption affixes bend the rules every playthrough',
-        'modal.pc.s5L5': 'Dual-currency tension: Affection (power) vs Contract (risk) — every card pick is a trade-off',
-        'modal.pc.s5Cap': 'Relics & late-game cards: Red Lacquer Case, Velvet Finale, Final Invitation',
-        'modal.pc.s6Title': 'Shipped via Agentic Engineering',
-        'modal.pc.s6P1': 'I didn\'t hand-write the 10,551 lines of GDScript. I designed the system that did. Eight design docs nailed down the boundaries first — world rules, card math, relationship logic, the roguelike economy — and an agentic pipeline I orchestrated filled them in: modules, balance passes, cross-file QA. My job was setting the edges, then catching every place the agents drifted.',
-        'modal.pc.proc1': 'Design Docs',
-        'modal.pc.proc2': 'Architecture',
-        'modal.pc.proc3': 'Modules',
-        'modal.pc.proc4': 'Integration',
-        'modal.pc.proc5': 'QA Audit',
-        'modal.pc.s6F1': 'Safe Refactor',
-        'modal.pc.s6F1D': 'An 8,957-line monolith, split into 12 modules via const-delegation. 88 constant references migrated, zero breakage — the boundary held.',
-        'modal.pc.s6F2': 'Cross-File Bug Catch',
-        'modal.pc.s6F2D': 'My verification loop auto-caught four bugs: nested effects getting ignored, an infinite confrontation loop, missing card IDs, a locked character still selectable.',
-        'modal.pc.s6ModCap': 'Cyan = relationship modules the pipeline generated inside the boundaries I set.',
-        'modal.pc.reflTitle': 'Reflection',
-        'modal.pc.reflText': 'What this proves isn\'t \'AI can make a game\' — anyone can hit enter on a prompt. The real lever is agentic engineering: the boundaries, the module contracts, the verification loops that turn an AI from a parlor trick into a shipping team. The scarce skill isn\'t writing code anymore. It\'s knowing what to build, setting edges tight enough that agents can\'t drift, and catching the drift when they do. That\'s the whole job now.',
-
+        "nav.back": "All Work",
+        "nav.backAll": "← Back to All Work",
+        "modal.pc.eyebrow": "Narrative Card Roguelike · 2026 · Godot 4",
+        "modal.pc.title": "Survive Three Nights",
+        "modal.pc.subtitle": "A card roguelike set in midnight Seoul. I designed it alone and built it with a crew of AI agents: three chapters, six characters and eight endings in four weeks.",
+        "modal.pc.metaLabel1": "Role",
+        "modal.pc.metaValue1": "Solo · Design + Agentic Engineering",
+        "modal.pc.metaLabel2": "Genre",
+        "modal.pc.metaValue2": "Card Roguelike + Visual Novel",
+        "modal.pc.metaLabel3": "Engine",
+        "modal.pc.metaValue3": "Godot 4 + GDScript",
+        "modal.pc.metaLabel4": "Timeline",
+        "modal.pc.metaValue4": "4 Weeks",
+        "modal.pc.tldrLabel": "In one breath",
+        "modal.pc.tldr": "Slay the Spire-style card combat, plus a web of relationships that bites back. Every time you get stronger, you pay with trust or with health. The part I most want to tell is near the end: the build that looked finished, and how I proved it wasn’t.",
+        "modal.pc.metricLabel1": "Cards",
+        "modal.pc.metricLabel2": "Characters",
+        "modal.pc.metricLabel3": "Endings",
+        "modal.pc.metricLabel4": "Lines of GDScript",
+        "modal.pc.s1Title": "The question I wanted to answer",
+        "modal.pc.s1P1": "By 2026, getting AI to write some code was nothing special. I wanted to try something harder. Could one designer, working with AI agents, take a whole game to the point where it plays, gets tested and is ready to hand over? A card roguelike is a strict exam. It is full of rules, numbers and content, and when any of them is wrong, players feel it in the first fight.",
+        "modal.pc.s1P2": "The story is set in Seoul after midnight, when a second city appears to people carrying invisible debts. VIP booths turn into altars, corporate contracts bind souls, and idol agency deals trap spirits. You play a young man pulled into one of those debts. Survive three nights, and find out who wrote your name in the Night Board’s ledger.",
+        "modal.pc.s1Cap1": "Key locations · the chaebol penthouse banquet / the moonlit cathedral boardroom",
+        "modal.pc.s1Cap2": "Nightclub ritual room and environment sheet · mirror backstage, rooftop, apartment, cathedral",
+        "modal.pc.s2Title": "Every card should make you hesitate",
+        "modal.pc.s2P1": "Combat follows the Slay the Spire rhythm players already know: draw, spend energy, attack, block, pick a reward. I kept that part familiar on purpose, so all the tension could come from two resources I added. Affection makes your cards hit harder, but every ally you favor makes the others jealous. Contract hands you the strongest cards in the game and drains your health every turn you carry it. Power always arrives with a bill.",
+        "modal.pc.s2Cap1": "Card art · Neon Cut (attack), Red Room Feint (evasion), Exorcism Live (purification)",
+        "modal.pc.s2F1": "Neon Blade",
+        "modal.pc.s2F1D": "Cheap attacks, multi-hit combos, energy back on a kill. Win before the enemy scales.",
+        "modal.pc.s2F2": "Silk Guard",
+        "modal.pc.s2F2D": "Heavy block, counter triggers, steady defense. Outlast them, then punish.",
+        "modal.pc.s2F3": "Contract Burst",
+        "modal.pc.s2F3D": "Stack contract debt for explosive damage. Huge ceiling, brutal floor. One bad draw and you bleed out.",
+        "modal.pc.s2F4": "Affection Engine",
+        "modal.pc.s2F4D": "Damage grows with how close your allies are. Slow start, big finish, if jealousy doesn’t get you first.",
+        "modal.pc.s2Cap2": "More card art · Paper Talisman, Black Card, Backstage Pass, Oracle Reversal",
+        "modal.pc.s2Cap3": "The shop between fights · cards, relics and services",
+        "modal.pc.s3Title": "Let the enemies tell the story",
+        "modal.pc.s3P1": "Each chapter has its own enemies, elite fights and corruption modifiers that bend the rules. I wanted every boss to tell the story through its mechanics, so players feel the theme in their hands before they read it in dialogue.",
+        "modal.pc.s3Ch1": "Chapter 1 · Mirror Backstage",
+        "modal.pc.s3Ch1D": "The idol industry, where people are packaged and priced. The boss, Mirror Host, copies the last card you played. The harder you fight the system, the faster it learns you.",
+        "modal.pc.s3Ch2": "Chapter 2 · Chaebol Banquet",
+        "modal.pc.s3Ch2D": "Money and debt, where people become collateral. VP Han is a contract that walks. He turns your high affection into new contract and forces a choice: keep borrowing your allies’ power, or give up strength now to protect them.",
+        "modal.pc.s3Ch3": "Chapter 3 · Moonlit Boardroom",
+        "modal.pc.s3Ch3D": "The final judgment. The Chairwoman of Night attacks whatever you leaned on most: your allies if affection is high, you if contract is high, your hand if your deck got greedy.",
+        "modal.pc.s3Mod": "Corruption modifiers",
+        "modal.pc.s3ModD": "Random rules for each run. Torn Night lowers thresholds, Expensive Desire doubles the cost of strong cards, Mirror Tax punishes skipping, Confession Hour rewards purifying.",
+        "modal.pc.s3Cap": "Protagonist combat sprite sheet (16 frames) / Neon Wraith, Chapter 1 elite",
+        "modal.pc.s4Title": "A relationship web that bites back",
+        "modal.pc.s4P1": "Six characters, each tracked across seven values: affection, jealousy, trust, secret progress, route stage, betrayal risk and story flags. Lean on one ally for too long and the others notice. Push jealousy past its threshold and they confront you, in combat. Your party has three slots, a main partner, a side partner and support, so every lineup is also a statement about who you trust.",
+        "modal.pc.s4Cap1": "Red Thread (binds a relationship) / Neon Rosary (unlocks the hidden character)",
+        "modal.pc.s4P2": "The ending resolver checks eight endings in a fixed order of priority: Betrayal, Beautiful Collateral, Solo Devotion, Dual Flame, Miriam’s Judgment, A New Board, Debt Cleared and the true ending, Contract’s End. Each one needs its own combination of state, so the ending a player sees is the final tally of how that run was played.",
+        "modal.pc.s4Cap2": "Moon Contract (seals a bond for good) / Covenant Reset (breaks every bond and starts over)",
+        "modal.pc.s5Title": "Content lives in data",
+        "modal.pc.s5P1": "None of the story is hard-coded. Cards, relics, enemies, character events, recruitment scenes and confrontations all live in JSON. I could change a number or rewrite a scene without touching logic, and agents had clear slots to fill when they added content.",
+        "modal.pc.s5L1": "144 cards, plus 12 synergy cards that trigger when specific pairs of characters fight together",
+        "modal.pc.s5L2": "One map per chapter, with fights, elites, events, confession rooms, shops, contract altars and a boss",
+        "modal.pc.s5L3": "22 relics, 19 enemies, and branching visual-novel scenes in English and Chinese",
+        "modal.pc.s5L4": "Corruption modifiers change the rules on every run",
+        "modal.pc.s5L5": "Affection buys power and Contract buys risk, so every card pick is a trade",
+        "modal.pc.s5Cap": "Relics and late-game cards · Red Lacquer Case, Velvet Finale, Final Invitation",
+        "modal.pc.s6Title": "It looked finished",
+        "modal.pc.s6P1": "Late in the project the game ran. Cards, enemies and story were all in place, in two languages. Before preparing a Steam release I gave it one full check-up, and found several places where “looks finished” and “is finished” had quietly drifted apart.",
+        "modal.pc.s6Pull": "19 of 22 relics told Chinese players something different from what the code actually did.",
+        "modal.pc.s6P2": "Silver Room Key is a good example. In English and in code, it gives every block card +1 block. The Chinese text promised 2 armor at the start of each turn. Each file looked fine on its own; the error only showed when you put them side by side. Agents had written them in separate passes, and nothing was checking whether they described the same thing.",
+        "modal.pc.s6L1": "The story file was missing its opening brace. Worse, the data loader never complained about broken files. It logged a warning, returned an empty list and let the game boot, so bad data looked like a design bug.",
+        "modal.pc.s6L2": "Some interface text used the Chinese sentence itself as its lookup key. Edit one character of copy and the lookup would silently break.",
+        "modal.pc.s6L3": "The refactor plan said Main.gd would end up under 500 lines. It is still over 12,000. Agents are very good at adding code and almost never take it out on their own.",
+        "modal.pc.s7Title": "The checks I added",
+        "modal.pc.s7P1": "Asking agents to “be more careful” doesn’t scale. So I made mistakes loud instead.",
+        "modal.pc.proc1": "Write the edges",
+        "modal.pc.proc2": "Agents build",
+        "modal.pc.proc3": "Pin with tests",
+        "modal.pc.proc4": "Cross-check",
+        "modal.pc.proc5": "Human review",
+        "modal.pc.s7F1": "Pin the numbers first",
+        "modal.pc.s7F1D": "Before moving any combat math, I wrote 11 golden-sample checks covering attacks, block, armor, vulnerable and frail, poison and bleed ticks, and contract pressure. Only then did the pure math move into CombatSystem. If a number changes, a test fails.",
+        "modal.pc.s7F2": "Fail loudly",
+        "modal.pc.s7F2D": "Loaders now stop with the exact file and reason instead of returning an empty list. I broke a data file on purpose to make sure it really does.",
+        "modal.pc.s7F3": "Reconcile the languages",
+        "modal.pc.s7F3D": "Every relic description was rewritten with the code as the source of truth. A script then checked that each Chinese description names the stats the relic really carries. Zero mismatches across all 22.",
+        "modal.pc.s7F4": "Stable keys, safe saves",
+        "modal.pc.s7F4D": "Interface text moved to stable English keys. Save files are versioned and written atomically, so a crash can’t leave half a save behind.",
+        "modal.pc.modCap": "Main.gd is still by far the biggest piece. Cyan marks systems already split out of it, starting with the ones that most needed tests.",
+        "modal.pc.reflTitle": "What I took from it",
+        "modal.pc.reflText": "Agents wrote most of these fifteen thousand lines. Not once did they tell me the Chinese relic text was wrong. That part of the job stayed mine: deciding what to build, writing the edges tightly enough to check, and then playing the pickiest player I can imagine. If I started over, the checks would come before the content.",
+        "modal.pc.heroCap": "In-game capture · Chapter 3 final boss, the Chairwoman of Night",
+        "modal.pc.shotCombat": "In-game capture · a Chapter 1 fight. Hand, energy, both resources and the whole route sit on one screen.",
+        "modal.pc.shotReward": "In-game capture · after a win you pick one of several cards, and every pick reshapes the deck",
+        "modal.pc.shotBoss2": "In-game capture · Chapter 2 boss, VP Han, under the moon above Gangnam",
+        "modal.pc.shotPartners": "In-game capture · choosing a partner. Each of the six brings her own cards, passive and story route.",
+        "modal.pc.shotEvent": "In-game capture · a character event. Each choice spells out what it does to affection, contract and trust.",
+        "modal.pc.shotRoute": "In-game capture · choosing the next path. Each route warns what kind of fight or detour waits ahead.",
+        "modal.pc.shotShop": "In-game capture · the nightclub shop between fights, with cards, relics and services",
     },
     zh: {
-        'nav.back': '所有作品',
-        'nav.backAll': '← 返回所有作品',
-        'modal.pc.eyebrow': '卡牌 Roguelike · 2026 · Godot 4',
-        'modal.pc.subtitle': '超自然首尔背景的暗黑奇幻卡牌肉鸽——构筑牌组、经营关系网、8 条会真分岔的结局。',
-        'modal.pc.metaLabel1': '角色',
-        'modal.pc.metaValue1': '独立开发 · 设计 + Agentic 工程',
-        'modal.pc.metaLabel2': '类型',
-        'modal.pc.metaValue2': '卡牌 Roguelike + VN',
-        'modal.pc.metaLabel3': '引擎',
-        'modal.pc.metaValue3': 'Godot 4 + GDScript',
-        'modal.pc.metaLabel4': '周期',
-        'modal.pc.metaValue4': '4 周',
-        'modal.pc.tldr': '杀戮尖塔 × 超自然韩剧。构筑卡组、在六个危险角色之间走钢丝、在霜虹首尔的三夜升级契约里活下去。',
-        'modal.pc.metricLabel1': '张卡牌',
-        'modal.pc.metricLabel2': '个角色',
-        'modal.pc.metricLabel3': '种结局',
-        'modal.pc.metricLabel4': '个章节',
-        'modal.pc.s1Title': '世界观',
-        'modal.pc.s1P1': '午夜过后，首尔会显出第二座城——只有背着「看不见的债」的人才看得见。VIP 包厢是祭坛，企业合同缚着灵魂，偶像合约关着精气神。你是个被卷进灵异债务的年轻人。活过三个夜晚，查出是谁把你的名字，写进了「夜之董事会」的账本。',
-        'modal.pc.s1Cap1': '核心场景：财阀顶层夜宴 / 月下教堂董事会',
-        'modal.pc.s1Cap2': '夜店仪式厅 + 环境概念图（镜中后台、天台、公寓、教堂）',
-        'modal.pc.s2Title': '卡牌与战斗',
-        'modal.pc.s2P1': '战斗学的杀戮尖塔：每回合抽牌、花能量打攻击/格挡/技能、靠奖励和商店管牌组。两个资源在背后捅刀——好感越高力量越强，但会招盟友吃醋；契约给你爆发牌，代价是啃你的命。',
-        'modal.pc.s2Cap1': '卡牌插画——霸虹斩（攻击）、红房闪避（闪避）、驱魔直播（净化）',
-        'modal.pc.s2F1': '霸虹刀锋',
-        'modal.pc.s2F1D': '低费攻击、多段连击、击杀返能量。在敌人滚起来之前，先把他按死。',
-        'modal.pc.s2F2': '丝绒防线',
-        'modal.pc.s2F2D': '高格挡、反击触发、站得住的防御。先把敌人耗干，再回头收拾。',
-        'modal.pc.s2F3': '契约爆发',
-        'modal.pc.s2F3D': '叠契约债换爆发伤害。上限拉满、下限也狠——一张烂抽就能让你失血而亡。',
-        'modal.pc.s2F4': '好感引擎',
-        'modal.pc.s2F4D': '伤害跟着关系深度往上顶。慢热开局、滚雪球收尾——前提是嫉妒没先把你了结。',
-        'modal.pc.s2Cap2': '更多卡牌插画——纸符咒、黑卡、后台通行证、神谕逆转',
-        'modal.pc.s2Cap3': '卡牌商店界面：战斗间歇买卡牌、遗物、服务',
-        'modal.pc.s3Title': '敌人与章节',
-        'modal.pc.s3P1': '三个章节，各有主题敌人、精英 Boss 和腐化词缀。肉鸽地图把战斗节点、角色事件、告解室、商店、契约祭坛和多阶段 Boss 串成一张图。',
-        'modal.pc.s3Ch1': '第一章——镜中后台',
-        'modal.pc.s3Ch1D': '偶像产业。敌人顺你的牌、撕你的防、往你身上塞债。Boss：镜中主持——复制你上一张打出的牌。',
-        'modal.pc.s3Ch2': '第二章——财阀夜宴',
-        'modal.pc.s3Ch2D': '企业暗面。敌人叠契约、偷奖励、互相套盾。Boss：副总裁韩——一份会走路的合同，每层契约都撕你血量。',
-        'modal.pc.s3Ch3': '第三章——月下教堂',
-        'modal.pc.s3Ch3D': '超自然审判。敌人反净化、改写你的抽牌、逼你献祭。最终 Boss：夜之董事长——按你最高的资源切换形态。',
-        'modal.pc.s3Mod': '腐化词缀',
-        'modal.pc.s3ModD': '每局随机词缀改规则：撕裂之夜（降阈值）、昂贵欲望（强牌代价翻倍）、镜之税（跳过有罚）、告解时刻（净化加成）。',
-        'modal.pc.s3Cap': '男主战斗动画表（16 帧）/ 霸虹幽灵——第一章精英 Boss',
-        'modal.pc.s4Title': '关系网络',
-        'modal.pc.s4P1': '6 个角色，每人盯 7 个维度：好感、嫉妒、信任、秘密进度、路线阶段、背叛风险、标记。你偏心一个，其他人就吃醋——过了阈值，他们会在战斗里直接找你对峙。队伍三个槽：主搭档、副搭档、支援。',
-        'modal.pc.s4Cap1': '红线（关系绑定牌）/ 霸虹念珠（隐藏角色解锁遗物）',
-        'modal.pc.s4P2': '结局解析器按死优先级查 8 个条件：背叛、后宫崩盘、单线真结局、契约过载、净化路线、隐藏角色线、中立脱身、坏结局。每个都得是独一无二的状态组合——没有两次通关收尾一样。',
-        'modal.pc.s4Cap2': '月契约（永久封死一段关系）/ 契约重置（断开所有纽带，重开路线）',
-        'modal.pc.s5Title': 'Roguelike 系统',
-        'modal.pc.s5P1': '每局都铺一条独属你的路——战斗、事件、商店。角色事件、招募、对峙场景全走数据驱动，一行硬编码都没有。游戏自带 31 个 JSON 文件，合计 31,588 行。',
-        'modal.pc.s5L1': '153 张牌，5 个流派 + 12 张协同牌（指定角色组合同时在场才触发）',
-        'modal.pc.s5L2': '肉鸽地图：每章含战斗、精英、事件、告解、商店、祭坛、Boss 节点',
-        'modal.pc.s5L3': '13,310 行分支视觉小说对白（中英双语）',
-        'modal.pc.s5L4': '每局随机腐化词缀，把规则揉成新的样子',
-        'modal.pc.s5L5': '双货币张力：好感（力量）vs 契约（风险）——每一次选牌都是一次下注',
-        'modal.pc.s5Cap': '遗物与后期牌：红漆匣、天鹅绒终曲、最终邀请',
-        'modal.pc.s6Title': '一个人，怎么把它做出来的',
-        'modal.pc.s6P1': '10,551 行 GDScript，我没一行一行敲。我设计的是那套能把它跑出来的系统。先手写 8 份设计文档，把边界钉死——世界规则、卡牌数值、关系逻辑、肉鸽经济——再由我编排的 agentic 流水线往里填：模块、数值平衡、跨文件 QA。我干的活是立边界，然后逐处揪 agent 跑偏的地方。',
-        'modal.pc.proc1': '设计文档',
-        'modal.pc.proc2': '架构规划',
-        'modal.pc.proc3': '模块实现',
-        'modal.pc.proc4': '集成联调',
-        'modal.pc.proc5': 'QA 审计',
-        'modal.pc.s6F1': '安全重构',
-        'modal.pc.s6F1D': '8,957 行的单体文件，靠 const 委托拆成 12 个模块。88 个常量引用迁移，零破坏——边界立住了。',
-        'modal.pc.s6F2': '跨文件 Bug 拦截',
-        'modal.pc.s6F2D': '我设的验证闭环自动拦下 4 个 bug：嵌套效果被吞、对峙死循环、卡牌 ID 缺失、锁住的角色还能被选中。',
-        'modal.pc.s6ModCap': '青色 = 流水线在我划定的边界内、产出的关系网络模块。',
-        'modal.pc.reflTitle': '复盘',
-        'modal.pc.reflText': '这单真正证明的，不是「AI 能做游戏」——谁都当得了甲方，按一下回车的事。真正的杠杆是 agentic 工程：那些架构边界、模块契约、验证闭环，把 AI 从一个会接话的玩具，变成一支能交付的队伍。值钱的早不是会写代码了。是知道要做什么、把边界立得让 agent 跑不偏、跑偏了兜得住。这活儿现在就这些。',
-
+        "nav.back": "所有作品",
+        "nav.backAll": "← 返回所有作品",
+        "modal.pc.eyebrow": "叙事卡牌肉鸽 · 2026 · Godot 4",
+        "modal.pc.title": "活过三个夜晚",
+        "modal.pc.subtitle": "一款发生在首尔午夜的卡牌肉鸽。我一个人做设计，带着一组 AI 智能体写代码，四周做出三章、六个角色和八种结局。",
+        "modal.pc.metaLabel1": "角色",
+        "modal.pc.metaValue1": "独立开发 · 设计 + 智能体工程",
+        "modal.pc.metaLabel2": "类型",
+        "modal.pc.metaValue2": "卡牌肉鸽 + 视觉小说",
+        "modal.pc.metaLabel3": "引擎",
+        "modal.pc.metaValue3": "Godot 4 + GDScript",
+        "modal.pc.metaLabel4": "周期",
+        "modal.pc.metaValue4": "4 周",
+        "modal.pc.tldrLabel": "一句话版本",
+        "modal.pc.tldr": "杀戮尖塔式的出牌，加上一张会反咬你的关系网。每一次变强，都要拿信任或者血量去换。这个案例里我最想讲的在后半段，一个“看起来已经做完”的版本，以及我怎样证明它还没做完。",
+        "modal.pc.metricLabel1": "张卡牌",
+        "modal.pc.metricLabel2": "个角色",
+        "modal.pc.metricLabel3": "种结局",
+        "modal.pc.metricLabel4": "行 GDScript",
+        "modal.pc.s1Title": "我想回答的一个问题",
+        "modal.pc.s1P1": "到了 2026 年，让 AI 写几段代码已经不稀奇。我想试一件更难的事，一个设计师带着 AI 智能体，能不能把一整款游戏做到能玩、能测、能交出去。卡牌肉鸽是一道很严的考题，规则多，数值多，内容多，哪一处错了，玩家第一场战斗就能感觉到。",
+        "modal.pc.s1P2": "故事放在首尔的午夜。过了十二点，背着“看不见的债”的人会看见第二座城，VIP 包厢变成祭坛，企业合同缚住灵魂，偶像经纪合约关着魂魄。玩家扮演一个被卷进灵异债务的年轻人，要活过三个夜晚，查出是谁把他的名字写进了“夜之董事会”的账本。",
+        "modal.pc.s1Cap1": "核心场景 · 财阀顶层夜宴 / 月下教堂董事会",
+        "modal.pc.s1Cap2": "夜店仪式厅与场景概念图 · 镜中后台、天台、公寓、教堂",
+        "modal.pc.s2Title": "每张牌都该让人犹豫",
+        "modal.pc.s2P1": "战斗沿用了杀戮尖塔那套玩家早就熟悉的节奏，抽牌，花能量，攻击，格挡，选奖励。这部分我故意不动，好让所有的张力都来自我加的两个资源。好感让你的牌打得更狠，可你偏向哪个同伴，其他人就会吃醋。契约给你全游戏最强的牌，代价是背着它的每一回合都在扣血。力量来的时候，账单总是一起到。",
+        "modal.pc.s2Cap1": "卡面 · 霓虹斩（攻击）、红房闪避（闪避）、驱魔直播（净化）",
+        "modal.pc.s2F1": "霓虹刀锋",
+        "modal.pc.s2F1D": "低费攻击，多段连击，击杀返还能量。赶在敌人滚起来之前结束战斗。",
+        "modal.pc.s2F2": "丝绒防线",
+        "modal.pc.s2F2D": "高格挡，反击触发，守得住。先把对手耗干，再回头收拾。",
+        "modal.pc.s2F3": "契约爆发",
+        "modal.pc.s2F3D": "主动叠契约换爆发伤害。上限很高，下限也狠，一手烂牌就可能失血而亡。",
+        "modal.pc.s2F4": "好感引擎",
+        "modal.pc.s2F4D": "伤害跟着关系深度往上涨。开局慢，后程猛，前提是嫉妒没先把你拖垮。",
+        "modal.pc.s2Cap2": "更多卡面 · 纸符咒、黑卡、后台通行证、神谕逆转",
+        "modal.pc.s2Cap3": "战斗之间的商店 · 卡牌、遗物与服务",
+        "modal.pc.s3Title": "让敌人替故事说话",
+        "modal.pc.s3P1": "三章各有自己的敌人、精英战和改写规则的腐化词缀。我希望每个 Boss 都用机制把故事讲一遍，让玩家先在手上感觉到主题，再在对白里读到它。",
+        "modal.pc.s3Ch1": "第一章 · 镜中后台",
+        "modal.pc.s3Ch1D": "偶像产业，人被包装，被定价。Boss 镜中主持会复制你上一张打出的牌。你越用力反抗，系统学你学得越快。",
+        "modal.pc.s3Ch2": "第二章 · 财阀夜宴",
+        "modal.pc.s3Ch2D": "资本与债务，人成了抵押品。韩副总是一份会走路的合同，他会把你的高好感变成新的契约，逼你做选择，继续借同伴的力量，还是牺牲眼前的战力去护住关系。",
+        "modal.pc.s3Ch3": "第三章 · 月下董事会",
+        "modal.pc.s3Ch3D": "最后的审判。夜之女会长专打你最依赖的东西。好感高，她打你的同伴；契约高，她打你本人；牌组太贪，她直接封牌。",
+        "modal.pc.s3Mod": "腐化词缀",
+        "modal.pc.s3ModD": "每局随机抽到的规则改写。撕裂之夜降低阈值，昂贵欲望让强力牌费用翻倍，镜子税惩罚跳过，告解时刻奖励净化。",
+        "modal.pc.s3Cap": "主角战斗序列帧（16 帧）/ 霓虹怨灵，第一章精英",
+        "modal.pc.s4Title": "会反咬的关系网",
+        "modal.pc.s4P1": "六个角色，每人身上记着七个数，好感、嫉妒、信任、秘密进度、路线阶段、背叛风险和剧情标记。你总靠着一个人，其他人会看在眼里，嫉妒过了线，她们会在战斗里当面找你算账。队伍只有三个位置，主搭档、副搭档和支援，所以每一次编队，也是在表态你信谁。",
+        "modal.pc.s4Cap1": "红线（绑定关系）/ 霓虹念珠（解锁隐藏角色）",
+        "modal.pc.s4P2": "结局判定按固定优先级检查八种结局，背叛、美丽的抵押品、唯一之约、双生之焰、Miriam 的审判、新的董事会、债务清算，以及真结局契约终结。每一种都要一组特定的状态组合，玩家最后看到的结局，就是这一局怎么打的总账。",
+        "modal.pc.s4Cap2": "月之契约（永久缔结一段关系）/ 盟约重置（斩断所有羁绊，重走一遍）",
+        "modal.pc.s5Title": "把内容做成数据",
+        "modal.pc.s5P1": "剧情一行都没写死在代码里。卡牌、遗物、敌人、角色事件、招募和对峙场景都放进 JSON，我改一个数值、重写一场戏，都不用碰逻辑，智能体加内容时也有清楚的格子可以填。",
+        "modal.pc.s5L1": "144 张卡牌，另有 12 张羁绊牌，特定两位角色同场时触发",
+        "modal.pc.s5L2": "每章一张地图，有战斗、精英、事件、告解室、商店、契约祭坛和 Boss 节点",
+        "modal.pc.s5L3": "22 件遗物，19 种敌人，中英双语的分支视觉小说剧情",
+        "modal.pc.s5L4": "腐化词缀让每一局的规则都不一样",
+        "modal.pc.s5L5": "好感换力量，契约换风险，每选一张牌都是一笔交易",
+        "modal.pc.s5Cap": "遗物与后期卡牌 · 红漆匣、丝绒终幕、最后的邀请函",
+        "modal.pc.s6Title": "它看起来已经做完了",
+        "modal.pc.s6P1": "到了后期，游戏能跑，卡牌、敌人、剧情一样不少，中英双语也齐了。准备上架 Steam 之前，我给它做了一次全面体检，结果翻出好几处“看起来做完了”和“真的做完了”悄悄分开的地方。",
+        "modal.pc.s6Pull": "22 件遗物里，有 19 件的中文说明，和代码里真正发生的效果对不上。",
+        "modal.pc.s6P2": "拿银色房间钥匙来说，英文和代码里，它让所有格挡牌多 1 点格挡。中文说明写的却是每回合开始获得 2 点护甲。单看每个文件都没毛病，放到一起才露馅。它们是智能体分几轮写出来的，中间没有任何东西负责检查它们说的是不是同一件事。",
+        "modal.pc.s6L1": "剧情文件开头少了一个大括号。更要命的是数据加载器，遇到读不出的文件只记一条警告，返回空列表，游戏照常启动。数据坏了，看上去却像设计出了问题。",
+        "modal.pc.s6L2": "一部分界面文字直接拿中文句子当查找键，文案改一个字，查找就会悄悄失效。",
+        "modal.pc.s6L3": "重构计划里写着，Main.gd 最后要压到 500 行以内。它现在还有一万两千多行。智能体很会往里加东西，几乎不会主动往外拆。",
+        "modal.pc.s7Title": "我补上的几道关卡",
+        "modal.pc.s7P1": "让智能体“更小心一点”没法规模化。我换了个办法，让错误自己大声叫出来。",
+        "modal.pc.proc1": "写清边界",
+        "modal.pc.proc2": "智能体开工",
+        "modal.pc.proc3": "测试钉住",
+        "modal.pc.proc4": "交叉对账",
+        "modal.pc.proc5": "人工复核",
+        "modal.pc.s7F1": "先钉住数字",
+        "modal.pc.s7F1D": "动战斗算式之前，我先写了 11 项黄金样例，攻击、格挡、护甲、易伤与虚弱、中毒和流血结算、契约压力，数值全部钉住，然后才把纯算式搬进 CombatSystem。哪个数一变，测试马上报错。",
+        "modal.pc.s7F2": "坏了就停",
+        "modal.pc.s7F2D": "数据加载器读坏文件时，直接停下，报出是哪个文件、为什么，不再悄悄返回空列表。我还故意弄坏一个数据文件，确认它真的会喊。",
+        "modal.pc.s7F3": "两种语言对账",
+        "modal.pc.s7F3D": "22 件遗物的说明全部以代码为准重写，再用脚本逐条对账，确认每条中文说明提到的属性，就是遗物真正带的属性。22 件，零差异。",
+        "modal.pc.s7F4": "稳的键，稳的存档",
+        "modal.pc.s7F4D": "界面文字换成稳定的英文键名。存档加上版本号，写入改成原子操作，程序中途崩溃也不会留下写了一半的存档。",
+        "modal.pc.modCap": "Main.gd 依然是最大的一块。青色是已经拆出去的系统，先拆的是最需要测试保护的那几块。",
+        "modal.pc.reflTitle": "做完这一款，我记住的事",
+        "modal.pc.reflText": "这一万五千行，大部分是智能体写的。可它们一次也没告诉过我，中文遗物说明写错了。留在我手里的活，是决定做什么，把边界写到能检查的程度，然后去当那个最挑剔的玩家。要是重来一遍，我会先写检查，再让它们填内容。",
+        "modal.pc.heroCap": "实机截图 · 第三章最终 Boss，夜之女会长",
+        "modal.pc.shotCombat": "实机截图 · 第一章的一场战斗。手牌、能量、两种资源和整条路线进度都在一屏里。",
+        "modal.pc.shotReward": "实机截图 · 打赢之后从几张牌里挑一张，每一次挑选都在改写牌组",
+        "modal.pc.shotBoss2": "实机截图 · 第二章 Boss 韩副总，江南夜色里的一场决战",
+        "modal.pc.shotPartners": "实机截图 · 选择搭档。六个角色各带自己的卡牌、被动和剧情路线。",
+        "modal.pc.shotEvent": "实机截图 · 角色事件。每个选项都写明会怎样改动好感、契约和信任。",
+        "modal.pc.shotRoute": "实机截图 · 选择下一段路线。每条路都提前说明前面是什么样的战斗或岔路。",
+        "modal.pc.shotShop": "实机截图 · 战斗之间的夜店商店，卡牌、遗物和服务",
     }
 };
 
@@ -643,6 +689,8 @@ let currentLang = localStorage.getItem('lang') || (navigator.language.startsWith
 
 function applyTranslations(lang) {
     currentLang = lang;
+    document.querySelectorAll('[data-src-zh]').forEach(img => { const next = lang === 'zh' ? img.dataset.srcZh : img.dataset.srcEn; if (img.getAttribute('src') !== next) img.setAttribute('src', next); });
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
     localStorage.setItem('lang', lang);
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
