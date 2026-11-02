@@ -65,7 +65,7 @@ $$('.zoom').forEach(button => button.addEventListener('click', () => {
 $$('[data-play]').forEach(button => button.addEventListener('click', () => {
   const dialog = $('.video-dialog');
   const video = $('video', dialog);
-  if (!video.getAttribute('src')) video.src = '/assets/missionget/media/demo.mp4';
+  if (!video.getAttribute('src')) video.src = '/assets/missionget/media/demo-sdr.mp4';
   showDialog(dialog);
   video.play().catch(() => {});
 }));
