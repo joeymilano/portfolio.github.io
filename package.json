@@ -2,7 +2,8 @@
   "scripts": {
     "validate:writing": "node scripts/validate-writing.mjs",
     "validate:seo": "node scripts/validate-seo.mjs",
-    "seo:indexnow": "node scripts/submit-indexnow.mjs"
+    "seo:indexnow": "node scripts/submit-indexnow.mjs",
+    "test:missionget": "node --test scripts/missionget-journey.test.mjs"
   },
   "dependencies": {
     "puppeteer": "^24.40.0"

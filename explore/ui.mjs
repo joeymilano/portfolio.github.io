@@ -3,7 +3,7 @@ import {initAmbient} from './ambient.mjs?v=20260929-sound1';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260928-turntable1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
-import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261028-case-stories';
+import {copy,projects,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261102-missionget';
 import {photography} from './photography.mjs?v=20260928-wall12';
 import {DISCOVERIES,readDiscoveries,saveDiscovery,localNote,saveLocalNote} from './discoveries.mjs?v=20260929-p2';
 const dialog=document.querySelector('#content-panel'),content=document.querySelector('#panel-content'),status=document.querySelector('#scene-status');
@@ -16,7 +16,7 @@ const emit=(name,detail)=>window.dispatchEvent(new CustomEvent(name,{detail}));
 function emitFrame(){if(!dialog.open)return emit('studio:frame',null);const {left,right}=dialog.getBoundingClientRect();emit('studio:frame',{left,right})}
 window.addEventListener('resize',()=>{if(dialog.open)emitFrame()});
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n};
-function link(text,href,cls='panel-link'){if(href==='/finfold'&&language==='en')href='/en/finfold';const a=el('a',text,cls);a.href=href;if(href.startsWith('https:')){a.target='_blank';a.rel='noopener noreferrer'}return a}
+function link(text,href,cls='panel-link'){if(['/finfold','/missionget-glasses'].includes(href)&&language==='en')href='/en'+href;const a=el('a',text,cls);a.href=href;if(href.startsWith('https:')){a.target='_blank';a.rel='noopener noreferrer'}return a}
 function image(src,alt,cls='cover'){if(src==='/assets/finfold/images/agent-en-dark.webp'&&language==='zh'){src='/assets/finfold/images/landing-zh-dark.webp';alt='Finfold 官网首页 · 品牌与增长工作流'}const img=el('img',null,cls);img.src=src;img.alt=alt;img.loading='lazy';return img}
 function disposeMedia(){content.querySelectorAll('iframe').forEach(frame=>frame.remove())}
 function player(type,id){disposeMedia();const box=content.querySelector('#media-player');box.replaceChildren();const frame=el('iframe');frame.title=type==='video'?'CALL ME YAO music video':'NetEase Cloud Music player';frame.allow='fullscreen; encrypted-media';frame.referrerPolicy='strict-origin-when-cross-origin';if(type==='video'){frame.src='https://www.youtube-nocookie.com/embed/FXCQGqpYmto';frame.className='video-player';frame.allowFullscreen=true}else{frame.src=`https://music.163.com/outchain/player?type=2&id=${id}&auto=0&height=66`;frame.height='100'}box.append(frame,el('p',t(type==='video'?'video':'player'),'media-status'));}

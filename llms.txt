@@ -30,6 +30,9 @@ Joey Zhao (赵越) is based in Shanghai. For AI agent UX, read the Finfold case 
 
 ## Selected work
 
+- MissionGet AI glasses office assistant, wearable interaction and cross-device prototype integration: https://joeyzhao.cc/en/missionget-glasses
+- MissionGet AI 眼镜办公助手中文案例: https://joeyzhao.cc/missionget-glasses
+
 - Finfold, AI Content-Growth Workspace: https://joeyzhao.cc/finfold
 - Signals Notebook, enterprise lineage visualization: https://joeyzhao.cc/signals
 - CollovGPT, AI interior design: https://joeyzhao.cc/collov

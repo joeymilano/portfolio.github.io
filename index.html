@@ -1195,6 +1195,15 @@
             .project-card[data-project="elf-echo"] .project-metric, .project-card[data-project="elf-echo"] .project-view { display: none; }
         }
 
+
+        .project-card[data-project="missionget"] { background:#e5eae4;color:#163b30; }
+        .project-card[data-project="missionget"] .project-card-bg img { width:100%;height:100%;object-fit:cover;object-position:66% center; }
+        .project-card[data-project="missionget"] .project-card-overlay { background:linear-gradient(0deg,rgba(242,245,236,.98),rgba(242,245,236,.8) 35%,transparent 80%); }
+        .project-card[data-project="missionget"] .project-tag { color:#255944;background:#eaf2e6;border-color:#689d7c60; }
+        .project-card[data-project="missionget"] .project-title { color:#163b30; }
+        .project-card[data-project="missionget"] .project-subtitle { color:#42634e;max-width:400px; }
+        .project-card[data-project="missionget"] .project-metric { color:#3b7658; }
+        .project-card[data-project="missionget"] .project-view { color:#163b30;border-color:#689d7c60; }
     </style>
     <link rel="stylesheet" href="cursor.css">
     <script src="cursor.js" defer></script>
@@ -1285,6 +1294,17 @@
             <h2 class="section-title" data-i18n="projects.title" data-i18n-html>Make the complex feel obvious</h2>
         </div>
         <div class="projects-grid">
+            <a href="/en/missionget-glasses" class="project-card" data-project="missionget">
+                <div class="project-card-bg"><img src="/assets/missionget/images/lifestyle.webp" width="1920" height="1080" alt="" loading="lazy"></div>
+                <div class="project-card-overlay"></div>
+                <div class="project-card-content">
+                    <span class="project-tag" data-i18n="project.missionget.tag">Wearable AI · 2026</span>
+                    <h3 class="project-title" data-i18n="project.missionget.title">MissionGet</h3>
+                    <p class="project-subtitle" data-i18n="project.missionget.subtitle">Your desk can stay. Your work can move. A sentence travels from AI glasses to a shared workbench.</p>
+                    <span class="project-metric" data-i18n="project.missionget.metric">Product definition × Experience × Prototype</span>
+                    <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                </div>
+            </a>
             <a href="/en/finfold" class="project-card" data-project="finfold">
                 <div class="project-card-bg" id="finfold-bg"></div>
                 <div class="project-card-overlay"></div>
@@ -2023,6 +2043,10 @@
                 'project.borrowedlight.title': 'Borrowed Light',
                 'project.borrowedlight.subtitle': 'Pinch to borrow light, open your palm to return it — plus a 3-minute AI film of the ending.',
                 'project.borrowedlight.metric': 'On-Device Hand Tracking',
+                'project.missionget.tag': 'Wearable AI · 2026',
+                'project.missionget.title': 'MissionGet',
+                'project.missionget.subtitle': 'Your desk can stay. Your work can move. A sentence travels from AI glasses to a shared workbench.',
+                'project.missionget.metric': 'Product definition × Experience × Prototype',
                 'project.finfold.tag': 'AI Product Designer · 2026',
                 'project.finfold.title': 'Finfold',
                 'project.finfold.subtitle': 'I rewrote one product update seven times to post it everywhere. So I designed a workflow where AI drafts and people decide.',
@@ -2521,6 +2545,10 @@
                 'project.borrowedlight.subtitle': '伸手借光，张手还林——还把结局拍成了三分钟 AI 短片',
                 'project.borrowedlight.metric': '本机手势识别 · 零帧上传',
                 'project.pleasurecontract.metric': '1.5 万+ 行 GDScript',
+                'project.missionget.tag': 'AI 眼镜办公助手 · 2026',
+                'project.missionget.title': 'MissionGet',
+                'project.missionget.subtitle': '人走开了，工作别停。把一句随口交办，从眼镜送到同一个工作台。',
+                'project.missionget.metric': '产品定义 × 体验设计 × 原型整合',
                 'project.finfold.tag': 'AI 产品设计师 · 2026',
                 'project.finfold.title': 'Finfold',
                 'project.finfold.subtitle': '为了发一条产品更新，我把同一段话改了七遍。于是有了 Finfold，AI 按平台起草，发不发由人拍板。',
@@ -2993,6 +3021,8 @@
                 }
             });
 
+            const missiongetCard = document.querySelector('[data-project="missionget"]');
+            if (missiongetCard) missiongetCard.href = lang === 'zh' ? '/missionget-glasses' : '/en/missionget-glasses';
             const finfoldCard = document.querySelector('[data-project="finfold"]');
             if (finfoldCard) {
                 finfoldCard.href = lang === 'zh' ? '/finfold' : '/en/finfold';
