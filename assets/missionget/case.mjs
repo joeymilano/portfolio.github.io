@@ -85,7 +85,7 @@ $$('[data-play]').forEach(button => button.addEventListener('click', () => {
 $('[data-open-file]').addEventListener('click', () => {
   if (state.phase !== 'delivered') return;
   const item = localScenarios[state.scenario];
-  $('[data-document-title]').textContent = item.file;
+  $('[data-document-title]').textContent = item.file.split(' · ')[0];
   const body = $('[data-document-body]');
   body.replaceChildren();
   item.sections.forEach(([title, content]) => {
