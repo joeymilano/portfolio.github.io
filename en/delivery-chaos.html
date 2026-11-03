@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delivery Chaos | Game Design by Joey Zhao</title>
+  <meta name="description" content="Joey Zhao’s game design case study for Delivery Chaos, an Unreal Engine 5 cat mischief game about pushing things off tables, dodging a pet camera and fusing cats.">
+  <link rel="canonical" href="https://joeyzhao.cc/en/delivery-chaos">
+  <link rel="alternate" hreflang="zh-CN" href="https://joeyzhao.cc/delivery-chaos">
+  <link rel="alternate" hreflang="en" href="https://joeyzhao.cc/en/delivery-chaos">
+  <link rel="alternate" hreflang="x-default" href="https://joeyzhao.cc/delivery-chaos">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Delivery Chaos | Game Design by Joey Zhao">
+  <meta property="og:description" content="Joey Zhao’s game design case study for Delivery Chaos, an Unreal Engine 5 cat mischief game about pushing things off tables, dodging a pet camera and fusing cats.">
+  <meta property="og:url" content="https://joeyzhao.cc/en/delivery-chaos">
+  <meta property="og:image" content="https://joeyzhao.cc/assets/delivery-chaos/share-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ah Huai, a black-and-white cat beside a cup on a red coffee table in the game’s opening scene">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f4edde">
+  <link rel="icon" href="/favicon-32.png">
+  <link rel="stylesheet" href="/assets/delivery-chaos/case.css?v=20261104">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Delivery Chaos", "alternateName": "猫手猫脚", "description": "Joey Zhao’s game design case study for Delivery Chaos, an Unreal Engine 5 cat mischief game about pushing things off tables, dodging a pet camera and fusing cats.", "url": "https://joeyzhao.cc/en/delivery-chaos", "inLanguage": "en", "image": "https://joeyzhao.cc/assets/delivery-chaos/share-en.jpg", "dateCreated": "2026-10-31", "genre": "3D action comedy", "creator": {"@type": "Person", "name": "Joey Zhao", "url": "https://joeyzhao.cc/"}}</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8F4G6B3C6"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());const productionHosts=['joeyzhao.cc','www.joeyzhao.cc'];if(productionHosts.includes(window.location.hostname)){gtag('config','G-M8F4G6B3C6')}</script>
+  <script defer src="/assets/delivery-chaos/case.js?v=20261104"></script>
+</head>
+<body>
+<a class="skip" href="#cup">Read the case study</a>
+<header id="top" class="project-page-nav"><nav class="wrap nav-content" aria-label="Project navigation">
+  <a href="/?view=classic&amp;lang=en#projects">← Back to work</a>
+  <div class="lang-toggle"><a href="/en/delivery-chaos" lang="en" aria-current="page">EN</a><span aria-hidden="true">/</span><a href="/delivery-chaos" lang="zh-CN">中</a></div>
+</nav></header>
+<main>
+  <section class="wrap hero"><div>
+    <p class="kicker">猫手猫脚 · 2026</p>
+    <h1><span>Delivery</span><span>Chaos</span></h1>
+    <p class="hook">The cup is on the edge. The pet camera is turning. One more push, or sit and look innocent?</p>
+    <div class="actions"><a class="button" href="#play"><span aria-hidden="true">▶</span> Watch 15 seconds</a><a class="text-link" href="#cup">Read the case study ↓</a></div>
+  </div><figure><picture><source media="(max-width: 560px)" srcset="/assets/delivery-chaos/hero-mobile.webp"><img src="/assets/delivery-chaos/hero.webp" alt="Ah Huai, a black-and-white cat beside a cup on a red coffee table in the game’s opening scene" width="1200" height="900" decoding="async" loading="eager" fetchpriority="high"></picture><figcaption>Opening scene · The Halloween party hasn’t even started.</figcaption></figure></section>
+  <div class="wrap"><dl class="meta"><div><dt>My role</dt><dd>Joey Zhao · Gameplay, levels and art direction</dd></div><div><dt>Build</dt><dd>Unreal Engine 5 · Jam prototype</dd></div><div><dt>Event</dt><dd>Vibe Hacks #06</dd></div></dl>
+    <nav class="chapter-nav" aria-label="Case study chapters"><a href="#cup"><span>01</span>The cup</a><a href="#camera"><span>02</span>The camera</a><a href="#room"><span>03</span>The room</a><a href="#fusion"><span>04</span>Fusion</a><a href="#receipt"><span>05</span>The bill</a></nav>
+  </div>
+  <section class="chapter " id="cup"><div class="wrap">
+  <div class="story-heading"><div><span class="scene-number">01 / 05</span><h2>One more push</h2></div><div><p>The first design gave you three big pounces per round. Now you can swipe whenever you like, with three super pounces in reserve. At the edge of the table, hold E to inch the cup forward. The paw has to touch it, and the fall goes on the bill.</p><p>You can also sneak up and swat the owner from behind. The reward only comes if you lose him, so pick your way out before you strike.</p></div></div>
+  <figure class="clip">
+    <video id="play" controls playsinline preload="none" width="1280" height="720" poster="/assets/delivery-chaos/clip-poster.webp" aria-label="Play Delivery Chaos gameplay footage">
+      <source src="/assets/delivery-chaos/gameplay.mp4" type="video/mp4"><track kind="captions" src="/assets/delivery-chaos/clip-zh.vtt" srclang="zh" label="中文字幕"><track kind="captions" src="/assets/delivery-chaos/clip-en.vtt" srclang="en" label="English captions" default>
+      <a href="/assets/delivery-chaos/gameplay.mp4">Watch 15 seconds</a>
+    </video><figcaption>Captured on Mac · packaged gameplay and development close-ups · bilingual captions</figcaption>
+  </figure><div class="pair prank"><figure><img src="/assets/delivery-chaos/rear-swat.webp" alt="A swat from behind" width="1440" height="810" decoding="async" loading="lazy"><figcaption>A swat from behind</figcaption></figure><figure><img src="/assets/delivery-chaos/rear-caught.webp" alt="Caught and carried back to the cat bed" width="1440" height="810" decoding="async" loading="lazy"><figcaption>Caught and carried back to the cat bed</figcaption></figure></div>
+</div></section>
+<section class="chapter dark" id="camera"><div class="wrap">
+  <div class="story-heading"><div><span class="scene-number">02 / 05</span><h2>Sit. Look innocent.</h2></div><div><p>A thin line across the rug shows where the camera can see. A quick pass gives you some leeway. Stay in view while making a mess and you lose time.</p><p>The owner comes after you when he notices trouble. Break his line of sight, sit and play innocent, or get close enough to knock the camera down or unplug it.</p></div></div>
+  <div class="sequence"><figure><img src="/assets/delivery-chaos/scan.webp" alt="The pet camera traces its field of view on the floor" width="1440" height="810" decoding="async" loading="lazy"><figcaption><b>01 Scanning</b> The pet camera traces its field of view on the floor</figcaption></figure><figure><img src="/assets/delivery-chaos/innocent.webp" alt="The cat sits still while the camera turns" width="1440" height="810" decoding="async" loading="lazy"><figcaption><b>02 Playing innocent</b> The cat sits still while the camera turns</figcaption></figure><figure><img src="/assets/delivery-chaos/offline.webp" alt="The scan disappears when the camera is unplugged" width="1440" height="810" decoding="async" loading="lazy"><figcaption><b>03 Offline</b> The scan disappears when the camera is unplugged</figcaption></figure></div>
+</div></section>
+<section class="chapter " id="room"><div class="wrap">
+  <div class="story-heading"><div><span class="scene-number">03 / 05</span><h2>The living room has two levels</h2></div><div><p>You can take the long way around the coffee table or jump up the steps to the catwalk. The orange cat has another reason to climb. A drop from height sends nearby objects flying.</p></div></div>
+  <figure>
+    <div class="route-shot"><img src="/assets/delivery-chaos/room.webp" alt="Gameplay view with a floor route around the couch and a route up the steps along the wall" width="1440" height="810" decoding="async" loading="lazy">
+      <svg viewBox="0 0 1440 810" aria-hidden="true">
+        <defs><marker id="floor-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#a9f4e2" d="M0 0L10 5L0 10z"/></marker><marker id="step-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#ff9558" d="M0 0L10 5L0 10z"/></marker></defs>
+        <path d="M617 659 Q545 560 403 499 T301 312" fill="none" stroke="#24312c" stroke-width="13"/>
+        <path d="M617 659 Q545 560 403 499 T301 312" fill="none" stroke="#a9f4e2" stroke-width="7" marker-end="url(#floor-arrow)"/>
+        <path d="M340 679 Q206 609 48 437 L30 397 L60 165 L131 79" fill="none" stroke="#442410" stroke-width="13"/>
+        <path d="M340 679 Q206 609 48 437 L30 397 L60 165 L131 79" fill="none" stroke="#ff9558" stroke-width="7" stroke-dasharray="13 8" marker-end="url(#step-arrow)"/>
+      </svg>
+    </div><figcaption><span class="route-key">Floor route</span><span class="route-key up">Steps up to the catwalk, just out of frame</span></figcaption>
+  </figure>
+</div></section>
+<section class="chapter fusion" id="fusion"><div class="wrap">
+  <div class="story-heading"><div><span class="scene-number">04 / 05</span><h2>How much trouble can two cats make?</h2></div><div><p>Smash a hiding place to find a new cat. On their own, Ah Huai rebounds after a hit and Wumei meows on command. Fuse them into Noise Bomb and a collision during zoomies fires a shockwave that can send untouched objects flying.</p></div></div>
+  <div class="roster"><figure><img src="/assets/delivery-chaos/ah-huai.webp" alt="Ah Huai" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>Ah Huai</b>Rebounds during zoomies</figcaption></figure><figure><img src="/assets/delivery-chaos/jutuan.webp" alt="Jutuan" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>Jutuan</b>Shockwaves on landing</figcaption></figure><figure><img src="/assets/delivery-chaos/wumei.webp" alt="Wumei" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>Wumei</b>Meows knock things back</figcaption></figure><figure><img src="/assets/delivery-chaos/dafu.webp" alt="Dafu" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>Dafu</b>Pushes heavy furniture</figcaption></figure></div><div class="pair"><figure><img src="/assets/delivery-chaos/zoomies.webp" alt="Ah Huai collides with a prop during zoomies" width="1280" height="720" decoding="async" loading="lazy"><figcaption><b>Before fusion</b> Ah Huai collides with a prop during zoomies</figcaption></figure><figure><img src="/assets/delivery-chaos/noise-bomb.webp" alt="Noise Bomb sends out a fan-shaped shockwave on impact" width="1280" height="720" decoding="async" loading="lazy"><figcaption><b>After fusion</b> Noise Bomb sends out a fan-shaped shockwave on impact</figcaption></figure></div>
+</div></section>
+<section class="chapter " id="receipt"><div class="wrap">
+  <div class="story-heading"><div><span class="scene-number">05 / 05</span><h2>Leave the bill for the owner</h2></div><div><p>Every item has a price and appears on the bill once. The receipt adds up the cups, lamps and trouble you got away with. The cat gives one last meow and leaves the bill for the owner.</p></div></div>
+  <div class="receipt">
+    <figure><img src="/assets/delivery-chaos/bill.webp" alt="The results screen itemizes a desk lamp, a pumpkin lantern and a cup" width="1440" height="810" decoding="async" loading="lazy"><figcaption>The results screen itemizes a desk lamp, a pumpkin lantern and a cup</figcaption></figure>
+    <div class="credits"><h3>My part</h3><p>I led gameplay direction, room layout, character presentation and UI decisions, and drove iteration on the Unreal prototype. The project also used contributor-supplied audio, licensed models and AI-assisted code and asset production. The public repository contains the shareable source.</p>
+      <div class="actions"><a class="text-link" href="https://github.com/joeymilano/DELIVER-CHAOS">View source ↗</a><a class="text-link" href="https://vibecafe.ai/hacks/6">Jam event ↗</a></div>
+    </div>
+  </div>
+</div></section>
+</main>
+<footer class="wrap project-footer"><a href="/explore/?item=games&amp;lang=en">Back to the arcade</a><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

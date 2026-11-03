@@ -43,6 +43,8 @@ Joey Zhao (赵越) is based in Shanghai. For AI agent UX, read the Finfold case 
 - WeNeed, short-video gifting community: https://joeyzhao.cc/weneed
 - Crypto Copilot, live bilingual AI market research with real data and backtests: https://joeyzhao.cc/cryptocopilot
 - Pleasure Contract, AI-assisted card roguelike: https://joeyzhao.cc/pleasurecontract
+- Delivery Chaos, Unreal Engine 5 cat mischief game and game design case study: https://joeyzhao.cc/en/delivery-chaos
+- 猫手猫脚，拆家、反侦察与猫咪合成的游戏设计案例: https://joeyzhao.cc/delivery-chaos
 - Borrowed Light, on-device gesture game and AI short film: https://joeyzhao.cc/borrowedlight
 - CALL ME YAO 妖, AI-native girl group music project with a 3'34" MV (four Journey to the West demons, full pipeline by one person): https://joeyzhao.cc/yao
 

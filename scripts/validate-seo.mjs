@@ -57,6 +57,8 @@ const publicPages = [
     lang: "en",
     schema: "CreativeWork",
   })),
+  { file: "delivery-chaos.html", url: `${origin}/delivery-chaos`, lang: "zh-CN", schema: "CreativeWork", alternate: `${origin}/en/delivery-chaos`, defaultAlternate: `${origin}/delivery-chaos` },
+  { file: "en/delivery-chaos.html", url: `${origin}/en/delivery-chaos`, lang: "en", schema: "CreativeWork", alternate: `${origin}/delivery-chaos`, defaultAlternate: `${origin}/delivery-chaos` },
   { file: "missionget-glasses.html", url: `${origin}/missionget-glasses`, lang: "zh-CN", schema: "CreativeWork", alternate: `${origin}/en/missionget-glasses`, defaultAlternate: `${origin}/missionget-glasses` },
   { file: "en/missionget-glasses.html", url: `${origin}/en/missionget-glasses`, lang: "en", schema: "CreativeWork", alternate: `${origin}/missionget-glasses`, defaultAlternate: `${origin}/missionget-glasses` },
   { file: "finfold.html", url: `${origin}/finfold`, lang: "zh-CN", schema: "CreativeWork", alternate: `${origin}/en/finfold`, defaultAlternate: `${origin}/finfold` },

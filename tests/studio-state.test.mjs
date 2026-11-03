@@ -9,7 +9,17 @@ test('close deletes item; invalid arguments never leak to URL',()=>assert.equal(
 import {existsSync,readFileSync} from 'node:fs';
 import {projects,tracks,writing,writingPath,contactPath} from '../explore/content.mjs';
 const root=new URL('../',import.meta.url);
-test('every project destination exists and is retained from Classic',()=>{const classic=readFileSync(new URL('index.html',root),'utf8');assert.equal(projects.length,12);for(const [,path] of projects){const relative=path.slice(1);assert.ok(existsSync(new URL(relative.endsWith('/')?relative+'index.html':relative+'.html',root)),path);assert.ok(classic.includes(`href="${relative.replace(/\/$/,'')}"`),path)}});
+test('every Explore project has a page and a Classic entry',()=>{
+ const classic=readFileSync(new URL('index.html',root),'utf8');
+ const classicLinks=[...classic.matchAll(/href="([^"#]+)"/g)].map(([,href])=>href);
+ assert.ok(projects.some(([,path])=>path==='/delivery-chaos'));
+ assert.ok(!projects.some(([,path])=>path==='/borrowedlight'));
+ for(const [,path] of projects){
+  const relative=path.slice(1);
+  assert.ok(existsSync(new URL(relative.endsWith('/')?relative+'index.html':relative+'.html',root)),path);
+  assert.ok(classicLinks.some(href=>href.replace(/^\/(en\/)?/,'').replace(/\/$/,'')===relative.replace(/\/$/,'')),path);
+ }
+});
 test('writing routes resolve to real articles in both languages',()=>{for(const article of writing)for(const language of ['en','zh']){const path=writingPath(article.slug,language);assert.ok(existsSync(new URL(path.slice(1)+'.html',root)),path);assert.equal(path.startsWith('/en/'),language==='en')}assert.equal(writingPath('https://evil.test','en'),'/en/writing/')});
 test('all music IDs come from the existing public player',()=>{const classic=readFileSync(new URL('index.html',root),'utf8');for(const [id] of tracks)assert.ok(classic.includes(`data-track-id="${id}"`),id)});
 test('contact intents remain distinct and use the public address',()=>{const recruiting=new URL(contactPath('recruiting','en')),project=new URL(contactPath('project','en'));assert.equal(recruiting.pathname,'super666joey@gmail.com');assert.notEqual(recruiting.searchParams.get('subject'),project.searchParams.get('subject'));assert.match(new URL(contactPath('project','zh')).searchParams.get('subject'),/项目合作/)});
