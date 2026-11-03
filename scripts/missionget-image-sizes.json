@@ -42,5 +42,17 @@
   "demo-poster-sdr": [
     1280,
     720
+  ],
+  "app-home": [
+    900,
+    1957
+  ],
+  "app-device": [
+    900,
+    1957
+  ],
+  "app-task-detail": [
+    900,
+    240
   ]
 }

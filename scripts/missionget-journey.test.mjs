@@ -35,3 +35,16 @@ test('each locale and scene has a request, review details and a readable example
     }
   }
 });
+
+test('examples distinguish a task from a document without claiming a server save', () => {
+  for (const lang of ['zh', 'en']) {
+    assert.equal(scenarios[lang][1].kind, 'task');
+    assert.equal(scenarios[lang][0].kind, 'document');
+    assert.equal(scenarios[lang][2].kind, 'document');
+    assert.match(scenarios[lang][1].openLabel, /待办|task/);
+    for (const item of scenarios[lang]) {
+      assert.ok(item.openLabel && item.completedText);
+      assert.doesNotMatch(item.completedText, /保存|saved|created/i);
+    }
+  }
+});

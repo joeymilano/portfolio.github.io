@@ -12,3 +12,5 @@ Visuals: `lifestyle.webp` is an AI-assisted scenario image. `glasses.webp` is th
 The fixed interaction examples and the real integration evidence are labeled separately. Project credits distinguish Joey's product/experience/prototype role from the MissionGet platform team and the glasses vendor.
 
 The web video is delivered as SDR Rec.709, converted from the supplied BT.2020 HLG original. Its poster is extracted at 3 seconds with the same color conversion. The source recording is retained unchanged. No CSS brightness or color filters are applied to the video preview.
+
+Mobile UI: `app-home.webp` and `app-device.webp` are supplied screenshots from the same four-tab app layout. `app-task-detail.webp` is a crop of the supplied phone workbench task, preserving its in-progress state. The older three-tab chat image and the full account-watermarked captures are excluded from the public gallery.

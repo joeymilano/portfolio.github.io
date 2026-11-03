@@ -1,8 +1,9 @@
-import { initialState, transition, scenarios, phases } from './journey.mjs?v=20261102';
+import { initialState, transition, scenarios, phases } from './journey.mjs?v=20261103-r1';
 const copy = JSON.parse(document.querySelector('#case-copy').textContent);
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 const localScenarios = scenarios[copy.lang];
+try { localStorage.setItem('lang', copy.lang); } catch {}
 const stage = $('.journey-stage');
 let state = initialState();
 let timers = [];
@@ -28,7 +29,7 @@ function render() {
   $('[data-utterance]').textContent = item?.utterance || copy.ready;
   $('[data-request]').hidden = !item;
   $('[data-request]').textContent = item?.utterance.replace(/^[“]|[”]$/g, '') || '';
-  $('[data-status]').textContent = ({ idle: copy.ready, receiving: copy.pending, review: copy.reviewmsg, running: copy.working, delivered: copy.done })[phase];
+  $('[data-status]').textContent = ({ idle: copy.greeting, receiving: copy.pending, review: copy.reviewmsg, running: copy.working, delivered: item?.completedText || copy.done })[phase];
   $('.request-preview').hidden = phase !== 'review';
   $('[data-request-title]').textContent = item?.title || '';
   $('[data-request-detail]').textContent = item?.detail || '';
@@ -36,15 +37,16 @@ function render() {
   $('[data-reset]').hidden = phase === 'idle';
   $('[data-reset]').textContent = phase === 'delivered' ? `${copy.reset} ↺` : `${copy.cancel} ↺`;
   $('[data-file-title]').textContent = phase === 'delivered' ? item.file : phase === 'running' ? item.title : copy.lang === 'zh' ? '等待新的工作' : 'Ready for the next thing';
-  $('[data-file-status]').textContent = phase === 'delivered' ? copy.done : phase === 'running' ? copy.working : copy.lang === 'zh' ? '确认后，请求会继续向这里走。' : 'A confirmed request continues here.';
+  $('[data-file-status]').textContent = phase === 'delivered' ? item.completedText : phase === 'running' ? copy.working : copy.lang === 'zh' ? '核对后，查看任务或文稿示例' : 'Review first, then view the sample result.';
   $('[data-open-file]').hidden = phase !== 'delivered';
+  $('[data-open-file]').textContent = `${item?.openLabel || copy.document} ↗`;
+  $('.file-symbol').textContent = item?.kind === 'task' ? '✓' : '▤';
   $('.file-skeleton').hidden = phase === 'delivered';
 }
 $$('[data-scenario]').forEach(button => button.addEventListener('click', () => dispatch({ type: 'SELECT', scenario: Number(button.dataset.scenario) })));
 $('[data-confirm]').addEventListener('click', () => { dispatch({ type: 'CONFIRM' }); $('[data-reset]').focus({ preventScroll: true }); });
 $('[data-reset]').addEventListener('click', () => { dispatch({ type: 'RESET' }); $('[data-scenario]').focus({ preventScroll: true }); });
 $('[data-skip]').addEventListener('click', () => dispatch({ type: 'SKIP' }));
-document.addEventListener('visibilitychange', () => { if (document.hidden && ['receiving', 'running'].includes(state.phase)) dispatch({ type: 'RESET' }); });
 function showDialog(dialog) {
   dialog._returnFocus = document.activeElement;
   dialog.showModal();
@@ -57,11 +59,22 @@ $$('dialog').forEach(dialog => {
 $$('.zoom').forEach(button => button.addEventListener('click', () => {
   const source = $('img', button);
   const lightbox = $('.lightbox');
-  $('img', lightbox).src = source.currentSrc || source.src;
+  $('img', lightbox).src = source.src;
+  lightbox.dataset.zoomed = 'false';
+  $('[data-scale]', lightbox).setAttribute('aria-pressed', 'false');
+  $('[data-scale]', lightbox).textContent = copy.zoomFull;
   $('img', lightbox).alt = source.alt;
-  $('p', lightbox).textContent = $('figcaption', button.closest('figure'))?.textContent || source.alt;
+  $('[data-image-caption]', lightbox).textContent = $('figcaption', button.closest('figure'))?.textContent || source.alt;
   showDialog(lightbox);
 }));
+const imageDialog = $('.lightbox');
+$('[data-scale]', imageDialog).addEventListener('click', event => {
+  const expanded = imageDialog.dataset.zoomed !== 'true';
+  imageDialog.dataset.zoomed = String(expanded);
+  event.currentTarget.setAttribute('aria-pressed', String(expanded));
+  event.currentTarget.textContent = expanded ? copy.zoomFit : copy.zoomFull;
+  $('.lightbox-canvas', imageDialog).scrollTo({ top: 0, left: 0 });
+});
 $$('[data-play]').forEach(button => button.addEventListener('click', () => {
   const dialog = $('.video-dialog');
   const video = $('video', dialog);
@@ -83,6 +96,7 @@ $('[data-open-file]').addEventListener('click', () => {
       body.append(list);
     } else { const p = document.createElement('p'); p.textContent = content; body.append(p); }
   });
+  $('.file-dialog').setAttribute('aria-label', item.openLabel);
   showDialog($('.file-dialog'));
 });
 $$('[data-flow-mode]').forEach(button => button.addEventListener('click', () => {
@@ -119,10 +133,24 @@ if (matchMedia('(pointer:fine)').matches) {
 }
 if ('IntersectionObserver' in window) {
   const navigation = $$('.chapter-nav a');
-  const chapterObserver = new IntersectionObserver(entries => {
-    for (const entry of entries) if (entry.isIntersecting) navigation.forEach(link => link.classList.toggle('active', link.hash === `#${entry.target.id}`));
-  }, { rootMargin: '-15% 0px -55% 0px', threshold: 0 });
-  $$('section[id]').forEach(section => chapterObserver.observe(section));
+  const chapters = navigation.map(link => document.querySelector(link.hash));
+  let navigationQueued = false;
+  function updateNavigation() {
+    navigationQueued = false;
+    const marker = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 132;
+    const current = chapters.filter(section => section.getBoundingClientRect().top <= marker + 2).at(-1);
+    navigation.forEach(link => {
+      const active = current && link.hash === `#${current.id}`;
+      link.classList.toggle('active', Boolean(active));
+      if (active) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
+    });
+  }
+  function queueNavigation() {
+    if (!navigationQueued) { navigationQueued = true; requestAnimationFrame(updateNavigation); }
+  }
+  addEventListener('scroll', queueNavigation, { passive: true });
+  addEventListener('resize', queueNavigation);
+  updateNavigation();
   if (!reduced.matches) {
     const reveal = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('seen'); reveal.unobserve(entry.target); } }), { threshold: 0.06 });
     $$('.story-heading, .hardware-stage, .flow-panel, .proof, .field-grid, .video-card, .learning').forEach(node => { node.classList.add('reveal'); reveal.observe(node); });
