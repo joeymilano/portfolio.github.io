@@ -10,7 +10,7 @@ ASSETS = "/assets/delivery-chaos"
 COPY = {
     "zh": {
         "lang": "zh-CN", "path": "/delivery-chaos", "name": "猫手猫脚",
-        "title": ["猫手", "猫脚"], "kicker": "Delivery Chaos · 2026",
+        "kicker": "Delivery Chaos · 2026",
         "description": "赵越的游戏设计案例。从推落一只杯子，到躲开监控、穿过猫道、合成新猫，在 Unreal Engine 5 里把万圣节客厅做成一场拆家喜剧。",
         "hook": "猫把杯子推到桌沿。摄像头正转过来。你是再推一下，还是坐下装乖？",
         "watch": "看 15 秒实机", "read": "看设计过程", "back": "返回作品", "explore": "回到街机",
@@ -38,7 +38,7 @@ COPY = {
     },
     "en": {
         "lang": "en", "path": "/en/delivery-chaos", "name": "Delivery Chaos",
-        "title": ["Delivery", "Chaos"], "kicker": "猫手猫脚 · 2026",
+        "kicker": "Delivery Chaos · 2026",
         "description": "Joey Zhao’s game design case study for Delivery Chaos, an Unreal Engine 5 cat mischief game about pushing things off tables, dodging a pet camera and fusing cats.",
         "hook": "The cup is on the edge. The pet camera is turning. One more push, or sit and look innocent?",
         "watch": "Watch 15 seconds", "read": "Read the case study", "back": "Back to work", "explore": "Back to the arcade",
@@ -91,7 +91,7 @@ def render(locale):
     other = COPY["en" if locale == "zh" else "zh"]
     title = f'{c["name"]} | ' + ("Unreal Engine 5 拆家游戏设计案例 · 赵越" if locale == "zh" else "Game Design by Joey Zhao")
     url = ORIGIN + c["path"]
-    og = f"{ORIGIN}{ASSETS}/share-{locale}.jpg"
+    og = f"{ORIGIN}{ASSETS}/share-title.jpg"
     schema = json.dumps({
         "@context": "https://schema.org", "@type": "CreativeWork", "name": c["name"],
         "alternateName": other["name"], "description": c["description"], "url": url,
@@ -171,7 +171,7 @@ def render(locale):
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#f4edde">
   <link rel="icon" href="/favicon-32.png">
-  <link rel="stylesheet" href="{ASSETS}/case.css?v=20261104">
+  <link rel="stylesheet" href="{ASSETS}/case.css?v=20261104-title">
   <script type="application/ld+json">{schema}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8F4G6B3C6"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());const productionHosts=['joeyzhao.cc','www.joeyzhao.cc'];if(productionHosts.includes(window.location.hostname)){{gtag('config','G-M8F4G6B3C6')}}</script>
@@ -186,7 +186,7 @@ def render(locale):
 <main>
   <section class="wrap hero"><div>
     <p class="kicker">{h("kicker")}</p>
-    <h1><span>{c["title"][0]}</span><span>{c["title"][1]}</span></h1>
+    <h1 class="hero-title">{img("title-mark", c["name"], 1120, 851, eager=True)}</h1>
     <p class="hook">{h("hook")}</p>
     <div class="actions"><a class="button" href="#play"><span aria-hidden="true">▶</span> {h("watch")}</a><a class="text-link" href="#cup">{h("read")} ↓</a></div>
   </div><figure><picture><source media="(max-width: 560px)" srcset="{ASSETS}/hero-mobile.webp">{img("hero", c["hero_alt"], 1200, 900, eager=True)}</picture><figcaption>{h("hero_caption")}</figcaption></figure></section>

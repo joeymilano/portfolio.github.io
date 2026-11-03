@@ -1055,31 +1055,65 @@
 
         /* Delivery Chaos */
         .project-card[data-project="delivery-chaos"] {
-            border: 1px solid rgba(245, 158, 11, 0.08);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            container-type: inline-size;
+            background: #f4edde;
+            color: #222323;
         }
-        .project-card[data-project="delivery-chaos"]:hover {
-            border-color: rgba(245, 158, 11, 0.24);
-            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.12);
+        .project-card[data-project="delivery-chaos"] .project-card-bg {
+            left: 45%;
+            opacity: 1;
+        }
+        .project-card[data-project="delivery-chaos"]:hover .project-card-bg {
+            transform: none;
         }
         .project-card[data-project="delivery-chaos"] .project-card-bg img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: 66% center;
+            object-position: 60% center;
         }
         .project-card[data-project="delivery-chaos"] .project-card-overlay {
-            background: linear-gradient(180deg, rgba(3,8,12,0.12) 0%, rgba(3,8,12,0.94) 100%);
+            display: none;
+        }
+        .project-card[data-project="delivery-chaos"] .project-card-content {
+            right: 55%;
+            justify-content: center;
+            padding: clamp(9px, 3cqw, 22px);
+            transform: none;
+        }
+        .project-card[data-project="delivery-chaos"] .project-title {
+            margin: 0;
+            font-size: clamp(11px, 2.8cqw, 17px);
+            line-height: 1.2;
+        }
+        .delivery-chaos-mark {
+            display: block;
+            width: 100%;
+            max-width: 210px;
+            height: auto;
+        }
+        html[lang="zh-CN"] .delivery-chaos-name {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
         }
         .project-card[data-project="delivery-chaos"] .project-tag {
-            background: rgba(245, 158, 11, 0.18);
-            border: 1px solid rgba(245, 158, 11, 0.16);
+            margin: 0 0 6px;
+            padding: 0;
+            background: transparent;
+            color: #854015;
+            font-size: clamp(8px, 1.85cqw, 11px);
+            backdrop-filter: none;
         }
-        .project-card[data-project="delivery-chaos"] .project-metric {
-            color: #fbbf24;
-        }
-        .project-card[data-project="delivery-chaos"] .project-metric svg {
-            stroke: #fbbf24;
+        .project-card[data-project="delivery-chaos"] .project-subtitle {
+            margin: 7px 0 0;
+            color: #51473d;
+            font-size: clamp(10px, 2.25cqw, 13px);
+            line-height: 1.35;
         }
 
         /* CALL ME YAO Project Card */
@@ -1466,15 +1500,11 @@
                 <div class="project-card-overlay"></div>
                 <div class="project-card-content">
                     <span class="project-tag" data-i18n="project.deliveryChaos.tag">3D Game Design · 2026</span>
-                    <h3 class="project-title" data-i18n="project.deliveryChaos.title">Delivery Chaos</h3>
+                    <h3 class="project-title">
+                        <img class="delivery-chaos-mark" src="/assets/delivery-chaos/title-mark.webp" alt="" width="1120" height="851" loading="lazy">
+                        <span class="delivery-chaos-name" data-i18n="project.deliveryChaos.title">Delivery Chaos</span>
+                    </h3>
                     <p class="project-subtitle" data-i18n="project.deliveryChaos.subtitle">Push your luck in a Halloween living room.</p>
-                    <span class="project-metric">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 9 8-4.5M12 12 4 7.5M12 12v9"></path>
-                        </svg>
-                        <span data-i18n="project.deliveryChaos.metric">Unreal Engine 5</span>
-                    </span>
-                    <span class="project-view"><span data-i18n="project.viewCase">View case</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
                 </div>
             </a>
             <a href="/en/missionget-glasses" class="project-card" data-project="missionget">
@@ -2045,7 +2075,6 @@
                 'project.deliveryChaos.tag': '3D Game Design · 2026',
                 'project.deliveryChaos.title': 'Delivery Chaos',
                 'project.deliveryChaos.subtitle': 'Push your luck in a Halloween living room.',
-                'project.deliveryChaos.metric': 'Unreal Engine 5',
                 'project.missionget.tag': 'AI glasses for work · 2026',
                 'project.missionget.title': 'MissionGet',
                 'project.missionget.subtitle': 'AI glasses for office work. Speak a request to Xiao Mi and continue in the MissionGet workbench.',
@@ -2546,7 +2575,6 @@
                 'project.deliveryChaos.tag': '3D 游戏设计 · 2026',
                 'project.deliveryChaos.title': '猫手猫脚',
                 'project.deliveryChaos.subtitle': '趁主人转身，在万圣节客厅里闯点祸。',
-                'project.deliveryChaos.metric': 'Unreal Engine 5',
                 'project.pleasurecontract.metric': '1.5 万+ 行 GDScript',
                 'project.missionget.tag': 'AI 眼镜办公助手 · 2026',
                 'project.missionget.title': 'MissionGet',

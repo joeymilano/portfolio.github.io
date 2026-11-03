@@ -3,6 +3,7 @@ export const deliveryChaos={
  title:{en:'Delivery Chaos',zh:'猫手猫脚'},
  path:'/delivery-chaos',
  image:'/assets/delivery-chaos/card.webp',
+ mark:'/assets/delivery-chaos/title-mark.webp',
  description:{en:'Push your luck in a Halloween living room.',zh:'趁主人转身，在万圣节客厅里闯点祸。'}
 };
 export const projects=[['Elf Robot','/elf-echo/'],['Finfold','/finfold'],['Signals Notebook','/signals'],['CollovGPT','/collov'],['Ctrip Hotel','/ctrip'],['UnifyUX','/unifyux'],['ID.AURA','/vw-id-aura/'],['CALL ME YAO 妖','/yao'],['Bill Vampire','/billvampire'],['WeNeed','/weneed'],['Crypto Copilot','/cryptocopilot'],['Narrative Card Roguelike','/pleasurecontract'],[deliveryChaos.title,deliveryChaos.path],['MissionGet AI Glasses','/missionget-glasses']];

@@ -3,7 +3,7 @@ import {initAmbient} from './ambient.mjs?v=20260929-sound1';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260928-turntable1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
-import {copy,projects,deliveryChaos,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261104-delivery-chaos';
+import {copy,projects,deliveryChaos,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261104-delivery-chaos-title';
 import {photography} from './photography.mjs?v=20260928-wall12';
 import {DISCOVERIES,readDiscoveries,saveDiscovery,localNote,saveLocalNote} from './discoveries.mjs?v=20260929-p2';
 const dialog=document.querySelector('#content-panel'),content=document.querySelector('#panel-content'),status=document.querySelector('#scene-status');
@@ -44,7 +44,33 @@ function render(){disposeGame?.();disposeGame=null;dialog.dataset.collection=['b
  if(selected==='finfold'){content.append(image('/assets/finfold/images/agent-en-dark.webp','Finfold Agent'));for(const [label,body] of [['problem','finfoldProblem'],['roleLabel','finfoldRole'],['decisions','finfoldDecisions']])content.append(el('h2',t(label),'eyebrow'),el('p',t(body)));content.append(link(t('open'),'/finfold'),link(t('product'),'https://www.finfold.app/workbench'));appendContacts();}
  if(selected==='about'){content.append(image('/explore/assets/portrait.png','Joey Zhao','portrait'),el('p',t('aboutbody')),link(t('resume'),resumePath(language)),link(t('contact'),'mailto:super666joey@gmail.com'));appendContacts();appendDiscovery();appendGuestbook(content);}
  if(selected==='work'){appendWork();}
- if(selected==='games'){appendGame();const grid=el('div',null,'featured-work');for(const game of [{title:deliveryChaos.title[language],image:deliveryChaos.image,href:deliveryChaos.path,desc:deliveryChaos.description[language]},{title:'Pleasure Contract',image:'/images/pc-bg-banquet.png',href:'/pleasurecontract',desc:language==='zh'?'叙事、选择与卡牌。':'Narrative, choices and cards.'}]){const card=el('article',null,'featured-card');const visual=link('',game.href,'featured-visual');visual.setAttribute('aria-label',game.title);visual.append(image(game.image,game.title));const body=el('div',null,'featured-copy');body.append(link(game.title,game.href,'featured-title'),el('p',game.desc,'featured-summary'));card.append(visual,body);grid.append(card)}content.append(grid,link(language==='zh'?'武松打虎 · 进入游戏':'Wu Song · Play','https://wusong.joeyzhao.cc','featured-title ext-link'));}
+ if(selected==='games'){
+  appendGame();
+  const grid=el('div',null,'featured-work');
+  const games=[
+   {title:deliveryChaos.title[language],image:deliveryChaos.image,href:deliveryChaos.path,desc:deliveryChaos.description[language],mark:deliveryChaos.mark},
+   {title:'Pleasure Contract',image:'/images/pc-bg-banquet.png',href:'/pleasurecontract',desc:language==='zh'?'叙事、选择与卡牌。':'Narrative, choices and cards.'}
+  ];
+  for(const game of games){
+   const card=el('article',null,'featured-card');
+   const visual=link('',game.href,'featured-visual');
+   visual.setAttribute('aria-label',game.title);
+   visual.append(image(game.image,game.title));
+   const body=el('div',null,'featured-copy');
+   const title=link(game.title,game.href,'featured-title');
+   if(game.mark){
+    card.classList.add('featured-card--delivery-chaos');
+    const mark=image(game.mark,'','delivery-chaos-mark');
+    mark.width=1120;
+    mark.height=851;
+    title.replaceChildren(mark,el('span',game.title,'delivery-chaos-name'));
+   }
+   body.append(title,el('p',game.desc,'featured-summary'));
+   card.append(visual,body);
+   grid.append(card);
+  }
+  content.append(grid,link(language==='zh'?'武松打虎 · 进入游戏':'Wu Song · Play','https://wusong.joeyzhao.cc','featured-title ext-link'));
+ }
  if(selected==='books'){content.append(collectionShelf('books',language));}
  if(selected==='writing'){appendWriting();}
  if(selected==='photography'){appendPhotography();}
