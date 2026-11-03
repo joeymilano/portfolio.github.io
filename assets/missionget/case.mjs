@@ -78,7 +78,7 @@ $('[data-scale]', imageDialog).addEventListener('click', event => {
 $$('[data-play]').forEach(button => button.addEventListener('click', () => {
   const dialog = $('.video-dialog');
   const video = $('video', dialog);
-  if (!video.getAttribute('src')) video.src = '/assets/missionget/media/demo-sdr.mp4';
+  if (!video.getAttribute('src')) video.src = '/assets/missionget/media/demo-approved.mp4';
   showDialog(dialog);
   video.play().catch(() => {});
 }));
