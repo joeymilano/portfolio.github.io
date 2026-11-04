@@ -3,7 +3,7 @@ import {initAmbient} from './ambient.mjs?v=20260929-sound1';
 import {musicArtwork} from './music-artwork.mjs?v=20260927-music1';
 import {collectionShelf} from './collections.mjs?v=20260928-turntable1';
 import {parseLocation,buildLocation,resolveLanguage,validId} from './state.mjs?v=20260927-curated1';
-import {copy,projects,deliveryChaos,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261104-delivery-chaos-title';
+import {copy,projects,deliveryChaos,gameProjects,featuredWork,tracks,writing,writingPath,contactPath,resumePath} from './content.mjs?v=20261104-game-cards';
 import {photography} from './photography.mjs?v=20260928-wall12';
 import {DISCOVERIES,readDiscoveries,saveDiscovery,localNote,saveLocalNote} from './discoveries.mjs?v=20260929-p2';
 const dialog=document.querySelector('#content-panel'),content=document.querySelector('#panel-content'),status=document.querySelector('#scene-status');
@@ -47,25 +47,22 @@ function render(){disposeGame?.();disposeGame=null;dialog.dataset.collection=['b
  if(selected==='games'){
   appendGame();
   const grid=el('div',null,'featured-work');
-  const games=[
-   {title:deliveryChaos.title[language],image:deliveryChaos.image,href:deliveryChaos.path,desc:deliveryChaos.description[language],mark:deliveryChaos.mark},
-   {title:'Pleasure Contract',image:'/images/pc-bg-banquet.png',href:'/pleasurecontract',desc:language==='zh'?'叙事、选择与卡牌。':'Narrative, choices and cards.'}
-  ];
-  for(const game of games){
+  for(const game of gameProjects){
+   const name=game.title[language];
    const card=el('article',null,'featured-card');
-   const visual=link('',game.href,'featured-visual');
-   visual.setAttribute('aria-label',game.title);
-   visual.append(image(game.image,game.title));
+   const visual=link('',game.path,'featured-visual');
+   visual.setAttribute('aria-label',name);
+   visual.append(image(game.image,name));
    const body=el('div',null,'featured-copy');
-   const title=link(game.title,game.href,'featured-title');
+   const title=link(name,game.path,'featured-title');
    if(game.mark){
     card.classList.add('featured-card--delivery-chaos');
     const mark=image(game.mark,'','delivery-chaos-mark');
     mark.width=1120;
     mark.height=851;
-    title.replaceChildren(mark,el('span',game.title,'delivery-chaos-name'));
+    title.replaceChildren(mark,el('span',name,'delivery-chaos-name'));
    }
-   body.append(title,el('p',game.desc,'featured-summary'));
+   body.append(title,el('p',game.description[language],'featured-summary'));
    card.append(visual,body);
    grid.append(card);
   }
