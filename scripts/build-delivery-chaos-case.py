@@ -11,26 +11,46 @@ COPY = {
     "zh": {
         "lang": "zh-CN", "path": "/delivery-chaos", "name": "猫手猫脚",
         "kicker": "Delivery Chaos · 2026",
-        "description": "赵越的游戏设计案例。从推落一只杯子，到躲开监控、穿过猫道、合成新猫，在 Unreal Engine 5 里把万圣节客厅做成一场拆家喜剧。",
-        "hook": "猫把杯子推到桌沿。摄像头正转过来。你是再推一下，还是坐下装乖？",
-        "watch": "看 15 秒实机", "read": "看设计过程", "back": "返回作品", "explore": "回到街机",
+        "description": "赵越的游戏设计案例。用 Unreal Engine 5 做一场万圣节拆家喜剧。推杯子赚金币，坐下躲监控，找到四只猫并合成大坏猫。",
+        "hook": "万圣节派对还没开，猫已经把杯子推到了桌沿。监控正转过来。你要再推一下，还是坐下装乖？",
+        "watch": "看 15 秒实机", "read": "看看怎么玩", "back": "返回作品", "explore": "回到街机",
         "nav": "项目导航", "chapters": "案例章节",
         "meta": [("我的部分", "赵越 · 玩法、关卡与美术方向"), ("制作", "Unreal Engine 5 · 参赛原型"), ("活动", "Vibe Hacks #06")],
-        "headings": ["再推一点", "坐好，假装什么都没发生", "客厅有两层", "两只猫能惹多大麻烦", "账单留给主人"],
-        "short": ["推杯子", "装乖", "客厅", "合成", "账单"],
+        "headings": ["杯子只差半爪", "监控一转，猫就乖了", "万圣节派对，猫先开场", "阿坏加大福，客厅遭殃", "追猫也要有节奏", "账单留给主人"],
+        "short": ["拆家", "装乖", "万圣节", "找猫与合成", "声音", "结算"],
         "body": [
-            ["最早每轮只有三次大扑击。改版后，平时想拍就拍，三次留给超级扑。杯子摆在桌边时，也可以按住 E 慢慢推。爪子碰到杯子才施力，掉下去才记账。", "同一只爪还能往主人背后拍一下。能甩开他才有奖金，拍完得自己找路跑。"],
-            ["摄像头扫过地毯时，地上的细线告诉你它看得到哪儿。短暂经过还有余地，持续被拍到捣乱才扣时间。", "主人听见动静会来追。你可以绕开视线，停下来装乖，也可以趁监控转开，靠近把它拍掉或拔线。"],
-            ["从茶几边绕过去容易，想甩开主人，可以沿墙一阶一阶跳上猫道。橘团走同一条路还有另一个目的。它从高处落下会把周围的东西震开。"],
-            ["拆开藏身处就能找到新猫。阿坏和乌梅单独出场时，一个撞了会弹开，一个得主动喵。把它们合成噪音炸弹，暴冲撞上东西就会自动发出音波，连没碰到的物件也可能被震飞。"],
-            ["倒下的东西各有标价，同一件只算一次。结算看的是杯子、灯和刚才那点小聪明加起来值多少钱。猫喵一声，账单给主人。"],
+            ["轻点 J 拍一下，按住 E 慢慢推。杯子只挪了一点时，账单纹丝不动。等它从桌沿翻下去，才听见碎裂声，看见金币飞向账单。每件东西只计价一次。", "早期每局只有三次大扑击，玩家容易舍不得出手。现在普通挥爪和扑击随便用。长按 J 时，猫会扭屁股蓄力，三次额度留给这种超级扑。也可以按 Shift 暴冲，让阿坏撞上东西弹回来。"],
+            ["摄像头把视野画在地毯上。正常路过没事，连续拍到你捣乱约一秒，挑战就少两秒。收爪坐好还能拿乖猫奖励。嫌镜头碍事，就绕到旁边拍掉它，或按住 E 拔线。监控一黑，账单多 ¥399。", "主人转身前，可以从背后拍他一爪。被抓就抱回猫窝，限时局少 15 秒。能甩开追捕，在视线外待满两秒，才拿得到 ¥500 恶作剧奖金。"],
+            ["派对还没开，南瓜灯、蛋糕和糖果已经摆好了。拍翻糖果碗，24 颗糖撒到地上，轻物件也开始反弹。最高那盏南瓜灯还藏着一只猫。", "绕过沙发可以躲视线，沿墙八级台阶则能跳上猫道。橘团走到高处就有了新的用法，从上面落下去，能把落点周围的东西一起震开。"],
+            ["拆开藏身处，再走近出现的小猫，就能把它带回实验室。两只猫的本领会合在一起。阿坏本来撞到东西就弹开，和乌梅合成「噪音炸弹」后，撞上去还会自动放出一扇音波。"],
+            ["我想致敬《汤姆和杰瑞》追逐戏里的音乐节奏。平时拆家用《CanCan》的快拍，主人开始追，或挑战进入最后 20 秒，就切到追逐曲。逃掉了也让它把这一段奏完，再接回主曲。", "杯子碎了是一下脆响，金币飞进账单是收银机的叮声。最后给猫留一声喵。接下来就是主人要付的账。"],
+            ["限时局打完，账单逐项列出弄坏的东西和恶作剧奖金，总金额计入本机排行榜。想摸清楼梯和藏身处，可以先进不限时的自由拆家，找到的猫照样能带走。"],
         ],
+        "loop_title": "这局拆家，下局换猫",
+        "loop": [("拆", "推杯子、打翻糖果碗，金币飞进主人的账单。"), ("找", "翻纸箱、碰书架、打南瓜灯，把藏起来的猫带回去。"), ("合", "选两只猫，把它们的本领带进下一局。"), ("躲", "监控转过来就坐好。主人追上来，就跑。")],
+        "modes": [("180 秒挑战", "冲账单总额，上本机排行榜。"), ("不限时自由拆家", "慢慢找猫和试招，收藏照样保留。")],
+        "poster_alt": "万圣节概念海报，几只猫在南瓜灯和散落的糖果间拆家，海报下半部分展示收集、合成和躲监控",
+        "poster_caption": "万圣节玩法概念海报",
+        "giant_label": "隐藏配方",
+        "giant_equation": "阿坏 ＋ 大福",
+        "giant_title": "大坏猫",
+        "giant_body": "先找齐四只猫，再完成三种其他配方。合成后体型变成 1.8 倍，暴冲撞到重物时能继续往前推。以前撞电视得弹回去，现在连电视也能推走。",
+        "giant_caption": "实机合成界面 · 还差三种配方",
+        "recipes_title": "看另外五种配方",
+        "recipes": [
+            ("阿坏 ＋ 橘团", "弹跳炸弹", "暴冲撞了会弹，落地还有震荡。"),
+            ("阿坏 ＋ 乌梅", "噪音炸弹", "暴冲撞击自动放音波。"),
+            ("橘团 ＋ 乌梅", "低音炮", "先从高处震一下，再按 Q 喵一声。"),
+            ("橘团 ＋ 大福", "猫猫山", "变大后落地，震得更远。"),
+            ("乌梅 ＋ 大福", "巨型扩音器", "完成两种普通配方后解锁，音波打得更远。"),
+        ],
+        "audio_beats": [("拆家", "CanCan", "让推、拍、扑有轻快的节奏。"), ("追捕", "Chase", "进入结算时把追逐曲压低，给最后那声喵留位置。"), ("记账", "碎裂声＋收银机", "连锁越长，收银机的叮声越高。")],
         "hero_alt": "开场画面里的奶牛猫阿坏，站在杯子旁，身后是蓝绿色沙发",
         "hero_caption": "开场画面 · 万圣节派对还没开始。", "clip_caption": "Mac 实机混剪 · 成品包与开发版近景 · 可选双语字幕",
         "watch_a11y": "播放《猫手猫脚》实机短片", "captions": "中文字幕",
         "watch_frames": [("01 巡查", "监控在地上划出一条清楚的边界"), ("02 装乖", "猫停下来坐好，等镜头过去"), ("03 断线", "监控被拔掉后，扫描边界消失")],
         "ground": "地面绕行", "high": "沿墙台阶上行，猫道在画面外", "route_alt": "实机客厅图，地面路线绕过沙发，另一条路线沿墙边台阶向上",
-        "cats": [("阿坏", "暴冲反弹"), ("橘团", "落地震荡"), ("乌梅", "喵声冲击"), ("大福", "推动重物")],
+        "cats": [("阿坏", "开局搭档。暴冲撞到东西会弹开。"), ("橘团", "藏在快递纸箱。高处落地会震开物件。"), ("乌梅", "线索在书架的杯子。按 Q 发出扇形音波。"), ("大福", "线索在最高的南瓜灯。体型 1.8 倍，推得动重物。")],
         "pair": [("合成前", "阿坏暴冲撞上道具"), ("合成后", "噪音炸弹撞击时放出扇形音波")],
         "receipt": "游戏结算界面 · 台灯、南瓜灯和杯子逐项入账", "credits": "我的部分",
         "credit": "我负责玩法方向、房间路线、角色表现和界面取舍，并推进 Unreal 原型迭代。项目也用到协作者补充的音频、授权模型和 AI 辅助的代码与资产制作。公开仓库收录可分享的源码。",
@@ -40,32 +60,52 @@ COPY = {
         "lang": "en", "path": "/en/delivery-chaos", "name": "Delivery Chaos",
         "kicker": "Delivery Chaos · 2026",
         "description": "Joey Zhao’s game design case study for Delivery Chaos, an Unreal Engine 5 cat mischief game about pushing things off tables, dodging a pet camera and fusing cats.",
-        "hook": "The cup is on the edge. The pet camera is turning. One more push, or sit and look innocent?",
-        "watch": "Watch 15 seconds", "read": "Read the case study", "back": "Back to work", "explore": "Back to the arcade",
+        "hook": "The Halloween party hasn’t started, but the cat has already nudged a cup to the edge. The pet camera is turning. One more push, or sit and look innocent?",
+        "watch": "Watch 15 seconds", "read": "See how it plays", "back": "Back to work", "explore": "Back to the arcade",
         "nav": "Project navigation", "chapters": "Case study chapters",
         "meta": [("My role", "Joey Zhao · Gameplay, levels and art direction"), ("Build", "Unreal Engine 5 · Jam prototype"), ("Event", "Vibe Hacks #06")],
-        "headings": ["One more push", "Sit. Look innocent.", "The living room has two levels", "How much trouble can two cats make?", "Leave the bill for the owner"],
-        "short": ["The cup", "The camera", "The room", "Fusion", "The bill"],
+        "headings": ["One last nudge", "Quick, look innocent.", "The cat gets to the Halloween party first", "Ah Huai + Dafu = bad news for the living room", "A chase needs a beat", "Leave the bill for the owner"],
+        "short": ["Smash", "Play innocent", "Halloween", "Find and fuse", "Sound", "The bill"],
         "body": [
-            ["The first design gave you three big pounces per round. Now you can swipe whenever you like, with three super pounces in reserve. At the edge of the table, hold E to inch the cup forward. The paw has to touch it, and the fall goes on the bill.", "You can also sneak up and swat the owner from behind. The reward only comes if you lose him, so pick your way out before you strike."],
-            ["A thin line across the rug shows where the camera can see. A quick pass gives you some leeway. Stay in view while making a mess and you lose time.", "The owner comes after you when he notices trouble. Break his line of sight, sit and play innocent, or get close enough to knock the camera down or unplug it."],
-            ["You can take the long way around the coffee table or jump up the steps to the catwalk. The orange cat has another reason to climb. A drop from height sends nearby objects flying."],
-            ["Smash a hiding place to find a new cat. On their own, Ah Huai rebounds after a hit and Wumei meows on command. Fuse them into Noise Bomb and a collision during zoomies fires a shockwave that can send untouched objects flying."],
-            ["Every item has a price and appears on the bill once. The receipt adds up the cups, lamps and trouble you got away with. The cat gives one last meow and leaves the bill for the owner."],
+            ["Tap J to swat or hold E to inch a cup forward. A little nudge leaves the bill untouched. Once the cup tumbles over the edge, you hear it break and see coins fly into the bill. Each object only counts once.", "The early version gave you three big pounces per round, which made every strike feel expensive. Now you can swipe or pounce whenever you like. Hold J and the cat wiggles its rear to charge one of three super pounces. Or hit Shift and watch Ah Huai ricochet off a prop."],
+            ["The pet camera draws its field of view on the rug. Walking through is fine. Get filmed causing trouble for about a second and the timed challenge loses two seconds. Sit still to earn a good-cat bonus, or sneak up and swat the camera down or unplug it. Taking it offline adds ¥399 to the bill.", "Slip behind the owner and swat him before he turns. Get caught and you’re sent back to the cat bed, with 15 seconds off the clock in a timed round. Lose the chase and stay out of sight for two seconds to collect the ¥500 prank bonus."],
+            ["The pumpkin lanterns, cake and candy are set out before the party starts. Knock over the bowl and 24 pieces of candy scatter across the floor while light objects start to bounce. The tallest pumpkin lantern is hiding a cat.", "Go around the couch to break line of sight, or hop up eight steps to the catwalk. Jutuan has a second reason to climb. Dropping from up there sends nearby objects flying."],
+            ["Break a hiding spot, then walk up to the cat you’ve found to bring it back to the lab. Fusion combines two instincts. Ah Huai usually bounces off whatever he hits. Fuse him with Wumei to make Noise Bomb and the impact also fires a fan-shaped shockwave."],
+            ["I borrowed the rhythm of a Tom and Jerry chase. The CanCan gives everyday mischief a quick beat. When the owner gives chase or a timed round reaches its last 20 seconds, the pursuit cue takes over. Escape early and the cue still gets to finish its run.", "A falling cup gets a sharp crack. Coins hit the bill with a cash-register chime. At the end I give the cat one last meow, then let the mess speak for itself."],
+            ["At the end of a timed round, the receipt lists damaged objects and prank bonuses. The total goes on the local leaderboard. Free Play gives you time to learn the stairs and find the hiding spots. Any cats you find still come home with you."],
         ],
+        "loop_title": "Make a mess. Come back as another cat.",
+        "loop": [("Smash", "Push a cup or tip the candy bowl. The coins go straight onto the owner’s bill."), ("Find", "Open boxes and knock things off shelves to uncover hidden cats."), ("Fuse", "Pick two cats and take their combined instincts into the next round."), ("Dodge", "Sit when the camera turns. Run when the owner does.")],
+        "modes": [("180-second challenge", "Run up the bill and aim for the local leaderboard."), ("Untimed Free Play", "Find cats and try moves at your own pace. Discoveries carry over.")],
+        "poster_alt": "Halloween concept poster showing cats, pumpkin lanterns and scattered candy, with panels on collecting, fusing and evading the camera",
+        "poster_caption": "Halloween gameplay concept poster",
+        "giant_label": "Hidden recipe",
+        "giant_equation": "Ah Huai + Dafu",
+        "giant_title": "Big Bad Cat",
+        "giant_body": "Find all four cats and complete three other recipes. The result is 1.8 times normal size, and its zoomies keep pushing when they hit heavy objects. The TV is finally something you can run straight at.",
+        "giant_caption": "In-game fusion screen · Three recipes to go",
+        "recipes_title": "See the other five recipes",
+        "recipes": [
+            ("Ah Huai + Jutuan", "Bounce Bomb", "Rebound on impact and send out a shockwave on landing."),
+            ("Ah Huai + Wumei", "Noise Bomb", "Fire a sound blast on impact during zoomies."),
+            ("Jutuan + Wumei", "Subwoofer", "Shake the floor on landing, then press Q to meow."),
+            ("Jutuan + Dafu", "Cat Mountain", "Grow bigger and shake a wider area on landing."),
+            ("Wumei + Dafu", "Giant Megaphone", "Unlock after two standard recipes and knock things back from farther away."),
+        ],
+        "audio_beats": [("Mischief", "CanCan", "A quick beat for swipes, nudges and pounces."), ("Pursuit", "Chase", "The chase track drops in volume at the results screen so the final meow can come through."), ("Payment", "Crash + chime", "The cash-register chime rises in pitch as a chain gets longer.")],
         "hero_alt": "Ah Huai, a black-and-white cat beside a cup on a red coffee table in the game’s opening scene",
         "hero_caption": "Opening scene · The Halloween party hasn’t even started.", "clip_caption": "Captured on Mac · packaged gameplay and development close-ups · bilingual captions",
         "watch_a11y": "Play Delivery Chaos gameplay footage", "captions": "English captions",
         "watch_frames": [("01 Scanning", "The pet camera traces its field of view on the floor"), ("02 Playing innocent", "The cat sits still while the camera turns"), ("03 Offline", "The scan disappears when the camera is unplugged")],
         "ground": "Floor route", "high": "Steps up to the catwalk, just out of frame", "route_alt": "Gameplay view with a floor route around the couch and a route up the steps along the wall",
-        "cats": [("Ah Huai", "Rebounds during zoomies"), ("Jutuan", "Shockwaves on landing"), ("Wumei", "Meows knock things back"), ("Dafu", "Pushes heavy furniture")],
+        "cats": [("Ah Huai", "Your first cat. Bounces back after a collision during zoomies."), ("Jutuan", "Hidden in a delivery box. Sends out a shockwave on landing from a height."), ("Wumei", "Follow the cup on the bookshelf. Press Q for a fan-shaped sound blast."), ("Dafu", "Follow the tallest pumpkin lantern. At 1.8× size, Dafu can shove heavy objects.")],
         "pair": [("Before fusion", "Ah Huai collides with a prop during zoomies"), ("After fusion", "Noise Bomb sends out a fan-shaped shockwave on impact")],
         "receipt": "The results screen itemizes a desk lamp, a pumpkin lantern and a cup", "credits": "My part",
         "credit": "I led gameplay direction, room layout, character presentation and UI decisions, and drove iteration on the Unreal prototype. The project also used contributor-supplied audio, licensed models and AI-assisted code and asset production. The public repository contains the shareable source.",
         "source": "View source", "event": "Jam event", "top": "Back to top",
     },
 }
-CHAPTERS = ("cup", "camera", "room", "fusion", "receipt")
+CHAPTERS = ("cup", "camera", "room", "fusion", "sound", "receipt")
 CATS = ("ah-huai", "jutuan", "wumei", "dafu")
 
 
@@ -81,7 +121,7 @@ def figure(name, alt, caption=None, width=1440, height=810):
 def story(c, i, media, theme=""):
     paragraphs = "".join(f"<p>{escape(p)}</p>" for p in c["body"][i])
     return f"""<section class="chapter {theme}" id="{CHAPTERS[i]}"><div class="wrap">
-  <div class="story-heading"><div><span class="scene-number">0{i+1} / 05</span><h2>{c["headings"][i]}</h2></div><div>{paragraphs}</div></div>
+  <div class="story-heading"><div><span class="scene-number">{i + 1:02d} / {len(CHAPTERS):02d}</span><h2>{c["headings"][i]}</h2></div><div>{paragraphs}</div></div>
   {media}
 </div></section>"""
 
@@ -103,7 +143,13 @@ def render(locale):
     active_zh = ' aria-current="page"' if locale == "zh" else ""
     active_en = ' aria-current="page"' if locale == "en" else ""
     meta = "".join(f"<div><dt>{label}</dt><dd>{value}</dd></div>" for label, value in c["meta"])
-    links = "".join(f'<a href="#{target}"><span>0{i}</span>{label}</a>' for i, (target, label) in enumerate(zip(CHAPTERS, c["short"]), 1))
+    links = "".join(f'<a href="#{target}"><span>{i:02d}</span>{label}</a>' for i, (target, label) in enumerate(zip(CHAPTERS, c["short"]), 1))
+    moves = "".join(f"<li><h3>{label}</h3><p>{text}</p></li>" for label, text in c["loop"])
+    modes = "".join(f"<div><dt>{label}</dt><dd>{text}</dd></div>" for label, text in c["modes"])
+    overview = f"""<section class="wrap overview" id="how" aria-labelledby="loop-title">
+  <div><h2 id="loop-title">{h("loop_title")}</h2><ol class="moves">{moves}</ol><dl class="modes">{modes}</dl></div>
+  {figure("halloween-poster", c["poster_alt"], h("poster_caption"), 880, 1244)}
+</section>"""
     tracks = "".join(
         f'<track kind="captions" src="{ASSETS}/clip-{code}.vtt" srclang="{code}" label="{COPY[code]["captions"]}"'
         + (" default>" if code == locale else ">")
@@ -142,13 +188,30 @@ def render(locale):
         figure(file, text, f"<b>{label}</b> {text}", 1280, 720)
         for file, (label, text) in zip(("zoomies", "noise-bomb"), c["pair"])
     ) + "</div>"
+    recipes = "".join(
+        f"<li><small>{parents}</small><b>{name}</b><p>{effect}</p></li>"
+        for parents, name, effect in c["recipes"]
+    )
+    roster += f"""<div class="giant-recipe" id="big-bad-cat">
+    <div class="giant-copy"><span class="scene-number">{h("giant_label")}</span>
+      <p class="giant-equation">{h("giant_equation")} <span aria-hidden="true">=</span></p>
+      <h3>{h("giant_title")}</h3><p>{h("giant_body")}</p>
+    </div>
+    {figure("big-cat-recipe", c["giant_caption"], width=1440, height=810)}
+  </div>
+  <details class="recipe-list"><summary>{h("recipes_title")}</summary><ul>{recipes}</ul></details>"""
+    sound = '<ul class="audio-beats">' + "".join(
+        f'<li><span class="scene-number">{label}</span><h3>{cue}</h3><p>{text}</p></li>'
+        for label, cue, text in c["audio_beats"]
+    ) + "</ul>"
     receipt = f"""<div class="receipt">
     {figure("bill", c["receipt"])}
     <div class="credits"><h3>{h("credits")}</h3><p>{h("credit")}</p>
       <div class="actions"><a class="text-link" href="https://github.com/joeymilano/DELIVER-CHAOS">{h("source")} ↗</a><a class="text-link" href="https://vibecafe.ai/hacks/6">{h("event")} ↗</a></div>
     </div>
   </div>"""
-    sections = "\n".join(story(c, i, media, theme) for i, (media, theme) in enumerate(((clip, ""), (camera, "dark"), (routes, ""), (roster, "fusion"), (receipt, ""))))
+    panels = ((clip, ""), (camera, "dark"), (routes, ""), (roster, "fusion"), (sound, ""), (receipt, ""))
+    sections = "\n".join(story(c, i, media, theme) for i, (media, theme) in enumerate(panels))
     return f"""<!doctype html>
 <html lang="{c["lang"]}">
 <head>
@@ -171,14 +234,14 @@ def render(locale):
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#f4edde">
   <link rel="icon" href="/favicon-32.png">
-  <link rel="stylesheet" href="{ASSETS}/case.css?v=20261104-title">
+  <link rel="stylesheet" href="{ASSETS}/case.css?v=20261104-gameplay-story">
   <script type="application/ld+json">{schema}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8F4G6B3C6"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());const productionHosts=['joeyzhao.cc','www.joeyzhao.cc'];if(productionHosts.includes(window.location.hostname)){{gtag('config','G-M8F4G6B3C6')}}</script>
   <script defer src="{ASSETS}/case.js?v=20261104"></script>
 </head>
 <body>
-<a class="skip" href="#cup">{h("read")}</a>
+<a class="skip" href="#how">{h("read")}</a>
 <header id="top" class="project-page-nav"><nav class="wrap nav-content" aria-label="{h("nav")}">
   <a href="/?view=classic&amp;lang={locale}#projects">← {h("back")}</a>
   <div class="lang-toggle"><a href="/en/delivery-chaos" lang="en"{active_en}>EN</a><span aria-hidden="true">/</span><a href="/delivery-chaos" lang="zh-CN"{active_zh}>中</a></div>
@@ -188,11 +251,12 @@ def render(locale):
     <p class="kicker">{h("kicker")}</p>
     <h1 class="hero-title">{img("title-mark", c["name"], 1120, 851, eager=True)}</h1>
     <p class="hook">{h("hook")}</p>
-    <div class="actions"><a class="button" href="#play"><span aria-hidden="true">▶</span> {h("watch")}</a><a class="text-link" href="#cup">{h("read")} ↓</a></div>
+    <div class="actions"><a class="button" href="#play"><span aria-hidden="true">▶</span> {h("watch")}</a><a class="text-link" href="#how">{h("read")} ↓</a></div>
   </div><figure><picture><source media="(max-width: 560px)" srcset="{ASSETS}/hero-mobile.webp">{img("hero", c["hero_alt"], 1200, 900, eager=True)}</picture><figcaption>{h("hero_caption")}</figcaption></figure></section>
   <div class="wrap"><dl class="meta">{meta}</dl>
     <nav class="chapter-nav" aria-label="{h("chapters")}">{links}</nav>
   </div>
+  {overview}
   {sections}
 </main>
 <footer class="wrap project-footer"><a href="/explore/?item=games&amp;lang={locale}">{h("explore")}</a><a href="#top">{h("top")} ↑</a></footer>

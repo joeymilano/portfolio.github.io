@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>猫手猫脚 | Unreal Engine 5 拆家游戏设计案例 · 赵越</title>
-  <meta name="description" content="赵越的游戏设计案例。从推落一只杯子，到躲开监控、穿过猫道、合成新猫，在 Unreal Engine 5 里把万圣节客厅做成一场拆家喜剧。">
+  <meta name="description" content="赵越的游戏设计案例。用 Unreal Engine 5 做一场万圣节拆家喜剧。推杯子赚金币，坐下躲监控，找到四只猫并合成大坏猫。">
   <link rel="canonical" href="https://joeyzhao.cc/delivery-chaos">
   <link rel="alternate" hreflang="zh-CN" href="https://joeyzhao.cc/delivery-chaos">
   <link rel="alternate" hreflang="en" href="https://joeyzhao.cc/en/delivery-chaos">
   <link rel="alternate" hreflang="x-default" href="https://joeyzhao.cc/delivery-chaos">
   <meta property="og:type" content="article">
   <meta property="og:title" content="猫手猫脚 | Unreal Engine 5 拆家游戏设计案例 · 赵越">
-  <meta property="og:description" content="赵越的游戏设计案例。从推落一只杯子，到躲开监控、穿过猫道、合成新猫，在 Unreal Engine 5 里把万圣节客厅做成一场拆家喜剧。">
+  <meta property="og:description" content="赵越的游戏设计案例。用 Unreal Engine 5 做一场万圣节拆家喜剧。推杯子赚金币，坐下躲监控，找到四只猫并合成大坏猫。">
   <meta property="og:url" content="https://joeyzhao.cc/delivery-chaos">
   <meta property="og:image" content="https://joeyzhao.cc/assets/delivery-chaos/share-title.jpg">
   <meta property="og:image:width" content="1200">
@@ -20,14 +20,14 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#f4edde">
   <link rel="icon" href="/favicon-32.png">
-  <link rel="stylesheet" href="/assets/delivery-chaos/case.css?v=20261104-title">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "猫手猫脚", "alternateName": "Delivery Chaos", "description": "赵越的游戏设计案例。从推落一只杯子，到躲开监控、穿过猫道、合成新猫，在 Unreal Engine 5 里把万圣节客厅做成一场拆家喜剧。", "url": "https://joeyzhao.cc/delivery-chaos", "inLanguage": "zh-CN", "image": "https://joeyzhao.cc/assets/delivery-chaos/share-title.jpg", "dateCreated": "2026-10-31", "genre": "3D action comedy", "creator": {"@type": "Person", "name": "Joey Zhao", "url": "https://joeyzhao.cc/"}}</script>
+  <link rel="stylesheet" href="/assets/delivery-chaos/case.css?v=20261104-gameplay-story">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "猫手猫脚", "alternateName": "Delivery Chaos", "description": "赵越的游戏设计案例。用 Unreal Engine 5 做一场万圣节拆家喜剧。推杯子赚金币，坐下躲监控，找到四只猫并合成大坏猫。", "url": "https://joeyzhao.cc/delivery-chaos", "inLanguage": "zh-CN", "image": "https://joeyzhao.cc/assets/delivery-chaos/share-title.jpg", "dateCreated": "2026-10-31", "genre": "3D action comedy", "creator": {"@type": "Person", "name": "Joey Zhao", "url": "https://joeyzhao.cc/"}}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8F4G6B3C6"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());const productionHosts=['joeyzhao.cc','www.joeyzhao.cc'];if(productionHosts.includes(window.location.hostname)){gtag('config','G-M8F4G6B3C6')}</script>
   <script defer src="/assets/delivery-chaos/case.js?v=20261104"></script>
 </head>
 <body>
-<a class="skip" href="#cup">看设计过程</a>
+<a class="skip" href="#how">看看怎么玩</a>
 <header id="top" class="project-page-nav"><nav class="wrap nav-content" aria-label="项目导航">
   <a href="/?view=classic&amp;lang=zh#projects">← 返回作品</a>
   <div class="lang-toggle"><a href="/en/delivery-chaos" lang="en">EN</a><span aria-hidden="true">/</span><a href="/delivery-chaos" lang="zh-CN" aria-current="page">中</a></div>
@@ -36,14 +36,18 @@
   <section class="wrap hero"><div>
     <p class="kicker">Delivery Chaos · 2026</p>
     <h1 class="hero-title"><img src="/assets/delivery-chaos/title-mark.webp" alt="猫手猫脚" width="1120" height="851" decoding="async" loading="eager" fetchpriority="high"></h1>
-    <p class="hook">猫把杯子推到桌沿。摄像头正转过来。你是再推一下，还是坐下装乖？</p>
-    <div class="actions"><a class="button" href="#play"><span aria-hidden="true">▶</span> 看 15 秒实机</a><a class="text-link" href="#cup">看设计过程 ↓</a></div>
+    <p class="hook">万圣节派对还没开，猫已经把杯子推到了桌沿。监控正转过来。你要再推一下，还是坐下装乖？</p>
+    <div class="actions"><a class="button" href="#play"><span aria-hidden="true">▶</span> 看 15 秒实机</a><a class="text-link" href="#how">看看怎么玩 ↓</a></div>
   </div><figure><picture><source media="(max-width: 560px)" srcset="/assets/delivery-chaos/hero-mobile.webp"><img src="/assets/delivery-chaos/hero.webp" alt="开场画面里的奶牛猫阿坏，站在杯子旁，身后是蓝绿色沙发" width="1200" height="900" decoding="async" loading="eager" fetchpriority="high"></picture><figcaption>开场画面 · 万圣节派对还没开始。</figcaption></figure></section>
   <div class="wrap"><dl class="meta"><div><dt>我的部分</dt><dd>赵越 · 玩法、关卡与美术方向</dd></div><div><dt>制作</dt><dd>Unreal Engine 5 · 参赛原型</dd></div><div><dt>活动</dt><dd>Vibe Hacks #06</dd></div></dl>
-    <nav class="chapter-nav" aria-label="案例章节"><a href="#cup"><span>01</span>推杯子</a><a href="#camera"><span>02</span>装乖</a><a href="#room"><span>03</span>客厅</a><a href="#fusion"><span>04</span>合成</a><a href="#receipt"><span>05</span>账单</a></nav>
+    <nav class="chapter-nav" aria-label="案例章节"><a href="#cup"><span>01</span>拆家</a><a href="#camera"><span>02</span>装乖</a><a href="#room"><span>03</span>万圣节</a><a href="#fusion"><span>04</span>找猫与合成</a><a href="#sound"><span>05</span>声音</a><a href="#receipt"><span>06</span>结算</a></nav>
   </div>
+  <section class="wrap overview" id="how" aria-labelledby="loop-title">
+  <div><h2 id="loop-title">这局拆家，下局换猫</h2><ol class="moves"><li><h3>拆</h3><p>推杯子、打翻糖果碗，金币飞进主人的账单。</p></li><li><h3>找</h3><p>翻纸箱、碰书架、打南瓜灯，把藏起来的猫带回去。</p></li><li><h3>合</h3><p>选两只猫，把它们的本领带进下一局。</p></li><li><h3>躲</h3><p>监控转过来就坐好。主人追上来，就跑。</p></li></ol><dl class="modes"><div><dt>180 秒挑战</dt><dd>冲账单总额，上本机排行榜。</dd></div><div><dt>不限时自由拆家</dt><dd>慢慢找猫和试招，收藏照样保留。</dd></div></dl></div>
+  <figure><img src="/assets/delivery-chaos/halloween-poster.webp" alt="万圣节概念海报，几只猫在南瓜灯和散落的糖果间拆家，海报下半部分展示收集、合成和躲监控" width="880" height="1244" decoding="async" loading="lazy"><figcaption>万圣节玩法概念海报</figcaption></figure>
+</section>
   <section class="chapter " id="cup"><div class="wrap">
-  <div class="story-heading"><div><span class="scene-number">01 / 05</span><h2>再推一点</h2></div><div><p>最早每轮只有三次大扑击。改版后，平时想拍就拍，三次留给超级扑。杯子摆在桌边时，也可以按住 E 慢慢推。爪子碰到杯子才施力，掉下去才记账。</p><p>同一只爪还能往主人背后拍一下。能甩开他才有奖金，拍完得自己找路跑。</p></div></div>
+  <div class="story-heading"><div><span class="scene-number">01 / 06</span><h2>杯子只差半爪</h2></div><div><p>轻点 J 拍一下，按住 E 慢慢推。杯子只挪了一点时，账单纹丝不动。等它从桌沿翻下去，才听见碎裂声，看见金币飞向账单。每件东西只计价一次。</p><p>早期每局只有三次大扑击，玩家容易舍不得出手。现在普通挥爪和扑击随便用。长按 J 时，猫会扭屁股蓄力，三次额度留给这种超级扑。也可以按 Shift 暴冲，让阿坏撞上东西弹回来。</p></div></div>
   <figure class="clip">
     <video id="play" controls playsinline preload="none" width="1280" height="720" poster="/assets/delivery-chaos/clip-poster.webp" aria-label="播放《猫手猫脚》实机短片">
       <source src="/assets/delivery-chaos/gameplay.mp4" type="video/mp4"><track kind="captions" src="/assets/delivery-chaos/clip-zh.vtt" srclang="zh" label="中文字幕" default><track kind="captions" src="/assets/delivery-chaos/clip-en.vtt" srclang="en" label="English captions">
@@ -52,11 +56,11 @@
   </figure><div class="pair prank"><figure><img src="/assets/delivery-chaos/rear-swat.webp" alt="从背后拍一爪" width="1440" height="810" decoding="async" loading="lazy"><figcaption>从背后拍一爪</figcaption></figure><figure><img src="/assets/delivery-chaos/rear-caught.webp" alt="来不及跑，被抱回猫窝" width="1440" height="810" decoding="async" loading="lazy"><figcaption>来不及跑，被抱回猫窝</figcaption></figure></div>
 </div></section>
 <section class="chapter dark" id="camera"><div class="wrap">
-  <div class="story-heading"><div><span class="scene-number">02 / 05</span><h2>坐好，假装什么都没发生</h2></div><div><p>摄像头扫过地毯时，地上的细线告诉你它看得到哪儿。短暂经过还有余地，持续被拍到捣乱才扣时间。</p><p>主人听见动静会来追。你可以绕开视线，停下来装乖，也可以趁监控转开，靠近把它拍掉或拔线。</p></div></div>
+  <div class="story-heading"><div><span class="scene-number">02 / 06</span><h2>监控一转，猫就乖了</h2></div><div><p>摄像头把视野画在地毯上。正常路过没事，连续拍到你捣乱约一秒，挑战就少两秒。收爪坐好还能拿乖猫奖励。嫌镜头碍事，就绕到旁边拍掉它，或按住 E 拔线。监控一黑，账单多 ¥399。</p><p>主人转身前，可以从背后拍他一爪。被抓就抱回猫窝，限时局少 15 秒。能甩开追捕，在视线外待满两秒，才拿得到 ¥500 恶作剧奖金。</p></div></div>
   <div class="sequence"><figure><img src="/assets/delivery-chaos/scan.webp" alt="监控在地上划出一条清楚的边界" width="1440" height="810" decoding="async" loading="lazy"><figcaption><b>01 巡查</b> 监控在地上划出一条清楚的边界</figcaption></figure><figure><img src="/assets/delivery-chaos/innocent.webp" alt="猫停下来坐好，等镜头过去" width="1440" height="810" decoding="async" loading="lazy"><figcaption><b>02 装乖</b> 猫停下来坐好，等镜头过去</figcaption></figure><figure><img src="/assets/delivery-chaos/offline.webp" alt="监控被拔掉后，扫描边界消失" width="1440" height="810" decoding="async" loading="lazy"><figcaption><b>03 断线</b> 监控被拔掉后，扫描边界消失</figcaption></figure></div>
 </div></section>
 <section class="chapter " id="room"><div class="wrap">
-  <div class="story-heading"><div><span class="scene-number">03 / 05</span><h2>客厅有两层</h2></div><div><p>从茶几边绕过去容易，想甩开主人，可以沿墙一阶一阶跳上猫道。橘团走同一条路还有另一个目的。它从高处落下会把周围的东西震开。</p></div></div>
+  <div class="story-heading"><div><span class="scene-number">03 / 06</span><h2>万圣节派对，猫先开场</h2></div><div><p>派对还没开，南瓜灯、蛋糕和糖果已经摆好了。拍翻糖果碗，24 颗糖撒到地上，轻物件也开始反弹。最高那盏南瓜灯还藏着一只猫。</p><p>绕过沙发可以躲视线，沿墙八级台阶则能跳上猫道。橘团走到高处就有了新的用法，从上面落下去，能把落点周围的东西一起震开。</p></div></div>
   <figure>
     <div class="route-shot"><img src="/assets/delivery-chaos/room.webp" alt="实机客厅图，地面路线绕过沙发，另一条路线沿墙边台阶向上" width="1440" height="810" decoding="async" loading="lazy">
       <svg viewBox="0 0 1440 810" aria-hidden="true">
@@ -70,11 +74,22 @@
   </figure>
 </div></section>
 <section class="chapter fusion" id="fusion"><div class="wrap">
-  <div class="story-heading"><div><span class="scene-number">04 / 05</span><h2>两只猫能惹多大麻烦</h2></div><div><p>拆开藏身处就能找到新猫。阿坏和乌梅单独出场时，一个撞了会弹开，一个得主动喵。把它们合成噪音炸弹，暴冲撞上东西就会自动发出音波，连没碰到的物件也可能被震飞。</p></div></div>
-  <div class="roster"><figure><img src="/assets/delivery-chaos/ah-huai.webp" alt="阿坏" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>阿坏</b>暴冲反弹</figcaption></figure><figure><img src="/assets/delivery-chaos/jutuan.webp" alt="橘团" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>橘团</b>落地震荡</figcaption></figure><figure><img src="/assets/delivery-chaos/wumei.webp" alt="乌梅" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>乌梅</b>喵声冲击</figcaption></figure><figure><img src="/assets/delivery-chaos/dafu.webp" alt="大福" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>大福</b>推动重物</figcaption></figure></div><div class="pair"><figure><img src="/assets/delivery-chaos/zoomies.webp" alt="阿坏暴冲撞上道具" width="1280" height="720" decoding="async" loading="lazy"><figcaption><b>合成前</b> 阿坏暴冲撞上道具</figcaption></figure><figure><img src="/assets/delivery-chaos/noise-bomb.webp" alt="噪音炸弹撞击时放出扇形音波" width="1280" height="720" decoding="async" loading="lazy"><figcaption><b>合成后</b> 噪音炸弹撞击时放出扇形音波</figcaption></figure></div>
+  <div class="story-heading"><div><span class="scene-number">04 / 06</span><h2>阿坏加大福，客厅遭殃</h2></div><div><p>拆开藏身处，再走近出现的小猫，就能把它带回实验室。两只猫的本领会合在一起。阿坏本来撞到东西就弹开，和乌梅合成「噪音炸弹」后，撞上去还会自动放出一扇音波。</p></div></div>
+  <div class="roster"><figure><img src="/assets/delivery-chaos/ah-huai.webp" alt="阿坏" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>阿坏</b>开局搭档。暴冲撞到东西会弹开。</figcaption></figure><figure><img src="/assets/delivery-chaos/jutuan.webp" alt="橘团" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>橘团</b>藏在快递纸箱。高处落地会震开物件。</figcaption></figure><figure><img src="/assets/delivery-chaos/wumei.webp" alt="乌梅" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>乌梅</b>线索在书架的杯子。按 Q 发出扇形音波。</figcaption></figure><figure><img src="/assets/delivery-chaos/dafu.webp" alt="大福" width="340" height="340" decoding="async" loading="lazy"><figcaption><b>大福</b>线索在最高的南瓜灯。体型 1.8 倍，推得动重物。</figcaption></figure></div><div class="pair"><figure><img src="/assets/delivery-chaos/zoomies.webp" alt="阿坏暴冲撞上道具" width="1280" height="720" decoding="async" loading="lazy"><figcaption><b>合成前</b> 阿坏暴冲撞上道具</figcaption></figure><figure><img src="/assets/delivery-chaos/noise-bomb.webp" alt="噪音炸弹撞击时放出扇形音波" width="1280" height="720" decoding="async" loading="lazy"><figcaption><b>合成后</b> 噪音炸弹撞击时放出扇形音波</figcaption></figure></div><div class="giant-recipe" id="big-bad-cat">
+    <div class="giant-copy"><span class="scene-number">隐藏配方</span>
+      <p class="giant-equation">阿坏 ＋ 大福 <span aria-hidden="true">=</span></p>
+      <h3>大坏猫</h3><p>先找齐四只猫，再完成三种其他配方。合成后体型变成 1.8 倍，暴冲撞到重物时能继续往前推。以前撞电视得弹回去，现在连电视也能推走。</p>
+    </div>
+    <figure><img src="/assets/delivery-chaos/big-cat-recipe.webp" alt="实机合成界面 · 还差三种配方" width="1440" height="810" decoding="async" loading="lazy"><figcaption>实机合成界面 · 还差三种配方</figcaption></figure>
+  </div>
+  <details class="recipe-list"><summary>看另外五种配方</summary><ul><li><small>阿坏 ＋ 橘团</small><b>弹跳炸弹</b><p>暴冲撞了会弹，落地还有震荡。</p></li><li><small>阿坏 ＋ 乌梅</small><b>噪音炸弹</b><p>暴冲撞击自动放音波。</p></li><li><small>橘团 ＋ 乌梅</small><b>低音炮</b><p>先从高处震一下，再按 Q 喵一声。</p></li><li><small>橘团 ＋ 大福</small><b>猫猫山</b><p>变大后落地，震得更远。</p></li><li><small>乌梅 ＋ 大福</small><b>巨型扩音器</b><p>完成两种普通配方后解锁，音波打得更远。</p></li></ul></details>
+</div></section>
+<section class="chapter " id="sound"><div class="wrap">
+  <div class="story-heading"><div><span class="scene-number">05 / 06</span><h2>追猫也要有节奏</h2></div><div><p>我想致敬《汤姆和杰瑞》追逐戏里的音乐节奏。平时拆家用《CanCan》的快拍，主人开始追，或挑战进入最后 20 秒，就切到追逐曲。逃掉了也让它把这一段奏完，再接回主曲。</p><p>杯子碎了是一下脆响，金币飞进账单是收银机的叮声。最后给猫留一声喵。接下来就是主人要付的账。</p></div></div>
+  <ul class="audio-beats"><li><span class="scene-number">拆家</span><h3>CanCan</h3><p>让推、拍、扑有轻快的节奏。</p></li><li><span class="scene-number">追捕</span><h3>Chase</h3><p>进入结算时把追逐曲压低，给最后那声喵留位置。</p></li><li><span class="scene-number">记账</span><h3>碎裂声＋收银机</h3><p>连锁越长，收银机的叮声越高。</p></li></ul>
 </div></section>
 <section class="chapter " id="receipt"><div class="wrap">
-  <div class="story-heading"><div><span class="scene-number">05 / 05</span><h2>账单留给主人</h2></div><div><p>倒下的东西各有标价，同一件只算一次。结算看的是杯子、灯和刚才那点小聪明加起来值多少钱。猫喵一声，账单给主人。</p></div></div>
+  <div class="story-heading"><div><span class="scene-number">06 / 06</span><h2>账单留给主人</h2></div><div><p>限时局打完，账单逐项列出弄坏的东西和恶作剧奖金，总金额计入本机排行榜。想摸清楼梯和藏身处，可以先进不限时的自由拆家，找到的猫照样能带走。</p></div></div>
   <div class="receipt">
     <figure><img src="/assets/delivery-chaos/bill.webp" alt="游戏结算界面 · 台灯、南瓜灯和杯子逐项入账" width="1440" height="810" decoding="async" loading="lazy"><figcaption>游戏结算界面 · 台灯、南瓜灯和杯子逐项入账</figcaption></figure>
     <div class="credits"><h3>我的部分</h3><p>我负责玩法方向、房间路线、角色表现和界面取舍，并推进 Unreal 原型迭代。项目也用到协作者补充的音频、授权模型和 AI 辅助的代码与资产制作。公开仓库收录可分享的源码。</p>

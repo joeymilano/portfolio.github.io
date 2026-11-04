@@ -27,7 +27,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; }
 a { color: inherit; text-underline-offset: .22em; }
-a:focus-visible, video:focus-visible { outline: 3px solid #b2461d; outline-offset: 5px; }
+a:focus-visible, video:focus-visible, summary:focus-visible { outline: 3px solid #b2461d; outline-offset: 5px; }
 .skip { position: fixed; top: 12px; left: 12px; z-index: 2; padding: 10px 16px; background: var(--ink); color: white; transform: translateY(-200%); }
 .skip:focus { transform: none; }
 .wrap { width: min(1400px, 100% - 2 * var(--margin)); margin-inline: auto; }
@@ -61,6 +61,34 @@ figcaption { margin-top: 9px; font-size: .81rem; line-height: 1.5; color: var(--
 .chapter-nav { display: flex; flex-wrap: wrap; gap: 7px 28px; padding-block: 18px 0; }
 .chapter-nav a { display: inline-flex; align-items: center; gap: 7px; font-size: .83rem; min-height: 32px; font-weight: 700; }
 .chapter-nav span { color: var(--deep-orange); font-variant-numeric: tabular-nums; }
+.overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .8fr);
+  align-items: center;
+  gap: clamp(28px, 6vw, 88px);
+  padding-block: clamp(40px, 6vw, 82px);
+  border-bottom: 1px solid var(--line);
+}
+.overview figure { width: min(100%, 410px); justify-self: end; }
+.moves, .modes, .audio-beats, .recipe-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.moves, .modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.moves { gap: 20px 28px; margin-top: 24px; }
+.moves li { border-top: 1px solid var(--line); padding-top: 10px; }
+.moves h3, .audio-beats h3 { margin: 0 0 6px; font-size: 1.16rem; }
+.moves h3 { color: var(--deep-orange); }
+.moves p, .modes dd, .audio-beats p, .recipe-list p { font-size: .91rem; line-height: 1.55; }
+.modes { margin-top: 26px; background: #eadfcc; border-radius: 5px; }
+.modes > div { padding: 13px 16px; }
+.modes > div + div { border-left: 1px solid var(--line); }
+.modes dt { font-weight: 700; }
+.modes dd { margin: 4px 0 0; color: var(--muted); }
 .chapter { padding-block: clamp(52px, 8vw, 118px); }
 .story-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .82fr); align-items: end; gap: 20px 8%; margin-bottom: clamp(20px, 4vw, 42px); }
 .scene-number { display: block; color: var(--deep-orange); margin-bottom: 11px; }
@@ -87,6 +115,37 @@ figcaption b { color: inherit; margin-right: .35em; }
 .roster { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 2vw, 24px); margin-bottom: 30px; }
 .roster img { aspect-ratio: 1; object-fit: cover; }
 .roster b { display: block; color: var(--ink); font-size: .96rem; }
+.giant-recipe {
+  display: grid;
+  grid-template-columns: minmax(0, .7fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  margin-top: clamp(28px, 5vw, 62px);
+  padding: clamp(18px, 4vw, 48px);
+  border-radius: 6px;
+  background: #252824;
+  color: var(--paper);
+}
+.giant-recipe .scene-number { color: #ff986b; }
+.giant-recipe figcaption { color: #d5c9bb; }
+.giant-equation { font-weight: 700; }
+.giant-copy h3 { margin: 5px 0 12px; font-size: clamp(2rem, 5vw, 4.6rem); line-height: 1.05; }
+.giant-copy p { max-width: 40ch; line-height: 1.65; }
+.recipe-list { margin-top: 20px; border-block: 1px solid #a9b5a8; }
+.recipe-list summary { cursor: pointer; padding-block: 16px; font-weight: 700; }
+.recipe-list ul, .audio-beats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.recipe-list ul { padding-bottom: 16px; }
+.recipe-list li, .audio-beats li { padding: 15px 16px; border-radius: 5px; }
+.recipe-list li { background: #f0f2ea; }
+.recipe-list small { display: block; margin-bottom: 3px; color: #4e5a4d; }
+.recipe-list p { margin-top: 5px; }
+#sound { background: #f4e1d1; }
+.audio-beats li { border-top: 2px solid var(--deep-orange); background: #faecdf; }
+.audio-beats .scene-number { margin-bottom: 6px; }
 .receipt { display: grid; grid-template-columns: minmax(0, 1.48fr) minmax(0, .65fr); gap: clamp(20px, 4vw, 52px); align-items: center; }
 .credits { border-left: 3px solid var(--orange); padding-left: 20px; }
 .credits h3 { margin: 0 0 9px; }
@@ -107,5 +166,7 @@ figcaption b { color: inherit; margin-right: .35em; }
   .meta > div:first-child { grid-column: 1 / -1; }
   .sequence, .pair { grid-template-columns: 1fr; gap: 18px; }
   .roster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .overview, .giant-recipe, .audio-beats, .recipe-list ul { grid-template-columns: 1fr; }
+  .overview figure { justify-self: center; }
 }
 .prank { margin: clamp(16px, 3vw, 32px) auto 0; max-width: 1080px; }
