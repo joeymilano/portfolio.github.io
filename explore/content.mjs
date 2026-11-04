@@ -11,8 +11,8 @@ const narrativeCardRoguelike={
  path:'/pleasurecontract',
  image:'/images/pc-cg-rooftop.png',
  description:{
-  en:'Four weeks, one designer, a crew of AI agents. It looked finished, until 19 of 22 relics turned out to describe the wrong effect.',
-  zh:'四周，一个人，一组 AI 智能体。它看起来已经做完，直到我发现 22 件遗物里，19 件的说明写错了。'
+  en:'After midnight in Seoul, you owe a debt you can’t explain. Sign for the strongest cards and pay in health every turn.',
+  zh:'午夜过后，你在首尔欠了一笔来路不明的债。签契约能拿到最狠的牌，利息是每回合扣血。'
  }
 };
 export const gameProjects=[deliveryChaos,narrativeCardRoguelike];
