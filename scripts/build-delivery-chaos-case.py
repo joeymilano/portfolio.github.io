@@ -54,7 +54,7 @@ COPY = {
         "pair": [("合成前", "阿坏暴冲撞上道具"), ("合成后", "噪音炸弹撞击时放出扇形音波")],
         "receipt": "游戏结算界面 · 台灯、南瓜灯和杯子逐项入账", "credits": "我的部分",
         "credit": "我负责玩法方向、房间路线、角色表现和界面取舍，并推进 Unreal 原型迭代。项目也用到协作者补充的音频、授权模型和 AI 辅助的代码与资产制作。公开仓库收录可分享的源码。",
-        "source": "查看源码", "event": "参赛活动", "top": "回到顶部",
+        "source": "GitHub 游戏主页", "event": "参赛活动", "top": "回到顶部",
     },
     "en": {
         "lang": "en", "path": "/en/delivery-chaos", "name": "Delivery Chaos",
@@ -102,7 +102,7 @@ COPY = {
         "pair": [("Before fusion", "Ah Huai collides with a prop during zoomies"), ("After fusion", "Noise Bomb sends out a fan-shaped shockwave on impact")],
         "receipt": "The results screen itemizes a desk lamp, a pumpkin lantern and a cup", "credits": "My part",
         "credit": "I led gameplay direction, room layout, character presentation and UI decisions, and drove iteration on the Unreal prototype. The project also used contributor-supplied audio, licensed models and AI-assisted code and asset production. The public repository contains the shareable source.",
-        "source": "View source", "event": "Jam event", "top": "Back to top",
+        "source": "Game page on GitHub", "event": "Jam event", "top": "Back to top",
     },
 }
 CHAPTERS = ("cup", "camera", "room", "fusion", "sound", "receipt")
