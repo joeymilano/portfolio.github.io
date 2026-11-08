@@ -14,10 +14,10 @@
   </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CollovGPT — AI Interior Design Product Case Study | Joey Zhao</title>
-    <meta name="description" content="CollovGPT case study — a Pro Mode I designed for an AI interior design platform, with an honest read on the 28.2% → 3.8% subscription drop-off figure.">
+    <title>CollovGPT Pro Mode — AI Interior Design Case Study | Joey Zhao</title>
+    <meta name="description" content="Joey Zhao’s CollovGPT case study explains how Pro Mode combined floor plan import, precise layout control, and AI suggestions for professional interior design.">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="CollovGPT — AI Interior Design Product Case Study | Joey Zhao">
+    <meta property="og:title" content="CollovGPT Pro Mode — AI Interior Design Case Study | Joey Zhao">
     <meta property="og:description" content="How I designed a dual-mode AI interior design workflow at Collov, and where I will and won’t claim credit for the numbers.">
     <meta property="og:url" content="https://joeyzhao.cc/collov">
     <meta property="og:image" content="https://joeyzhao.cc/images/page13_img1.jpeg">
@@ -759,7 +759,7 @@
                 <!-- TL;DR Section -->
                 <div class="modal-tldr">
                     <div class="modal-tldr-label" data-i18n="modal.collov.tldrLabel">TL;DR</div>
-                    <div class="modal-tldr-text" data-i18n="modal.collov.tldrText">I designed a Pro Mode that sat between casual users and professional interior designers. During the rollout window, tracked subscription drop-off moved from 28.2% to 3.8%. That number is a subscription-funnel result, not a single-cause UX win — pricing, acquisition mix, and market timing were also in motion.</div>
+                    <div class="modal-tldr-text" data-i18n="modal.collov.tldrText">I led the design of CollovGPT’s Pro Mode, from research to engineering handoff. Casual users could start with style and room ideas. Professionals could import floor plans, control dimensions and layout, and use AI suggestions within that workflow. During the rollout, tracked subscription drop-off moved from 28.2% to 3.8% while pricing, acquisition mix, and market conditions also changed.</div>
                 </div>
 
                 <!-- Impact Metrics -->
@@ -1025,6 +1025,11 @@
     
     </div>
 
+    <div class="page-bottom-nav" aria-label="Contact and resume">
+        <a href="/resume/Yue-Zhao-Senior-AI-Product-Designer-Resume.pdf" download data-resume-download data-i18n="nav.downloadResume">Download CV</a>
+        <a href="/#contact" data-contact-method="contact_section" data-i18n="nav.contactJoey">Contact Joey</a>
+    </div>
+
     <div class="page-bottom-nav">
         <a href="/#projects">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -1040,6 +1045,8 @@
         // i18n
         const translations = {
             en: {
+                'nav.downloadResume': 'Download CV',
+                'nav.contactJoey': 'Contact Joey',
                 'nav.back': 'Back',
                 'nav.backToWork': 'All Work',
                 'nav.nextProject': 'Next: Ctrip Hotel',
@@ -1055,7 +1062,7 @@
                 'modal.collov.metaLabel4': 'Tools',
                 'modal.collov.metaValue4': 'Figma, Jira, Miro',
                 'modal.collov.tldrLabel': 'TL;DR',
-                'modal.collov.tldrText': 'I designed a Pro Mode that sat between casual users and professional interior designers. During the rollout window, tracked subscription drop-off moved from 28.2% to 3.8%. That number is a subscription-funnel result, not a single-cause UX win — pricing, acquisition mix, and market timing were also in motion.',
+                'modal.collov.tldrText': 'I led the design of CollovGPT’s Pro Mode, from research to engineering handoff. Casual users could start with style and room ideas. Professionals could import floor plans, control dimensions and layout, and use AI suggestions within that workflow. During the rollout, tracked subscription drop-off moved from 28.2% to 3.8% while pricing, acquisition mix, and market conditions also changed.',
                 'modal.collov.metricLabel1': 'New Users',
                 'modal.collov.metricDesc1': 'May 2024 only',
                 'modal.collov.metricLabel2': 'YoY Revenue',
@@ -1146,6 +1153,8 @@
 
             },
             zh: {
+                'nav.downloadResume': '下载简历',
+                'nav.contactJoey': '联系赵越',
                 'nav.back': '返回',
                 'nav.backToWork': '返回所有作品',
                 'nav.nextProject': '下一篇：携程酒店',
@@ -1161,7 +1170,7 @@
                 'modal.collov.metaLabel4': '工具',
                 'modal.collov.metaValue4': 'Figma、Jira、Miro',
                 'modal.collov.tldrLabel': '概述',
-                'modal.collov.tldrText': '我设计了 Pro 模式，把普通用户和专业室内设计师接在同一个产品里。上线周期内，追踪到的订阅漏斗流失率从 28.2% 降到 3.8%。这是一个订阅漏斗口径的数字，不是单一 UX 因果——定价、获客结构、市场时机当时都在动。',
+                'modal.collov.tldrText': '我负责 CollovGPT Pro 模式从调研到研发交接的设计。普通用户可以从风格和房间灵感入手，专业设计师则可以导入户型图、精确调整尺寸和布局，再按需要采用 AI 建议。上线期间，追踪到的订阅漏斗流失率从 28.2% 降到 3.8%，同期定价、获客结构和市场环境也在变化。',
                 'modal.collov.metricLabel1': '新增用户',
                 'modal.collov.metricDesc1': '仅 2024 年 5 月',
                 'modal.collov.metricLabel2': '同比营收',
@@ -1314,5 +1323,6 @@
         // Scroll to top on load
         window.scrollTo(0, 0);
     </script>
+    <script src="/assets/portfolio-contact.js" defer></script>
 </body>
 </html>

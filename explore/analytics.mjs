@@ -20,7 +20,7 @@ export function createTracker(send,now=()=>performance.now()){
    if(id===open)return;
    close();
    open=id;openedAt=now();seen.add(id);
-   send('studio_open',{item:id,source:pendingSource||'other',objects_seen:seen.size});pendingSource=null;
+   send('studio_open',{item:id,studio_entry_point:pendingSource||'other',objects_seen:seen.size});pendingSource=null;
   },
   look(){if(looked)return;looked=true;send('studio_look_around',{ms_to_look:Math.round(now())})},
   end(){close();send('studio_session_end',{objects_seen:seen.size,looked_around:looked,engaged_ms:Math.round(now())},{beacon:true})},

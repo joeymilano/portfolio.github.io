@@ -8,7 +8,7 @@ test('open then close reports the source and panel dwell',()=>{
  const {tracker,sent,tick}=harness();
  tracker.source('hotspot');tracker.select('about');tick(4200);tracker.select(null);
  assert.deepEqual(sent.map(e=>e.name),['studio_open','studio_close']);
- assert.deepEqual(sent[0].params,{item:'about',source:'hotspot',objects_seen:1});
+ assert.deepEqual(sent[0].params,{item:'about',studio_entry_point:'hotspot',objects_seen:1});
  assert.deepEqual(sent[1].params,{item:'about',dwell_ms:4200});
 });
 
@@ -16,14 +16,14 @@ test('re-selecting the open item is ignored and switching closes the previous pa
  const {tracker,sent,tick}=harness();
  tracker.select('work');tracker.select('work');tick(1000);tracker.source('panel');tracker.select('music');
  assert.deepEqual(sent.map(e=>e.name),['studio_open','studio_close','studio_open']);
- assert.equal(sent[0].params.source,'other');
- assert.deepEqual(sent[2].params,{item:'music',source:'panel',objects_seen:2});
+ assert.equal(sent[0].params.studio_entry_point,'other');
+ assert.deepEqual(sent[2].params,{item:'music',studio_entry_point:'panel',objects_seen:2});
 });
 
 test('a source is consumed by one open, and closing clears a stale source',()=>{
  const {tracker,sent}=harness();
  tracker.source('nav');tracker.select(null);tracker.select('books');
- assert.equal(sent[0].params.source,'other');
+ assert.equal(sent[0].params.studio_entry_point,'other');
 });
 
 test('look-around fires once and the session summary closes any open panel',()=>{
