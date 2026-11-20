@@ -5,8 +5,9 @@
     <link>https://joeyzhao.cc/writing/</link>
     <description>Notes on AI products, complex systems, design judgment, and building in public.</description>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 20 Nov 2026 08:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 07:46:45 GMT</lastBuildDate>
     <atom:link href="https://joeyzhao.cc/feed.xml" rel="self" type="application/rss+xml"/>
+    <item><title>制药软件的故事，从一段需要被拯救的婚姻开始</title><link>https://joeyzhao.cc/writing/chemdraw-sally-evans</link><guid>https://joeyzhao.cc/writing/chemdraw-sally-evans</guid><pubDate>Fri, 20 Nov 2026 07:46:45 GMT</pubDate><description>从一把化学制图尺，到一张能查到批次的材料谱系图。重读 ChemDraw，看看修改一次究竟要谁来返工。</description></item>
     <item><title>AI 怎样参与做出一款药？从一个分子到一次肺功能检查</title><link>https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib</link><guid>https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib</guid><pubDate>Fri, 20 Nov 2026 07:24:29 GMT</pubDate><description>从第 55 个分子走到肺功能检查，算一笔 AI 制药的时间账，再看 Revvity Signals 的产品设计怎样让研究者发现 AI 少算的那一条。</description></item>
     <item><title>把东方声音接进《丝电回路》</title><link>https://joeyzhao.cc/writing/silk-circuit-ai-music-notes</link><guid>https://joeyzhao.cc/writing/silk-circuit-ai-music-notes</guid><pubDate>Sun, 30 Aug 2026 14:40:00 GMT</pubDate><description>古琴、古筝和箫接进合成器与电子节奏，东方还剩下什么。一次 3 分 19 秒的实验，我把每一步取舍都记了下来。</description></item>
     <item><title>我怎样用 AI 做出《霓虹梦境》</title><link>https://joeyzhao.cc/writing/neon-dream-ai-music-notes</link><guid>https://joeyzhao.cc/writing/neon-dream-ai-music-notes</guid><pubDate>Sun, 30 Aug 2026 14:30:00 GMT</pubDate><description>159.84 秒，没有一句歌词。我先给它定了一座雨后的未来城市，再用 Suno 一版一版逼近，直到网易云上线后的那次回听。</description></item>
