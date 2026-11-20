@@ -21,6 +21,7 @@ const casePages = [
 ];
 
 const articleSlugs = [
+  "ai4s-drug-discovery-rentosertib",
   "neon-dream-ai-music-notes",
   "silk-circuit-ai-music-notes",
   "seven-eleven-layout-psychology",

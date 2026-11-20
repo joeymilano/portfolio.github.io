@@ -1,0 +1,31 @@
+/* Layout for the illustrated AI for Science essay. */
+.case-cover { margin: 0 auto; padding: 104px 0 40px; display: grid; grid-template-columns: 1.2fr minmax(0,.8fr); align-items: center; gap: clamp(32px,6vw,100px); border-bottom: 1px solid var(--line); }
+.case-cover h1 { font-size: clamp(48px,5.7vw,82px); line-height: 1.12; }
+.case-cover .article-deck { line-height: 1.75; max-width: 35em; }
+.case-cover figure { margin: 0; }
+.case-cover figure img { display: block; width: 100%; max-height: 540px; object-fit: contain; background: #171a19; border-radius: 12px; }
+.case-cover figcaption, .article-body figcaption { font-size: 13px; line-height: 1.7; }
+.case-cover figcaption { margin-top: 12px; color: var(--muted); }
+.case-cover figcaption a, .source-note a { text-underline-offset: 3px; }
+.article-body h2 { scroll-margin-top: 85px; text-wrap: balance; }
+.article-body .citation { font-size: .74em; white-space: nowrap; }
+.article-body .plate { max-width: 660px; }
+.article-body .plate.histology { max-width: 548px; }
+.article-body .plate.chart { max-width: 610px; }
+.article-body .plate img { border-radius: 8px; }
+.article-body .plate > a:first-child { display: block; }
+.article-aside .aside-links a { line-height: 1.5; }
+.chart-data { margin-top: 12px; font-size: 14px; }
+.chart-data summary { cursor: pointer; color: var(--text); }
+.chart-data table { width: 100%; margin-top: 10px; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px; }
+.chart-data th, .chart-data td { text-align: left; padding: 7px 4px; border-bottom: 1px solid var(--line); }
+.reader-tool p:last-child { margin-bottom: 0; }
+@media (max-width: 760px) {
+  .case-cover { display: block; padding: 90px 0 28px; }
+  .case-cover h1 { font-size: clamp(39px,8.8vw,58px); }
+  .case-cover .article-deck { margin-top: 16px; }
+  .case-cover figure { margin-top: 26px; }
+  .case-cover figure img { max-height: 400px; }
+  .article-layout { padding-top: 34px; }
+  .article-body h2 { font-size: 29px; }
+}
