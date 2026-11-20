@@ -12,72 +12,105 @@
     }
   </script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI4S 与 AI 制药｜从一个分子到一次肺功能检查 | Joey Zhao</title>
-<meta name="description" content="AI for Science（AI4S）怎样用于药物研发？跟随肺纤维化候选药 rentosertib，读懂 AI 制药如何寻找靶点、筛选分子并进入临床试验。Joey Zhao 结合在 Revvity Signals 复核 94 条实验记录的经历，追查模型少算的一个分子。">
+<title>AI 制药能省多少时间和钱？第 55 个分子的故事｜AI4S | Joey Zhao</title>
+<meta name="description" content="AI for Science（AI4S）怎样帮药物研发省时间、省钱？从第 55 个分子 rentosertib 的早期预算、真实实验照片，到 Revvity Signals 里少算的一条记录，跟着一款候选药走进临床试验。">
 <link rel="canonical" href="https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib">
 <link rel="alternate" hreflang="zh-CN" href="https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib">
 <link rel="alternate" hreflang="en" href="https://joeyzhao.cc/en/writing/ai4s-drug-discovery-rentosertib">
 <link rel="alternate" hreflang="x-default" href="https://joeyzhao.cc/en/writing/ai4s-drug-discovery-rentosertib">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AI 怎样参与做出一款药？从一个分子到一次肺功能检查">
-<meta property="og:description" content="AI for Science（AI4S）怎样用于药物研发？跟随肺纤维化候选药 rentosertib，读懂 AI 制药如何寻找靶点、筛选分子并进入临床试验。Joey Zhao 结合在 Revvity Signals 复核 94 条实验记录的经历，追查模型少算的一个分子。">
+<meta property="og:title" content="第 55 个分子，后来怎么样了？">
+<meta property="og:description" content="AI for Science（AI4S）怎样帮药物研发省时间、省钱？从第 55 个分子 rentosertib 的早期预算、真实实验照片，到 Revvity Signals 里少算的一条记录，跟着一款候选药走进临床试验。">
 <meta property="og:url" content="https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib">
-<meta property="og:image" content="https://joeyzhao.cc/images/writing/ai4s/spirometry-card.webp">
+<meta property="og:image" content="https://joeyzhao.cc/images/writing/ai4s/screening-card.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="writing.css?v=20260830-1">
-<link rel="stylesheet" href="/writing/ai4s.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI 怎样参与做出一款药？从一个分子到一次肺功能检查", "description": "AI for Science（AI4S）怎样用于药物研发？跟随肺纤维化候选药 rentosertib，读懂 AI 制药如何寻找靶点、筛选分子并进入临床试验。Joey Zhao 结合在 Revvity Signals 复核 94 条实验记录的经历，追查模型少算的一个分子。", "url": "https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib", "mainEntityOfPage": "https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib", "image": "https://joeyzhao.cc/images/writing/ai4s/spirometry-card.webp", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "Joey Zhao", "url": "https://joeyzhao.cc/"}, "keywords": ["AI4S", "AI for Science", "AI 制药", "rentosertib", "Revvity Signals"], "citation": ["https://pubmed.ncbi.nlm.nih.gov/38459338/", "https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/", "https://clinicaltrials.gov/study/NCT07687459", "https://doi.org/10.64898/2026.09.20.752967"]}</script>
+<link rel="stylesheet" href="/writing/ai4s.css?v=2">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "第 55 个分子，后来怎么样了？", "description": "AI for Science（AI4S）怎样帮药物研发省时间、省钱？从第 55 个分子 rentosertib 的早期预算、真实实验照片，到 Revvity Signals 里少算的一条记录，跟着一款候选药走进临床试验。", "url": "https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib", "mainEntityOfPage": "https://joeyzhao.cc/writing/ai4s-drug-discovery-rentosertib", "image": "https://joeyzhao.cc/images/writing/ai4s/screening-card.webp", "datePublished": "2026-11-20", "dateModified": "2026-11-20", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "Joey Zhao", "url": "https://joeyzhao.cc/"}, "keywords": ["AI4S", "AI for Science", "AI 制药", "rentosertib", "Revvity Signals"], "citation": ["https://pubmed.ncbi.nlm.nih.gov/38459338/", "https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/", "https://clinicaltrials.gov/study/NCT07687459", "https://insilico.com/blog/fih", "https://insilico.com/news/tnrecuxsc1-insilico-announces-nature-medicine-publi", "https://pubmed.ncbi.nlm.nih.gov/34592101/", "https://insilico.com/casestudy", "https://insilico.com/blog/first_phase2"]}</script>
 </head><body>
 <nav class="site-nav"><div class="nav-inner"><a class="brand" href="../">Joey Zhao<span class="brand-dot">.</span></a><div class="nav-links"><a href="../#projects">作品</a><a href="../#skills">技能</a><a href="./" aria-current="page">写作</a><a href="../#contact">联系</a><a href="../resume/赵越-高级AI产品设计师-简历.pdf" class="resume-btn" target="_blank" rel="noopener noreferrer">简历</a></div><div class="lang-toggle"><a href="../en/writing/ai4s-drug-discovery-rentosertib" lang="en" hreflang="en">EN</a><span>/</span><a class="active" href="ai4s-drug-discovery-rentosertib" lang="zh-CN" hreflang="zh-CN">中</a></div></div></nav>
 <main><header class="page-shell article-header case-cover">
-<div><p class="kicker">AI 制药与 AI4S</p><h1>AI 怎样参与做出一款药？</h1><p class="article-deck">从肺纤维化候选药 rentosertib 的第一张靶点名单，到 71 位患者的一次肺功能试验。中间插一段我在 Revvity Signals 的经历，一份原始记录，说明白 AI for Science（AI4S）能帮研究者做什么。</p>
-<div class="article-meta"><span>Joey Zhao</span><time datetime="2026-11-20">2026.11.20</time><span>11 分钟阅读</span></div></div>
-<figure><img src="/images/writing/ai4s/spirometry.webp" alt="技术员 John Clark 手持吹嘴，用力呼气，身旁是肺功能检测设备" width="1200" height="1446" fetchpriority="high"><figcaption>2013 年，技术员 John Clark 在一项职业健康研究里示范怎么吹。注意他的嘴和手里的吹嘴。这张照片记录的是测量动作，拍摄时间早于文中的临床试验。 <a href="https://wwwn.cdc.gov/phil/Details.aspx?pid=20950">CDC PHIL · Veronica Burkel</a>.</figcaption></figure></header>
+<div><p class="kicker">AI 制药与 AI4S</p><h1>第 55 个分子，后来怎么样了？</h1><p class="article-deck">一款肺病候选药，18 个月，约 260 万美元的发现阶段预算。顺着第 55 个分子走一趟，看看 AI 替化学家省下了什么，又有哪些事必须等人慢慢做。</p>
+<div class="article-meta"><span>Joey Zhao</span><time datetime="2026-11-20">2026.11.20</time><span>9 分钟阅读</span></div></div>
+<figure><img src="/images/writing/ai4s/screening-bench.webp" width="1450" height="967" alt="NIH 工作人员戴着紫色手套，在自动筛选实验开始前校准设备" fetchpriority="high"><figcaption>一张名单送进实验室以后，就有人要动手。这里是美国国立卫生研究院的 Paul Shinn 在筛选开始前校准机器人，摄于另一项研究。 <a href="https://commons.wikimedia.org/wiki/File:Automated_Screening_(38709119951).jpg">NIH / NCATS</a>.</figcaption></figure></header>
 <div class="page-shell article-layout"><article class="article-body">
-<p>请先吸足一口气，含紧吹嘴，用力往外吹，一直吹到再也吹不动。医生能从这个动作里得到一个数，叫用力肺活量。2025 年，一篇研究 AI 制药的论文里，最让我惦记的数字就来自这么一口气。服用候选药 rentosertib 的一个剂量组，十二周后，平均比自己入组时多吹出了 98.4 毫升。</p>
-<p>多这点气，爬一层楼会轻松些吗？我想知道。往下读论文才发现，研究者还特意让患者走了六分钟，量一量能走多远。各组在这项测试上的变化相近。肺功能仪和走廊各自回答了一个问题。只摘走前一个数字，读者很容易替病人把后半句话也说了。 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/" class="citation">二期试验论文</a></p>
-<p>我在 Revvity Signals 给科学家做软件设计，平常接触得多的是电脑里靠前的那一段。一份实验记录，一串候选分子，一个人得决定明天花时间测谁。这回我想顺着一款药从头读一遍，看看屏幕上的选择，究竟要经过多少人的手，才和患者吹出的这口气发生关系。</p>
+<p>第 55 个，是化学家挑出来的。英矽智能讲这段往事时说，他们从电脑画出来的结构里选了 79 个，打算在实验室合成。最后跟下去的是第 55 个。它后来有了个很绕口的名字，rentosertib。到 2026 年 9 月，已经有患者在中国的三期临床试验里吃下了这款候选药。 <a href="https://insilico.com/blog/first_phase2" class="citation">团队回顾</a> <a href="https://insilico.com/news/isn1009261-insilico-medicine-doses-first-patient-genesis-ipf-3" class="citation">首例给药公告</a></p>
 
-<h2 id="target">肺里有那么多变化，先查哪一个？</h2>
-<p>这款药面对的是特发性肺纤维化。健康的肺里有许多细小的肺泡，供空气里的氧进入血液。病变的地方会留下瘢痕，组织变厚、变硬。「特发性」三个字，说的是起因尚不明确。知道哪里出了问题，离知道该用药碰哪里，还隔着好一段路。</p>
-<figure class="plate histology"><a href="/images/writing/ai4s/lung-tissue.jpg"><img src="/images/writing/ai4s/lung-tissue.jpg" alt="肺组织切片两幅，显示疏松的肺泡区、致密纤维化和成纤维细胞灶" width="548" height="221" loading="lazy" decoding="async"></a><figcaption>先看左图最左边，薄壁围出一格格空隙。视线向右移动，组织变厚，紫红色的区域挤在一起。右图箭头标出一处成纤维细胞灶。这是一张普通型间质性肺炎病理模式的切片。 <a href="https://commons.wikimedia.org/wiki/File:Photomicrograph_of_usual_interstitial_pneumonia.jpg">IPFeditor</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</figcaption></figure>
-<p>英矽智能团队先把问题收窄。他们从公共数据库取出十五组与这种病有关的数据，四组来自血液，十一组来自肺组织。细胞里的基因各有多活跃，可以量出来。把患者和对照放在一起看，会冒出许多差别。可一个基因在病人的肺里特别活跃，有好几种解释。它可能在推着疾病往前走，也可能是组织受伤后，细胞正在想办法修补。</p>
-<p>这就是 AI 有活可干的地方。研究团队让模型沿着蛋白之间已知的关系找线索，再把这些线索同基因活动的变化和已有文献放在一起。研究者还划了一道范围，先看激酶，也就是一类能调节其他蛋白活动的酶，挑有希望用小分子干预的对象。设好这些条件后，一种叫 TNIK 的蛋白排到了第一。用药想影响的对象，行话叫「靶点」。 <a href="https://pubmed.ncbi.nlm.nih.gov/38459338/" class="citation">药物发现论文</a></p>
-<figure class="plate "><a href="/images/writing/ai4s/target-ranking.webp"><img src="/images/writing/ai4s/target-ranking.webp" alt="原研究图 1b 的五行靶点排名，TNIK 居首，右侧各列是不同证据的评分" width="822" height="550" loading="lazy" decoding="async"></a><figcaption>读左边第一行就够了。TNIK 和数字 1 相邻，是研究团队按特定条件排出的顺序。向下还有四个名字，都曾在这一步被拿来比较。原论文图 1b，裁取自整图。 <a href="https://www.nature.com/articles/s41587-024-02143-0/figures/1">Ren et al., Nature Biotechnology</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</figcaption></figure>
-<p>值得为这个第一名花多少实验经费？我喜欢论文里紧跟着的一个动作。把一整块肺组织放在一起量，得出的数有点像全楼的平均用电量。研究者又找来能分辨单个细胞的数据，去看究竟是哪一类细胞贡献了变化。他们在患者的肌成纤维细胞里也看到了较高的 TNIK 表达。这类细胞跟瘢痕组织的形成有关。几条线索指向同一个地方，团队有了理由再往前走一步，试着降低这种蛋白的活性，看组织会怎样。</p>
+<p>我喜欢这个故事，是因为它回答了一个很俗、也很要紧的问题。化学家的一双手一天能做的东西有限，明早上班，先做哪一个？AI for Science，简称 AI4S，用在制药上，最让我兴奋的一件事就是它可能改变这张排班表。第 55 个分子以前也可以由人设计出来。要紧的是，在经费用光以前，研究者有没有机会碰到它。</p>
 
-<h2 id="molecule">第一批分子，碰上了一个很实际的麻烦</h2>
-<p>知道要影响 TNIK，还得有某个具体的东西能碰到它。团队手上有这种蛋白的三维结构，知道它的表面有一处可以结合小分子。他们请另一个模型提出可能在这里结合的化学结构，再从里面挑出有新意、化学家有把握做出来、性质也值得测的几种。到了这一步，电脑里的一个结构式才真正在实验室里有了实物。</p>
-<p>第一批候选里，有些已经能跟 TNIK 结合得很牢。然后麻烦来了。几个初步选中的分子不太容易溶解。在取自人和小鼠肝脏的体外测试材料里，它们又被代谢得太快。你想做一片能吞下去的药，分子得先溶出来，经身体吸收，还得在被清除之前到达能起作用的地方。光知道它跟 TNIK 结合得牢，这几步还说不准。 <a href="https://pubmed.ncbi.nlm.nih.gov/38459338/" class="citation">药物发现论文</a></p>
-<p>下一轮挑分子时，化学家手里于是多了两条很具体的要求。他们把吸收、代谢这些性质一起纳入取舍，继续改、继续测。最终选出的候选物最初叫 INS018_055，后来有了 rentosertib 这个名字。团队在患者来源的细胞和动物模型里看到了抗纤维化作用，又开始检查人服药后的耐受情况，以及药物在血液里的浓度如何随时间改变。报道里常出现的「约十八个月」，计时从寻找靶点开始，到选定临床前候选物为止。后面患者等待的那些年，也得算进去。 <a href="https://pubmed.ncbi.nlm.nih.gov/38459338/" class="citation">药物发现论文</a></p>
-<p>这也是我看好 <strong>AI for Science（AI4S，人工智能辅助科学研究）</strong> 的原因。2026 年，欧盟给 RAISE 科研试点列出的 2026 至 2027 年度专项资金是 1.07 亿欧元。这笔预算让我对今年 AI4S 的热度有了直观认识。我自己喜欢科研，还有个更朴素的理由。在这里，猜错了有机会知道。模型提一个结构，化学家做出来，一测，溶不了。下次再挑，手上就多了一条从现实里挣来的证据。我觉得这是 AI 最值得用的地方之一。 <a href="https://research-and-innovation.ec.europa.eu/strategy/strategy-research-and-innovation/our-digital-future/european-ai-science-strategy/raise-resource-ai-science-europe_en" class="citation">欧盟 RAISE 项目</a></p>
+<div class="science-pair molecule-spread"><figure class="plate molecule-flat"><a href="/images/writing/ai4s/rentosertib-2d.png"><img src="/images/writing/ai4s/rentosertib-2d.png" width="143" height="270" alt="第 55 个候选分子的二维结构式" loading="lazy" decoding="async"></a><figcaption>化学家的简笔画。折线和环标出原子怎么相连，这个分子已经有自己的数据库编号了。 <a href="https://pubchem.ncbi.nlm.nih.gov/compound/164938183" class="citation">PubChem · CID 164938183</a>.</figcaption></figure><figure class="plate molecule-movie"><video controls playsinline muted preload="none" width="824" height="475" aria-label="播放 rentosertib 的立体旋转模型" poster="/images/writing/ai4s/rentosertib-3d.webp"><source src="/images/writing/ai4s/rentosertib-turn.mp4" type="video/mp4"></video><figcaption>按播放，看同一个分子转一圈。蓝色是氮，红色是氧，绿色是氟。立体形状按 PubChem 的计算坐标绘制，氢原子省略。 <a href="https://pubchem.ncbi.nlm.nih.gov/compound/164938183" class="citation">PubChem</a>.</figcaption></figure></div>
 
-<h2 id="signals">我核过的那张表，刚好差了一个</h2>
-<p>说到挑分子，我想插进自己能作证的一小段。英矽智能的药物研究，我是从论文里读到的。我在 Signals 负责的是科学家提问、筛选和回查结果的体验。为了复核这个产品，我用过 ChEMBL 公共数据库里的一份实验。它测的是另一种蛋白 CDK2，留下九十四条化合物活性记录。原始文件就在手边，AI 答得怎么样，可以一条一条对。 <a href="https://www.ebi.ac.uk/chembl/explore/assay/CHEMBL661125" class="citation">原始实验</a></p>
-<p>我先请它找出 IC₅₀ 小于 10 nM 的记录。这个看着挺唬人的符号，只是问在这次实验的条件下，要用多大的浓度，才能把测到的活性压低一半。nM 是浓度单位。同一实验里，达到一半用的量越少，这个数字就越小。AI 给了四十三条。我把编号和数值对回原表，四十三条都对得上。</p>
-<figure class="plate "><a href="/assets/signals-2026/filter-detail.jpg"><img src="/assets/signals-2026/filter-detail.jpg" alt="Signals AI 的原始回答，列出 CDK2 筛选条件、43 条结果与前几个化合物编号" width="920" height="334" loading="lazy" decoding="async"></a><figcaption>看正文中的 Count 和附件名。43 条结果可以按编号查回同一份 CSV；最下面开始列出每个分子的实测数值。打开图片可放大。 <a href="/signals-ai?lang=zh">Joey Zhao 的产品复核记录</a>.</figcaption></figure>
-<p>再问一次，把门槛放宽到 100 nM。图里落在门槛以内的三个区间，各自有 1、42、35 条。你也可以停一下，自己加一遍。</p>
-<p>我算出 78。AI 在文字总结里写了 77。我指出两边对不上，请它回到原文件再查，它才改成 78。这里让人犯难的，是上一道题它明明做得很好。如果手上只有一段写得很顺的回答，我凭什么知道哪一次该多问一句？</p>
-<figure class="plate "><a href="/assets/signals-2026/distribution-detail.jpg"><img src="/assets/signals-2026/distribution-detail.jpg" alt="Signals 活性分布及更正后的文字，明确列出 1、42、35，合计 78 条" width="795" height="535" loading="lazy" decoding="async"></a><figcaption>这是重查后的界面。读图下的第一行，1＋42＋35＝78，再回看图中左侧三根柱。文字还保留了对先前「77」的更正。 <a href="/signals-ai?lang=zh">Signals 复核记录</a>.</figcaption></figure>
-<p>还有一行，比少算一个更能说明问题。原表写着「&gt;1000 nM」。AI 顺口解释成，当时的实验最高只测到了 1000 nM。可记录里没有写实验的最高测试浓度。大于号能支持的意思很窄，只到「结果高于这个值」为止。要知道人家当时测到哪里，得去找实验方法。我请它把那层推断去掉。 <a href="/signals-ai?lang=zh" class="citation">我的项目记录</a></p>
-<p>所以我在界面上做了一个很实在的取舍。摘要旁边留着分布图，分子旁边留着比较符号和单位，从回答还能点回原记录。它们占屏幕的地方，尤其在一张密密麻麻的表里，我愿意给。数字对不上的那一刻，研究者能自己把账算完。至于这张表里的分子值不值得复测，还要看接下来打算验证什么。一次酶实验里所需浓度再低，表里也读不出病人走楼梯时的感受。</p>
+<h2 id="money">这一年半，值多少钱？</h2>
 
-<h2 id="anew-labs">新生探途的下一张名单，我想看它为什么变了</h2>
-<p>上海的新生探途（Anew Labs）今年公开了他们的药物发现引擎 AnewDDE。有个细节吸引了我。团队用自己的科研问题考模型，药物研发专家根据实验证据出了 200 道题，分布在 50 个研发场景里。这套内部评测叫 PharmBench。其中有些题关心一项实验本身靠不靠谱。做过那张少算一个分子的表之后，我格外喜欢他们把这种问题也算进成绩里。 <a href="https://anewbt.com/news/anewdde-agentic-drug-discovery-engine/" class="citation">新生探途技术报告</a></p>
-<p>他们在同一份报告里写到，第一轮实验测完，得到的结果会改变下一轮挑哪些候选。读到这里，我想看一张很少有人用来演示产品的页面。把昨天的名单和今天的名单并排放，挑出一个被调低优先级的候选。接手的人能不能自己查明白，哪条原先只是模型预测，今天新添了哪条实测记录，又是谁据此改了主意？即使实验没测出预期效果，这笔记录也值得给下一位同事留下。</p>
-<figure class="plate"><a href="/assets/signals-2026/returned-record.jpg"><img src="/images/writing/ai4s/source-return.webp" alt="Signals 实验记录局部，显示原实验标题、数据来源及对应的候选化合物" width="992" height="582" loading="lazy" decoding="async"></a><figcaption>这是我在 Signals 做的 CDK2 复核。点开引用，能看到原实验的记录数、数据来源和化合物编号。这样的回查入口，可以拿来检验一次交接究竟在哪儿卡住。 <a href="/signals-ai?lang=zh">原项目及完整界面</a>.</figcaption></figure>
-<p>如果有机会和新生探途的科学家一起做一次产品测试，我会请他们挑一个<strong>曾经改过主意</strong>的候选，把两轮资料交给一位没参加过讨论的同事。看他花多久能找到改变决定的那条证据，再听他用自己的话解释，下一笔实验经费为什么该花在这里。我的工作可以从他第一次不得不停下来问人的地方做起。这样的测试，也能补上模型答题分数照顾不到的地方。换一个人，这条证据还找得到、用得上吗？</p>
+<p>我把英矽智能自己的两份材料摆在一起看。从开始找研究对象，到选定第 55 个分子继续做临床前开发，这个项目花了大约 18 个月，公司披露的预算约为 260 万美元。作为参照，他们给出的传统早期发现工期是两年半到四年。换成同一把尺，就是 30 至 48 个月，对 18 个月。账面上差了整整一年到两年半。 <a href="https://insilico.com/blog/fih" class="citation">公司预算披露</a> <a href="https://insilico.com/news/tnrecuxsc1-insilico-announces-nature-medicine-publi" class="citation">公司时间参照</a></p>
 
-<h2 id="trial">回到那 98.4 毫升</h2>
-<p>现在回头看开头的数，旁边该摆出另外三组。二期早期试验总共招了七十一位患者，随机分到四组。一组服安慰剂，十七人。另外三组每组十八人，服药剂量或次数不同。十二周后，安慰剂组的用力肺活量比入组时平均少了 20.3 毫升。每日一次 60 毫克那组平均多了 98.4 毫升。还有一组很容易读漏。30 毫克每日两次，一天下来也是 60 毫克，这组平均只多了 19.7 毫升。十八个人一组，光凭这个差距，还分不清是服药次数带来的差异，还是两组人恰好有别。把四组都摆出来，问题才看得清。 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/" class="citation">二期试验论文</a></p>
-<figure class="plate chart"><a href="/images/writing/ai4s/fvc-zh.png"><img src="/images/writing/ai4s/fvc-zh.png" alt="四个剂量组十二周后用力肺活量的平均变化与 95% 置信区间，共用一条零线" width="990" height="828" loading="lazy" decoding="async"></a><figcaption>点是各组相对入组时的平均变化，横线是该均值的 95% 置信区间。零线表示本组平均没有变化。四组共用同一把尺，按论文图 2a 和正文数据重绘。 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/">Xu et al., Nature Medicine</a>.</figcaption><details class="chart-data"><summary>查看四组数值与置信区间</summary><table><thead><tr><th scope="col">组别</th><th scope="col">平均变化 (mL)</th><th scope="col">95% 区间 (mL)</th></tr></thead><tbody><tr><th scope="row">安慰剂</th><td>−20.3</td><td>−116.1 ~ 75.6</td></tr><tr><th scope="row">30 mg 每日一次</th><td>−27.0</td><td>−88.8 ~ 34.8</td></tr><tr><th scope="row">30 mg 每日两次</th><td>+19.7</td><td>−60.5 ~ 99.9</td></tr><tr><th scope="row">60 mg 每日一次</th><td>+98.4</td><td>10.9 ~ 185.9</td></tr></tbody></table></details></figure>
-<p>看图时，我会先把手指放在零上，再沿最后一组的线往两头看。研究者给这个平均变化估出的 95% 置信区间，下端是 10.9 毫升，上端是 185.9 毫升。两头相距挺远，这就是小样本里估数的难处。单凭这一组的区间，回答不了它比安慰剂好多少，也无法推算出下一位患者个人能多吹多少。安慰剂组的线也该一起看。</p>
-<p>如果只看论文里的肺功能图，很容易漏读试验最初要回答的问题。研究者事先定下的主要指标，是有多少人在开始治疗后出现了至少一次不良事件。四组里都有人遇到，整个试验有十六人提前停了治疗。论文记下的停药缘由里，有肝脏方面的问题，也有腹泻。那 98.4 毫升属于次要观察指标。如果只拿肺功能那张图讲一个成功故事，这十六个人就从故事里消失了。 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/" class="citation">二期试验论文</a></p>
-<p>我盼着这样的药能成。病人愿意参加试验，要付出的东西比读一篇论文多得多。也正因为如此，把走到哪一步说准，对这份期待才算公平。2026 年 9 月，英矽智能公布了中国三期试验的首例给药。登记方案把观察期拉到五十二周，放在首位的问题是这一年里肺活量下降得有多快。 <a href="https://clinicaltrials.gov/study/NCT07687459" class="citation">三期试验登记</a></p>
-<div class="reader-tool"><h2>下次看到「AI 发现了新药」</h2><p>我会在标题里圈出那个动词，然后去看原文到底量了什么。给蛋白排了名？把分子做出来测过？还是让病人在开始用药时和一年后，各吹了一口气？找到那个动作，再看跟谁比、等了多久。这次我会继续等最后那口气。</p></div>
+<figure class="ledger"><div class="measure-title">多久选出临床前候选物？</div><div class="scale-chart"><div class="track-label"><span>第 55 个分子的项目</span><strong>约 18 个月</strong></div><div class="track actual"><i></i></div><div class="track-label"><span>公司引用的传统项目范围</span><strong>30 至 48 个月</strong></div><div class="track reference"><i></i></div></div><figcaption>两条从同一天起算。下方实色到第 30 个月，斜纹延伸至第 48 个月。传统范围取自公司公布的行业参照。 <a href="https://insilico.com/news/tnrecuxsc1-insilico-announces-nature-medicine-publi" class="citation">查看出处</a>.</figcaption></figure>
 
-<div class="references"><strong>研究与资料</strong><ul class="source-list"><li><a href="https://www.biorxiv.org/content/10.64898/2026.09.20.752967v1">新生探途团队与刘凯，AnewDDE 技术预印本，2026</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/38459338/">Ren 等，2024 年在线发表。寻找靶点与临床前候选物的原始研究</a></li><li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/">Xu 等，2025。71 人随机、双盲、安慰剂对照的二期试验</a></li><li><a href="https://clinicaltrials.gov/study/NCT07687459">GENESIS-IPF-3 三期登记，NCT07687459</a></li><li><a href="https://insilico.com/news/isn1009261-insilico-medicine-doses-first-patient-genesis-ipf-3">英矽智能，2026 年 9 月首例给药公告</a></li><li><a href="https://www.ebi.ac.uk/chembl/explore/assay/CHEMBL661125">ChEMBL · CHEMBL661125</a></li><li><a href="https://research-and-innovation.ec.europa.eu/strategy/strategy-research-and-innovation/our-digital-future/european-ai-science-strategy/raise-resource-ai-science-europe_en">欧盟委员会 RAISE 科研试点及预算</a></li></ul><p>rentosertib 试验由英矽智能资助，部分论文作者是公司雇员。图片署名及许可随图列出。资料核对至 2026 年 11 月 20 日。</p></div></article>
-<aside class="article-aside"><span class="aside-label">文中导航</span><div class="aside-links"><a href="#target">找到 TNIK</a><a href="#molecule">选出候选分子</a><a href="#signals">复核 94 条记录</a><a href="#anew-labs">新生探途与实验交接</a><a href="#trial">读懂 98.4 毫升</a></div><span class="aside-label">Joey Zhao</span><p class="story-meta">为 Revvity Signals 设计科研软件的产品设计师。</p><div class="aside-links"><a href="https://x.com/JoeyKonad">@JoeyKonad</a><button class="channel-id" data-copy-channel="">视频号 · sphmQz03lemSzBD</button></div></aside></div></main>
+<p>对一组等着看结果的人，一年是很长的。假如一个主意行不通，早一年发现，留下的是下一次尝试的时间。这也是我看这些数字时比「早一年卖药」更愿意押的注。这个项目没有另请一队人按传统方法从头做一遍，没人知道另一队到底会花多久。</p>
+
+<p>钱可以再算细一点。260 万美元是公司为发现阶段报出的预算。公司在后来的案例页里把这一段的成本估在传统水平的一成左右。两边逐项花了多少钱，它没有在那张表里列出来。后面几十家医院做试验的钱，还得另付。如果你只想知道 AI 能在哪笔支出上省下一个大数目，我会先翻到另一篇论文。那里的两种做法可以直接比。 <a href="https://insilico.com/casestudy" class="citation">公司案例表</a></p>
+
+<p>计算机筛药，有一步特别费机器时间。研究者得把每个分子的形状放进蛋白表面的小凹槽里，算算它们有多合拍。一组研究者换了个做法，先细算一小部分，让模型从中学会粗挑，再把昂贵的计算用在更有希望的分子上。他们拿已经做过实验的名单核对，新办法用大约十四分之一的计算成本，找回了超过八成的实验命中分子。 <a href="https://pubmed.ncbi.nlm.nih.gov/34592101/" class="citation">Yang et al.</a></p>
+
+<figure class="ledger"><div class="measure-title">同一笔计算费，摊成 14 格</div><div class="track-label"><span>逐个做详细计算</span><strong>14 / 14</strong></div><div aria-hidden="true" class="compute-strip"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><div class="track-label"><span>模型先粗挑，再细算</span><strong>≈ 1 / 14</strong></div><div aria-hidden="true" class="compute-strip"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><figcaption>每格代表相同份额的计算费用。第二种筛法找回了超过 80% 已经由实验确认的命中分子。 <a href="https://pubmed.ncbi.nlm.nih.gov/34592101/" class="citation">Yang et al., 2021</a>.</figcaption></figure>
+
+<p>以前要付 14 块钱的计算费，现在大约付 1 块。单算这一项，省了约 93%。它也漏掉了一部分好东西。这反倒让我觉得这个结果可信。有些实验事关重大，你愿意付那 14 块把名单再翻一遍。可如果面前是一个原本嫌贵、压根没打算查的方向，花 1 块先看看，事情就大不一样了。这是另一个团队的筛选研究，跟第 55 个分子的 260 万美元分属两本账。</p>
+
+<h2 id="lungs">一个生了疤的肺，药该从哪儿下手？</h2>
+
+<p>第 55 个分子面对的病叫特发性肺纤维化。看看下面两张图。同一种病，看胸片，先能辨认出肺里不规则的白色纹影。再看显微镜下的病理切片，本来该留给空气的地方，长进了厚实的疤。人吸一口气，肺得能张开。瘢痕越来越多，这个再平常不过的动作就越来越费劲。</p>
+
+<div class="science-pair "><figure class="plate "><a href="/images/writing/ai4s/chest-radiograph.jpg"><img src="/images/writing/ai4s/chest-radiograph.jpg" width="942" height="703" alt="一位肺纤维化患者的正面胸片" loading="lazy" decoding="async"></a><figcaption>先看胸片。两肺下方可见浅白的纹影，位置仍能辨认，单个肺泡则看不出来。 <a href="https://commons.wikimedia.org/wiki/File:Radiological_evaluation_through_HRCT.jpg" class="citation">IPFeditor</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</figcaption></figure><figure class="plate "><a href="/images/writing/ai4s/lung-tissue.jpg"><img src="/images/writing/ai4s/lung-tissue.jpg" width="548" height="221" alt="肺部病理切片，左侧疏松，右侧组织致密" loading="lazy" decoding="async"></a><figcaption>再看另一份放大的肺组织切片。左侧还有许多空隙，向右就挤得密了。 <a href="https://commons.wikimedia.org/wiki/File:Photomicrograph_of_usual_interstitial_pneumonia.jpg" class="citation">IPFeditor</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</figcaption></figure></div>
+
+<p>切片能看出哪儿坏了。要开工做药，化学家还得等一个更具体的回答。有什么东西是我们碰得着的，动它一下，能不能让瘢痕少长一点？团队找来了十五组公开的血液和肺组织数据。生病的细胞和健康的细胞，忙的事情不同，许多基因的活跃程度也不一样。麻烦在于，格外忙的那个，有可能在添乱，也有可能是在修补。</p>
+
+<p>研究者用模型把这些变化和已知的蛋白关系、发表过的研究相互对照。他们先限定了一类有机会用小分子干预的蛋白，再看哪些名字反复出现。TNIK 排到前面。换一批能看清单个细胞的数据来查，在和瘢痕形成有关的一类细胞里，TNIK 也比对照更活跃。这才值得往下试。制药的人把要用药影响的对象叫「靶点」。记住这篇里它叫 TNIK 就够了。 <a href="https://pubmed.ncbi.nlm.nih.gov/38459338/" class="citation">Ren et al.</a></p>
+
+<div class="science-pair "><figure class="plate "><a href="/images/writing/ai4s/target-ranking.webp"><img src="/images/writing/ai4s/target-ranking.webp" width="822" height="550" alt="按特定条件筛选后的五种候选蛋白，TNIK 排在首位" loading="lazy" decoding="async"></a><figcaption>只用看左边两列。TNIK 在这套筛选条件下排第一，下面还有四个选择。裁自图 1b。 <a href="https://www.nature.com/articles/s41587-024-02143-0/figures/1">Ren et al.</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</figcaption></figure><figure class="plate "><a href="/images/writing/ai4s/lung-cell-map.webp"><img src="/images/writing/ai4s/lung-cell-map.webp" width="414" height="421" alt="肺组织的单细胞图，每个点代表一个细胞，颜色区分细胞类型" loading="lazy" decoding="async"></a><figcaption>一个点是一个细胞，颜色标出不同类型。研究者能把同一类细胞单拎出来比较。裁自扩展数据图 2d。 <a href="https://www.nature.com/articles/s41587-024-02143-0/figures/8">Ren et al.</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</figcaption></figure></div>
+
+<h2 id="bench">贴得牢的分子，也有难以下咽的时候</h2>
+
+<p>电脑有了 TNIK 的立体结构，就能画一些有希望嵌进去的小分子，交给化学家挑。能不能做出来、要花多大功夫，化学家得一并考虑。最初挑中的几种，在实验里已经能和 TNIK 贴得挺牢。要是只比谁贴得牢，到这儿就可以拍张好看的图交差了。 <a href="https://pubmed.ncbi.nlm.nih.gov/38459338/" class="citation">Ren et al.</a></p>
+
+<figure class="plate binding"><a href="/images/writing/ai4s/binding-pose.webp"><img src="/images/writing/ai4s/binding-pose.webp" width="756" height="543" alt="TNIK 蛋白的结构图中叠合着绿色候选分子与青色参考分子" loading="lazy" decoding="async"></a><figcaption>蓝色飘带是蛋白的一部分。绿色小棍画出模型猜测的结合位置。青色来自另一个分子已有的晶体结构。图上重叠得再好，下一步照样得动手测。裁自图 2a。 <a href="https://www.nature.com/articles/s41587-024-02143-0/figures/2">Ren et al.</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</figcaption></figure>
+
+<p>可人将来要把这东西吞下去。早期几个分子溶不太开，在用人和小鼠肝脏材料做的测试里，又被分解得太快。药得先溶出来，身体才能吸收，还得留得够久，才有机会到达肺里。知道上一次到底栽在哪儿，化学家才能回去改下一版。后来，研究者拿患者捐献的肺组织分离出细胞，把选中的分子加了进去。显微镜下，原本很亮的一种绿色标记淡了下去。你也可以看看下面这两张照片。 <a href="https://pubmed.ncbi.nlm.nih.gov/38459338/" class="citation">Ren et al.</a></p>
+
+<figure class="plate cell-photo"><a href="/images/writing/ai4s/patient-cells.png"><img src="/images/writing/ai4s/patient-cells.png" width="426" height="218" alt="患者来源的成纤维细胞，未加候选药的对照和加药后的荧光图" loading="lazy" decoding="async"></a><figcaption>同一种染色方法。左边是溶剂对照，右边加了候选药。蓝点标出细胞核，绿色标出一种与瘢痕形成有关的蛋白。裁取扩展数据图 4a 的两幅，保留原标尺。 <a href="https://www.nature.com/articles/s41587-024-02143-0/figures/10">Ren et al.</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</figcaption></figure>
+
+<p>绿色变淡，离一个人喘气更轻松还有很远。这两张照片的价值在于，实验室里原本只有一张猜出来的分子图，现在多了一条可以要求别人复查、可以据此决定还要不要投钱的结果。</p>
+
+<h2 id="signals">做科研软件以后，我学会多看一眼那个小于号</h2>
+
+<p>我在 Revvity Signals 做产品设计，负责过科学家提问、筛选和查看结果的体验。我没参与第 55 个分子的研发。我自己能说清楚的一回，是拿一份公开实验来查我们的软件。原表有 94 条记录，测的是另一种蛋白 CDK2。我的问题很简单，哪几个分子，用很少的量就能把它的活性压低一半？ <a href="https://www.ebi.ac.uk/chembl/explore/assay/CHEMBL661125" class="citation">ChEMBL</a></p>
+
+<p>表里表示这个量的那一列叫 IC₅₀。nM 是浓度单位。同一次实验里，这个数越小，说明用得越少。我先划了一条线，只看小于 10 nM 的。AI 交回来 43 条，我逐个对了编号和数值，都对。再把线放宽到 100 nM，图上三个区间分别有 1 条、42 条、35 条。你心算一下。它写在图下面的总结是 77。</p>
+
+<div class="science-pair "><figure class="plate "><a href="/assets/signals-2026/filter-detail.jpg"><img src="/assets/signals-2026/filter-detail.jpg" width="920" height="334" alt="Signals 对第一次筛选返回 43 条记录" loading="lazy" decoding="async"></a><figcaption>第一问。Count 后面的 43，我能逐条对回原表。 <a href="/signals-ai?lang=zh" class="citation">Signals</a>.</figcaption></figure><figure class="plate "><a href="/assets/signals-2026/distribution-detail.jpg"><img src="/assets/signals-2026/distribution-detail.jpg" width="795" height="535" alt="Signals 的实际分布图和把 77 改成 78 的文字" loading="lazy" decoding="async"></a><figcaption>第二问，换了门槛。这是重查后的截图，图下还有对先前 77 的更正。点图可放大。 <a href="/signals-ai?lang=zh" class="citation">Signals</a>.</figcaption></figure></div>
+
+<p>差一条。让我有点介意的倒是它上一题答得那么好，我完全有理由顺手把下一句也信了。我让它对着文件重查，才拿到 78。还有个「&gt;1000」也值得留心，原件只记了数值大于 1000，模型顺嘴就把它讲成实验最高测到了 1000。我得回去找实验方法，才能知道人家到底测到了哪里。</p>
+
+<p>所以做界面时，我愿意多留一块地方给那张不太漂亮的原表。用 AI 的好处是，一口气替人查完几十条记录。发现对不上时，我只消点回那一行，不用再把几十条全翻一遍。能省下这种时间，我用起来才痛快。 <a href="/signals-ai?lang=zh" class="citation">我的项目记录</a></p>
+
+<h2 id="breath">最后这口气，省不了</h2>
+
+<p>轮到病人，计时的办法又变了。二期早期试验让 71 位肺纤维化患者随机分成四组，接受不同给药方案或安慰剂，观察十二周。医生请他们深吸一口气，用力往仪器里吹，直到吹不动为止。量出来的总量叫用力肺活量。这个词读起来费劲，动作很好懂。 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/" class="citation">Xu et al.</a></p>
+
+<figure class="plate breath-photo"><a href="/images/writing/ai4s/spirometry.webp"><img src="/images/writing/ai4s/spirometry.webp" width="1200" height="1446" alt="NIOSH 技术员示范把一口气尽力吹入肺功能仪" loading="lazy" decoding="async"></a><figcaption>手里的吹嘴连着肺功能仪。这是 John Clark 在职业健康研究中的示范，照片拍于 2013 年。 <a href="https://wwwn.cdc.gov/phil/Details.aspx?pid=20950" class="citation">Veronica Burkel / CDC</a>.</figcaption></figure>
+
+<p>每日一次 60 毫克那组，十二周后平均比自己开始时多吹出 98.4 毫升。安慰剂组平均少了 20.3 毫升。我读到这里，最想知道的是，走去买个菜能不能少歇一回？研究里还真量了六分钟能走多远，这一项各组变化相近。样本小，观察时间短，这个问题还得留着。 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/" class="citation">Xu et al.</a></p>
+
+<figure class="plate chart"><a href="/images/writing/ai4s/fvc-zh.png"><img alt="四个剂量组十二周后用力肺活量的平均变化与 95% 置信区间，共用一条零线" decoding="async" height="828" loading="lazy" src="/images/writing/ai4s/fvc-zh.png" width="990"/></a><figcaption>零线左边是比入组时少吹出一些，右边是多一些。点是各组平均值，线越长，这个均值估得越不准。按原论文图 2a 重绘。 <a class="citation" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/">Xu et al.</a></figcaption><details class="chart-data"><summary>查看四组数值与置信区间</summary><table><thead><tr><th scope="col">组别</th><th scope="col">平均变化 (mL)</th><th scope="col">95% 区间 (mL)</th></tr></thead><tbody><tr><th scope="row">安慰剂</th><td>−20.3</td><td>−116.1 ~ 75.6</td></tr><tr><th scope="row">30 mg 每日一次</th><td>−27.0</td><td>−88.8 ~ 34.8</td></tr><tr><th scope="row">30 mg 每日两次</th><td>+19.7</td><td>−60.5 ~ 99.9</td></tr><tr><th scope="row">60 mg 每日一次</th><td>+98.4</td><td>10.9 ~ 185.9</td></tr></tbody></table></details></figure>
+
+<p>这项试验原本摆在第一位的是安全性。71 位参与者里，有 16 位提前停了治疗，原因里包括肝脏方面的问题和腹泻。下一项三期试验要看五十二周里肺功能下降得有多快。前面选分子能快一两年，走到这里，等满一年也有它的道理。 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/" class="citation">Xu et al.</a> <a href="https://clinicaltrials.gov/study/NCT07687459" class="citation">GENESIS-IPF-3</a></p>
+
+<p>我倒更希望有一天，那些连实验经费都没争取到的想法，也能轮到一次。第 55 个分子已经走到了医院。另一本名单上的第 55 个，可能还躺在化学家电脑里。要是有一天他算了算预算，发现今年有钱把它做出来了，我觉得这就够让人高兴了。</p>
+
+<details class="accounting"><summary>展开核对项目数字</summary><div class="reader-tool"><p>79 是团队在二期启动时公布的入选合成数。后来的公司案例表列出 78 个已合成／测试分子，两项计数的标签不同。18 个月的终点是选定临床前候选物。260 万美元是公司报告的阶段预算。 <a href="https://insilico.com/blog/first_phase2" class="citation">项目回顾</a> · <a href="https://insilico.com/casestudy">案例表</a></p></div></details>
+
+<div class="references"><strong>原始研究与资料</strong><ul><li><a href="https://pubmed.ncbi.nlm.nih.gov/38459338/">Ren 等，发现 TNIK 靶点及早期实验</a></li><li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12353801/">Xu 等，71 人随机对照试验</a></li><li><a href="https://insilico.com/blog/fih">英矽智能，早期预算及里程碑</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/34592101/">Yang 等，用实验命中名单核对计算成本</a></li><li><a href="https://clinicaltrials.gov/study/NCT07687459">三期临床试验登记 NCT07687459</a></li><li><a href="https://www.ebi.ac.uk/chembl/explore/assay/CHEMBL661125">ChEMBL · CHEMBL661125</a></li></ul><p>英矽智能资助了 rentosertib 临床试验。科研图版署名及许可随图列出。资料核对至 2026 年 11 月 20 日。</p></div>
+</article>
+<aside class="article-aside"><span class="aside-label">文中导航</span><div class="aside-links"><a href="#money">时间和钱</a><a href="#lungs">从肺里找线索</a><a href="#bench">第 55 个分子</a><a href="#signals">少算的一条</a><a href="#breath">十二周以后</a></div><span class="aside-label">Joey Zhao</span><p class="story-meta">为 Revvity Signals 设计科研软件的产品设计师。</p><div class="aside-links"><a href="https://x.com/JoeyKonad">@JoeyKonad</a><button class="channel-id" data-copy-channel="">视频号 · sphmQz03lemSzBD</button></div></aside></div></main>
 <section class="continue"><div class="page-shell"><h2>继续读</h2><div class="continue-grid"><a href="/signals-ai?lang=zh" class="continue-card"><small>Revvity Signals</small><h3>走一遍那次 94 条记录的筛选</h3></a><a href="ai-designers-cannot-only-sell-screens" class="continue-card"><small>AI Agent UX</small><h3>做 AI Agent，别只画页面</h3></a></div></div></section>
 <footer class="site-footer"><div class="page-shell footer-inner"><a href="./">← 全部文章</a><span>© 2026 Joey Zhao</span></div></footer><script src="writing.js"></script>
 </body></html>

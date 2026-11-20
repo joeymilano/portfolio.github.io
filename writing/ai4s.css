@@ -29,3 +29,45 @@
   .article-layout { padding-top: 34px; }
   .article-body h2 { font-size: 29px; }
 }
+
+/* Keep paired evidence together while giving small labels enough room to read. */
+.case-cover { grid-template-columns: 1fr 1.06fr; gap: clamp(32px,5vw,72px); }
+.case-cover figure img { height: auto; max-height: none; }
+.case-cover h1 { line-height: 1.12; }
+.article-layout { grid-template-columns: minmax(0,820px) 184px; gap: clamp(32px,5vw,70px); }
+.science-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; gap: 16px; margin: 34px 0 44px; }
+.article-body .science-pair .plate { margin: 0; min-width: 0; }
+.science-pair .plate img { max-height: 290px; object-fit: contain; background-color: #fff; }
+.article-body .molecule-spread { grid-template-columns: minmax(0,.58fr) minmax(0,1.42fr); }
+.article-body .molecule-flat img { padding: 10px; height: clamp(180px,20vw,270px); background: #f5f5f5; }
+.molecule-movie video { display: block; width: 100%; height: auto; background: #10232d; border-radius: 8px; }
+.article-body .plate.binding { max-width: 560px; }
+.article-body .plate.cell-photo { max-width: 600px; }
+.article-body .plate.breath-photo { max-width: 440px; }
+.article-body .ledger { margin: 32px 0 40px; padding: clamp(20px,4vw,34px); color: #172f33; background: #eff3ee; border-radius: 10px; }
+.ledger .measure-title { margin: 0 0 22px; font-size: clamp(19px,2.6vw,25px); font-weight: 650; line-height: 1.35; }
+.track-label { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 2px 16px; margin: 16px 0 7px; font-size: 14px; line-height: 1.5; }
+.article-body .ledger .track-label strong { color: #143e42; font-size: 17px; font-variant-numeric: tabular-nums; }
+.track { height: 16px; background: #dee5df; border-radius: 3px; overflow: hidden; }
+.track i { display: block; height: 100%; }
+.track.actual i { background: #287166; width: 37.5%; }
+.track.reference i { background: linear-gradient(to right,#7b8e91 0 62.5%,transparent 62.5%),repeating-linear-gradient(135deg,#9caeae 0 3px,#e4ebea 3px 7px); }
+.compute-strip { display: grid; grid-template-columns: repeat(14,1fr); gap: clamp(3px,.8vw,7px); }
+.compute-strip i { height: clamp(19px,4vw,27px); border-radius: 2px; background-color: #d9e2dc; }
+.compute-strip i.on { background-color: #337665; }
+.article-body .ledger figcaption { margin-top: 20px; color: #43575b; }
+.article-body .ledger a { color: #245652; }
+.accounting { margin: 30px 0; }
+.accounting summary { cursor: pointer; font-size: 14px; color: var(--muted); }
+.accounting .reader-tool { margin: 12px 0; padding: 18px 20px; font-size: 14px; }
+.accounting .reader-tool a { color: #563073; }
+@media (max-width: 900px) {
+  .article-layout { grid-template-columns: minmax(0,1fr); }
+}
+@media (max-width: 640px) {
+  .science-pair { grid-template-columns: minmax(0,1fr); gap: 22px; }
+  .article-body .molecule-spread { grid-template-columns: minmax(0,1fr); }
+  .article-body .molecule-flat img { height: 210px; }
+  .science-pair .plate img { max-height: 340px; }
+  .case-cover figure img { max-height: none; }
+}
