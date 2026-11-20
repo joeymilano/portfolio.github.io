@@ -71,3 +71,42 @@
   .science-pair .plate img { max-height: 340px; }
   .case-cover figure img { max-height: none; }
 }
+
+.case-cover h1 .title-tail {
+  display: block;
+  margin-top: 14px;
+  color: #d6e1de;
+  font-size: clamp(22px, 2.5vw, 36px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.025em;
+}
+.article-body .recount {
+  margin: 26px 0 38px;
+  padding: clamp(22px, 4vw, 38px);
+  border-radius: 10px;
+  color: #193c39;
+  background: #e8f1ec;
+}
+.article-body .recount > p {
+  margin: 0 0 16px;
+  color: #173e38;
+  font-family: ui-monospace, monospace;
+  font-size: clamp(24px, 4vw, 36px);
+  line-height: 1.2;
+}
+.recount summary { width: fit-content; cursor: pointer; font-weight: 600; }
+.article-body .recount details p { margin: 12px 0 0; color: inherit; }
+.share-essay { display: flex; flex-wrap: wrap; gap: 8px; margin: 36px 0 22px; }
+.article-body .share-essay :is(button, a) {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  font: 500 14px/1.6 var(--sans);
+  text-decoration: none;
+}
+.share-essay :is(button, a):hover { border-color: var(--muted); }
+.recount summary:focus-visible, .share-essay :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }

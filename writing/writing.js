@@ -13,7 +13,7 @@ document.querySelectorAll("[data-copy-link]").forEach((button) => {
   button.addEventListener("click", async () => {
     await navigator.clipboard.writeText(pageUrl);
     const original = button.textContent;
-    button.textContent = "链接已复制 ✓";
+    button.textContent = button.dataset.copied || "链接已复制 ✓";
     setTimeout(() => { button.textContent = original; }, 1800);
   });
 });
