@@ -33,11 +33,11 @@
 <main><header class="page-shell article-header case-cover">
 <div><p class="kicker">AI 制药与 AI4S</p><h1>AI 怎样参与做出一款药？<span class="title-tail">从一个分子到一次肺功能检查</span></h1><p class="article-deck">约 18 个月，260 万美元的预算，换来一个值得做下去的分子。AI 帮人省下的时间去了哪里？在 Revvity Signals 给科学家做软件，我还得操心另一件事。明天要进实验室了，今天屏幕上的名单，谁敢信？</p>
 <div class="article-meta"><span>Joey Zhao</span><time datetime="2026-11-20">2026.11.20</time><span>13 分钟阅读</span></div></div>
-<figure><img alt="NIH 工作人员戴着紫色手套，在自动筛选实验开始前校准设备" fetchpriority="high" height="967" src="/images/writing/ai4s/screening-bench.webp" width="1450"/><figcaption>美国国立卫生研究院的 Paul Shinn 正在校准筛药机器人。</figcaption></figure></header>
+<figure><img alt="NIH 工作人员戴着紫色手套，在自动筛选实验开始前校准设备" fetchpriority="high" height="967" src="/images/writing/ai4s/screening-bench.webp" width="1450"/><figcaption>美国国立卫生研究院的 Paul Shinn 正在校准筛药机器人</figcaption></figure></header>
 <div class="page-shell article-layout"><article class="article-body">
 <p>化学家从电脑画出的结构里选了 79 个，准备带进实验室做出来。英矽智能后来写到，他们挑中的是第 55 个。这个原本只能在屏幕上转来转去的小东西，有了个念起来挺费劲的名字，rentosertib。几年后，真的有肺病患者把它吞了下去。2026 年 9 月，它在中国的三期临床试验完成首例给药。</p>
 <p>我喜欢这个故事，是因为它回答了一个很俗、也很要紧的问题。化学家的一双手一天能做的东西有限，明早上班，先做哪一个？AI for Science，简称 AI4S，用在制药上，我最期待它能改一改<a href="#preclinical">第一次给人用药以前</a>的这张排班表。第 55 个分子以前也可以由人设计出来。要紧的是，在经费用光以前，研究者有没有机会碰到它。</p>
-<figure class="visual-pair"><div class="science-pair molecule-spread"><div class="plate molecule-flat"><a href="/images/writing/ai4s/rentosertib-2d.png"><img alt="第 55 个候选分子的二维结构式" decoding="async" height="270" loading="lazy" src="/images/writing/ai4s/rentosertib-2d.png" width="143"/></a></div><div class="plate molecule-movie"><video aria-label="播放 rentosertib 的立体旋转模型" controls="" height="475" muted="" playsinline="" poster="/images/writing/ai4s/rentosertib-3d.webp" preload="none" width="824"><source src="/images/writing/ai4s/rentosertib-turn.mp4" type="video/mp4"/></video></div></div><figcaption>同一个分子，先看平面结构，再按播放看它转一圈。</figcaption></figure>
+<figure class="visual-pair"><div class="science-pair molecule-spread"><div class="plate molecule-flat"><a href="/images/writing/ai4s/rentosertib-2d.png"><img alt="第 55 个候选分子的二维结构式" decoding="async" height="270" loading="lazy" src="/images/writing/ai4s/rentosertib-2d.png" width="143"/></a></div><div class="plate molecule-movie"><video aria-label="播放 rentosertib 的立体旋转模型" controls="" height="475" muted="" playsinline="" poster="/images/writing/ai4s/rentosertib-3d.webp" preload="none" width="824"><source src="/images/writing/ai4s/rentosertib-turn.mp4" type="video/mp4"/></video></div></div><figcaption>同一个分子，先看平面结构，再按播放看它转一圈</figcaption></figure>
 <h2 id="money">这一年半，值多少钱？</h2>
 <p>我把英矽智能自己的两份材料摆在一起看。从开始找研究对象，到选定第 55 个分子继续做临床前开发，这个项目花了大约 18 个月，公司披露的预算约为 260 万美元。作为参照，他们给出的传统早期发现工期是两年半到四年。折成同一把尺子，30 至 48 个月，对 18 个月。两者相差一年到两年半。</p>
 <figure class="ledger"><figcaption class="measure-title">多久选出临床前候选物？</figcaption><div class="scale-chart"><div class="track-label"><span>第 55 个分子的项目</span><strong>约 18 个月</strong></div><div class="track actual"><i></i></div><div class="track-label"><span>公司引用的传统项目范围</span><strong>30 至 48 个月</strong></div><div class="track reference"><i></i></div></div></figure>
@@ -51,52 +51,52 @@
 <figure class="discovery-map">
 <figcaption>跟着一款小分子药走一遍</figcaption>
 <ol class="reader-tool">
-<li><a href="#lungs"><strong>找靶点</strong><span>模型从患者数据里找出可疑的蛋白，科学家再用细胞验证，改变它会不会影响病变。</span></a></li>
+<li><a href="#lungs"><strong>找靶点</strong><span>模型从患者数据里找出可疑的蛋白，科学家再用细胞验证，改变它会不会影响病变</span></a></li>
 <li><a href="#hits"><strong>找有反应的分子</strong><span>AI 筛出或画出一批分子，化学家挑一些来测。反复测都有活性的，就有了一个「命中物」。</span></a></li>
 <li><a href="#lead"><strong>把苗头改成候选药</strong><span>从有希望的「先导化合物」出发。这时的分子像一把插得进锁孔、还转不动的钥匙坯，模型建议改法，化学家合成、测试，一版一版地锉。既要有活性，也得能溶解、能留在体内。</span></a></li>
-<li><a href="#animals"><strong>准备第一次人体试验</strong><span>模型先标出可能的风险，研究者再查药去了哪里、会伤到哪些器官，还要把每批药做得一样可靠。</span></a></li>
+<li><a href="#animals"><strong>准备第一次人体试验</strong><span>模型先标出可能的风险，研究者再查药去了哪里、会伤到哪些器官，还要把每批药做得一样可靠</span></a></li>
 </ol>
 
 </figure>
 <h3 id="drug-types">手里拿的是阿司匹林，还是胰岛素？</h3>
 <p>阿司匹林是很熟悉的化学药。它的有效成分是个结构明确的小分子，工厂可以通过化学反应把它做出来。前面那个能在屏幕上转一圈的 rentosertib 也是小分子。换成糖尿病患者用的人胰岛素，做法就很不一样了。胰岛素是一种蛋白质，药厂常让细菌或酵母细胞生产它，再把它纯化出来。这是生物药的一种，治疗用抗体也是。设计小分子，化学家可以换掉结构上的一小块。设计蛋白药，研究者还得操心长长的氨基酸链折出来是什么形状，折错一个弯，作用可能就没了。AlphaFold 这类 AI 工具能先给出一个结构预测，让团队挑出值得细看的部分。折得怎样、药有没有预想的作用，还要动手验证。</p>
-<figure class="plate protein-compare"><a href="/images/writing/ai4s/insulin-comparison.webp"><img alt="猪和人的胰岛素结构并排，箭头标出两者相差的一个氨基酸" decoding="async" height="366" loading="lazy" src="/images/writing/ai4s/insulin-comparison.webp" width="700"/></a><figcaption>猪胰岛素和人胰岛素只差一个氨基酸，就在箭头指的地方。</figcaption></figure>
+<figure class="plate protein-compare"><a href="/images/writing/ai4s/insulin-comparison.webp"><img alt="猪和人的胰岛素结构并排，箭头标出两者相差的一个氨基酸" decoding="async" height="366" loading="lazy" src="/images/writing/ai4s/insulin-comparison.webp" width="700"/></a><figcaption>猪胰岛素和人胰岛素只差一个氨基酸，就在箭头指的地方</figcaption></figure>
 <h2 id="lungs">一个生了疤的肺，药该从哪儿下手？</h2>
 <p>第 55 个分子面对的病叫特发性肺纤维化。看看下面两张图。同一种病，看胸片，先能辨认出肺里不规则的白色纹影。再看显微镜下的病理切片，本来该留给空气的地方，长进了厚实的疤。人吸一口气，肺得能张开。瘢痕越来越多，这个再平常不过的动作就越来越费劲。</p>
-<figure class="visual-pair"><div class="science-pair"><div class="plate"><a href="/images/writing/ai4s/chest-radiograph.jpg"><img alt="一位肺纤维化患者的正面胸片" decoding="async" height="703" loading="lazy" src="/images/writing/ai4s/chest-radiograph.jpg" width="942"/></a></div><div class="plate"><a href="/images/writing/ai4s/lung-tissue.jpg"><img alt="肺部病理切片，左侧疏松，右侧组织致密" decoding="async" height="221" loading="lazy" src="/images/writing/ai4s/lung-tissue.jpg" width="548"/></a></div></div><figcaption>胸片里只能看见白色纹影，放大另一份肺组织，才看得到挤在一起的疤。</figcaption></figure>
+<figure class="visual-pair"><div class="science-pair"><div class="plate"><a href="/images/writing/ai4s/chest-radiograph.jpg"><img alt="一位肺纤维化患者的正面胸片" decoding="async" height="703" loading="lazy" src="/images/writing/ai4s/chest-radiograph.jpg" width="942"/></a></div><div class="plate"><a href="/images/writing/ai4s/lung-tissue.jpg"><img alt="肺部病理切片，左侧疏松，右侧组织致密" decoding="async" height="221" loading="lazy" src="/images/writing/ai4s/lung-tissue.jpg" width="548"/></a></div></div><figcaption>胸片里只能看见白色纹影，放大另一份肺组织，才看得到挤在一起的疤</figcaption></figure>
 <p>切片能看出哪儿坏了。要开工做药，化学家还得等一个更具体的回答。有什么东西是我们碰得着的，动它一下，能不能让瘢痕少长一点？团队找来了十五组公开的血液和肺组织数据。生病的细胞和健康的细胞，忙的事情不同，许多基因的活跃程度也不一样。麻烦在于，格外忙的那个，有可能在添乱，也有可能是在修补。</p>
 <p>研究者用模型把这些变化和已知的蛋白关系、发表过的研究相互对照。他们先限定了一类有机会用小分子干预的蛋白，再看哪些名字反复出现。TNIK 排到前面。换一批能看清单个细胞的数据来查，在和瘢痕形成有关的一类细胞里，TNIK 也比对照更活跃。这才值得往下试。制药的人把要用药影响的对象叫「靶点」。</p>
-<figure class="visual-pair"><div class="science-pair"><div class="plate"><a href="/images/writing/ai4s/target-ranking.webp"><img alt="按特定条件筛选后的五种候选蛋白，TNIK 排在首位" decoding="async" height="550" loading="lazy" src="/images/writing/ai4s/target-ranking.webp" width="822"/></a></div><div class="plate"><a href="/images/writing/ai4s/lung-cell-map.webp"><img alt="肺组织的单细胞图，每个点代表一个细胞，颜色区分细胞类型" decoding="async" height="421" loading="lazy" src="/images/writing/ai4s/lung-cell-map.webp" width="414"/></a></div></div><figcaption>TNIK 在这次筛选中排第一，彩色图上的每个点是一个细胞。</figcaption></figure>
+<figure class="visual-pair"><div class="science-pair"><div class="plate"><a href="/images/writing/ai4s/target-ranking.webp"><img alt="按特定条件筛选后的五种候选蛋白，TNIK 排在首位" decoding="async" height="550" loading="lazy" src="/images/writing/ai4s/target-ranking.webp" width="822"/></a></div><div class="plate"><a href="/images/writing/ai4s/lung-cell-map.webp"><img alt="肺组织的单细胞图，每个点代表一个细胞，颜色区分细胞类型" decoding="async" height="421" loading="lazy" src="/images/writing/ai4s/lung-cell-map.webp" width="414"/></a></div></div><figcaption>TNIK 在这次筛选中排第一，彩色图上的每个点是一个细胞</figcaption></figure>
 <h2 id="bench">贴得牢的分子，也有难以下咽的时候</h2>
 <p id="hits">电脑有了 TNIK 的立体结构，等于拿到了锁孔的形状，就能画一些有希望嵌进去的小分子，交给化学家挑。能不能做出来、要花多大功夫，化学家得一并考虑。最初挑中的几种，在实验里已经能和 TNIK 贴得挺牢。要是只比谁贴得牢，到这儿就可以拍张好看的图交差了。</p>
-<figure class="plate binding"><a href="/images/writing/ai4s/binding-pose.webp"><img alt="TNIK 蛋白的结构图中叠合着绿色候选分子与青色参考分子" decoding="async" height="543" loading="lazy" src="/images/writing/ai4s/binding-pose.webp" width="756"/></a><figcaption>绿色是模型预测的候选药位置，蓝色是它要结合的蛋白。</figcaption></figure>
+<figure class="plate binding"><a href="/images/writing/ai4s/binding-pose.webp"><img alt="TNIK 蛋白的结构图中叠合着绿色候选分子与青色参考分子" decoding="async" height="543" loading="lazy" src="/images/writing/ai4s/binding-pose.webp" width="756"/></a><figcaption>绿色是模型预测的候选药位置，蓝色是它要结合的蛋白</figcaption></figure>
 <p id="lead">可人将来要把这东西吞下去。早期几个分子溶不太开，在用人和小鼠肝脏材料做的测试里，又被分解得太快。药得先溶出来，身体才能吸收，还得留得够久，才有机会到达肺里。知道上一次到底栽在哪儿，化学家才能回去改下一版。后来，研究者拿患者捐献的肺组织分离出细胞，把选中的分子加了进去。显微镜下，原本很亮的一种绿色标记淡了下去。你也可以看看下面这两张照片。</p>
-<figure class="plate cell-photo"><a href="/images/writing/ai4s/patient-cells.png"><img alt="患者来源的成纤维细胞，未加候选药的对照和加药后的荧光图" decoding="async" height="218" loading="lazy" src="/images/writing/ai4s/patient-cells.png" width="426"/></a><figcaption>两幅图染了同一种蛋白，加入候选药的细胞（右）绿色淡了。</figcaption></figure>
+<figure class="plate cell-photo"><a href="/images/writing/ai4s/patient-cells.png"><img alt="患者来源的成纤维细胞，未加候选药的对照和加药后的荧光图" decoding="async" height="218" loading="lazy" src="/images/writing/ai4s/patient-cells.png" width="426"/></a><figcaption>两幅图染了同一种蛋白，加入候选药的细胞（右）绿色淡了</figcaption></figure>
 <p>绿色变淡，离一个人喘气更轻松还有很远。这两张照片的价值在于，实验室里原本只有一张猜出来的分子图，现在多了一条可以要求别人复查、可以据此决定还要不要投钱的结果。</p>
 <h2 id="animals">细胞里有反应，为什么还要看一只小鼠的肺？</h2>
 <p>培养皿里的细胞碰得到药。吞下一粒药却麻烦得多。它要经过肠道和肝脏，进入血液，有足够的量到达肺，还可能顺路影响别的器官。临床前有两件容易混在一起的事。研究药效，是看它能不能缓解想治的问题。研究安全性，是查它还可能伤到哪里。光看下面这组小鼠的肺切片，还不知道药会不会伤肝。</p>
-<figure class="plate mouse-evidence"><a href="/images/writing/ai4s/mouse-lung-tissue.webp"><img alt="两张小鼠肺切片在同样染色和标尺下对照，左侧较为致密，右侧可见更多空隙" decoding="async" height="185" loading="lazy" src="/images/writing/ai4s/mouse-lung-tissue.webp" width="390"/></a><figcaption>左边是小鼠模型对照组，右边是给药组，两块肺组织里留给空气的空间不同。</figcaption></figure>
+<figure class="plate mouse-evidence"><a href="/images/writing/ai4s/mouse-lung-tissue.webp"><img alt="两张小鼠肺切片在同样染色和标尺下对照，左侧较为致密，右侧可见更多空隙" decoding="async" height="185" loading="lazy" src="/images/writing/ai4s/mouse-lung-tissue.webp" width="390"/></a><figcaption>左边是小鼠模型对照组，右边是给药组，两块肺组织里留给空气的空间不同</figcaption></figure>
 <p>那猴子什么时候出场？得先问这种动物能不能回答眼前的问题。有些抗体认得人体内的靶点，对小鼠体内相应的蛋白却几乎没有反应。给这样的鼠做实验，即使没看到异常，也很难据此判断用在人身上安不安全。有些项目因此会考虑猴等非人灵长类。具体选什么动物、是否需要动物，要看药物、已有证据和监管要求。美国 FDA 也在推人源细胞模型、类器官和计算方法，想把不必要的动物研究省下来一些。</p>
 <p>AI 在这里能帮一个很实际的忙。假设手里还有五个相近的分子，模型提示其中两个可能更容易伤肝，团队就有理由把肝细胞实验往前排。测出来没问题，也值得记下来，下次可以追问模型为什么误报。到了申请第一次人体试验，研究者得把实测证据、药品质量、起始剂量的依据和观察方案交出来，监管和伦理审过，志愿者签下知情同意，试验才能开始。</p>
 <h2 id="signals">AI 报了 77 个，明天照着这张名单做实验吗？</h2>
 <p>我在 Revvity Signals 做产品设计时，团队讨论过给 AI 单做一个工具。可科学家已经开着实验记录了。让他再开一个窗口，把文件传过去，重新解释自己在看什么，只为问一句「哪些分子值得再测一次」？我主张把对话放回那份实验旁边。文件已经在那里，接着问就行。</p>
-<figure class="plate context-proof"><a href="/assets/signals-2026/context.jpg"><img alt="Signals 实验记录与 AI 对话并排，右侧答案可打开左侧正在使用的原始数据" decoding="async" height="823" loading="lazy" src="/assets/signals-2026/context.jpg" width="1728"/></a><figcaption>左边是原始记录，右边是 AI 的回答，核对一个数字不用换窗口。</figcaption></figure>
+<figure class="plate context-proof"><a href="/assets/signals-2026/context.jpg"><img alt="Signals 实验记录与 AI 对话并排，右侧答案可打开左侧正在使用的原始数据" decoding="async" height="823" loading="lazy" src="/assets/signals-2026/context.jpg" width="1728"/></a><figcaption>左边是原始记录，右边是 AI 的回答，核对一个数字不用换窗口</figcaption></figure>
 <p>后来我拿一份公开数据复核这个设计。它跟第 55 个分子的项目无关，里面是 94 条关于另一种蛋白 CDK2 的实验记录。我想知道，哪些分子只用很少的量，就能把测到的活性压低一半。这个量在原表里叫 IC₅₀。第一次我把门槛设在 10 nM，AI 给出 43 条。我逐个核对，编号和数值全对。</p>
 <p>我把门槛放宽到 100 nM。AI 在总结里写了 77 个。同一屏的图里，落在门槛内的三根柱子分别有这么多条。</p>
 <div class="recount"><p>1 + 42 + 35 = ?</p><details><summary>看看我为什么要求重查</summary><p>78 条。我请它回到原文件重查，它也改成了 78。上一题刚答对 43 条，要是眼前只有一句总结，我很可能就把 77 抄走了。</p></details></div>
-<figure class="visual-pair"><div class="science-pair"><div class="plate"><a href="/assets/signals-2026/filter-detail.jpg"><img alt="Signals 对第一次筛选返回 43 条记录" decoding="async" height="334" loading="lazy" src="/assets/signals-2026/filter-detail.jpg" width="920"/></a></div><div class="plate"><a href="/assets/signals-2026/distribution-detail.jpg"><img alt="Signals 的实际分布图和把 77 改成 78 的文字" decoding="async" height="535" loading="lazy" src="/assets/signals-2026/distribution-detail.jpg" width="795"/></a></div></div><figcaption>第一次的 43 条都能对回原表，换个门槛再问，AI 就少算了一条。</figcaption></figure>
+<figure class="visual-pair"><div class="science-pair"><div class="plate"><a href="/assets/signals-2026/filter-detail.jpg"><img alt="Signals 对第一次筛选返回 43 条记录" decoding="async" height="334" loading="lazy" src="/assets/signals-2026/filter-detail.jpg" width="920"/></a></div><div class="plate"><a href="/assets/signals-2026/distribution-detail.jpg"><img alt="Signals 的实际分布图和把 77 改成 78 的文字" decoding="async" height="535" loading="lazy" src="/assets/signals-2026/distribution-detail.jpg" width="795"/></a></div></div><figcaption>第一次的 43 条都能对回原表，换个门槛再问，AI 就少算了一条</figcaption></figure>
 <p>这就是我愿意让那张图和原表占屏幕位置的原因。平时，AI 替人翻完几十条记录，直接列出候选。真有分歧，科学家沿着回答里的引用就能打开文件，把那一行拿出来算。少传一次文件，少重抄一个错数，第二天带进实验室的名单就更有把握。</p>
 <h2 id="breath">最后这口气，省不了</h2>
 
 <ol class="clinical-phases">
 <li><strong>一期</strong><span>先让少数人参加，看能否耐受、药在体内停多久。这款药的一项一期试验招了 78 名健康志愿者，有些抗癌药则从一期起就招患者。</span></li>
-<li><strong>二期</strong><span>招患这种病的人，看有没有初步疗效、哪个剂量更合适，同时继续观察安全性。</span></li>
+<li><strong>二期</strong><span>招患这种病的人，看有没有初步疗效、哪个剂量更合适，同时继续观察安全性</span></li>
 <li><strong>三期</strong><span>招更多患者，比一比用药组和对照组的获益和风险。第 55 个分子走到这一步，要观察患者 52 周。</span></li>
 </ol><p>医院里也有能省的时间。比如招人入组，医生要拿着病历逐条核对条件。美国国立卫生研究院请两位临床医生试过，让 AI 先圈出病历里的依据，这项筛查少花了约四成时间。患者的十二周随访，还是要一周一周地过。</p>
 <p>第 55 个分子进了二期早期试验，71 位肺纤维化患者随机分成四组，接受不同给药方案或安慰剂，观察十二周。医生请他们深吸一口气，用力往仪器里吹，直到吹不动为止。吹出来的总量，叫用力肺活量。</p>
-<figure class="plate breath-photo"><a href="/images/writing/ai4s/spirometry.webp"><img alt="NIOSH 技术员示范把一口气尽力吹入肺功能仪" decoding="async" height="1446" loading="lazy" src="/images/writing/ai4s/spirometry.webp" width="1200"/></a><figcaption>John Clark 示范肺功能检查，深吸气后对着吹嘴用力呼出。</figcaption></figure>
+<figure class="plate breath-photo"><a href="/images/writing/ai4s/spirometry.webp"><img alt="NIOSH 技术员示范把一口气尽力吹入肺功能仪" decoding="async" height="1446" loading="lazy" src="/images/writing/ai4s/spirometry.webp" width="1200"/></a><figcaption>John Clark 示范肺功能检查，深吸气后对着吹嘴用力呼出</figcaption></figure>
 <p>每日一次 60 毫克那组，十二周后平均比自己开始时多吹出 98.4 毫升。安慰剂组平均少了 20.3 毫升。我读到这里，最想知道的是，走去买个菜能不能少歇一回？研究里还真量了六分钟能走多远，这一项各组变化相近。样本小，观察时间短，这个问题还得留着。</p>
-<figure class="plate chart"><a href="/images/writing/ai4s/fvc-zh.png"><img alt="四个剂量组十二周后用力肺活量的平均变化与 95% 置信区间，共用一条零线" decoding="async" height="828" loading="lazy" src="/images/writing/ai4s/fvc-zh.png" width="990"/></a><figcaption>点在零线右边，表示这一组平均比试验开始时多吹出了一些气。</figcaption></figure>
+<figure class="plate chart"><a href="/images/writing/ai4s/fvc-zh.png"><img alt="四个剂量组十二周后用力肺活量的平均变化与 95% 置信区间，共用一条零线" decoding="async" height="828" loading="lazy" src="/images/writing/ai4s/fvc-zh.png" width="990"/></a><figcaption>点在零线右边，表示这一组平均比试验开始时多吹出了一些气</figcaption></figure>
 <p>这项试验首先要看的是安全性。71 位参与者里，有 16 位提前停了治疗，原因包括肝脏方面的问题和腹泻。等三期那一整年的观察结束，医生手里才会多一份判断的依据。</p>
 <p>走完三期，团队才有望拿着临床结果和生产质量资料申请上市。监管机构还要判断，对打算用这种药的人，获益是否值得承担风险。获批以后，更多人用得更久，罕见不良反应才可能露面。医生和患者的报告会继续积累，有时还会专门开展四期研究。</p>
 
