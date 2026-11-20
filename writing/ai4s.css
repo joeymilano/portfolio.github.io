@@ -4,22 +4,15 @@
 .case-cover .article-deck { line-height: 1.75; max-width: 35em; }
 .case-cover figure { margin: 0; }
 .case-cover figure img { display: block; width: 100%; max-height: 540px; object-fit: contain; background: #171a19; border-radius: 12px; }
-.case-cover figcaption, .article-body figcaption { font-size: 13px; line-height: 1.7; }
-.case-cover figcaption { margin-top: 12px; color: var(--muted); }
-.case-cover figcaption a, .source-note a { text-underline-offset: 3px; }
+.case-cover figcaption, .article-body figcaption { color: #d0d3d2; font-size: 17px; line-height: 1.6; }
+.case-cover figcaption { margin-top: 12px; }
 .article-body h2 { scroll-margin-top: 85px; text-wrap: balance; }
-.article-body .citation { font-size: .74em; white-space: nowrap; }
 .article-body .plate { max-width: 660px; }
 .article-body .plate.histology { max-width: 548px; }
 .article-body .plate.chart { max-width: 610px; }
 .article-body .plate img { border-radius: 8px; }
 .article-body .plate > a:first-child { display: block; }
 .article-aside .aside-links a { line-height: 1.5; }
-.chart-data { margin-top: 12px; font-size: 14px; }
-.chart-data summary { cursor: pointer; color: var(--text); }
-.chart-data table { width: 100%; margin-top: 10px; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px; }
-.chart-data th, .chart-data td { text-align: left; padding: 7px 4px; border-bottom: 1px solid var(--line); }
-.reader-tool p:last-child { margin-bottom: 0; }
 @media (max-width: 760px) {
   .case-cover { display: block; padding: 90px 0 28px; }
   .case-cover h1 { font-size: clamp(39px,8.8vw,58px); }
@@ -35,7 +28,7 @@
 .case-cover figure img { height: auto; max-height: none; }
 .case-cover h1 { line-height: 1.12; }
 .article-layout { grid-template-columns: minmax(0,820px) 184px; gap: clamp(32px,5vw,70px); }
-.science-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; gap: 16px; margin: 34px 0 44px; }
+.science-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; gap: 16px; margin: 0; }
 .article-body .science-pair .plate { margin: 0; min-width: 0; }
 .science-pair .plate img { max-height: 290px; object-fit: contain; background-color: #fff; }
 .article-body .molecule-spread { grid-template-columns: minmax(0,.58fr) minmax(0,1.42fr); }
@@ -45,8 +38,8 @@
 .article-body .plate.cell-photo { max-width: 600px; }
 .article-body .plate.breath-photo { max-width: 440px; }
 .article-body .ledger { margin: 32px 0 40px; padding: clamp(20px,4vw,34px); color: #172f33; background: #eff3ee; border-radius: 10px; }
-.ledger .measure-title { margin: 0 0 22px; font-size: clamp(19px,2.6vw,25px); font-weight: 650; line-height: 1.35; }
-.track-label { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 2px 16px; margin: 16px 0 7px; font-size: 14px; line-height: 1.5; }
+.article-body .ledger .measure-title { color: inherit; margin: 0 0 20px; font-size: clamp(19px,2.6vw,25px); font-weight: 650; line-height: 1.35; }
+.track-label { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 2px 16px; margin: 16px 0 7px; font-size: 16px; line-height: 1.5; }
 .article-body .ledger .track-label strong { color: #143e42; font-size: 17px; font-variant-numeric: tabular-nums; }
 .track { height: 16px; background: #dee5df; border-radius: 3px; overflow: hidden; }
 .track i { display: block; height: 100%; }
@@ -55,12 +48,6 @@
 .compute-strip { display: grid; grid-template-columns: repeat(14,1fr); gap: clamp(3px,.8vw,7px); }
 .compute-strip i { height: clamp(19px,4vw,27px); border-radius: 2px; background-color: #d9e2dc; }
 .compute-strip i.on { background-color: #337665; }
-.article-body .ledger figcaption { margin-top: 20px; color: #43575b; }
-.article-body .ledger a { color: #245652; }
-.accounting { margin: 30px 0; }
-.accounting summary { cursor: pointer; font-size: 14px; color: var(--muted); }
-.accounting .reader-tool { margin: 12px 0; padding: 18px 20px; font-size: 14px; }
-.accounting .reader-tool a { color: #563073; }
 @media (max-width: 900px) {
   .article-layout { grid-template-columns: minmax(0,1fr); }
 }
@@ -110,3 +97,64 @@
 }
 .share-essay :is(button, a):hover { border-color: var(--muted); }
 .recount summary:focus-visible, .share-essay :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+/* A navigable summary of the work before the first human dose. */
+.article-body .discovery-map {
+  margin: 34px 0 40px;
+  padding: clamp(20px, 3.3vw, 32px);
+  color: #183d37;
+  background: #eaf2ed;
+  border-radius: 10px;
+}
+.article-body .discovery-map figcaption {
+  margin: 0 0 18px;
+  color: inherit;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 650;
+  line-height: 1.4;
+}
+.discovery-map ol.reader-tool {
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.article-body .discovery-map li { margin: 0; counter-increment: step; border-top: 1px solid #bdcec6; }
+.article-body .discovery-map li a {
+  display: grid;
+  grid-template-columns: 25px minmax(125px, .65fr) minmax(0, 1.75fr);
+  gap: 8px 12px;
+  padding: 15px 0;
+  color: #183d37;
+  text-decoration: none;
+}
+.discovery-map li a::before { content: counter(step); font: 600 14px/26px ui-monospace, monospace; color: #476a61; }
+.article-body .discovery-map strong { color: inherit; font-size: 17px; line-height: 1.55; }
+.discovery-map li a:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.discovery-map li a:focus-visible { outline: 2px solid #246250; outline-offset: 3px; }
+.discovery-map li span { font-size: 17px; line-height: 1.65; }
+.article-body .protein-compare { max-width: 520px; }
+.article-body .mouse-evidence { max-width: 470px; }
+.article-body .clinical-phases { list-style: none; margin: 22px 0 32px; padding: 0; }
+.article-body .clinical-phases li { display: grid; grid-template-columns: 76px minmax(0,1fr); gap: 14px; margin: 0; padding: 12px 0; border-top: 1px solid var(--line); }
+.article-body .clinical-phases strong { color: #a5d4c8; }
+.clinical-phases span { line-height: 1.7; }
+.article-body [id] { scroll-margin-top: 85px; }
+@media (max-width: 620px) {
+  .article-body .discovery-map li a { grid-template-columns: 20px minmax(0, 1fr); gap: 3px 8px; }
+  .discovery-map li span { grid-column: 2; }
+  .article-body .clinical-phases li { grid-template-columns: 56px minmax(0, 1fr); gap: 10px; }
+}
+
+.article-body > .visual-pair { margin: 34px 0 40px; }
+.article-body .visual-pair figcaption { margin-top: 12px; }
+.article-body details.references { color: var(--text); font-size: 17px; line-height: 1.7; }
+.references summary { width: fit-content; cursor: pointer; font-weight: 600; }
+.references summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.article-body .references h3 { margin: 24px 0 8px; }
+.article-body .references ul { margin: 0 0 20px; }
+.references .outcomes { width: 100%; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums; }
+.outcomes :is(th, td) { padding: 6px 4px; text-align: left; border-bottom: 1px solid var(--line); }
