@@ -39,27 +39,27 @@
 <p>我喜欢这个故事，是因为它回答了一个很俗、也很要紧的问题。化学家的一双手一天能做的东西有限，明早上班，先做哪一个？AI for Science，简称 AI4S，用在制药上，我最期待它能改一改<a href="#preclinical">第一次给人用药以前</a>的这张排班表。第 55 个分子以前也可以由人设计出来。要紧的是，在经费用光以前，研究者有没有机会碰到它。</p>
 <figure class="visual-pair"><div class="science-pair molecule-spread"><div class="plate molecule-flat"><a href="/images/writing/ai4s/rentosertib-2d.png"><img alt="第 55 个候选分子的二维结构式" decoding="async" height="270" loading="lazy" src="/images/writing/ai4s/rentosertib-2d.png" width="143"/></a></div><div class="plate molecule-movie"><video aria-label="播放 rentosertib 的立体旋转模型" controls="" height="475" muted="" playsinline="" poster="/images/writing/ai4s/rentosertib-3d.webp" preload="none" width="824"><source src="/images/writing/ai4s/rentosertib-turn.mp4" type="video/mp4"/></video></div></div><figcaption>同一个分子，先看平面结构，再按播放看它转一圈。</figcaption></figure>
 <h2 id="money">这一年半，值多少钱？</h2>
-<p>我把英矽智能自己的两份材料摆在一起看。从开始找研究对象，到选定第 55 个分子继续做临床前开发，这个项目花了大约 18 个月，公司披露的预算约为 260 万美元。作为参照，他们给出的传统早期发现工期是两年半到四年。换成同一把尺，就是 30 至 48 个月，对 18 个月。两者相差一年到两年半。</p>
+<p>我把英矽智能自己的两份材料摆在一起看。从开始找研究对象，到选定第 55 个分子继续做临床前开发，这个项目花了大约 18 个月，公司披露的预算约为 260 万美元。作为参照，他们给出的传统早期发现工期是两年半到四年。折成同一把尺子，30 至 48 个月，对 18 个月。两者相差一年到两年半。</p>
 <figure class="ledger"><figcaption class="measure-title">多久选出临床前候选物？</figcaption><div class="scale-chart"><div class="track-label"><span>第 55 个分子的项目</span><strong>约 18 个月</strong></div><div class="track actual"><i></i></div><div class="track-label"><span>公司引用的传统项目范围</span><strong>30 至 48 个月</strong></div><div class="track reference"><i></i></div></div></figure>
 <p>对一组等着看结果的人，一年是很长的。假如一个主意行不通，早一年发现，留下的是下一次尝试的时间。这也是我看这些数字时比「早一年卖药」更愿意押的注。这个项目没有另请一队人按传统方法从头做一遍，没人知道另一队到底会花多久。</p>
 <p>英矽智能估算，这 260 万美元约为传统发现成本的一成。公司没公开逐项对账的明细，后面几十家医院做试验的钱也另算。能不能找一笔真有两种做法、可以直接比的开销？还真有。</p>
-<p>计算机筛药，有一步特别费机器时间。研究者得把每个分子的形状放进蛋白表面的小凹槽里，算算它们有多合拍。一组研究者换了个做法，先细算一小部分，让模型从中学会粗挑，再把昂贵的计算用在更有希望的分子上。他们拿已经做过实验的名单核对，新办法用大约十四分之一的计算成本，找回了超过八成的实验命中分子。</p>
+<p>计算机筛药，有一步特别费机器时间。蛋白表面有小凹槽，研究者得把每个分子的形状放进去，算算合不合得来。这活儿像配钥匙，一大串钥匙挨个往一个锁孔里试，试一把就要花一把的时间。一组研究者换了个做法，先细算一小部分，让模型从中学会粗挑，再把昂贵的计算花在更有希望的分子上。他们拿已经做过实验的名单核对，新办法用大约十四分之一的计算成本，找回了超过八成的实验命中分子。</p>
 <figure class="ledger"><figcaption class="measure-title">同一笔计算费，摊成 14 格</figcaption><div class="track-label"><span>逐个做详细计算</span><strong>14 / 14</strong></div><div aria-hidden="true" class="compute-strip"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><div class="track-label"><span>模型先粗挑，再细算</span><strong>≈ 1 / 14</strong></div><div aria-hidden="true" class="compute-strip"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></figure>
 <p>以前要付 14 块钱的计算费，现在大约付 1 块。单算这一项，省了约 93%。它也漏掉了一部分好东西。这反倒让我觉得这个结果可信。有些实验事关重大，你愿意付那 14 块把名单再翻一遍。可如果面前是一个原本嫌贵、压根没打算查的方向，花 1 块先看看，事情就大不一样了。这是另一个团队的筛选研究，跟第 55 个分子的 260 万美元分属两本账。</p>
 <h2 id="preclinical">第一次给人用药以前，实验室里都在忙什么？</h2>
-<p>这 18 个月，走到的是下面第三步。化学家选定一个分子，终于肯把下一笔钱花在它身上。从找靶点到选中它，这段叫药物发现。接手的同事要回答一个更难的问题。让第一位志愿者吃下它，我们对风险究竟知道多少？为人体试验准备这批证据，就是临床前开发。</p>
+<p>这 18 个月，走的是下面路线图的第三步。化学家选定一个分子，终于肯把下一笔大钱花在它身上。从找靶点到选中它，这段叫药物发现。接手的同事要回答一个更难的问题。让第一位志愿者吃下它，我们对风险究竟知道多少？为人体试验准备这批证据，就是临床前开发。</p>
 <figure class="discovery-map">
 <figcaption>跟着一款小分子药走一遍</figcaption>
 <ol class="reader-tool">
 <li><a href="#lungs"><strong>找靶点</strong><span>模型从患者数据里找出可疑的蛋白，科学家再用细胞验证，改变它会不会影响病变。</span></a></li>
 <li><a href="#hits"><strong>找有反应的分子</strong><span>AI 筛出或画出一批分子，化学家挑一些来测。反复测都有活性的，就有了一个「命中物」。</span></a></li>
-<li><a href="#lead"><strong>把苗头改成候选药</strong><span>从有希望的「先导化合物」出发，模型建议改法，化学家合成、测试。既要有活性，也得能溶解、能留在体内。</span></a></li>
+<li><a href="#lead"><strong>把苗头改成候选药</strong><span>从有希望的「先导化合物」出发。这时的分子像一把插得进锁孔、还转不动的钥匙坯，模型建议改法，化学家合成、测试，一版一版地锉。既要有活性，也得能溶解、能留在体内。</span></a></li>
 <li><a href="#animals"><strong>准备第一次人体试验</strong><span>模型先标出可能的风险，研究者再查药去了哪里、会伤到哪些器官，还要把每批药做得一样可靠。</span></a></li>
 </ol>
 
 </figure>
 <h3 id="drug-types">手里拿的是阿司匹林，还是胰岛素？</h3>
-<p>阿司匹林是很熟悉的化学药。它的有效成分是个结构明确的小分子，工厂可以通过化学反应把它做出来。前面那个能在屏幕上转一圈的 rentosertib 也是小分子。换成糖尿病患者用的人胰岛素，做法就很不一样了。胰岛素是一种蛋白质，药厂常让细菌或酵母细胞生产它，再把它纯化出来。这是生物药的一种，治疗用抗体也是。设计小分子时，化学家可以换掉结构上的一小块。设计蛋白药时，研究者还得操心长长的氨基酸链折出来是什么形状。AlphaFold 这类 AI 工具能先给出一个结构预测，让团队挑出值得细看的部分。折得怎样、药有没有预想的作用，还要动手验证。</p>
+<p>阿司匹林是很熟悉的化学药。它的有效成分是个结构明确的小分子，工厂可以通过化学反应把它做出来。前面那个能在屏幕上转一圈的 rentosertib 也是小分子。换成糖尿病患者用的人胰岛素，做法就很不一样了。胰岛素是一种蛋白质，药厂常让细菌或酵母细胞生产它，再把它纯化出来。这是生物药的一种，治疗用抗体也是。设计小分子，化学家可以换掉结构上的一小块。设计蛋白药，研究者还得操心长长的氨基酸链折出来是什么形状，折错一个弯，作用可能就没了。AlphaFold 这类 AI 工具能先给出一个结构预测，让团队挑出值得细看的部分。折得怎样、药有没有预想的作用，还要动手验证。</p>
 <figure class="plate protein-compare"><a href="/images/writing/ai4s/insulin-comparison.webp"><img alt="猪和人的胰岛素结构并排，箭头标出两者相差的一个氨基酸" decoding="async" height="366" loading="lazy" src="/images/writing/ai4s/insulin-comparison.webp" width="700"/></a><figcaption>猪胰岛素和人胰岛素只差一个氨基酸，就在箭头指的地方。</figcaption></figure>
 <h2 id="lungs">一个生了疤的肺，药该从哪儿下手？</h2>
 <p>第 55 个分子面对的病叫特发性肺纤维化。看看下面两张图。同一种病，看胸片，先能辨认出肺里不规则的白色纹影。再看显微镜下的病理切片，本来该留给空气的地方，长进了厚实的疤。人吸一口气，肺得能张开。瘢痕越来越多，这个再平常不过的动作就越来越费劲。</p>
@@ -68,7 +68,7 @@
 <p>研究者用模型把这些变化和已知的蛋白关系、发表过的研究相互对照。他们先限定了一类有机会用小分子干预的蛋白，再看哪些名字反复出现。TNIK 排到前面。换一批能看清单个细胞的数据来查，在和瘢痕形成有关的一类细胞里，TNIK 也比对照更活跃。这才值得往下试。制药的人把要用药影响的对象叫「靶点」。</p>
 <figure class="visual-pair"><div class="science-pair"><div class="plate"><a href="/images/writing/ai4s/target-ranking.webp"><img alt="按特定条件筛选后的五种候选蛋白，TNIK 排在首位" decoding="async" height="550" loading="lazy" src="/images/writing/ai4s/target-ranking.webp" width="822"/></a></div><div class="plate"><a href="/images/writing/ai4s/lung-cell-map.webp"><img alt="肺组织的单细胞图，每个点代表一个细胞，颜色区分细胞类型" decoding="async" height="421" loading="lazy" src="/images/writing/ai4s/lung-cell-map.webp" width="414"/></a></div></div><figcaption>TNIK 在这次筛选中排第一，彩色图上的每个点是一个细胞。</figcaption></figure>
 <h2 id="bench">贴得牢的分子，也有难以下咽的时候</h2>
-<p id="hits">电脑有了 TNIK 的立体结构，就能画一些有希望嵌进去的小分子，交给化学家挑。能不能做出来、要花多大功夫，化学家得一并考虑。最初挑中的几种，在实验里已经能和 TNIK 贴得挺牢。要是只比谁贴得牢，到这儿就可以拍张好看的图交差了。</p>
+<p id="hits">电脑有了 TNIK 的立体结构，等于拿到了锁孔的形状，就能画一些有希望嵌进去的小分子，交给化学家挑。能不能做出来、要花多大功夫，化学家得一并考虑。最初挑中的几种，在实验里已经能和 TNIK 贴得挺牢。要是只比谁贴得牢，到这儿就可以拍张好看的图交差了。</p>
 <figure class="plate binding"><a href="/images/writing/ai4s/binding-pose.webp"><img alt="TNIK 蛋白的结构图中叠合着绿色候选分子与青色参考分子" decoding="async" height="543" loading="lazy" src="/images/writing/ai4s/binding-pose.webp" width="756"/></a><figcaption>绿色是模型预测的候选药位置，蓝色是它要结合的蛋白。</figcaption></figure>
 <p id="lead">可人将来要把这东西吞下去。早期几个分子溶不太开，在用人和小鼠肝脏材料做的测试里，又被分解得太快。药得先溶出来，身体才能吸收，还得留得够久，才有机会到达肺里。知道上一次到底栽在哪儿，化学家才能回去改下一版。后来，研究者拿患者捐献的肺组织分离出细胞，把选中的分子加了进去。显微镜下，原本很亮的一种绿色标记淡了下去。你也可以看看下面这两张照片。</p>
 <figure class="plate cell-photo"><a href="/images/writing/ai4s/patient-cells.png"><img alt="患者来源的成纤维细胞，未加候选药的对照和加药后的荧光图" decoding="async" height="218" loading="lazy" src="/images/writing/ai4s/patient-cells.png" width="426"/></a><figcaption>两幅图染了同一种蛋白，加入候选药的细胞（右）绿色淡了。</figcaption></figure>
@@ -76,8 +76,8 @@
 <h2 id="animals">细胞里有反应，为什么还要看一只小鼠的肺？</h2>
 <p>培养皿里的细胞碰得到药。吞下一粒药却麻烦得多。它要经过肠道和肝脏，进入血液，有足够的量到达肺，还可能顺路影响别的器官。临床前有两件容易混在一起的事。研究药效，是看它能不能缓解想治的问题。研究安全性，是查它还可能伤到哪里。光看下面这组小鼠的肺切片，还不知道药会不会伤肝。</p>
 <figure class="plate mouse-evidence"><a href="/images/writing/ai4s/mouse-lung-tissue.webp"><img alt="两张小鼠肺切片在同样染色和标尺下对照，左侧较为致密，右侧可见更多空隙" decoding="async" height="185" loading="lazy" src="/images/writing/ai4s/mouse-lung-tissue.webp" width="390"/></a><figcaption>左边是小鼠模型对照组，右边是给药组，两块肺组织里留给空气的空间不同。</figcaption></figure>
-<p>那猴子什么时候出场？得先问这种动物能不能回答眼前的问题。有些抗体认得人体内的靶点，对小鼠体内相应的蛋白却几乎没有反应。给这样的鼠做实验，即使没看到异常，也很难据此判断用在人身上安不安全。有些项目因此会考虑猴等非人灵长类。具体选什么动物、是否需要动物，要看药物、已有证据和监管要求。美国 FDA 也在推进适用的人源细胞模型、类器官和计算方法，以减少不必要的动物研究。</p>
-<p>AI 在这里能帮一个很实际的忙。假设手里还有五个相近的分子，模型提示其中两个可能更容易伤肝，团队就有理由把肝细胞实验往前排。测出来没问题，也值得记下来，下次可以追问模型为什么误报。到了申请首次人体试验的时候，研究者得把实测证据、药品质量资料、起始剂量的依据和观察方案交出来，经相应的监管和伦理审查，志愿者知情同意，试验才能开始。</p>
+<p>那猴子什么时候出场？得先问这种动物能不能回答眼前的问题。有些抗体认得人体内的靶点，对小鼠体内相应的蛋白却几乎没有反应。给这样的鼠做实验，即使没看到异常，也很难据此判断用在人身上安不安全。有些项目因此会考虑猴等非人灵长类。具体选什么动物、是否需要动物，要看药物、已有证据和监管要求。美国 FDA 也在推人源细胞模型、类器官和计算方法，想把不必要的动物研究省下来一些。</p>
+<p>AI 在这里能帮一个很实际的忙。假设手里还有五个相近的分子，模型提示其中两个可能更容易伤肝，团队就有理由把肝细胞实验往前排。测出来没问题，也值得记下来，下次可以追问模型为什么误报。到了申请第一次人体试验，研究者得把实测证据、药品质量、起始剂量的依据和观察方案交出来，监管和伦理审过，志愿者签下知情同意，试验才能开始。</p>
 <h2 id="signals">AI 报了 77 个，明天照着这张名单做实验吗？</h2>
 <p>我在 Revvity Signals 做产品设计时，团队讨论过给 AI 单做一个工具。可科学家已经开着实验记录了。让他再开一个窗口，把文件传过去，重新解释自己在看什么，只为问一句「哪些分子值得再测一次」？我主张把对话放回那份实验旁边。文件已经在那里，接着问就行。</p>
 <figure class="plate context-proof"><a href="/assets/signals-2026/context.jpg"><img alt="Signals 实验记录与 AI 对话并排，右侧答案可打开左侧正在使用的原始数据" decoding="async" height="823" loading="lazy" src="/assets/signals-2026/context.jpg" width="1728"/></a><figcaption>左边是原始记录，右边是 AI 的回答，核对一个数字不用换窗口。</figcaption></figure>
