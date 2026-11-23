@@ -58,7 +58,6 @@ html[data-light-mode=day] .masthead nav{background:#131c1870;border-radius:var(-
    The native profile directory stays for loading, failure and no-JS states. */
 @media(max-width:700px){
  body[data-scene-state=ready] .studio-profile{display:none}
- body[data-scene-state=ready] .welcome p[data-copy=welcome]{display:none}
  body[data-scene-state=ready] .loading-links a[data-open=work]{display:none}
  body[data-scene-state=ready] .loading-links a[data-open=about]{display:inline-flex}
 }
