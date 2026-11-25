@@ -54,3 +54,6 @@ body{padding-top:52px}.project-page-nav{position:fixed;top:0;left:0;right:0;z-in
 
 /* Four project honors, including the Shanghai innovation competition. */
 @media(min-width:701px){.honors{grid-template-columns:repeat(2,minmax(0,1fr))}.recognition-strip>div{flex:1;min-width:0}}
+
+/* Team cards: name first, then role and school in the regular text color. */
+.team-role .team-meta{color:var(--ink);word-break:keep-all;text-wrap:balance}
