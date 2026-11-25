@@ -158,3 +158,26 @@
 .article-body .references ul { margin: 0 0 20px; }
 .references .outcomes { width: 100%; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums; }
 .outcomes :is(th, td) { padding: 6px 4px; text-align: left; border-bottom: 1px solid var(--line); }
+
+/* Toxicology ledger and dose ladder drawn from the Phase I study protocol. */
+.article-body .ledger.tox-table { font-size: 16px; line-height: 1.6; }
+.ledger.tox-table table { width: 100%; border-collapse: collapse; }
+.ledger.tox-table :is(th, td) { padding: 10px 6px; text-align: left; vertical-align: top; border-top: 1px solid #bdcec6; }
+.ledger.tox-table thead th { border-top: 0; color: #143e42; font-weight: 650; }
+.ledger.tox-table tbody th { width: 9.5em; font-weight: 600; }
+.article-body .ledger.dose-ladder .ladder { margin: 0; padding: 0; list-style: none; counter-reset: rung; }
+.article-body .ledger.dose-ladder li { display: grid; grid-template-columns: 25px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; margin: 0; padding: 14px 0; border-top: 1px solid #bdcec6; counter-increment: rung; color: inherit; }
+.article-body .ledger.dose-ladder li:first-child { border-top: 0; }
+.article-body .ledger.dose-ladder li::before { content: counter(rung); font: 600 14px/26px ui-monospace, monospace; color: #476a61; }
+.article-body .ledger.dose-ladder li strong { color: #143e42; font-size: 17px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.article-body .recount ol { margin: 18px 0 0; padding-left: 1.5em; }
+.article-body .recount li { margin: 14px 0; }
+.article-body .recount li strong { display: block; color: #173e38; }
+@media (max-width: 620px) {
+  .ledger.tox-table thead { display: none; }
+  .ledger.tox-table tr { display: block; padding: 12px 0; border-top: 1px solid #bdcec6; }
+  .ledger.tox-table tbody tr:first-child { padding-top: 0; border-top: 0; }
+  .ledger.tox-table :is(th, td) { display: block; width: auto; padding: 2px 0; border-top: 0; }
+  .article-body .ledger.dose-ladder li { grid-template-columns: 20px minmax(0, 1fr); gap: 4px 10px; }
+  .article-body .ledger.dose-ladder li strong { grid-column: 2; white-space: normal; }
+}
