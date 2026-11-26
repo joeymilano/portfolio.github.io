@@ -1,13 +1,44 @@
-/* Route selection: retain the editorial cards, make the invitation unmistakable. */
-.routes { perspective: 1400px; }
-.routes .route { cursor: pointer; isolation: isolate; transform: translateY(0); transition: transform .55s cubic-bezier(.2,.75,.2,1), box-shadow .55s; box-shadow: 0 0 0 1px transparent; }
-.routes .route-top { align-items: center; flex-wrap: wrap; gap: 16px; position: relative; z-index: 2; }
+/* Both projects share the same type hierarchy and reading order. */
+.routes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  perspective: 1400px;
+}
+.routes .route {
+  min-height: 0;
+  cursor: pointer;
+  isolation: isolate;
+  transform: translateY(0);
+  transition: transform .55s cubic-bezier(.2,.75,.2,1), box-shadow .55s;
+  box-shadow: 0 0 0 1px transparent;
+}
+.routes .route h3 {
+  font-size: clamp(32px, 3.45vw, 58px);
+  margin: clamp(24px, 2.6vw, 40px) 0 0;
+  text-wrap: balance;
+}
+.routes .route .route-subtitle {
+  font-size: clamp(16px, 1.3vw, 21px);
+  font-weight: 600;
+  line-height: 1.45;
+  margin: 14px 0 0;
+  opacity: .88;
+  text-wrap: balance;
+}
+.routes .route-subtitle + p { margin: 12px 0 30px; }
+.routes .route-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; position: relative; z-index: 2; }
 .routes .route-top > span:first-child { font: inherit; margin: 0; transform: none; }
 .routes .route-top > .route-enter { display: inline-flex; align-items: center; gap: 14px; padding: 13px 18px; border-radius: 999px; font: 600 12px Manrope,sans-serif; letter-spacing: 0; margin: 0 0 0 auto; background: #182c27; color: #f7f5ef; box-shadow: 0 6px 18px #14282222; position: relative; overflow: hidden; transition: transform .4s, box-shadow .4s; white-space: nowrap; }
 .routes .route-lineage .route-enter { background: #e9e9d7; color: #183a34; }
 .route-enter-arrow { font-size: 22px; line-height: 1; transition: transform .4s cubic-bezier(.2,.75,.2,1); }
 .routes .route-enter::after { content: ''; position: absolute; inset: -60% -40%; background: linear-gradient(110deg,transparent 35%,#ffffff50 48%,transparent 60%); transform: translateX(-100%); pointer-events: none; }
-.routes .route-preview { transition: transform .7s cubic-bezier(.2,.75,.2,1), box-shadow .7s; }
+.routes .route-preview {
+  width: 100%;
+  margin: auto 0 0;
+  overflow: hidden;
+  border-radius: 4px;
+  transform: rotate(-2deg);
+  transition: transform .7s cubic-bezier(.2,.75,.2,1), box-shadow .7s;
+}
 .routes a.route:is(:hover,:focus-visible) { text-decoration: none; outline: none; box-shadow: 0 28px 60px #14282230,0 0 0 2px #8d9e8f; }
 .routes a.route:focus-visible { outline: 3px solid #a68955; outline-offset: 6px; }
 .routes .route:is(:hover,:focus-visible) .route-enter { transform: translateX(-3px); box-shadow: 0 9px 24px #10231d35; }
@@ -25,10 +56,9 @@
  @keyframes route-sweep { 0%,20% { transform: translateX(-100%); } 65%,100% { transform: translateX(100%); } }
  @keyframes route-invite { 0%,25%,75%,100% { translate: 0 0; } 45%,60% { translate: 5px 0; } }
 }
-@media(max-width:700px) {
+@media(max-width:760px) {
+ .routes { grid-template-columns: minmax(0, 1fr); }
  .routes .route-top > .route-enter { padding: 12px 15px; font-size: 11px; gap: 10px; }
- .routes .route-preview { margin-bottom: 25px; }
- .routes .route-lineage p { margin-bottom: 0; }
 }
 @media(prefers-reduced-motion:reduce) {
  .routes .route,.routes .route-preview,.routes .route-enter,.route-enter-arrow { transition: none!important; animation: none!important; transform: none!important; }
